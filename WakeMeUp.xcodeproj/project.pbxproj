@@ -14,6 +14,7 @@
 		829A59B32C1635B3002D7DA3 /* WakeMeUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59B22C1635B3002D7DA3 /* WakeMeUpTests.swift */; };
 		829A59BD2C1635B3002D7DA3 /* WakeMeUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59BC2C1635B3002D7DA3 /* WakeMeUpUITests.swift */; };
 		829A59BF2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59BE2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift */; };
+		829A59CC2C163ECD002D7DA3 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59CB2C163ECD002D7DA3 /* test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		829A59B82C1635B3002D7DA3 /* WakeMeUpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WakeMeUpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59BC2C1635B3002D7DA3 /* WakeMeUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpUITests.swift; sourceTree = "<group>"; };
 		829A59BE2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		829A59CB2C163ECD002D7DA3 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */,
 				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
+				829A59CB2C163ECD002D7DA3 /* test.swift */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
 			);
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				829A59A42C1635B2002D7DA3 /* ContentView.swift in Sources */,
+				829A59CC2C163ECD002D7DA3 /* test.swift in Sources */,
 				829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
