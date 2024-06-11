@@ -6,20 +6,28 @@
 //
 
 import SwiftUI
-import SwiftCSV // SwiftCSVをインポート
+import SwiftCSV
 
 struct Pre_Mission: View {
-    @State private var randomEntry: String = ""
+    @State private var randomEntry: (String, String) = ("", "")
     
     var body: some View {
         VStack {
-            Text(randomEntry)
-                .padding()
+            Spacer() // 上部スペース
+                        Text(randomEntry.0)
+                            .font(.largeTitle)
+                            .multilineTextAlignment(.center)
+                            .padding(.bottom, 10) // 下部に少し余白を追加
+                        Text(randomEntry.1)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        Spacer() // 下部スペース
             
             Button(action: {
                 randomEntry = loadRandomEntry()
             }) {
-                Text("Load Random Entry")
+                Text("次の単語")
             }
             .padding()
         }
@@ -28,19 +36,27 @@ struct Pre_Mission: View {
         }
     }
     
-    func loadRandomEntry() -> String {
+    func loadRandomEntry() -> (String, String) {
         guard let csvURL = Bundle.main.url(forResource: "TOEIC", withExtension: "csv") else {
             print("CSV file not found")
-            return "Error: CSV file not found"
+            return ("Error", "CSV file not found")
         }
         
         do {
             let csv = try CSV<Named>(url: csvURL)
-            let entries = csv.columns?["entry"]
-            return (entries ?? []).randomElement() ?? "No entries found"
+            if let entries = csv.columns?["entry"] as? [String], let meanings = csv.columns?["meaning"] as? [String]{
+                let combinedEntries = zip(entries, meanings).map { ($0, $1) }
+                if let randomElement = combinedEntries.randomElement() {
+                    return randomElement
+                } else {
+                    return ("No entries found", "")
+                }
+            } else {
+                return ("No entries found", "")
+            }
         } catch {
             print("Error reading CSV file: \(error)")
-            return "Error reading CSV file"
+            return ("Error", "reading CSV file")
         }
     }
 }
