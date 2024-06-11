@@ -19,11 +19,11 @@ struct Pre_Mission: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 10) // 下部に少し余白を追加
             Text(randomEntry.1)
-                .font(.subheadline)
+                .font(.headline)
                 .multilineTextAlignment(.center)
                 .padding()
             Text(randomEntry.2)
-                .font(.subheadline)
+                .font(.headline)//subheadline)
                 .multilineTextAlignment(.center)
                 .padding()
             Spacer() // 下部スペース
