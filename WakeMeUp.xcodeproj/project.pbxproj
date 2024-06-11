@@ -12,8 +12,13 @@
 		827A15992C176053003B4468 /* Pre_Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Pre_Mission.swift */; };
 		827A159B2C176077003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* Mission.swift */; };
 		827A159D2C176087003B4468 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159C2C176087003B4468 /* Home.swift */; };
-		827A159E2C17713A003B4468 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A32C1635B2002D7DA3 /* ContentView.swift */; };
 		827A15A22C185A4C003B4468 /* ignore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15A12C185A4C003B4468 /* ignore.swift */; };
+		827A15A32C18641A003B4468 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A32C1635B2002D7DA3 /* ContentView.swift */; };
+		827AE3B42C1886A300DABD95 /* ビジネス英単語（BSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */; };
+		827AE3BA2C18880D00DABD95 /* ビジネス英単語（BSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */; };
+		827AE3BB2C18880D00DABD95 /* 学術英単語（NAWL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */; };
+		827AE3BC2C18880D00DABD95 /* 基礎英単語（NGSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */; };
+		827AE3BD2C18880D00DABD95 /* TOEIC英単語（TSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B92C18880D00DABD95 /* TOEIC英単語（TSL）.csv */; };
 		829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */; };
 		829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A52C1635B3002D7DA3 /* Assets.xcassets */; };
 		829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A82C1635B3002D7DA3 /* Preview Assets.xcassets */; };
@@ -47,6 +52,11 @@
 		827A159A2C176077003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		827A15A12C185A4C003B4468 /* ignore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ignore.swift; sourceTree = "<group>"; };
+		827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
+		827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
+		827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "学術英単語（NAWL）.csv"; sourceTree = SOURCE_ROOT; };
+		827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "基礎英単語（NGSL）.csv"; sourceTree = SOURCE_ROOT; };
+		827AE3B92C18880D00DABD95 /* TOEIC英単語（TSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TOEIC英単語（TSL）.csv"; sourceTree = SOURCE_ROOT; };
 		829A599E2C1635B2002D7DA3 /* WakeMeUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WakeMeUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpApp.swift; sourceTree = "<group>"; };
 		829A59A32C1635B2002D7DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,9 +95,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		827AE3B52C18875200DABD95 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				827AE3B92C18880D00DABD95 /* TOEIC英単語（TSL）.csv */,
+				827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */,
+				827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */,
+				827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
 		829A59952C1635B2002D7DA3 = {
 			isa = PBXGroup;
 			children = (
+				827AE3B52C18875200DABD95 /* data */,
 				829A59A02C1635B2002D7DA3 /* WakeMeUp */,
 				829A59B12C1635B3002D7DA3 /* WakeMeUpTests */,
 				829A59BB2C1635B3002D7DA3 /* WakeMeUpUITests */,
@@ -109,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */,
+				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
 				829A59CB2C163ECD002D7DA3 /* test.swift */,
 				827A15942C175F8E003B4468 /* Start.swift */,
 				827A159C2C176087003B4468 /* Home.swift */,
@@ -134,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				829A59B22C1635B3002D7DA3 /* WakeMeUpTests.swift */,
-				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
 			);
 			path = WakeMeUpTests;
 			sourceTree = "<group>";
@@ -142,6 +164,7 @@
 		829A59BB2C1635B3002D7DA3 /* WakeMeUpUITests */ = {
 			isa = PBXGroup;
 			children = (
+				827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */,
 				829A59BC2C1635B3002D7DA3 /* WakeMeUpUITests.swift */,
 				829A59BE2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift */,
 			);
@@ -252,6 +275,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				827AE3BD2C18880D00DABD95 /* TOEIC英単語（TSL）.csv in Resources */,
+				827AE3BC2C18880D00DABD95 /* 基礎英単語（NGSL）.csv in Resources */,
+				827AE3BB2C18880D00DABD95 /* 学術英単語（NAWL）.csv in Resources */,
+				827AE3BA2C18880D00DABD95 /* ビジネス英単語（BSL）.csv in Resources */,
 				829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */,
 				829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */,
 			);
@@ -268,6 +295,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				827AE3B42C1886A300DABD95 /* ビジネス英単語（BSL）.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +311,7 @@
 				827A15992C176053003B4468 /* Pre_Mission.swift in Sources */,
 				827A15972C175FA8003B4468 /* Alarm.swift in Sources */,
 				829A59CC2C163ECD002D7DA3 /* test.swift in Sources */,
+				827A15A32C18641A003B4468 /* ContentView.swift in Sources */,
 				827A159B2C176077003B4468 /* Mission.swift in Sources */,
 				827A159D2C176087003B4468 /* Home.swift in Sources */,
 				829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */,
@@ -293,7 +322,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				827A159E2C17713A003B4468 /* ContentView.swift in Sources */,
 				829A59B32C1635B3002D7DA3 /* WakeMeUpTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

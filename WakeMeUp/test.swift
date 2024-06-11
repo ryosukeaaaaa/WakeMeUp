@@ -9,7 +9,21 @@ import SwiftUI
 
 struct test: View {
     var body: some View {
-        Text("Nice to meet you!!")
+        VStack {
+            Text("Hello, World!")
+                .font(.largeTitle)
+                .padding()
+            Image(systemName: "star.fill")
+                .resizable()
+                .frame(width: 50, height: 50)
+                .foregroundColor(.yellow)
+            Button(action: {
+                print("Button tapped")
+            }) {
+                Text("Tap me!")
+            }
+            .padding()
+        }
     }
 }
 
