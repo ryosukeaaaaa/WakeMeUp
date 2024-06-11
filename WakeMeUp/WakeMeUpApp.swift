@@ -11,7 +11,8 @@ import SwiftUI
 struct WakeMeUpApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Home()
         }
     }
 }
+
