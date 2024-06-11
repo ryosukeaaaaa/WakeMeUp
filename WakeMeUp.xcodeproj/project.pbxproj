@@ -13,7 +13,6 @@
 		827A15992C176053003B4468 /* Pre_Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Pre_Mission.swift */; };
 		827A159B2C176077003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* Mission.swift */; };
 		827A159D2C176087003B4468 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159C2C176087003B4468 /* Home.swift */; };
-		827A15A22C185A4C003B4468 /* ignore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15A12C185A4C003B4468 /* ignore.swift */; };
 		827A15A32C18641A003B4468 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A32C1635B2002D7DA3 /* ContentView.swift */; };
 		827AE3B42C1886A300DABD95 /* ビジネス英単語（BSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */; };
 		827AE3BA2C18880D00DABD95 /* ビジネス英単語（BSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */; };
@@ -52,7 +51,6 @@
 		827A15982C176053003B4468 /* Pre_Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pre_Mission.swift; sourceTree = "<group>"; };
 		827A159A2C176077003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
-		827A15A12C185A4C003B4468 /* ignore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ignore.swift; sourceTree = "<group>"; };
 		827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
 		827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
 		827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "学術英単語（NAWL）.csv"; sourceTree = SOURCE_ROOT; };
@@ -148,7 +146,6 @@
 				827A159C2C176087003B4468 /* Home.swift */,
 				827A15962C175FA8003B4468 /* Alarm.swift */,
 				827A159A2C176077003B4468 /* Mission.swift */,
-				827A15A12C185A4C003B4468 /* ignore.swift */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
 			);
@@ -322,7 +319,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				827A15A22C185A4C003B4468 /* ignore.swift in Sources */,
 				827A15952C175F8E003B4468 /* Start.swift in Sources */,
 				827A15992C176053003B4468 /* Pre_Mission.swift in Sources */,
 				827A15972C175FA8003B4468 /* Alarm.swift in Sources */,
