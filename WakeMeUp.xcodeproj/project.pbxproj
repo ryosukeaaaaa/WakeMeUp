@@ -10,6 +10,7 @@
 		34EB07042C18B94800535988 /* AlarmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EB07032C18B94800535988 /* AlarmData.swift */; };
 		34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EB07052C18B9E900535988 /* AlarmEditView.swift */; };
 		82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 82053D8D2C188F3300D2D191 /* SwiftCSV */; };
+		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		827A15952C175F8E003B4468 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15942C175F8E003B4468 /* Start.swift */; };
 		827A15992C176053003B4468 /* Pre_Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Pre_Mission.swift */; };
 		827A159B2C176077003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* Mission.swift */; };
@@ -31,7 +32,7 @@
 		829A59B32C1635B3002D7DA3 /* WakeMeUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59B22C1635B3002D7DA3 /* WakeMeUpTests.swift */; };
 		829A59BD2C1635B3002D7DA3 /* WakeMeUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59BC2C1635B3002D7DA3 /* WakeMeUpUITests.swift */; };
 		829A59BF2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59BE2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift */; };
-		829A59CC2C163ECD002D7DA3 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59CB2C163ECD002D7DA3 /* test.swift */; };
+		829A59CC2C163ECD002D7DA3 /* audiotest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59CB2C163ECD002D7DA3 /* audiotest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 /* Begin PBXFileReference section */
 		34EB07032C18B94800535988 /* AlarmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmData.swift; sourceTree = "<group>"; };
 		34EB07052C18B9E900535988 /* AlarmEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditView.swift; sourceTree = "<group>"; };
+		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
+		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		827A15942C175F8E003B4468 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 		827A15982C176053003B4468 /* Pre_Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pre_Mission.swift; sourceTree = "<group>"; };
 		827A159A2C176077003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
@@ -77,7 +80,7 @@
 		829A59B82C1635B3002D7DA3 /* WakeMeUpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WakeMeUpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59BC2C1635B3002D7DA3 /* WakeMeUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpUITests.swift; sourceTree = "<group>"; };
 		829A59BE2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		829A59CB2C163ECD002D7DA3 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		829A59CB2C163ECD002D7DA3 /* audiotest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = audiotest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */,
 				82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */,
 				828A07D92C1956270008A956 /* Alamofire in Frameworks */,
 			);
@@ -110,6 +114,8 @@
 		82053D8C2C188F3300D2D191 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				824D789C2C1A103C0070D045 /* CoreAudio.framework */,
+				824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -154,7 +160,7 @@
 				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
 				827A15982C176053003B4468 /* Pre_Mission.swift */,
 				827AE3B92C18880D00DABD95 /* TOEIC.csv */,
-				829A59CB2C163ECD002D7DA3 /* test.swift */,
+				829A59CB2C163ECD002D7DA3 /* audiotest.swift */,
 				827A15942C175F8E003B4468 /* Start.swift */,
 				827A159C2C176087003B4468 /* Home.swift */,
 				827A159A2C176077003B4468 /* Mission.swift */,
@@ -343,7 +349,7 @@
 				34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */,
 				827A15952C175F8E003B4468 /* Start.swift in Sources */,
 				827A15992C176053003B4468 /* Pre_Mission.swift in Sources */,
-				829A59CC2C163ECD002D7DA3 /* test.swift in Sources */,
+				829A59CC2C163ECD002D7DA3 /* audiotest.swift in Sources */,
 				827A15A32C18641A003B4468 /* ContentView.swift in Sources */,
 				827A159B2C176077003B4468 /* Mission.swift in Sources */,
 				34EB07042C18B94800535988 /* AlarmData.swift in Sources */,
@@ -518,6 +524,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WakeMeUp/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -548,6 +556,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WakeMeUp/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
