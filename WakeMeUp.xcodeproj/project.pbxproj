@@ -20,6 +20,9 @@
 		827AE3BB2C18880D00DABD95 /* 学術英単語（NAWL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */; };
 		827AE3BC2C18880D00DABD95 /* 基礎英単語（NGSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */; };
 		827AE3BD2C18880D00DABD95 /* TOEIC.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B92C18880D00DABD95 /* TOEIC.csv */; };
+		828A07D92C1956270008A956 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 828A07D82C1956270008A956 /* Alamofire */; };
+		828A07DB2C19595C0008A956 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 828A07DA2C19595C0008A956 /* Config.plist */; };
+		828A07DD2C1959C90008A956 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 828A07DC2C1959C90008A956 /* .gitignore */; };
 		829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */; };
 		829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A52C1635B3002D7DA3 /* Assets.xcassets */; };
 		829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A82C1635B3002D7DA3 /* Preview Assets.xcassets */; };
@@ -58,6 +61,8 @@
 		827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "学術英単語（NAWL）.csv"; sourceTree = SOURCE_ROOT; };
 		827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "基礎英単語（NGSL）.csv"; sourceTree = SOURCE_ROOT; };
 		827AE3B92C18880D00DABD95 /* TOEIC.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TOEIC.csv; path = WakeMeUp/TOEIC.csv; sourceTree = SOURCE_ROOT; };
+		828A07DA2C19595C0008A956 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		828A07DC2C1959C90008A956 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		829A599E2C1635B2002D7DA3 /* WakeMeUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WakeMeUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpApp.swift; sourceTree = "<group>"; };
 		829A59A32C1635B2002D7DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -77,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */,
+				828A07D92C1956270008A956 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +145,7 @@
 		829A59A02C1635B2002D7DA3 /* WakeMeUp */ = {
 			isa = PBXGroup;
 			children = (
+				828A07DC2C1959C90008A956 /* .gitignore */,
 				829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */,
 				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
 				827A15982C176053003B4468 /* Pre_Mission.swift */,
@@ -147,6 +154,7 @@
 				827A15942C175F8E003B4468 /* Start.swift */,
 				827A159C2C176087003B4468 /* Home.swift */,
 				827A159A2C176077003B4468 /* Mission.swift */,
+				828A07DA2C19595C0008A956 /* Config.plist */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
 				34EB07032C18B94800535988 /* AlarmData.swift */,
@@ -199,6 +207,7 @@
 			name = WakeMeUp;
 			packageProductDependencies = (
 				82053D8D2C188F3300D2D191 /* SwiftCSV */,
+				828A07D82C1956270008A956 /* Alamofire */,
 			);
 			productName = WakeMeUp;
 			productReference = 829A599E2C1635B2002D7DA3 /* WakeMeUp.app */;
@@ -274,6 +283,7 @@
 			mainGroup = 829A59952C1635B2002D7DA3;
 			packageReferences = (
 				82053D8B2C188D7F00D2D191 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
+				828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 829A599F2C1635B2002D7DA3 /* Products */;
 			projectDirPath = "";
@@ -291,12 +301,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				828A07DD2C1959C90008A956 /* .gitignore in Resources */,
 				827AE3BD2C18880D00DABD95 /* TOEIC.csv in Resources */,
 				827AE3BC2C18880D00DABD95 /* 基礎英単語（NGSL）.csv in Resources */,
 				827AE3BB2C18880D00DABD95 /* 学術英単語（NAWL）.csv in Resources */,
 				827AE3BA2C18880D00DABD95 /* ビジネス英単語（BSL）.csv in Resources */,
 				829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */,
 				829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */,
+				828A07DB2C19595C0008A956 /* Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,6 +682,14 @@
 				minimumVersion = 0.10.0;
 			};
 		};
+		828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -677,6 +697,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 82053D8B2C188D7F00D2D191 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
 			productName = SwiftCSV;
+		};
+		828A07D82C1956270008A956 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
