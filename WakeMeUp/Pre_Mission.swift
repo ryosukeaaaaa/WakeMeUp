@@ -7,9 +7,12 @@
 
 import SwiftUI
 import SwiftCSV
+import AVFoundation
 
 struct Pre_Mission: View {
     @State private var randomEntry: (String, String, String, String, String) = ("", "", "", "", "")
+    @State private var lastSpokenText: String = ""
+    @State private var synthesizer = AVSpeechSynthesizer()
     
     var body: some View {
         VStack {
@@ -40,7 +43,16 @@ struct Pre_Mission: View {
             Spacer() // 下部スペース
             
             Button(action: {
+                lastSpokenText = randomEntry.0
+                speakText(lastSpokenText)
+            }) {
+                Text("もう一度再生")
+            }
+            .padding()
+            
+            Button(action: {
                 randomEntry = loadRandomEntry()
+                speakText(randomEntry.0)
             }) {
                 Text("次の単語")
             }
@@ -48,6 +60,7 @@ struct Pre_Mission: View {
         }
         .onAppear {
             randomEntry = loadRandomEntry()
+            speakText(randomEntry.0)
         }
     }
     
@@ -79,6 +92,12 @@ struct Pre_Mission: View {
             return ("Error", "reading CSV file", "", "", "")
         }
     }
+    func speakText(_ text: String) {
+            let utterance = AVSpeechUtterance(string: text)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+            synthesizer.speak(utterance)
+        }
 }
 
 #Preview {
