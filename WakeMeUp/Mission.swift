@@ -1,5 +1,7 @@
 import Foundation
-import Foundation
+import Alamofire
+import AVFoundation
+import SwiftUI
 
 struct ChatRequest: Encodable {
     let model: String
@@ -24,12 +26,11 @@ struct MessageContent: Decodable {
     let content: String
 }
 
-import Alamofire
-
 class ChatViewModel: ObservableObject {
     @Published var messages: [String] = []
-    let apiKey = ""
+    let apiKey = Config.apiKey
     let endpoint = "https://api.openai.com/v1/chat/completions"
+    private var synthesizer = AVSpeechSynthesizer()
     
     func sendChatRequest(prompt: String) {
         let messages = [
@@ -49,7 +50,9 @@ class ChatViewModel: ObservableObject {
             case .success(let chatResponse):
                 if let firstChoice = chatResponse.choices.first {
                     DispatchQueue.main.async {
+                        let responseMessage = firstChoice.message.content
                         self.messages.append("Bot: \(firstChoice.message.content)")
+                        self.speakText(responseMessage)
                     }
                 } else {
                     DispatchQueue.main.async {
@@ -63,9 +66,13 @@ class ChatViewModel: ObservableObject {
             }
         }
     }
+    private func speakText(_ text: String) {
+            let utterance = AVSpeechUtterance(string: text)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+            synthesizer.speak(utterance)
+    }
 }
-
-import SwiftUI
 
 struct GPTView: View {
     @State private var userInput: String = ""

@@ -43,7 +43,7 @@ struct Pre_Mission: View {
             Spacer() // 下部スペース
             
             Button(action: {
-                lastSpokenText = randomEntry.0
+                lastSpokenText = randomEntry.3
                 speakText(lastSpokenText)
             }) {
                 Text("もう一度再生")
