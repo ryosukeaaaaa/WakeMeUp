@@ -2,7 +2,7 @@ import SwiftUI
 import AVFoundation
 import Speech
 
-struct ontentView: View {
+struct audiotest: View {
     @StateObject private var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
 
@@ -19,6 +19,7 @@ struct ontentView: View {
             }
 
             Button(action: {
+                // オンオフの切り替え
                 isRecording.toggle()
                 if isRecording {
                     speechRecognizer.startRecording()
@@ -60,6 +61,7 @@ struct ontentView: View {
 }
 
 class SpeechRecognizer: ObservableObject {
+    // 音声認識の結果を保持
     @Published var transcript = ""
 
     private var speechRecognizer: SFSpeechRecognizer?
@@ -92,6 +94,9 @@ class SpeechRecognizer: ObservableObject {
             fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
         }
         recognitionRequest.shouldReportPartialResults = true
+
+        // タップが既にある場合は削除
+        inputNode.removeTap(onBus: 0)
 
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
             if let result = result {
@@ -133,10 +138,14 @@ class SpeechRecognizer: ObservableObject {
         recognitionTask?.cancel()
         recognitionTask = nil
         recognitionRequest = nil
+
+        // タップが既にある場合は削除
+        let inputNode = audioEngine.inputNode
+        inputNode.removeTap(onBus: 0)
     }
 }
 
 #Preview {
-    ontentView()
+    audiotest()
 }
 

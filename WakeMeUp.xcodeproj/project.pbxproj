@@ -11,9 +11,10 @@
 		34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EB07052C18B9E900535988 /* AlarmEditView.swift */; };
 		82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 82053D8D2C188F3300D2D191 /* SwiftCSV */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
+		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
 		827A15952C175F8E003B4468 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15942C175F8E003B4468 /* Start.swift */; };
 		827A15992C176053003B4468 /* Pre_Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Pre_Mission.swift */; };
-		827A159B2C176077003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* Mission.swift */; };
+		827A159B2C176077003B4468 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* GPT.swift */; };
 		827A159D2C176087003B4468 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159C2C176087003B4468 /* Home.swift */; };
 		827A15A32C18641A003B4468 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A32C1635B2002D7DA3 /* ContentView.swift */; };
 		827AE3B42C1886A300DABD95 /* ビジネス英単語（BSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */; };
@@ -25,7 +26,7 @@
 		828A07DB2C19595C0008A956 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 828A07DA2C19595C0008A956 /* Config.plist */; };
 		828A07DD2C1959C90008A956 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 828A07DC2C1959C90008A956 /* .gitignore */; };
 		828A07DF2C1994070008A956 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07DE2C1994070008A956 /* Config.swift */; };
-		828A07E12C19DE7A0008A956 /* Mission_audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07E02C19DE7A0008A956 /* Mission_audio.swift */; };
+		828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07E02C19DE7A0008A956 /* GPT_audio.swift */; };
 		829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */; };
 		829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A52C1635B3002D7DA3 /* Assets.xcassets */; };
 		829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A82C1635B3002D7DA3 /* Preview Assets.xcassets */; };
@@ -57,9 +58,10 @@
 		34EB07052C18B9E900535988 /* AlarmEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditView.swift; sourceTree = "<group>"; };
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
 		827A15942C175F8E003B4468 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 		827A15982C176053003B4468 /* Pre_Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pre_Mission.swift; sourceTree = "<group>"; };
-		827A159A2C176077003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
+		827A159A2C176077003B4468 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
 		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
 		827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
@@ -69,7 +71,7 @@
 		828A07DA2C19595C0008A956 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		828A07DC2C1959C90008A956 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		828A07DE2C1994070008A956 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		828A07E02C19DE7A0008A956 /* Mission_audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission_audio.swift; sourceTree = "<group>"; };
+		828A07E02C19DE7A0008A956 /* GPT_audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT_audio.swift; sourceTree = "<group>"; };
 		829A599E2C1635B2002D7DA3 /* WakeMeUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WakeMeUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpApp.swift; sourceTree = "<group>"; };
 		829A59A32C1635B2002D7DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -163,14 +165,15 @@
 				829A59CB2C163ECD002D7DA3 /* audiotest.swift */,
 				827A15942C175F8E003B4468 /* Start.swift */,
 				827A159C2C176087003B4468 /* Home.swift */,
-				827A159A2C176077003B4468 /* Mission.swift */,
+				827A159A2C176077003B4468 /* GPT.swift */,
 				828A07DA2C19595C0008A956 /* Config.plist */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
 				34EB07032C18B94800535988 /* AlarmData.swift */,
 				34EB07052C18B9E900535988 /* AlarmEditView.swift */,
 				828A07DE2C1994070008A956 /* Config.swift */,
-				828A07E02C19DE7A0008A956 /* Mission_audio.swift */,
+				828A07E02C19DE7A0008A956 /* GPT_audio.swift */,
+				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
@@ -351,11 +354,12 @@
 				827A15992C176053003B4468 /* Pre_Mission.swift in Sources */,
 				829A59CC2C163ECD002D7DA3 /* audiotest.swift in Sources */,
 				827A15A32C18641A003B4468 /* ContentView.swift in Sources */,
-				827A159B2C176077003B4468 /* Mission.swift in Sources */,
+				827A159B2C176077003B4468 /* GPT.swift in Sources */,
 				34EB07042C18B94800535988 /* AlarmData.swift in Sources */,
 				828A07DF2C1994070008A956 /* Config.swift in Sources */,
-				828A07E12C19DE7A0008A956 /* Mission_audio.swift in Sources */,
+				828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */,
 				827A159D2C176087003B4468 /* Home.swift in Sources */,
+				824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */,
 				829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
