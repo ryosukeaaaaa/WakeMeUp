@@ -11,7 +11,7 @@ import SwiftUI
 struct WakeMeUpApp: App {
     var body: some Scene {
         WindowGroup {
-            audiotest()
+            Pre_Mission()
         }
     }
 }
