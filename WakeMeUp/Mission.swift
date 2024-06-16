@@ -3,6 +3,7 @@ import SwiftCSV
 import AVFoundation
 
 struct Pre_Mission: View {
+    @AppStorage("lastRandomEntry") private var lastRandomEntry: String = ""
     @State private var randomEntry: (String, String, String, String, String) = ("", "", "", "", "")
     @State private var lastSpokenText: String = ""
     @State private var synthesizer = AVSpeechSynthesizer()
@@ -96,13 +97,21 @@ struct Pre_Mission: View {
                 }
             }
             .onAppear {
-                randomEntry = loadRandomEntry()
+                if lastRandomEntry.isEmpty {
+                    randomEntry = loadRandomEntry()
+                    lastRandomEntry = "\(randomEntry.0),\(randomEntry.1),\(randomEntry.2),\(randomEntry.3),\(randomEntry.4)"
+                } else {
+                    randomEntry = parseEntry(lastRandomEntry)
+                }
                 speakText(randomEntry.0)
             }
             .onChange(of: speechRecognizer.transcript) {
                 if isRecording {
                     audio_rec(speechRecognizer.transcript, randomEntry.0)
                 }
+            }
+            .onDisappear {
+                lastRandomEntry = "\(randomEntry.0),\(randomEntry.1),\(randomEntry.2),\(randomEntry.3),\(randomEntry.4)"
             }
         }
     }
@@ -155,6 +164,14 @@ struct Pre_Mission: View {
         }
     }
     
+    func parseEntry(_ entry: String) -> (String, String, String, String, String) {
+        let components = entry.split(separator: ",").map { String($0) }
+        guard components.count == 5 else {
+            return ("Error", "Invalid entry format", "", "", "")
+        }
+        return (components[0], components[1], components[2], components[3], components[4])
+    }
+    
     func speakText(_ text: String) {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
@@ -166,3 +183,4 @@ struct Pre_Mission: View {
 #Preview {
     Pre_Mission()
 }
+
