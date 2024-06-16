@@ -123,13 +123,7 @@ struct Pre_Mission: View {
                 }
             }
             .onAppear {
-                if lastRandomEntry.isEmpty {
-                    randomEntry = loadRandomEntry()
-                    lastRandomEntry = "\(randomEntry.0),\(randomEntry.1),\(randomEntry.2),\(randomEntry.3),\(randomEntry.4)"
-                } else {
-                    randomEntry = parseEntry(lastRandomEntry)
-                }
-                speakText(randomEntry.0)
+                loadInitialEntry()
             }
             .onChange(of: speechRecognizer.transcript) {
                 if isRecording {
@@ -142,7 +136,21 @@ struct Pre_Mission: View {
         }
     }
     
-    
+    private func loadInitialEntry() {
+        if lastRandomEntry.isEmpty {
+            randomEntry = loadRandomEntry()
+            if randomEntry.0 != "Error" {
+                lastRandomEntry = "\(randomEntry.0),\(randomEntry.1),\(randomEntry.2),\(randomEntry.3),\(randomEntry.4)"
+            }
+        } else {
+            randomEntry = parseEntry(lastRandomEntry)
+            if randomEntry.0 == "Error" || randomEntry.1 == "CSV file not found" {
+                randomEntry = loadRandomEntry()
+            }
+        }
+        speakText(randomEntry.0)
+    }
+
     // ユーザー入力のチェック
     private func checkUserInput() {
         if userInput.lowercased() == randomEntry.0.lowercased() {
