@@ -1,10 +1,3 @@
-//
-//  Pre_Mission.swift
-//  WakeMeUp
-//
-//  Created by 長井亮輔 on 2024/06/11.
-//
-
 import SwiftUI
 import SwiftCSV
 import AVFoundation
@@ -19,6 +12,7 @@ struct Pre_Mission: View {
     @State private var clear_mission = false
     
     var body: some View {
+        NavigationView {
             VStack {
                 Spacer() // 上部スペース
                 Text(randomEntry.0)
@@ -67,7 +61,7 @@ struct Pre_Mission: View {
                         Text(isRecording ? "Stop" : "Start")
                             .font(.title)
                             .padding()
-                            .background(Color.blue)
+                            .background(isRecording ? Color.red : Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
@@ -91,31 +85,46 @@ struct Pre_Mission: View {
                             .cornerRadius(10)
                     }
                 }
+                
+                NavigationLink(destination: GPTView()) {
+                    Text("英会話練習")
+                        .font(.title)
+                        .padding()
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                }
             }
             .onAppear {
                 randomEntry = loadRandomEntry()
                 speakText(randomEntry.0)
             }
             .onChange(of: speechRecognizer.transcript) {
-                audio_rec(speechRecognizer.transcript, randomEntry.0)
+                if isRecording {
+                    audio_rec(speechRecognizer.transcript, randomEntry.0)
+                }
             }
         }
-        
-        // 音声認識
-        private func audio_rec(_ audio: String, _ text: String) {
-            if audio.lowercased() == text.lowercased() {
+    }
+    
+    // 音声認識
+    private func audio_rec(_ audio: String, _ word: String) {
+        if !clear_mission {
+            if audio.lowercased().contains(word.lowercased()) {
                 print("Correct transcription")
                 print(audio)
-                print(text)
+                print(word)
                 clear_mission = true
                 isRecording = false // 録音を停止
+                speechRecognizer.stopRecording() // 録音を停止
             } else {
                 print("Incorrect transcription")
                 clear_mission = false
                 print(audio)
-                print(text)
+                print(word)
             }
         }
+    }
     
     func loadRandomEntry() -> (String, String, String, String, String) {
         guard let csvURL = Bundle.main.url(forResource: "TOEIC", withExtension: "csv") else {
@@ -130,7 +139,7 @@ struct Pre_Mission: View {
                let ipas = csv.columns?["ipa"] as? [String],
                let meanings = csv.columns?["meaning"] as? [String],
                let examples = csv.columns?["example_sentence"] as? [String],
-               let trans = csv.columns?["translated_sentence"] as? [String]{
+               let trans = csv.columns?["translated_sentence"] as? [String] {
                 let combinedEntries = zip(zip(zip(zip(entries, ipas), meanings), examples), trans).map { ($0.0.0.0, $0.0.0.1, $0.0.1, $0.1, $1) }
                 if let randomElement = combinedEntries.randomElement() {
                     return randomElement
@@ -145,12 +154,13 @@ struct Pre_Mission: View {
             return ("Error", "reading CSV file", "", "", "")
         }
     }
+    
     func speakText(_ text: String) {
-            let utterance = AVSpeechUtterance(string: text)
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-            synthesizer.speak(utterance)
-        }
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        synthesizer.speak(utterance)
+    }
 }
 
 #Preview {
