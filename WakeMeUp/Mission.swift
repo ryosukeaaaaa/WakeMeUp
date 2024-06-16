@@ -11,6 +11,8 @@ struct Pre_Mission: View {
     @StateObject private var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
     @State private var clear_mission = false
+    @State private var userInput: String = "" // ユーザー入力の状態を管理
+    @State private var isTypingVisible: Bool = false // タイピングフィールドの表示を管理
     
     var body: some View {
         NavigationView {
@@ -61,22 +63,55 @@ struct Pre_Mission: View {
                     }) {
                         Text(isRecording ? "Stop" : "Start")
                             .font(.title)
-                            .padding()
+                            .padding(15)
                             .background(isRecording ? Color.red : Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-
+                    
                     ScrollView {
                         Text(speechRecognizer.transcript)
                             .padding()
                     }
+                    
+                    if !isTypingVisible {
+                        Button(action: {
+                            isTypingVisible.toggle()
+                        }) {
+                            Text("タイピング")
+                                .font(.headline) // 小さめのフォントサイズに変更
+                                .padding(10) // パディングを小さめに設定
+                                .background(Color.gray)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .padding()
+                    }
+                    
+                    if isTypingVisible {
+                        TextField("入力してください", text: $userInput, onCommit: {
+                            checkUserInput()
+                        })
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    }
+                    NavigationLink(destination: GPTView()) {
+                        Text("英会話練習")
+                            .font(.title)
+                            .padding(10)
+                            .background(Color.orange)
+                            .foregroundColor(.white)
+                            .cornerRadius(5)
+                    }
+                    
                 } else {
                     Button(action: {
                         // 次の単語へ
                         randomEntry = loadRandomEntry()
                         speakText(randomEntry.0)
                         clear_mission = false
+                        userInput = "" // ユーザー入力をリセット
+                        isTypingVisible = false // タイピングフィールドを非表示
                     }) {
                         Text("次の単語")
                             .font(.title)
@@ -85,15 +120,6 @@ struct Pre_Mission: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                }
-                
-                NavigationLink(destination: GPTView()) {
-                    Text("英会話練習")
-                        .font(.title)
-                        .padding()
-                        .background(Color.orange)
-                        .foregroundColor(.white)
-                        .cornerRadius(5)
                 }
             }
             .onAppear {
@@ -113,6 +139,15 @@ struct Pre_Mission: View {
             .onDisappear {
                 lastRandomEntry = "\(randomEntry.0),\(randomEntry.1),\(randomEntry.2),\(randomEntry.3),\(randomEntry.4)"
             }
+        }
+    }
+    
+    
+    // ユーザー入力のチェック
+    private func checkUserInput() {
+        if userInput.lowercased() == randomEntry.0.lowercased() {
+            clear_mission = true
+            userInput = "" // ユーザー入力をリセット
         }
     }
     
