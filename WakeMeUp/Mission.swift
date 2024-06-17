@@ -13,34 +13,43 @@ struct Pre_Mission: View {
     @State private var clear_mission = false
     @State private var userInput: String = "" // ユーザー入力の状態を管理
     @State private var isTypingVisible: Bool = false // タイピングフィールドの表示を管理
+
+    @State private var translation: CGSize = .zero // スワイプの移動量
+    @State private var degree: Double = 0.0 // カードの回転角度
     
     var body: some View {
         NavigationView {
             VStack {
                 Spacer() // 上部スペース
-                Text(randomEntry.0)
-                    .font(.largeTitle)
-                    .fontWeight(.bold) // 太字に設定
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 10) // 下部に少し余白を追加
-                Text(randomEntry.1)
-                    .font(.headline)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                Text(randomEntry.2)
-                    .font(.headline)//subheadline)
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 50)
-                Text(randomEntry.3)
-                    .italic() // イタリック体に設定
-                    .font(.headline)//subheadline)
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 1)
-                Text(randomEntry.4)
-                    .fontWeight(.light) // 軽いウェイトに設定
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-                    .padding()
+                ZStack {
+                    cardView()
+                        .offset(x: translation.width, y: 0)
+                        .rotationEffect(.degrees(degree))
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    if clear_mission {
+                                        translation = value.translation
+                                        degree = Double(translation.width / 20)
+                                    }
+                                }
+                                .onEnded { value in
+                                    if clear_mission {
+                                        if abs(value.translation.width) > 100 {
+                                            if value.translation.width > 0 {
+                                                // 右にスワイプ
+                                                loadNextEntry()
+                                            } else {
+                                                // 左にスワイプ
+                                                speakText(randomEntry.0)
+                                            }
+                                        }
+                                        translation = .zero
+                                        degree = 0.0
+                                    }
+                                }
+                        )
+                }
                 Spacer() // 下部スペース
                 
                 Button(action: {
@@ -105,21 +114,9 @@ struct Pre_Mission: View {
                     }
                     
                 } else {
-                    Button(action: {
-                        // 次の単語へ
-                        randomEntry = loadRandomEntry()
-                        speakText(randomEntry.0)
-                        clear_mission = false
-                        userInput = "" // ユーザー入力をリセット
-                        isTypingVisible = false // タイピングフィールドを非表示
-                    }) {
-                        Text("次の単語")
-                            .font(.title)
-                            .padding()
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
+                    Text("スワイプして次のステップへ")
+                        .font(.headline)
+                        .padding()
                 }
             }
             .onAppear {
@@ -136,6 +133,38 @@ struct Pre_Mission: View {
         }
     }
     
+    private func cardView() -> some View {
+        VStack {
+            Text(randomEntry.0)
+                .font(.largeTitle)
+                .fontWeight(.bold) // 太字に設定
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 10) // 下部に少し余白を追加
+            Text(randomEntry.1)
+                .font(.headline)
+                .multilineTextAlignment(.center)
+                .padding()
+            Text(randomEntry.2)
+                .font(.headline)//subheadline)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 50)
+            Text(randomEntry.3)
+                .italic() // イタリック体に設定
+                .font(.headline)//subheadline)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 1)
+            Text(randomEntry.4)
+                .fontWeight(.light) // 軽いウェイトに設定
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
+                .padding()
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
+    }
+
     private func loadInitialEntry() {
         if lastRandomEntry.isEmpty {
             randomEntry = loadRandomEntry()
@@ -151,6 +180,14 @@ struct Pre_Mission: View {
         speakText(randomEntry.0)
     }
 
+    private func loadNextEntry() {
+        randomEntry = loadRandomEntry()
+        speakText(randomEntry.0)
+        clear_mission = false
+        userInput = "" // ユーザー入力をリセット
+        isTypingVisible = false // タイピングフィールドを非表示
+    }
+
     // ユーザー入力のチェック
     private func checkUserInput() {
         if userInput.lowercased() == randomEntry.0.lowercased() {
@@ -163,24 +200,17 @@ struct Pre_Mission: View {
     private func audio_rec(_ audio: String, _ word: String) {
         if !clear_mission {
             if audio.lowercased().contains(word.lowercased()) {
-                print("Correct transcription")
-                print(audio)
-                print(word)
                 clear_mission = true
                 isRecording = false // 録音を停止
                 speechRecognizer.stopRecording() // 録音を停止
             } else {
-                print("Incorrect transcription")
                 clear_mission = false
-                print(audio)
-                print(word)
             }
         }
     }
     
     func loadRandomEntry() -> (String, String, String, String, String) {
         guard let csvURL = Bundle.main.url(forResource: "TOEIC", withExtension: "csv") else {
-            print("CSV file not found")
             return ("Error", "CSV file not found", "", "", "")
         }
         
@@ -202,7 +232,6 @@ struct Pre_Mission: View {
                 return ("No entries found", "", "", "", "")
             }
         } catch {
-            print("Error reading CSV file: \(error)")
             return ("Error", "reading CSV file", "", "", "")
         }
     }
