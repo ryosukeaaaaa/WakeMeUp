@@ -1,4 +1,5 @@
-import Foundation
+/*
+ import Foundation
 import Alamofire
 import AVFoundation
 import SwiftUI
@@ -203,3 +204,4 @@ struct GPTView: View {
 #Preview {
     GPTView()
 }
+*/

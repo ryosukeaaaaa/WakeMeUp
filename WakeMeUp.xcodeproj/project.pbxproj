@@ -169,6 +169,7 @@
 				827A15982C176053003B4468 /* Mission.swift */,
 				829A59CB2C163ECD002D7DA3 /* audiotest.swift */,
 				827A159A2C176077003B4468 /* GPT.swift */,
+				824D78A22C206BED0070D045 /* alarm.swift */,
 				828A07E02C19DE7A0008A956 /* GPT_audio.swift */,
 				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 				828A07DE2C1994070008A956 /* Config.swift */,
@@ -176,7 +177,6 @@
 				828A07DA2C19595C0008A956 /* Config.plist */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
-				824D78A22C206BED0070D045 /* alarm.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
