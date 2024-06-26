@@ -231,20 +231,38 @@ struct Pre_Mission: View {
             
             createUserCSVIfNeeded(csv: csv)
             
-            let randomRowIndex = Int.random(in: 0..<csv.rows.count)
-            let row = csv.rows[randomRowIndex]
+            // ユーザーの学習状況に合わせて出題頻度を変える
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
+            let statuses = readStatuses(from: userCSVURL)
             
-            if row.isEmpty {
-                return ("No entries found", "", "", "", "")
+            if statuses.isEmpty {
+                print("No statuses found.")
+                return ("Error", "No statuses found", "", "", "")
+            } else {
+                let cumulativeProbabilities = calculateInverseProbabilities(for: statuses)
+                
+                if let randomRowIndex = selectIndexBasedOnCDF(cumulativeProbabilities: cumulativeProbabilities) {
+                    print("Selected Index: \(randomRowIndex)")
+                    
+                    let row = csv.rows[randomRowIndex]
+                    
+                    if row.isEmpty {
+                        return ("No entries found", "", "", "", "")
+                    }
+                    
+                    let entry = row["entry"] ?? "No entry"
+                    let ipa = row["ipa"] ?? "No ipa"
+                    let meaning = row["meaning"] ?? "No meaning"
+                    let example = row["example_sentence"] ?? "No example"
+                    let translated = row["translated_sentence"] ?? "No translation"
+                    
+                    return (entry, ipa, meaning, example, translated)
+                } else {
+                    print("Failed to select an index.")
+                    return ("Error", "Failed to select an index", "", "", "")
+                }
             }
-            
-            let entry = row["entry"] ?? "No entry"
-            let ipa = row["ipa"] ?? "No ipa"
-            let meaning = row["meaning"] ?? "No meaning"
-            let example = row["example_sentence"] ?? "No example"
-            let translated = row["translated_sentence"] ?? "No translation"
-            
-            return (entry, ipa, meaning, example, translated)
         } catch {
             print("Error: \(error)")
             return ("Error", "reading CSV file", "", "", "")
@@ -267,7 +285,7 @@ struct Pre_Mission: View {
                 var userCSVString = "entry,status\n"
                 for row in csv.rows {
                     if let entry = row["entry"] {
-                        userCSVString += "\(entry),0\n"
+                        userCSVString += "\(entry),1000000\n"
                     }
                 }
                 try userCSVString.write(to: userCSVURL, atomically: true, encoding: .utf8)
@@ -352,6 +370,58 @@ struct Pre_Mission: View {
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
         synthesizer.speak(utterance)
+    }
+    
+    func readStatuses(from csvURL: URL) -> [Int] {
+        do {
+            let csv = try CSV<Named>(url: csvURL)
+            var statuses: [Int] = []
+            
+            for row in csv.rows {
+                if let statusString = row["status"], let status = Int(statusString) {
+                    statuses.append(status)
+                }
+            }
+            
+            return statuses
+        } catch {
+            print("Error loading statuses: \(error)")
+            return []
+        }
+    }
+
+    func calculateInverseProbabilities(for statuses: [Int]) -> [Double] {
+        var inverseProbabilities: [Double] = []
+        var totalInverseProbability = 0.0
+
+        for status in statuses {
+            let inverseProbability = 1.0 / Double(status)
+            inverseProbabilities.append(inverseProbability)
+            totalInverseProbability += inverseProbability
+        }
+        print("ステータス：", statuses)
+        // 逆数確率を正規化して累積分布関数を作成
+        var cumulativeProbabilities: [Double] = []
+        var cumulativeSum = 0.0
+
+        for inverseProbability in inverseProbabilities {
+            cumulativeSum += inverseProbability / totalInverseProbability
+            cumulativeProbabilities.append(cumulativeSum)
+        }
+        print("確率：", cumulativeProbabilities)
+        return cumulativeProbabilities
+    }
+
+    func selectIndexBasedOnCDF(cumulativeProbabilities: [Double]) -> Int? {
+        let randomValue = Double.random(in: 0..<1)
+
+        for (index, cumulativeProbability) in cumulativeProbabilities.enumerated() {
+            if randomValue < cumulativeProbability {
+                return index
+            }
+        }
+
+        return nil
     }
 }
 
