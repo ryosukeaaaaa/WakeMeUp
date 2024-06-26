@@ -10,10 +10,15 @@ import SwiftUI
 @main
 struct WakeMeUpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
             HonkiView()
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                        appDelegate.window = windowScene.windows.first
+                    }
+                }
         }
     }
 }
-
