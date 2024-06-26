@@ -11,16 +11,16 @@ struct Pre_Mission: View {
     @StateObject private var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
     @State private var clear_mission = false
-    @State private var userInput: String = "" // ユーザー入力の状態を管理
-    @State private var isTypingVisible: Bool = false // タイピングフィールドの表示を管理
+    @State private var userInput: String = ""
+    @State private var isTypingVisible: Bool = false
 
-    @State private var translation: CGSize = .zero // スワイプの移動量
-    @State private var degree: Double = 0.0 // カードの回転角度
+    @State private var translation: CGSize = .zero
+    @State private var degree: Double = 0.0
     
     var body: some View {
         NavigationView {
             VStack {
-                Spacer() // 上部スペース
+                Spacer()
                 ZStack {
                     cardView()
                         .offset(x: translation.width, y: 0)
@@ -37,11 +37,11 @@ struct Pre_Mission: View {
                                     if clear_mission {
                                         if abs(value.translation.width) > 100 {
                                             if value.translation.width > 0 {
-                                                // 右にスワイプ
+                                                makeStatus(for: randomEntry.0, num: 100)
                                                 loadNextEntry()
                                             } else {
-                                                // 左にスワイプ
-                                                speakText(randomEntry.0)
+                                                makeStatus(for: randomEntry.0, num: 10)
+                                                loadNextEntry()
                                             }
                                         }
                                         translation = .zero
@@ -50,7 +50,7 @@ struct Pre_Mission: View {
                                 }
                         )
                 }
-                Spacer() // 下部スペース
+                Spacer()
                 
                 Button(action: {
                     lastSpokenText = randomEntry.0
@@ -62,7 +62,6 @@ struct Pre_Mission: View {
                 
                 if !clear_mission {
                     Button(action: {
-                        // オンオフの切り替え
                         isRecording.toggle()
                         if isRecording {
                             speechRecognizer.startRecording()
@@ -88,8 +87,8 @@ struct Pre_Mission: View {
                             isTypingVisible.toggle()
                         }) {
                             Text("タイピング")
-                                .font(.headline) // 小さめのフォントサイズに変更
-                                .padding(10) // パディングを小さめに設定
+                                .font(.headline)
+                                .padding(10)
                                 .background(Color.gray)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
@@ -114,6 +113,21 @@ struct Pre_Mission: View {
                     }
                     
                 } else {
+                    HStack {
+                        Text("←不安")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity)
+                        
+                        Text("完璧→")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.yellow)
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity)
+                    }
                     Text("スワイプして次のステップへ")
                         .font(.headline)
                         .padding()
@@ -137,24 +151,24 @@ struct Pre_Mission: View {
         VStack {
             Text(randomEntry.0)
                 .font(.largeTitle)
-                .fontWeight(.bold) // 太字に設定
+                .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-                .padding(.bottom, 10) // 下部に少し余白を追加
+                .padding(.bottom, 10)
             Text(randomEntry.1)
                 .font(.headline)
                 .multilineTextAlignment(.center)
                 .padding()
             Text(randomEntry.2)
-                .font(.headline)//subheadline)
+                .font(.headline)
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 50)
             Text(randomEntry.3)
-                .italic() // イタリック体に設定
-                .font(.headline)//subheadline)
+                .italic()
+                .font(.headline)
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 1)
             Text(randomEntry.4)
-                .fontWeight(.light) // 軽いウェイトに設定
+                .fontWeight(.light)
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding()
@@ -184,31 +198,29 @@ struct Pre_Mission: View {
         randomEntry = loadRandomEntry()
         speakText(randomEntry.0)
         clear_mission = false
-        userInput = "" // ユーザー入力をリセット
-        isTypingVisible = false // タイピングフィールドを非表示
+        userInput = ""
+        isTypingVisible = false
     }
 
-    // ユーザー入力のチェック
     private func checkUserInput() {
         if userInput.lowercased() == randomEntry.0.lowercased() {
             clear_mission = true
-            userInput = "" // ユーザー入力をリセット
+            userInput = ""
         }
     }
     
-    // 音声認識
     private func audio_rec(_ audio: String, _ word: String) {
         if !clear_mission {
             if audio.lowercased().contains(word.lowercased()) {
                 clear_mission = true
-                isRecording = false // 録音を停止
-                speechRecognizer.stopRecording() // 録音を停止
+                isRecording = false
+                speechRecognizer.stopRecording()
             } else {
                 clear_mission = false
             }
         }
     }
-    
+
     func loadRandomEntry() -> (String, String, String, String, String) {
         guard let csvURL = Bundle.main.url(forResource: "TOEIC", withExtension: "csv") else {
             return ("Error", "CSV file not found", "", "", "")
@@ -216,24 +228,115 @@ struct Pre_Mission: View {
         
         do {
             let csv = try CSV<Named>(url: csvURL)
-            print(type(of: csv))
-            if let entries = csv.columns?["entry"] as? [String],
-               let ipas = csv.columns?["ipa"] as? [String],
-               let meanings = csv.columns?["meaning"] as? [String],
-               let examples = csv.columns?["example_sentence"] as? [String],
-               let trans = csv.columns?["translated_sentence"] as? [String] {
-                let combinedEntries = zip(zip(zip(zip(entries, ipas), meanings), examples), trans).map { ($0.0.0.0, $0.0.0.1, $0.0.1, $0.1, $1) }
-                if let randomElement = combinedEntries.randomElement() {
-                    return randomElement
-                } else {
-                    return ("No entries found", "", "", "", "")
-                }
-            } else {
+            
+            createUserCSVIfNeeded(csv: csv)
+            
+            let randomRowIndex = Int.random(in: 0..<csv.rows.count)
+            let row = csv.rows[randomRowIndex]
+            
+            if row.isEmpty {
                 return ("No entries found", "", "", "", "")
             }
+            
+            let entry = row["entry"] ?? "No entry"
+            let ipa = row["ipa"] ?? "No ipa"
+            let meaning = row["meaning"] ?? "No meaning"
+            let example = row["example_sentence"] ?? "No example"
+            let translated = row["translated_sentence"] ?? "No translation"
+            
+            return (entry, ipa, meaning, example, translated)
         } catch {
+            print("Error: \(error)")
             return ("Error", "reading CSV file", "", "", "")
         }
+    }
+    
+    // ユーザーの学習状況を決定
+    func makeStatus(for entry: String, num: Int){
+        let status = loadStatus(for: entry)
+        let updatedStatus = status + num
+        saveStatus(for: entry, status: updatedStatus)
+    }
+    
+    func createUserCSVIfNeeded(csv: CSV<Named>) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
+        
+        if !FileManager.default.fileExists(atPath: userCSVURL.path) {
+            do {
+                var userCSVString = "entry,status\n"
+                for row in csv.rows {
+                    if let entry = row["entry"] {
+                        userCSVString += "\(entry),0\n"
+                    }
+                }
+                try userCSVString.write(to: userCSVURL, atomically: true, encoding: .utf8)
+            } catch {
+                print("Error creating user.csv: \(error)")
+            }
+        }
+    }
+
+    func loadStatus(for entry: String) -> Int {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
+        
+        do {
+            let csv = try CSV<Named>(url: userCSVURL)
+            if let row = csv.rows.first(where: { $0["entry"] == entry }), let statusString = row["status"], let status = Int(statusString) {
+                return status
+            } else {
+                return 0
+            }
+        } catch {
+            print("Error loading status: \(error)")
+            return 0
+        }
+    }
+
+    func saveStatus(for entry: String, status: Int) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
+        
+        do {
+            let csv = try CSV<Named>(url: userCSVURL)
+            var rows = csv.rows
+            
+            if let rowIndex = rows.firstIndex(where: { $0["entry"] == entry }) {
+                print("entory:",entry)
+                rows[rowIndex]["status"] = String(status)
+            } else {
+                rows.append(["entry": entry, "status": String(status)])
+            }
+            
+            try writeCSV(header: ["entry", "status"], rows: rows, to: userCSVURL)
+        } catch {
+            print("Error saving status: \(error)")
+        }
+    }
+
+    func writeCSV(header: [String], rows: [[String: String]], to url: URL) throws {
+        var csvString = header.joined(separator: ",") + "\n"
+        for row in rows {
+            let rowString = header.map { row[$0] ?? "" }.joined(separator: ",")
+            csvString += rowString + "\n"
+        }
+        
+        guard let encodedData = csvString.data(using: .utf8) else {
+            throw CSVError.encodingFailed
+        }
+        
+        do {
+            try encodedData.write(to: url)
+        } catch {
+            throw CSVError.fileWriteFailed
+        }
+    }
+    
+    enum CSVError: Error {
+        case encodingFailed
+        case documentDirectoryNotFound
+        case fileWriteFailed
     }
     
     func parseEntry(_ entry: String) -> (String, String, String, String, String) {
@@ -255,4 +358,5 @@ struct Pre_Mission: View {
 #Preview {
     Pre_Mission()
 }
+
 
