@@ -1,24 +1,27 @@
-//
-//  WakeMeUpApp.swift
-//  WakeMeUp
-//
-//  Created by 長井亮輔 on 2024/06/10.
-//
-
 import SwiftUI
+import UserNotifications
 
 @main
 struct WakeMeUpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
+    init() {
+        requestNotificationPermissions()
+    }
+
     var body: some Scene {
         WindowGroup {
-            HonkiView()
-                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                        appDelegate.window = windowScene.windows.first
-                    }
-                }
+            ContentView()
+        }
+    }
+
+    private func requestNotificationPermissions() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("通知の許可が得られました")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
         }
     }
 }

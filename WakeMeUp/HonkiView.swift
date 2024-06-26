@@ -3,70 +3,32 @@ import UserNotifications
 import AVFoundation
 
 struct HonkiView: View {
+    @ObservedObject var alarmStore: AlarmStore
     @State private var alarmTime = Date()
     @State private var isAlarmSet = false
     @State private var isPermissionGranted = false
     @State private var audioPlayer: AVAudioPlayer?
-    @State private var isAlarmActive = false
-    @State var navigateToAlarmLanding = false
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                Text("本気アラーム")
-                    .font(.largeTitle)
-                    .padding()
-
-                DatePicker("アラーム時間を設定", selection: $alarmTime, displayedComponents: .hourAndMinute)
-                    .datePickerStyle(WheelDatePickerStyle())
-                    .labelsHidden()
-                    .padding()
-
+        NavigationView {
+            Form {
+                DatePicker("アラーム時間", selection: $alarmTime, displayedComponents: .hourAndMinute)
+                
                 Button(action: {
-                    if isAlarmSet {
-                        cancelAlarm()
-                    } else {
-                        scheduleAlarm()
-                    }
+                    scheduleAlarm()
+                    presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text(isAlarmSet ? "アラームをキャンセル" : "アラームを設定")
-                        .padding()
-                        .background(isAlarmSet ? Color.red : Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding()
-                .disabled(!isPermissionGranted)
-
-                if isAlarmSet {
-                    Text("設定されたアラーム時間: \(formattedAlarmTime)")
-                        .padding()
-                }
-
-                if !isPermissionGranted {
-                    Text("通知の許可が必要です")
-                        .foregroundColor(.red)
+                    Text("アラームを追加")
                 }
 
                 Button("アラーム音をテスト") {
                     testPlaySound()
                 }
-                .padding()
             }
+            .navigationTitle("アラームを追加")
             .onAppear(perform: checkNotificationPermission)
-            .navigationDestination(isPresented: $navigateToAlarmLanding) {
-                AlarmLandingView(isAlarmActive: $isAlarmActive)
-            }
         }
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { _ in
-            self.navigateToAlarmLanding = true
-        }
-    }
-
-    private var formattedAlarmTime: String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter.string(from: alarmTime)
     }
 
     private func checkNotificationPermission() {
@@ -94,20 +56,27 @@ struct HonkiView: View {
     }
 
     private func scheduleAlarm() {
+        let groupId = UUID().uuidString
+        let newAlarm = Alarm(time: alarmTime, isOn: true, groupId: groupId)
+        alarmStore.addAlarm(newAlarm)
+        
         let content = UNMutableNotificationContent()
         content.title = "本気アラーム"
         content.body = "起きる時間です！本気で起きましょう！"
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm_sound.wav"))
-        content.userInfo = ["alarmId": "mainAlarm"]
+        content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
 
         let calendar = Calendar.current
-        let now = Date()
+        var targetDate = alarmTime
+        if targetDate < Date() {
+            targetDate = calendar.date(byAdding: .day, value: 1, to: targetDate)!
+        }
         
         for n in 0...10 {
-            let triggerDate = calendar.date(byAdding: .second, value: 8 * n, to: max(alarmTime, now))!
+            let triggerDate = calendar.date(byAdding: .second, value: 8 * n, to: targetDate)!
             let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            let request = UNNotificationRequest(identifier: "AlarmNotification\(n)", content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(n)", content: content, trigger: trigger)
 
             UNUserNotificationCenter.current().add(request) { error in
                 if let error = error {
@@ -119,15 +88,6 @@ struct HonkiView: View {
         }
         
         isAlarmSet = true
-        isAlarmActive = true
-    }
-
-    private func cancelAlarm() {
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-        isAlarmSet = false
-        isAlarmActive = false
-        print("アラームがキャンセルされました")
     }
 
     private func testPlaySound() {
@@ -157,11 +117,5 @@ struct HonkiView: View {
                 print("根本的なエラー: \(underlyingError)")
             }
         }
-    }
-}
-
-struct HonkiView_Previews: PreviewProvider {
-    static var previews: some View {
-        HonkiView()
     }
 }

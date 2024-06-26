@@ -1,135 +1,74 @@
-//
-//  ContentView.swift
-//  WakeMeUp
-//
-//  Created by 長井亮輔 on 2024/06/10.
-//
-
-/*
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var alarmStore = AlarmStore()
+    @State private var showingAlarmLanding = false
+    @State private var currentAlarmId: String?
+    @State private var currentGroupId: String?
+    @State private var debugMessage = ""
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, worldaaa!")
+        TabView {
+            NavigationStack {
+                AlarmListView(alarmStore: alarmStore)
+            }
+            .tabItem {
+                Image(systemName: "list.bullet")
+                Text("アラーム")
+            }
+            
+            NavigationStack {
+                Pre_Mission()
+            }
+            .tabItem {
+                Image(systemName: "flag")
+                Text("ミッション")
+            }
+            
+            NavigationStack {
+                SettingsView()
+            }
+            .tabItem {
+                Image(systemName: "gear")
+                Text("設定")
+            }
         }
-        .padding()
+        .fullScreenCover(isPresented: $showingAlarmLanding) {
+            if let alarmId = currentAlarmId, let groupId = currentGroupId {
+                NavigationStack {
+                    AlarmLandingView(alarmStore: alarmStore, alarmId: alarmId, groupId: groupId, isPresented: $showingAlarmLanding)
+                }
+            } else {
+                Text("No alarm information available")
+                    .onAppear {
+                        print("ContentView: No alarm information available. currentAlarmId: \(String(describing: currentAlarmId)), currentGroupId: \(String(describing: currentGroupId))")
+                    }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
+            print("ContentView: Received ShowAlarmLanding notification")
+            if let alarmId = notification.userInfo?["alarmId"] as? String,
+               let groupId = notification.userInfo?["groupId"] as? String {
+                print("ContentView: Received alarmId: \(alarmId) and groupId: \(groupId)")
+                DispatchQueue.main.async {
+                    self.currentAlarmId = alarmId
+                    self.currentGroupId = groupId
+                    self.showingAlarmLanding = true
+                    self.debugMessage = "Received notification with alarmId: \(alarmId) and groupId: \(groupId)"
+                }
+            } else {
+                print("ContentView: Failed to extract alarmId or groupId from notification")
+                self.debugMessage = "Received notification without proper alarm information"
+            }
+            print(self.debugMessage)
+        }
+        .overlay(
+            Text(debugMessage)
+                .foregroundColor(.red)
+                .padding()
+                .background(Color.black.opacity(0.7))
+                .cornerRadius(10)
+                .opacity(debugMessage.isEmpty ? 0 : 1)
+        )
     }
 }
-
-#Preview {
-    ContentView()
-}
-*/
-
-/*
- //
- //  Pre_Mission.swift
- //  WakeMeUp
- //
- //  Created by 長井亮輔 on 2024/06/11.
- //
-
- import SwiftUI
- import SwiftCSV
- import AVFoundation
-
- struct Pre_Mission: View {
-     @State private var randomEntry: (String, String, String, String, String) = ("", "", "", "", "")
-     @State private var lastSpokenText: String = ""
-     @State private var synthesizer = AVSpeechSynthesizer()
-     
-     var body: some View {
-         VStack {
-             Spacer() // 上部スペース
-             Text(randomEntry.0)
-                 .font(.largeTitle)
-                 .fontWeight(.bold) // 太字に設定
-                 .multilineTextAlignment(.center)
-                 .padding(.bottom, 10) // 下部に少し余白を追加
-             Text(randomEntry.1)
-                 .font(.headline)
-                 .multilineTextAlignment(.center)
-                 .padding()
-             Text(randomEntry.2)
-                 .font(.headline)//subheadline)
-                 .multilineTextAlignment(.center)
-                 .padding(.bottom, 50)
-             Text(randomEntry.3)
-                 .italic() // イタリック体に設定
-                 .font(.headline)//subheadline)
-                 .multilineTextAlignment(.center)
-                 .padding(.bottom, 1)
-             Text(randomEntry.4)
-                 .fontWeight(.light) // 軽いウェイトに設定
-                 .font(.subheadline)
-                 .multilineTextAlignment(.center)
-                 .padding()
-             Spacer() // 下部スペース
-             
-             Button(action: {
-                 lastSpokenText = randomEntry.3
-                 speakText(lastSpokenText)
-             }) {
-                 Text("もう一度再生")
-             }
-             .padding()
-             
-             Button(action: {
-                 randomEntry = loadRandomEntry()
-                 speakText(randomEntry.0)
-             }) {
-                 Text("次の単語")
-             }
-             .padding()
-         }
-         .onAppear {
-             randomEntry = loadRandomEntry()
-             speakText(randomEntry.0)
-         }
-     }
-     
-     func loadRandomEntry() -> (String, String, String, String, String) {
-         guard let csvURL = Bundle.main.url(forResource: "TOEIC", withExtension: "csv") else {
-             print("CSV file not found")
-             return ("Error", "CSV file not found", "", "", "")
-         }
-         
-         do {
-             let csv = try CSV<Named>(url: csvURL)
-             print(type(of: csv))
-             if let entries = csv.columns?["entry"] as? [String],
-                let ipas = csv.columns?["ipa"] as? [String],
-                let meanings = csv.columns?["meaning"] as? [String],
-                let examples = csv.columns?["example_sentence"] as? [String],
-                let trans = csv.columns?["translated_sentence"] as? [String]{
-                 let combinedEntries = zip(zip(zip(zip(entries, ipas), meanings), examples), trans).map { ($0.0.0.0, $0.0.0.1, $0.0.1, $0.1, $1) }
-                 if let randomElement = combinedEntries.randomElement() {
-                     return randomElement
-                 } else {
-                     return ("No entries found", "", "", "", "")
-                 }
-             } else {
-                 return ("No entries found", "", "", "", "")
-             }
-         } catch {
-             print("Error reading CSV file: \(error)")
-             return ("Error", "reading CSV file", "", "", "")
-         }
-     }
-     func speakText(_ text: String) {
-             let utterance = AVSpeechUtterance(string: text)
-             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-             utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-             synthesizer.speak(utterance)
-         }
- }
-
- #Preview {
-     Pre_Mission()
- }
-
-*/
