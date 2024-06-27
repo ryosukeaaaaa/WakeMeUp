@@ -61,8 +61,8 @@ struct HonkiView: View {
         alarmStore.addAlarm(newAlarm)
         
         let content = UNMutableNotificationContent()
-        content.title = "本気アラーム"
-        content.body = "起きる時間です！本気で起きましょう！"
+        content.title = "アラーム"
+        content.body = "時間です！起きましょう！"
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm_sound.wav"))
         content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
 

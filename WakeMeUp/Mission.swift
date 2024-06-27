@@ -17,6 +17,9 @@ struct Pre_Mission: View {
     @State private var translation: CGSize = .zero
     @State private var degree: Double = 0.0
     
+    @State private var missionCount: Int = 0 // Track number of completed missions
+    @State private var navigateToHome = false
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -144,6 +147,20 @@ struct Pre_Mission: View {
             .onDisappear {
                 lastRandomEntry = "\(randomEntry.0),\(randomEntry.1),\(randomEntry.2),\(randomEntry.3),\(randomEntry.4)"
             }
+            // 5 missions　クリアしたらホームに戻る
+            .onChange(of: missionCount) {
+                if missionCount >= 5 {
+                    navigateToHome = true
+                    missionCount = 0
+                }
+            }
+            .navigationDestination(isPresented: Binding<Bool>(
+                get: { navigateToHome == true },
+                set: { newValue in if !newValue { navigateToHome = false } }
+            )) {
+                ContentView()
+                .navigationBarBackButtonHidden(true) //　戻るボタン非表示に
+            }
         }
     }
     
@@ -206,6 +223,8 @@ struct Pre_Mission: View {
         if userInput.lowercased() == randomEntry.0.lowercased() {
             clear_mission = true
             userInput = ""
+            
+            missionCount += 1 // Increment mission count
         }
     }
     
@@ -215,6 +234,8 @@ struct Pre_Mission: View {
                 clear_mission = true
                 isRecording = false
                 speechRecognizer.stopRecording()
+                
+                missionCount += 1 // Increment mission count
             } else {
                 clear_mission = false
             }
@@ -399,7 +420,7 @@ struct Pre_Mission: View {
             inverseProbabilities.append(inverseProbability)
             totalInverseProbability += inverseProbability
         }
-        print("ステータス：", statuses)
+        
         // 逆数確率を正規化して累積分布関数を作成
         var cumulativeProbabilities: [Double] = []
         var cumulativeSum = 0.0
@@ -408,7 +429,7 @@ struct Pre_Mission: View {
             cumulativeSum += inverseProbability / totalInverseProbability
             cumulativeProbabilities.append(cumulativeSum)
         }
-        print("確率：", cumulativeProbabilities)
+        
         return cumulativeProbabilities
     }
 
