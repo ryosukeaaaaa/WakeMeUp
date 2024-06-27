@@ -105,8 +105,10 @@ extension ChatViewModel: WhisperSpeechRecognizerDelegate {
 }
 
 struct GPTView: View {
-    @State private var userInput: String = ""
     @ObservedObject var viewModel = ChatViewModel()
+    @ObservedObject var missionState: MissionState // MissionStateを受け取る
+    
+    @State private var userInput: String = ""
     
     var body: some View {
         VStack {
@@ -122,6 +124,7 @@ struct GPTView: View {
                 Button(action: {
                     viewModel.messages.append("User: \(userInput)")
                     viewModel.sendChatRequest(prompt: userInput)
+                    
                     userInput = ""
                 }) {
                     Text("Send")
@@ -136,11 +139,14 @@ struct GPTView: View {
                 .padding()
             }
         }
+        .onDisappear {
+            missionState.shouldLoadInitialEntry = false // フラグをリセット
+        }
     }
 }
 
 #Preview {
-    GPTView()
+    GPTView(missionState: MissionState())
 }
 
 import AVFoundation

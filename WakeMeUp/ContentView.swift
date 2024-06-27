@@ -33,6 +33,7 @@ struct ContentView: View {
                 Text("設定")
             }
         }
+        .navigationBarBackButtonHidden(true)
         .fullScreenCover(isPresented: $showingAlarmLanding) {
             if let alarmId = currentAlarmId, let groupId = currentGroupId {
                 NavigationStack {

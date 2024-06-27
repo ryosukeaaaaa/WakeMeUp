@@ -2,24 +2,27 @@ import SwiftUI
 import SwiftCSV
 import AVFoundation
 
+class MissionState: ObservableObject {
+    @Published var randomEntry: (String, String, String, String, String) = ("", "", "", "", "")
+    @Published var clear_mission = false
+    @Published var missionCount: Int = 0
+    @Published var shouldLoadInitialEntry: Bool = true // フラグを追加
+}
+
 struct Pre_Mission: View {
     @AppStorage("lastRandomEntry") private var lastRandomEntry: String = ""
-    @State private var randomEntry: (String, String, String, String, String) = ("", "", "", "", "")
+    @StateObject private var missionState = MissionState() // MissionStateを使用
+
     @State private var lastSpokenText: String = ""
     @State private var synthesizer = AVSpeechSynthesizer()
-    
     @StateObject private var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
-    @State private var clear_mission = false
     @State private var userInput: String = ""
     @State private var isTypingVisible: Bool = false
-
     @State private var translation: CGSize = .zero
     @State private var degree: Double = 0.0
-    
-    @State private var missionCount: Int = 0 // Track number of completed missions
     @State private var navigateToHome = false
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -31,19 +34,19 @@ struct Pre_Mission: View {
                         .gesture(
                             DragGesture()
                                 .onChanged { value in
-                                    if clear_mission {
+                                    if missionState.clear_mission {
                                         translation = value.translation
                                         degree = Double(translation.width / 20)
                                     }
                                 }
                                 .onEnded { value in
-                                    if clear_mission {
+                                    if missionState.clear_mission {
                                         if abs(value.translation.width) > 100 {
                                             if value.translation.width > 0 {
-                                                makeStatus(for: randomEntry.0, num: 100)
+                                                makeStatus(for: missionState.randomEntry.0, num: 100)
                                                 loadNextEntry()
                                             } else {
-                                                makeStatus(for: randomEntry.0, num: 10)
+                                                makeStatus(for: missionState.randomEntry.0, num: 10)
                                                 loadNextEntry()
                                             }
                                         }
@@ -56,14 +59,14 @@ struct Pre_Mission: View {
                 Spacer()
                 
                 Button(action: {
-                    lastSpokenText = randomEntry.0
+                    lastSpokenText = missionState.randomEntry.0
                     speakText(lastSpokenText)
                 }) {
                     Text("もう一度再生")
                 }
                 .padding()
                 
-                if !clear_mission {
+                if !missionState.clear_mission {
                     Button(action: {
                         isRecording.toggle()
                         if isRecording {
@@ -106,7 +109,7 @@ struct Pre_Mission: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                     }
-                    NavigationLink(destination: GPTView()) {
+                    NavigationLink(destination: GPTView(missionState: missionState)) {
                         Text("英会話練習")
                             .font(.title)
                             .padding(10)
@@ -137,21 +140,23 @@ struct Pre_Mission: View {
                 }
             }
             .onAppear {
-                loadInitialEntry()
+                if missionState.shouldLoadInitialEntry {
+                    loadInitialEntry()
+                    missionState.shouldLoadInitialEntry = false
+                }
             }
             .onChange(of: speechRecognizer.transcript) {
                 if isRecording {
-                    audio_rec(speechRecognizer.transcript, randomEntry.0)
+                    audio_rec(speechRecognizer.transcript, missionState.randomEntry.0)
                 }
             }
             .onDisappear {
-                lastRandomEntry = "\(randomEntry.0),\(randomEntry.1),\(randomEntry.2),\(randomEntry.3),\(randomEntry.4)"
+                lastRandomEntry = "\(missionState.randomEntry.0),\(missionState.randomEntry.1),\(missionState.randomEntry.2),\(missionState.randomEntry.3),\(missionState.randomEntry.4)"
             }
-            // 5 missions　クリアしたらホームに戻る
-            .onChange(of: missionCount) {
-                if missionCount >= 5 {
+            .onChange(of: missionState.missionCount) {
+                if missionState.missionCount >= 5 {
                     navigateToHome = true
-                    missionCount = 0
+                    missionState.missionCount = 0
                 }
             }
             .navigationDestination(isPresented: Binding<Bool>(
@@ -159,32 +164,32 @@ struct Pre_Mission: View {
                 set: { newValue in if !newValue { navigateToHome = false } }
             )) {
                 ContentView()
-                .navigationBarBackButtonHidden(true) //　戻るボタン非表示に
+                    .navigationBarBackButtonHidden(true)
             }
         }
     }
-    
+
     private func cardView() -> some View {
         VStack {
-            Text(randomEntry.0)
+            Text(missionState.randomEntry.0)
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 10)
-            Text(randomEntry.1)
+            Text(missionState.randomEntry.1)
                 .font(.headline)
                 .multilineTextAlignment(.center)
                 .padding()
-            Text(randomEntry.2)
+            Text(missionState.randomEntry.2)
                 .font(.headline)
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 50)
-            Text(randomEntry.3)
+            Text(missionState.randomEntry.3)
                 .italic()
                 .font(.headline)
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 1)
-            Text(randomEntry.4)
+            Text(missionState.randomEntry.4)
                 .fontWeight(.light)
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
@@ -198,46 +203,44 @@ struct Pre_Mission: View {
 
     private func loadInitialEntry() {
         if lastRandomEntry.isEmpty {
-            randomEntry = loadRandomEntry()
-            if randomEntry.0 != "Error" {
-                lastRandomEntry = "\(randomEntry.0),\(randomEntry.1),\(randomEntry.2),\(randomEntry.3),\(randomEntry.4)"
+            missionState.randomEntry = loadRandomEntry()
+            if missionState.randomEntry.0 != "Error" {
+                lastRandomEntry = "\(missionState.randomEntry.0),\(missionState.randomEntry.1),\(missionState.randomEntry.2),\(missionState.randomEntry.3),\(missionState.randomEntry.4)"
             }
         } else {
-            randomEntry = parseEntry(lastRandomEntry)
-            if randomEntry.0 == "Error" || randomEntry.1 == "CSV file not found" {
-                randomEntry = loadRandomEntry()
+            missionState.randomEntry = parseEntry(lastRandomEntry)
+            if missionState.randomEntry.0 == "Error" || missionState.randomEntry.1 == "CSV file not found" {
+                missionState.randomEntry = loadRandomEntry()
             }
         }
-        speakText(randomEntry.0)
+        speakText(missionState.randomEntry.0)
     }
 
     private func loadNextEntry() {
-        randomEntry = loadRandomEntry()
-        speakText(randomEntry.0)
-        clear_mission = false
+        missionState.randomEntry = loadRandomEntry()
+        speakText(missionState.randomEntry.0)
+        missionState.clear_mission = false
         userInput = ""
         isTypingVisible = false
     }
 
     private func checkUserInput() {
-        if userInput.lowercased() == randomEntry.0.lowercased() {
-            clear_mission = true
+        if userInput.lowercased() == missionState.randomEntry.0.lowercased() {
+            missionState.clear_mission = true
             userInput = ""
-            
-            missionCount += 1 // Increment mission count
+            missionState.missionCount += 1
         }
     }
-    
+
     private func audio_rec(_ audio: String, _ word: String) {
-        if !clear_mission {
+        if !missionState.clear_mission {
             if audio.lowercased().contains(word.lowercased()) {
-                clear_mission = true
+                missionState.clear_mission = true
                 isRecording = false
                 speechRecognizer.stopRecording()
-                
-                missionCount += 1 // Increment mission count
+                missionState.missionCount += 1
             } else {
-                clear_mission = false
+                missionState.clear_mission = false
             }
         }
     }
@@ -249,10 +252,7 @@ struct Pre_Mission: View {
         
         do {
             let csv = try CSV<Named>(url: csvURL)
-            
             createUserCSVIfNeeded(csv: csv)
-            
-            // ユーザーの学習状況に合わせて出題頻度を変える
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
             let statuses = readStatuses(from: userCSVURL)
@@ -289,9 +289,8 @@ struct Pre_Mission: View {
             return ("Error", "reading CSV file", "", "", "")
         }
     }
-    
-    // ユーザーの学習状況を決定
-    func makeStatus(for entry: String, num: Int){
+
+    func makeStatus(for entry: String, num: Int) {
         let status = loadStatus(for: entry)
         let updatedStatus = status + num
         saveStatus(for: entry, status: updatedStatus)
@@ -342,7 +341,7 @@ struct Pre_Mission: View {
             var rows = csv.rows
             
             if let rowIndex = rows.firstIndex(where: { $0["entry"] == entry }) {
-                print("entory:",entry)
+                print("entry:",entry)
                 rows[rowIndex]["status"] = String(status)
             } else {
                 rows.append(["entry": entry, "status": String(status)])
@@ -449,5 +448,4 @@ struct Pre_Mission: View {
 #Preview {
     Pre_Mission()
 }
-
 
