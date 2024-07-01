@@ -293,11 +293,6 @@ class WhisperSpeechRecognizer: ObservableObject {
         body.append("Content-Disposition: form-data; name=\"model\"\r\n\r\n")
         body.append("whisper-1\r\n")
 
-        // Add language parameter
-        body.append("--\(boundary)\r\n")
-        body.append("Content-Disposition: form-data; name=\"language\"\r\n\r\n")
-        body.append("en\r\n")
-
         body.append("--\(boundary)--\r\n")
 
         request.httpBody = body
@@ -329,7 +324,6 @@ class WhisperSpeechRecognizer: ObservableObject {
             }
         }.resume()
     }
-
 
     private func getDocumentsDirectory() -> URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
