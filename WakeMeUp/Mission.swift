@@ -37,9 +37,11 @@ struct Pre_Mission: View {
                                         if abs(value.translation.width) > 100 {
                                             if value.translation.width > 0 {
                                                 makeStatus(for: missionState.randomEntry.0, num: 1)
+                                                missionState.missionCount += 1
                                                 loadNextEntry()
                                             } else {
                                                 makeStatus(for: missionState.randomEntry.0, num: 0)
+                                                missionState.missionCount += 1
                                                 loadNextEntry()
                                             }
                                         }
@@ -167,12 +169,12 @@ struct Pre_Mission: View {
                     missionState.missionCount = 0
                 }
             }
-            .navigationDestination(isPresented: Binding<Bool>(
-                get: { navigateToHome == true },
-                set: { newValue in if !newValue { navigateToHome = false } }
-            )) {
+            .navigationDestination(isPresented: $navigateToHome) {
                 ContentView()
                     .navigationBarBackButtonHidden(true)
+                    .onAppear {
+                        navigateToHome = false
+                    }
             }
         }
     }
@@ -237,7 +239,6 @@ struct Pre_Mission: View {
         if userInput.lowercased() == missionState.randomEntry.0.lowercased() {
             missionState.clear_mission = true
             userInput = ""
-            missionState.missionCount += 1
         }
     }
 
@@ -247,7 +248,6 @@ struct Pre_Mission: View {
                 missionState.clear_mission = true
                 isRecording = false
                 speechRecognizer.stopRecording()
-                missionState.missionCount += 1
             } else {
                 missionState.clear_mission = false
             }

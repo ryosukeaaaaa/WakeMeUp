@@ -2,66 +2,7 @@ import SwiftUI
 import AVFoundation
 import Speech
 
-struct audiotest: View {
-    @StateObject private var speechRecognizer = SpeechRecognizer()
-    @State private var isRecording = false
-
-    var body: some View {
-        VStack {
-            if isRecording {
-                Text("Listening...")
-                    .font(.largeTitle)
-                    .padding()
-            } else {
-                Text("Tap to start recording")
-                    .font(.largeTitle)
-                    .padding()
-            }
-
-            Button(action: {
-                // オンオフの切り替え
-                isRecording.toggle()
-                if isRecording {
-                    speechRecognizer.startRecording()
-                } else {
-                    speechRecognizer.stopRecording()
-                }
-            }) {
-                Text(isRecording ? "Stop" : "Start")
-                    .font(.title)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-
-            ScrollView {
-                Text(speechRecognizer.transcript)
-                    .padding()
-            }
-        }
-        .padding()
-        .onAppear {
-            SFSpeechRecognizer.requestAuthorization { authStatus in
-                switch authStatus {
-                case .authorized:
-                    print("Speech recognition authorized")
-                case .denied:
-                    print("Speech recognition authorization denied")
-                case .restricted:
-                    print("Speech recognition restricted on this device")
-                case .notDetermined:
-                    print("Speech recognition not yet authorized")
-                @unknown default:
-                    fatalError("Unknown speech recognition authorization status")
-                }
-            }
-        }
-    }
-}
-
 class SpeechRecognizer: ObservableObject {
-    // 音声認識の結果を保持
     @Published var transcript = ""
 
     private var speechRecognizer: SFSpeechRecognizer?
@@ -71,23 +12,31 @@ class SpeechRecognizer: ObservableObject {
 
     init() {
         speechRecognizer = SFSpeechRecognizer()
+        configureAudioSession()
     }
 
-    func startRecording() {
-        guard let speechRecognizer = speechRecognizer, speechRecognizer.isAvailable else {
-            print("Speech recognizer is not available")
-            return
-        }
-
-        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+    private func configureAudioSession() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             print("Failed to setup audio session: \(error.localizedDescription)")
+        }
+    }
+
+    func startRecording() {
+        // UIの更新を先に行う
+        DispatchQueue.main.async {
+            self.transcript = "Say something, I'm listening!"
+        }
+
+        guard let speechRecognizer = speechRecognizer, speechRecognizer.isAvailable else {
+            print("Speech recognizer is not available")
             return
         }
+
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
 
         let inputNode = audioEngine.inputNode
         guard let recognitionRequest = recognitionRequest else {
@@ -126,10 +75,6 @@ class SpeechRecognizer: ObservableObject {
             print("Audio engine couldn't start: \(error.localizedDescription)")
             return
         }
-
-        DispatchQueue.main.async {
-            self.transcript = "Say something, I'm listening!"
-        }
     }
 
     func stopRecording() {
@@ -143,9 +88,5 @@ class SpeechRecognizer: ObservableObject {
         let inputNode = audioEngine.inputNode
         inputNode.removeTap(onBus: 0)
     }
-}
-
-#Preview {
-    audiotest()
 }
 

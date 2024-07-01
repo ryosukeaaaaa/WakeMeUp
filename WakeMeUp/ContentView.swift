@@ -23,13 +23,19 @@ struct ContentView: View {
                 NavigationStack {
                     VStack {
                         // 遷移するためのボタン
-                        NavigationLink("ミッションビューへ", value: "mission")
-                            .padding()
+                        NavigationLink(value: "PreMission") {
+                            Text("ミッションビューへ")
+                                .padding()
+                        }
                     }
                     .navigationDestination(for: String.self) { value in
-                        if value == "mission" {
+                        if value == "PreMission" {
                             Pre_Mission()
                         }
+                    }
+                    .onAppear {
+                        // 遷移前の初期化処理を行う
+                        isMissionViewActive = false
                     }
                 }
                 .tabItem {
@@ -55,8 +61,4 @@ struct ContentView: View {
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
 }
