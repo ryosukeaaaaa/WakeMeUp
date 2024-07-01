@@ -8,6 +8,10 @@ struct ContentView: View {
     @State private var debugMessage = ""
     
     @State private var isMissionViewActive = false
+    
+    @State private var MissionView = false
+    
+    @StateObject private var missionState = MissionState()
 
     var body: some View {
         NavigationStack {
@@ -21,21 +25,24 @@ struct ContentView: View {
                 }
 
                 NavigationStack {
-                    VStack {
-                        // 遷移するためのボタン
-                        NavigationLink(value: "PreMission") {
-                            Text("ミッションビューへ")
-                                .padding()
+                    Button(action: {
+                        MissionView = true
+                    }) {
+                        HStack {
+                            Image(systemName: "pencil")
+                            Text("Mission")
+                                .font(.headline)
                         }
+                        .padding(10)
+                        .background(Color.gray)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .navigationDestination(for: String.self) { value in
-                        if value == "PreMission" {
-                            Pre_Mission()
-                        }
-                    }
-                    .onAppear {
-                        // 遷移前の初期化処理を行う
-                        isMissionViewActive = false
+                    .navigationDestination(isPresented: $MissionView) {
+                        Pre_Mission()
+                            .onAppear {
+                            MissionView = false
+                            }
                     }
                 }
                 .tabItem {

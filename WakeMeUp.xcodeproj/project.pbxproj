@@ -20,6 +20,7 @@
 		82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 82053D8D2C188F3300D2D191 /* SwiftCSV */; };
 		821FD69D2C32741900F445C7 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD69C2C32741900F445C7 /* Status.swift */; };
 		821FD69F2C329F8100F445C7 /* MissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD69E2C329F8100F445C7 /* MissionState.swift */; };
+		821FD6A12C3313CC00F445C7 /* MissionClear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6A02C3313CC00F445C7 /* MissionClear.swift */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
 		827A15952C175F8E003B4468 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15942C175F8E003B4468 /* Start.swift */; };
@@ -74,6 +75,7 @@
 		34EB07052C18B9E900535988 /* AlarmEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditView.swift; sourceTree = "<group>"; };
 		821FD69C2C32741900F445C7 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		821FD69E2C329F8100F445C7 /* MissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionState.swift; sourceTree = "<group>"; };
+		821FD6A02C3313CC00F445C7 /* MissionClear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionClear.swift; sourceTree = "<group>"; };
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				827A159C2C176087003B4468 /* Home.swift */,
 				821FD69E2C329F8100F445C7 /* MissionState.swift */,
 				827A15982C176053003B4468 /* Mission.swift */,
+				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
 				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 				821FD69C2C32741900F445C7 /* Status.swift */,
 				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
@@ -382,6 +385,7 @@
 				827A15952C175F8E003B4468 /* Start.swift in Sources */,
 				341C36572C2B30D7009F9594 /* AppDelegate.swift in Sources */,
 				827A15992C176053003B4468 /* Mission.swift in Sources */,
+				821FD6A12C3313CC00F445C7 /* MissionClear.swift in Sources */,
 				3483CF732C2BC37800FA5BD3 /* AlarmLandingView.swift in Sources */,
 				821FD69F2C329F8100F445C7 /* MissionState.swift in Sources */,
 				829A59CC2C163ECD002D7DA3 /* audio.swift in Sources */,

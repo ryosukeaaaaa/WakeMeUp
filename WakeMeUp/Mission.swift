@@ -17,7 +17,7 @@ struct Pre_Mission: View {
     @State private var navigateToHome = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Spacer()
                 ZStack {
@@ -40,12 +40,16 @@ struct Pre_Mission: View {
                                                 missionState.missionCount += 1
                                                 if missionState.missionCount < missionState.ClearCount {
                                                     loadNextEntry()
+                                                }else{
+                                                    navigateToHome = true
                                                 }
                                             } else {
                                                 makeStatus(for: missionState.randomEntry.0, num: 0)
                                                 missionState.missionCount += 1
                                                 if missionState.missionCount < missionState.ClearCount {
                                                     loadNextEntry()
+                                                }else{
+                                                    navigateToHome = true
                                                 }
                                             }
                                         }
@@ -167,19 +171,13 @@ struct Pre_Mission: View {
             .onDisappear {
                 lastRandomEntry = "\(missionState.randomEntry.0),\(missionState.randomEntry.1),\(missionState.randomEntry.2),\(missionState.randomEntry.3),\(missionState.randomEntry.4)"
             }
-            .onChange(of: missionState.missionCount) {
-                if missionState.missionCount >= missionState.ClearCount {
-                    missionState.missionCount = 0
-                    missionState.clear_mission = false // ここに2つ入れる
-                    missionState.shouldLoadInitialEntry = true
-                    navigateToHome = true
-                }
-            }
             .navigationDestination(isPresented: $navigateToHome) {
-                ContentView()
-                    .navigationBarBackButtonHidden(true)
+                MissionClear()
                     .onAppear {
-                        navigateToHome = false
+                    navigateToHome = false
+                    missionState.missionCount = 0
+                    missionState.clear_mission = false
+                    missionState.shouldLoadInitialEntry = true
                     }
             }
         }
