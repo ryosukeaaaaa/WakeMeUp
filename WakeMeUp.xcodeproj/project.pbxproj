@@ -31,7 +31,7 @@
 		827AE3BA2C18880D00DABD95 /* ビジネス英単語（BSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */; };
 		827AE3BB2C18880D00DABD95 /* 学術英単語（NAWL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */; };
 		827AE3BC2C18880D00DABD95 /* 基礎英単語（NGSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */; };
-		827AE3BD2C18880D00DABD95 /* TOEIC.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B92C18880D00DABD95 /* TOEIC.csv */; };
+		827AE3BD2C18880D00DABD95 /* TOEIC英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B92C18880D00DABD95 /* TOEIC英単語.csv */; };
 		828A07D92C1956270008A956 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 828A07D82C1956270008A956 /* Alamofire */; };
 		828A07DD2C1959C90008A956 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 828A07DC2C1959C90008A956 /* .gitignore */; };
 		828A07DF2C1994070008A956 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07DE2C1994070008A956 /* Config.swift */; };
@@ -85,7 +85,7 @@
 		827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ビジネス英単語（BSL）.csv"; path = "WakeMeUp/ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
 		827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "学術英単語（NAWL）.csv"; path = "WakeMeUp/学術英単語（NAWL）.csv"; sourceTree = SOURCE_ROOT; };
 		827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "基礎英単語（NGSL）.csv"; path = "WakeMeUp/基礎英単語（NGSL）.csv"; sourceTree = SOURCE_ROOT; };
-		827AE3B92C18880D00DABD95 /* TOEIC.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TOEIC.csv; path = WakeMeUp/TOEIC.csv; sourceTree = SOURCE_ROOT; };
+		827AE3B92C18880D00DABD95 /* TOEIC英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "TOEIC英単語.csv"; path = "WakeMeUp/TOEIC英単語.csv"; sourceTree = SOURCE_ROOT; };
 		828A07DC2C1959C90008A956 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		828A07DE2C1994070008A956 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		828A07E02C19DE7A0008A956 /* GPT_audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT_audio.swift; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 				821FD69C2C32741900F445C7 /* Status.swift */,
 				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
-				827AE3B92C18880D00DABD95 /* TOEIC.csv */,
+				827AE3B92C18880D00DABD95 /* TOEIC英単語.csv */,
 				827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */,
 				827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */,
 				827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */,
@@ -344,7 +344,7 @@
 				828A07DD2C1959C90008A956 /* .gitignore in Resources */,
 				341C36532C2B2FA0009F9594 /* Config.plist in Resources */,
 				341C36592C2B31A6009F9594 /* alarm_sound.wav in Resources */,
-				827AE3BD2C18880D00DABD95 /* TOEIC.csv in Resources */,
+				827AE3BD2C18880D00DABD95 /* TOEIC英単語.csv in Resources */,
 				827AE3BC2C18880D00DABD95 /* 基礎英単語（NGSL）.csv in Resources */,
 				827AE3BB2C18880D00DABD95 /* 学術英単語（NAWL）.csv in Resources */,
 				827AE3BA2C18880D00DABD95 /* ビジネス英単語（BSL）.csv in Resources */,

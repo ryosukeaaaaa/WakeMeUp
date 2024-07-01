@@ -12,10 +12,11 @@ struct SettingsView: View {
                 }
                 
                 // materialの設定
-                Picker("素材", selection: $missionState.material) {
-                    Text("TOEIC").tag("TOEIC")
-                    Text("TOEFL").tag("TOEFL")
-                    Text("IELTS").tag("IELTS")
+                Picker("教材", selection: $missionState.material) {
+                    Text("基礎英単語").tag("基礎英単語")
+                    Text("TOEIC英単語").tag("TOEIC英単語")
+                    Text("ビジネス英単語").tag("ビジネス英単語")
+                    Text("学術英単語").tag("学術英単語")
                 }
             }
         }

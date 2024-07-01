@@ -255,7 +255,8 @@ struct Pre_Mission: View {
     }
 
     func loadRandomEntry() -> (String, String, String, String, String) {
-        guard let csvURL = Bundle.main.url(forResource: "TOEIC", withExtension: "csv") else {
+        // 英単語読み込み先
+        guard let csvURL = Bundle.main.url(forResource: missionState.material, withExtension: "csv") else {
             return ("Error", "CSV file not found", "", "", "")
         }
 
@@ -263,7 +264,7 @@ struct Pre_Mission: View {
             let csv = try CSV<Named>(url: csvURL)
             createUserCSVIfNeeded(csv: csv)
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
+            let userCSVURL = documentDirectory.appendingPathComponent(missionState.material+"_status"+".csv")
             let statuses = readStatuses(from: userCSVURL)
 
             if statuses.isEmpty {
@@ -307,7 +308,8 @@ struct Pre_Mission: View {
 
     func createUserCSVIfNeeded(csv: CSV<Named>) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(missionState.material+"_status"+".csv")
+        print(userCSVURL.path)
 
         if !FileManager.default.fileExists(atPath: userCSVURL.path) {
             do {
@@ -326,7 +328,7 @@ struct Pre_Mission: View {
 
     func loadStatus(for entry: String) -> Int {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(missionState.material+"_status"+".csv")
 
         do {
             let csv = try CSV<Named>(url: userCSVURL)
@@ -343,7 +345,7 @@ struct Pre_Mission: View {
 
     func saveStatus(for entry: String, status: Int) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(missionState.material+"_status"+".csv")
 
         do {
             let csv = try CSV<Named>(url: userCSVURL)

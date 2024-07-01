@@ -26,6 +26,6 @@ class MissionState: ObservableObject {
     
     init() {
         self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
-        self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC"
+        self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC英単語"
     }
 }
