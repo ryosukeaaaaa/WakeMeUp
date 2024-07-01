@@ -6,70 +6,45 @@ struct ContentView: View {
     @State private var currentAlarmId: String?
     @State private var currentGroupId: String?
     @State private var debugMessage = ""
+    
+    @State private var isMissionViewActive = false
 
     var body: some View {
-        TabView {
-            NavigationStack {
-                AlarmListView(alarmStore: alarmStore)
-            }
-            .tabItem {
-                Image(systemName: "list.bullet")
-                Text("アラーム")
-            }
-            
-            NavigationStack {
-                Pre_Mission()
-            }
-            .tabItem {
-                Image(systemName: "flag")
-                Text("ミッション")
-            }
-            
-            NavigationStack {
-                SettingsView()
-            }
-            .tabItem {
-                Image(systemName: "gear")
-                Text("設定")
-            }
-        }
-        .navigationBarBackButtonHidden(true)
-        .fullScreenCover(isPresented: $showingAlarmLanding) {
-            if let alarmId = currentAlarmId, let groupId = currentGroupId {
+        NavigationStack {
+            TabView {
                 NavigationStack {
-                    AlarmLandingView(alarmStore: alarmStore, alarmId: alarmId, groupId: groupId, isPresented: $showingAlarmLanding)
+                    AlarmListView(alarmStore: alarmStore)
                 }
-            } else {
-                Text("No alarm information available")
-                    .onAppear {
-                        print("ContentView: No alarm information available. currentAlarmId: \(String(describing: currentAlarmId)), currentGroupId: \(String(describing: currentGroupId))")
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("アラーム")
+                }
+
+                NavigationStack {
+                    VStack {
+                        // 遷移するためのボタン
+                        NavigationLink("ミッションビューへ", value: "mission")
+                            .padding()
                     }
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
-            print("ContentView: Received ShowAlarmLanding notification")
-            if let alarmId = notification.userInfo?["alarmId"] as? String,
-               let groupId = notification.userInfo?["groupId"] as? String {
-                print("ContentView: Received alarmId: \(alarmId) and groupId: \(groupId)")
-                DispatchQueue.main.async {
-                    self.currentAlarmId = alarmId
-                    self.currentGroupId = groupId
-                    self.showingAlarmLanding = true
-                    self.debugMessage = "Received notification with alarmId: \(alarmId) and groupId: \(groupId)"
+                    .navigationDestination(for: String.self) { value in
+                        if value == "mission" {
+                            Pre_Mission()
+                        }
+                    }
                 }
-            } else {
-                print("ContentView: Failed to extract alarmId or groupId from notification")
-                self.debugMessage = "Received notification without proper alarm information"
+                .tabItem {
+                    Image(systemName: "flag")
+                    Text("ミッション")
+                }
+
+                NavigationStack {
+                    SettingsView()
+                }
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("設定")
+                }
             }
-            print(self.debugMessage)
         }
-        .overlay(
-            Text(debugMessage)
-                .foregroundColor(.red)
-                .padding()
-                .background(Color.black.opacity(0.7))
-                .cornerRadius(10)
-                .opacity(debugMessage.isEmpty ? 0 : 1)
-        )
     }
 }

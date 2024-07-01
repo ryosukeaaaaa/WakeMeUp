@@ -163,6 +163,7 @@ struct GPTView: View {
     }
 }
 
+
 #Preview {
     GPTView(missionState: MissionState())
 }

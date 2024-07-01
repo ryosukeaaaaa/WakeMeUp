@@ -7,6 +7,7 @@ class MissionState: ObservableObject {
     @Published var clear_mission = false
     @Published var missionCount: Int = 0
     @Published var shouldLoadInitialEntry: Bool = true // フラグを追加
+    @Published var ClearCount: Int = 5
 }
 
 struct Pre_Mission: View {
@@ -56,8 +57,10 @@ struct Pre_Mission: View {
                                 }
                         )
                 }
+                .frame(width: 400, height: 400) // Fix the size of the ZStack
+
                 Spacer()
-                
+
                 Button(action: {
                     lastSpokenText = missionState.randomEntry.0
                     speakText(lastSpokenText)
@@ -65,7 +68,7 @@ struct Pre_Mission: View {
                     Text("もう一度再生")
                 }
                 .padding()
-                
+
                 if !missionState.clear_mission {
                     Button(action: {
                         isRecording.toggle()
@@ -82,26 +85,12 @@ struct Pre_Mission: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    
+
                     ScrollView {
                         Text(speechRecognizer.transcript)
                             .padding()
                     }
-                    
-                    if !isTypingVisible {
-                        Button(action: {
-                            isTypingVisible.toggle()
-                        }) {
-                            Text("タイピング")
-                                .font(.headline)
-                                .padding(10)
-                                .background(Color.gray)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                        .padding()
-                    }
-                    
+
                     if isTypingVisible {
                         TextField("入力してください", text: $userInput, onCommit: {
                             checkUserInput()
@@ -109,15 +98,40 @@ struct Pre_Mission: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                     }
-                    NavigationLink(destination: GPTView(missionState: missionState)) {
-                        Text("英会話練習")
-                            .font(.title)
+
+                    HStack {
+                        Button(action: {
+                            isTypingVisible.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "pencil")
+                                Text("タイピング")
+                                    .font(.headline)
+                            }
+                            .padding(10)
+                            .background(Color.gray)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+
+                        NavigationLink(destination: GPTView(missionState: missionState)) {
+                            HStack {
+                                Image(systemName: "person.fill")
+                                Text("英会話練習")
+                                    .font(.headline)
+                            }
                             .padding(10)
                             .background(Color.orange)
                             .foregroundColor(.white)
-                            .cornerRadius(5)
+                            .cornerRadius(10)
+                        }
+
+                        Text("\(missionState.missionCount+1) / \(missionState.ClearCount)")
+                            .fontWeight(.light)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.trailing)
+                            .padding()
                     }
-                    
                 } else {
                     HStack {
                         Text("←不安")
@@ -126,7 +140,7 @@ struct Pre_Mission: View {
                             .background(Color.blue)
                             .cornerRadius(10)
                             .frame(maxWidth: .infinity)
-                        
+
                         Text("完璧→")
                             .foregroundColor(.white)
                             .padding()
@@ -138,6 +152,8 @@ struct Pre_Mission: View {
                         .font(.headline)
                         .padding()
                 }
+
+                Spacer() // Add this Spacer to ensure the card stays in the middle
             }
             .onAppear {
                 if missionState.shouldLoadInitialEntry {
@@ -154,7 +170,7 @@ struct Pre_Mission: View {
                 lastRandomEntry = "\(missionState.randomEntry.0),\(missionState.randomEntry.1),\(missionState.randomEntry.2),\(missionState.randomEntry.3),\(missionState.randomEntry.4)"
             }
             .onChange(of: missionState.missionCount) {
-                if missionState.missionCount >= 5 {
+                if missionState.missionCount >= missionState.ClearCount {
                     navigateToHome = true
                     missionState.missionCount = 0
                 }
@@ -196,6 +212,7 @@ struct Pre_Mission: View {
                 .padding()
         }
         .padding()
+        .frame(width: 400, height: 400)
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
@@ -249,35 +266,35 @@ struct Pre_Mission: View {
         guard let csvURL = Bundle.main.url(forResource: "TOEIC", withExtension: "csv") else {
             return ("Error", "CSV file not found", "", "", "")
         }
-        
+
         do {
             let csv = try CSV<Named>(url: csvURL)
             createUserCSVIfNeeded(csv: csv)
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
             let statuses = readStatuses(from: userCSVURL)
-            
+
             if statuses.isEmpty {
                 print("No statuses found.")
                 return ("Error", "No statuses found", "", "", "")
             } else {
                 let cumulativeProbabilities = calculateInverseProbabilities(for: statuses)
-                
+
                 if let randomRowIndex = selectIndexBasedOnCDF(cumulativeProbabilities: cumulativeProbabilities) {
                     print("Selected Index: \(randomRowIndex)")
-                    
+
                     let row = csv.rows[randomRowIndex]
-                    
+
                     if row.isEmpty {
                         return ("No entries found", "", "", "", "")
                     }
-                    
+
                     let entry = row["entry"] ?? "No entry"
                     let ipa = row["ipa"] ?? "No ipa"
                     let meaning = row["meaning"] ?? "No meaning"
                     let example = row["example_sentence"] ?? "No example"
                     let translated = row["translated_sentence"] ?? "No translation"
-                    
+
                     return (entry, ipa, meaning, example, translated)
                 } else {
                     print("Failed to select an index.")
@@ -295,11 +312,11 @@ struct Pre_Mission: View {
         let updatedStatus = status + num
         saveStatus(for: entry, status: updatedStatus)
     }
-    
+
     func createUserCSVIfNeeded(csv: CSV<Named>) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
-        
+
         if !FileManager.default.fileExists(atPath: userCSVURL.path) {
             do {
                 var userCSVString = "entry,status\n"
@@ -318,7 +335,7 @@ struct Pre_Mission: View {
     func loadStatus(for entry: String) -> Int {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
-        
+
         do {
             let csv = try CSV<Named>(url: userCSVURL)
             if let row = csv.rows.first(where: { $0["entry"] == entry }), let statusString = row["status"], let status = Int(statusString) {
@@ -335,18 +352,18 @@ struct Pre_Mission: View {
     func saveStatus(for entry: String, status: Int) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let userCSVURL = documentDirectory.appendingPathComponent("user.csv")
-        
+
         do {
             let csv = try CSV<Named>(url: userCSVURL)
             var rows = csv.rows
-            
+
             if let rowIndex = rows.firstIndex(where: { $0["entry"] == entry }) {
-                print("entry:",entry)
+                print("entry:", entry)
                 rows[rowIndex]["status"] = String(status)
             } else {
                 rows.append(["entry": entry, "status": String(status)])
             }
-            
+
             try writeCSV(header: ["entry", "status"], rows: rows, to: userCSVURL)
         } catch {
             print("Error saving status: \(error)")
@@ -359,24 +376,24 @@ struct Pre_Mission: View {
             let rowString = header.map { row[$0] ?? "" }.joined(separator: ",")
             csvString += rowString + "\n"
         }
-        
+
         guard let encodedData = csvString.data(using: .utf8) else {
             throw CSVError.encodingFailed
         }
-        
+
         do {
             try encodedData.write(to: url)
         } catch {
             throw CSVError.fileWriteFailed
         }
     }
-    
+
     enum CSVError: Error {
         case encodingFailed
         case documentDirectoryNotFound
         case fileWriteFailed
     }
-    
+
     func parseEntry(_ entry: String) -> (String, String, String, String, String) {
         let components = entry.split(separator: ",").map { String($0) }
         guard components.count == 5 else {
@@ -384,25 +401,25 @@ struct Pre_Mission: View {
         }
         return (components[0], components[1], components[2], components[3], components[4])
     }
-    
+
     func speakText(_ text: String) {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
         synthesizer.speak(utterance)
     }
-    
+
     func readStatuses(from csvURL: URL) -> [Int] {
         do {
             let csv = try CSV<Named>(url: csvURL)
             var statuses: [Int] = []
-            
+
             for row in csv.rows {
                 if let statusString = row["status"], let status = Int(statusString) {
                     statuses.append(status)
                 }
             }
-            
+
             return statuses
         } catch {
             print("Error loading statuses: \(error)")
@@ -419,7 +436,7 @@ struct Pre_Mission: View {
             inverseProbabilities.append(inverseProbability)
             totalInverseProbability += inverseProbability
         }
-        
+
         // 逆数確率を正規化して累積分布関数を作成
         var cumulativeProbabilities: [Double] = []
         var cumulativeSum = 0.0
@@ -428,7 +445,7 @@ struct Pre_Mission: View {
             cumulativeSum += inverseProbability / totalInverseProbability
             cumulativeProbabilities.append(cumulativeSum)
         }
-        
+
         return cumulativeProbabilities
     }
 
