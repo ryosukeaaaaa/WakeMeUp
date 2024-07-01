@@ -34,7 +34,10 @@ class ChatViewModel: ObservableObject {
     @ObservedObject private var whisperRecognizer = WhisperSpeechRecognizer()
     @Published var isRecording = false
     
-    init() {
+    var missionState: MissionState
+    
+    init(missionState: MissionState) {
+        self.missionState = missionState
         whisperRecognizer.delegate = self
     }
 
@@ -58,7 +61,7 @@ class ChatViewModel: ObservableObject {
             Message(role: "user", content: prompt)
         ]
         
-        let chatRequest = ChatRequest(model: "gpt-4o", messages: messages)
+        let chatRequest = ChatRequest(model: "gpt-4", messages: messages)
         
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(apiKey)",
@@ -100,15 +103,25 @@ extension ChatViewModel: WhisperSpeechRecognizerDelegate {
         DispatchQueue.main.async {
             self.messages.append("User (speech): \(text)")
             self.sendChatRequest(prompt: text)
+            
+            if text.lowercased().contains(self.missionState.randomEntry.0.lowercased()) {
+                self.missionState.clear_mission = true
+                print("clear!!!!!")
+            }
         }
     }
 }
 
 struct GPTView: View {
-    @ObservedObject var viewModel = ChatViewModel()
-    @ObservedObject var missionState: MissionState // MissionStateを受け取る
+    @ObservedObject var viewModel: ChatViewModel
+    @ObservedObject var missionState: MissionState
     
     @State private var userInput: String = ""
+    
+    init(missionState: MissionState) {
+        self.missionState = missionState
+        self.viewModel = ChatViewModel(missionState: missionState)
+    }
     
     var body: some View {
         VStack {
@@ -124,6 +137,11 @@ struct GPTView: View {
                 Button(action: {
                     viewModel.messages.append("User: \(userInput)")
                     viewModel.sendChatRequest(prompt: userInput)
+                    
+                    if userInput.lowercased().contains(missionState.randomEntry.0.lowercased()) {
+                        missionState.clear_mission = true
+                        print("clear!!!!!")
+                    }
                     
                     userInput = ""
                 }) {
@@ -275,6 +293,11 @@ class WhisperSpeechRecognizer: ObservableObject {
         body.append("Content-Disposition: form-data; name=\"model\"\r\n\r\n")
         body.append("whisper-1\r\n")
 
+        // Add language parameter
+        body.append("--\(boundary)\r\n")
+        body.append("Content-Disposition: form-data; name=\"language\"\r\n\r\n")
+        body.append("en\r\n")
+
         body.append("--\(boundary)--\r\n")
 
         request.httpBody = body
@@ -306,6 +329,7 @@ class WhisperSpeechRecognizer: ObservableObject {
             }
         }.resume()
     }
+
 
     private func getDocumentsDirectory() -> URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]

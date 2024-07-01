@@ -43,10 +43,10 @@ struct Pre_Mission: View {
                                     if missionState.clear_mission {
                                         if abs(value.translation.width) > 100 {
                                             if value.translation.width > 0 {
-                                                makeStatus(for: missionState.randomEntry.0, num: 100)
+                                                makeStatus(for: missionState.randomEntry.0, num: 1)
                                                 loadNextEntry()
                                             } else {
-                                                makeStatus(for: missionState.randomEntry.0, num: 10)
+                                                makeStatus(for: missionState.randomEntry.0, num: 0)
                                                 loadNextEntry()
                                             }
                                         }
@@ -305,7 +305,7 @@ struct Pre_Mission: View {
                 var userCSVString = "entry,status\n"
                 for row in csv.rows {
                     if let entry = row["entry"] {
-                        userCSVString += "\(entry),1000000\n"
+                        userCSVString += "\(entry),1\n"
                     }
                 }
                 try userCSVString.write(to: userCSVURL, atomically: true, encoding: .utf8)
