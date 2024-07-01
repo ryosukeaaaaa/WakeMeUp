@@ -38,11 +38,15 @@ struct Pre_Mission: View {
                                             if value.translation.width > 0 {
                                                 makeStatus(for: missionState.randomEntry.0, num: 1)
                                                 missionState.missionCount += 1
-                                                loadNextEntry()
+                                                if missionState.missionCount < missionState.ClearCount {
+                                                    loadNextEntry()
+                                                }
                                             } else {
                                                 makeStatus(for: missionState.randomEntry.0, num: 0)
                                                 missionState.missionCount += 1
-                                                loadNextEntry()
+                                                if missionState.missionCount < missionState.ClearCount {
+                                                    loadNextEntry()
+                                                }
                                             }
                                         }
                                         translation = .zero
@@ -165,8 +169,10 @@ struct Pre_Mission: View {
             }
             .onChange(of: missionState.missionCount) {
                 if missionState.missionCount >= missionState.ClearCount {
-                    navigateToHome = true
                     missionState.missionCount = 0
+                    missionState.clear_mission = false // ここに2つ入れる
+                    missionState.shouldLoadInitialEntry = true
+                    navigateToHome = true
                 }
             }
             .navigationDestination(isPresented: $navigateToHome) {
