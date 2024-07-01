@@ -18,6 +18,8 @@
 		34EB07042C18B94800535988 /* AlarmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EB07032C18B94800535988 /* AlarmData.swift */; };
 		34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EB07052C18B9E900535988 /* AlarmEditView.swift */; };
 		82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 82053D8D2C188F3300D2D191 /* SwiftCSV */; };
+		821FD69D2C32741900F445C7 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD69C2C32741900F445C7 /* Status.swift */; };
+		821FD69F2C329F8100F445C7 /* MissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD69E2C329F8100F445C7 /* MissionState.swift */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
 		827A15952C175F8E003B4468 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15942C175F8E003B4468 /* Start.swift */; };
@@ -70,6 +72,8 @@
 		3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		34EB07032C18B94800535988 /* AlarmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmData.swift; sourceTree = "<group>"; };
 		34EB07052C18B9E900535988 /* AlarmEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditView.swift; sourceTree = "<group>"; };
+		821FD69C2C32741900F445C7 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		821FD69E2C329F8100F445C7 /* MissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionState.swift; sourceTree = "<group>"; };
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
@@ -78,9 +82,9 @@
 		827A159A2C176077003B4468 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
 		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
-		827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
-		827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "学術英単語（NAWL）.csv"; sourceTree = SOURCE_ROOT; };
-		827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "基礎英単語（NGSL）.csv"; sourceTree = SOURCE_ROOT; };
+		827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ビジネス英単語（BSL）.csv"; path = "WakeMeUp/ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
+		827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "学術英単語（NAWL）.csv"; path = "WakeMeUp/学術英単語（NAWL）.csv"; sourceTree = SOURCE_ROOT; };
+		827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "基礎英単語（NGSL）.csv"; path = "WakeMeUp/基礎英単語（NGSL）.csv"; sourceTree = SOURCE_ROOT; };
 		827AE3B92C18880D00DABD95 /* TOEIC.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TOEIC.csv; path = WakeMeUp/TOEIC.csv; sourceTree = SOURCE_ROOT; };
 		828A07DC2C1959C90008A956 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		828A07DE2C1994070008A956 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -138,9 +142,6 @@
 		827AE3B52C18875200DABD95 /* data */ = {
 			isa = PBXGroup;
 			children = (
-				827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */,
-				827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */,
-				827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -179,15 +180,20 @@
 				3483CF722C2BC37800FA5BD3 /* AlarmLandingView.swift */,
 				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
 				341C36562C2B30D7009F9594 /* AppDelegate.swift */,
-				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
 				827A159C2C176087003B4468 /* Home.swift */,
+				821FD69E2C329F8100F445C7 /* MissionState.swift */,
 				827A15982C176053003B4468 /* Mission.swift */,
-				828A07E02C19DE7A0008A956 /* GPT_audio.swift */,
+				824D789E2C1C61BC0070D045 /* Whisper.swift */,
+				821FD69C2C32741900F445C7 /* Status.swift */,
+				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
 				827AE3B92C18880D00DABD95 /* TOEIC.csv */,
+				827AE3B62C18880D00DABD95 /* ビジネス英単語（BSL）.csv */,
+				827AE3B72C18880D00DABD95 /* 学術英単語（NAWL）.csv */,
+				827AE3B82C18880D00DABD95 /* 基礎英単語（NGSL）.csv */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				341C36522C2B2FA0009F9594 /* Config.plist */,
 				827A159A2C176077003B4468 /* GPT.swift */,
-				824D789E2C1C61BC0070D045 /* Whisper.swift */,
+				828A07E02C19DE7A0008A956 /* GPT_audio.swift */,
 				828A07DE2C1994070008A956 /* Config.swift */,
 				829A59CB2C163ECD002D7DA3 /* audiotest.swift */,
 				827A15942C175F8E003B4468 /* Start.swift */,
@@ -377,6 +383,7 @@
 				341C36572C2B30D7009F9594 /* AppDelegate.swift in Sources */,
 				827A15992C176053003B4468 /* Mission.swift in Sources */,
 				3483CF732C2BC37800FA5BD3 /* AlarmLandingView.swift in Sources */,
+				821FD69F2C329F8100F445C7 /* MissionState.swift in Sources */,
 				829A59CC2C163ECD002D7DA3 /* audiotest.swift in Sources */,
 				3483CF752C2BFE8600FA5BD3 /* AlarmListView.swift in Sources */,
 				827A15A32C18641A003B4468 /* ContentView.swift in Sources */,
@@ -386,6 +393,7 @@
 				828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */,
 				827A159D2C176087003B4468 /* Home.swift in Sources */,
 				824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */,
+				821FD69D2C32741900F445C7 /* Status.swift in Sources */,
 				829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

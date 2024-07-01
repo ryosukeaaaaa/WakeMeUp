@@ -36,6 +36,14 @@ struct ContentView: View {
                     Image(systemName: "flag")
                     Text("ミッション")
                 }
+                
+                NavigationStack {
+                    StatusView()
+                }
+                .tabItem {
+                    Image(systemName: "chart.bar")
+                    Text("習得状況")
+                }
 
                 NavigationStack {
                     SettingsView()
@@ -47,4 +55,8 @@ struct ContentView: View {
             }
         }
     }
+}
+
+#Preview {
+    ContentView()
 }

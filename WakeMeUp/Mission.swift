@@ -2,14 +2,6 @@ import SwiftUI
 import SwiftCSV
 import AVFoundation
 
-class MissionState: ObservableObject {
-    @Published var randomEntry: (String, String, String, String, String) = ("", "", "", "", "")
-    @Published var clear_mission = false
-    @Published var missionCount: Int = 0
-    @Published var shouldLoadInitialEntry: Bool = true // フラグを追加
-    @Published var ClearCount: Int = 5
-}
-
 struct Pre_Mission: View {
     @AppStorage("lastRandomEntry") private var lastRandomEntry: String = ""
     @StateObject private var missionState = MissionState() // MissionStateを使用
