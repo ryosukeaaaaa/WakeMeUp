@@ -23,9 +23,15 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(material, forKey: "material")
         }
     }
+    @Published var EnglishLevel: String {
+        didSet {
+            UserDefaults.standard.set(EnglishLevel, forKey: "EnglishLevel")
+        }
+    }
     
     init() {
         self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
         self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC英単語"
+        self.EnglishLevel = UserDefaults.standard.string(forKey: "EnglishLevel") ?? "中級者"
     }
 }

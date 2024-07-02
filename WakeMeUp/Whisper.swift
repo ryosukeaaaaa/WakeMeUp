@@ -61,7 +61,7 @@ class ChatViewModel: ObservableObject {
             Message(role: "user", content: prompt)
         ]
         
-        let chatRequest = ChatRequest(model: "gpt-4", messages: messages)
+        let chatRequest = ChatRequest(model: "gpt-4o", messages: messages)
         
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(apiKey)",

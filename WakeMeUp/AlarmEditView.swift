@@ -45,6 +45,3 @@ struct AlarmEditView_Previews: PreviewProvider {
         AlarmEditView(alarms: .constant([]))
     }
 }
-
-
-
