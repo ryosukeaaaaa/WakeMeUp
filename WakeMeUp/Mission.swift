@@ -15,6 +15,8 @@ struct Pre_Mission: View {
     @State private var translation: CGSize = .zero
     @State private var degree: Double = 0.0
     @State private var navigateToHome = false
+    
+    @State private var GPT = false
 
     var body: some View {
         NavigationStack {
@@ -116,7 +118,9 @@ struct Pre_Mission: View {
                             .cornerRadius(10)
                         }
 
-                        NavigationLink(destination: GPTView(missionState: missionState)) {
+                        Button(action: {
+                            GPT = true
+                        }) {
                             HStack {
                                 Image(systemName: "person.fill")
                                 Text("英会話練習")
@@ -126,6 +130,12 @@ struct Pre_Mission: View {
                             .background(Color.orange)
                             .foregroundColor(.white)
                             .cornerRadius(10)
+                        }
+                        .navigationDestination(isPresented: $GPT) {
+                            GPTView(missionState: missionState)
+                                .onAppear {
+                                    GPT = true //ここが問題
+                                }
                         }
 
                         Text("\(missionState.missionCount+1) / \(missionState.ClearCount)")
@@ -161,6 +171,8 @@ struct Pre_Mission: View {
                 if missionState.shouldLoadInitialEntry {
                     loadInitialEntry()
                     missionState.shouldLoadInitialEntry = false
+                }else{
+                    GPT = false
                 }
             }
             .onChange(of: speechRecognizer.transcript) {
@@ -463,4 +475,3 @@ struct Pre_Mission: View {
 #Preview {
     Pre_Mission()
 }
-

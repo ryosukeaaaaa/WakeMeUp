@@ -55,9 +55,43 @@ class ChatViewModel: ObservableObject {
         isRecording = false
     }
     
+    func sendInitialChatRequest() {
+        let messages = [
+            Message(role: "system", content: "Please provide a short example sentence in English using the word \(self.missionState.randomEntry.0).")
+        ]
+        
+        let chatRequest = ChatRequest(model: "gpt-4o", messages: messages)
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(apiKey)",
+            "Content-Type": "application/json"
+        ]
+        
+        AF.request(endpoint, method: .post, parameters: chatRequest, encoder: JSONParameterEncoder.default, headers: headers).responseDecodable(of: ChatResponse.self) { response in
+            switch response.result {
+            case .success(let chatResponse):
+                if let firstChoice = chatResponse.choices.first {
+                    DispatchQueue.main.async {
+                        let responseMessage = firstChoice.message.content
+                        self.messages.append("\(self.missionState.randomEntry.0)の例文: \(responseMessage)")
+                        self.speakText(responseMessage)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.messages.append("通信エラー")
+                    }
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.messages.append("Error: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
     func sendChatRequest(prompt: String) {
         let messages = [
-            Message(role: "system", content: "You are an English teacher who speaks only English."), // AIに役割を与える
+            Message(role: "system", content: "You are an English teacher. If there are any improvements to my English, please correct them. Then, please continue the conversation."),
             Message(role: "user", content: prompt)
         ]
         
@@ -157,11 +191,12 @@ struct GPTView: View {
                 .padding()
             }
         }
-        .onDisappear {
-            missionState.shouldLoadInitialEntry = false // フラグをリセット
+        .onAppear {
+            viewModel.sendInitialChatRequest()
         }
     }
 }
+
 
 
 #Preview {
@@ -293,6 +328,11 @@ class WhisperSpeechRecognizer: ObservableObject {
         body.append("--\(boundary)\r\n")
         body.append("Content-Disposition: form-data; name=\"model\"\r\n\r\n")
         body.append("whisper-1\r\n")
+        
+        // Add language parameter
+        body.append("--\(boundary)\r\n")
+        body.append("Content-Disposition: form-data; name=\"language\"\r\n\r\n")
+        body.append("en\r\n")
 
         body.append("--\(boundary)--\r\n")
 
