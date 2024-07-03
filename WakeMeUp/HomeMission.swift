@@ -35,7 +35,7 @@ struct HomeMission: View {
                 .navigationDestination(isPresented: $basic) {
                     Pre_Mission(fromHome: true, material: "基礎英単語", reset: true)// trueにすることで目覚ましと区別
                 }
-            
+                
                 Button(action: {
                     toeic = true
                 }) {
@@ -96,6 +96,7 @@ struct HomeMission: View {
         }
         .padding()
         .onAppear {
+            print("aaaadaf")
             basic = false
             toeic = false
             business = false

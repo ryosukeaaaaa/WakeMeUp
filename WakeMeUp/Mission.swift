@@ -24,10 +24,10 @@ struct Pre_Mission: View {
     
     var material: String = MissionState().material // デフォルト値を設定
     
-    var reset: Bool = false
+    @State var reset: Bool = false
     
     var body: some View {
-        NavigationStack {
+        NavigationView {  // なぜかStackだと上手くいかない
             VStack {
                 Spacer()
                 ZStack {
@@ -125,7 +125,7 @@ struct Pre_Mission: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }
-
+                        
                         Button(action: {
                             GPT = true
                         }) {
@@ -142,12 +142,6 @@ struct Pre_Mission: View {
                         .navigationDestination(isPresented: $GPT) {
                             GPTView(missionState: missionState)
                         }
-
-//                        Text("\(missionState.missionCount+1) / \(missionState.ClearCount)")
-//                            .fontWeight(.light)
-//                            .font(.subheadline)
-//                            .multilineTextAlignment(.trailing)
-//                            .padding()
                     }
                 } else {
                     HStack {
@@ -199,9 +193,11 @@ struct Pre_Mission: View {
                 }
            }
             .onAppear {
+                print("misision")
                 if reset{
                     missionState.shouldLoadInitialEntry = true
                     lastRandomEntry = ""  // なんで過去のエントリーを残してるのか分からんくなったけど一応
+                    reset = false
                 }
                 if missionState.shouldLoadInitialEntry { // 英会話画面から戻ってきたときに単語が変わらないように
                     print("ini")
