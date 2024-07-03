@@ -166,32 +166,6 @@ struct Pre_Mission: View {
 
                 Spacer() // Add this Spacer to ensure the card stays in the middle
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if self.fromHome {
-                        Text("\(missionState.missionCount+1) 問目")
-                        .fontWeight(.light)
-                        .font(.subheadline)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                    }else{
-                        Text("\(missionState.missionCount+1)問目 / \(missionState.ClearCount)問")
-                        .fontWeight(.light)
-                        .font(.subheadline)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if self.fromHome {
-                        Button(action: {
-                            navigateToHome = true
-                        }) {
-                            Text("終了")
-                        }
-                    }
-                }
-           }
             .onAppear {
                 print("misision")
                 if reset{
@@ -225,6 +199,32 @@ struct Pre_Mission: View {
                     }
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if self.fromHome {
+                    Text("\(missionState.missionCount+1) 問目")
+                    .fontWeight(.light)
+                    .font(.subheadline)
+                    .multilineTextAlignment(.trailing)
+                    .padding()
+                }else{
+                    Text("\(missionState.missionCount+1)問目 / \(missionState.ClearCount)問")
+                    .fontWeight(.light)
+                    .font(.subheadline)
+                    .multilineTextAlignment(.trailing)
+                    .padding()
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if self.fromHome {
+                    Button(action: {
+                        navigateToHome = true
+                    }) {
+                        Text("終了")
+                    }
+                }
+            }
+       }
     }
 
     private func cardView() -> some View {
