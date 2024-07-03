@@ -17,7 +17,15 @@ struct Pre_Mission: View {
     @State private var navigateToHome = false
     
     @State private var GPT = false
-
+    
+    @State private var navigationPath = NavigationPath() //ホーム画面への遷移
+    
+    var fromHome: Bool = false  // デフォルト値を設定
+    
+    var material: String = MissionState().material // デフォルト値を設定
+    
+    var reset: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -40,18 +48,18 @@ struct Pre_Mission: View {
                                             if value.translation.width > 0 {
                                                 makeStatus(for: missionState.randomEntry.0, num: 1)
                                                 missionState.missionCount += 1
-                                                if missionState.missionCount < missionState.ClearCount {
-                                                    loadNextEntry()
-                                                }else{
+                                                if missionState.missionCount >= missionState.ClearCount && !fromHome {
                                                     navigateToHome = true
+                                                }else{
+                                                    loadNextEntry()
                                                 }
                                             } else {
                                                 makeStatus(for: missionState.randomEntry.0, num: 0)
                                                 missionState.missionCount += 1
-                                                if missionState.missionCount < missionState.ClearCount {
-                                                    loadNextEntry()
-                                                }else{
+                                                if missionState.missionCount >= missionState.ClearCount && !fromHome{
                                                     navigateToHome = true
+                                                }else{
+                                                    loadNextEntry()
                                                 }
                                             }
                                         }
@@ -133,16 +141,13 @@ struct Pre_Mission: View {
                         }
                         .navigationDestination(isPresented: $GPT) {
                             GPTView(missionState: missionState)
-                                .onAppear {
-                                    GPT = true //ここが問題
-                                }
                         }
 
-                        Text("\(missionState.missionCount+1) / \(missionState.ClearCount)")
-                            .fontWeight(.light)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.trailing)
-                            .padding()
+//                        Text("\(missionState.missionCount+1) / \(missionState.ClearCount)")
+//                            .fontWeight(.light)
+//                            .font(.subheadline)
+//                            .multilineTextAlignment(.trailing)
+//                            .padding()
                     }
                 } else {
                     HStack {
@@ -167,8 +172,39 @@ struct Pre_Mission: View {
 
                 Spacer() // Add this Spacer to ensure the card stays in the middle
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if self.fromHome {
+                        Text("\(missionState.missionCount+1) 問目")
+                        .fontWeight(.light)
+                        .font(.subheadline)
+                        .multilineTextAlignment(.trailing)
+                        .padding()
+                    }else{
+                        Text("\(missionState.missionCount+1)問目 / \(missionState.ClearCount)問")
+                        .fontWeight(.light)
+                        .font(.subheadline)
+                        .multilineTextAlignment(.trailing)
+                        .padding()
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if self.fromHome {
+                        Button(action: {
+                            navigateToHome = true
+                        }) {
+                            Text("終了")
+                        }
+                    }
+                }
+           }
             .onAppear {
-                if missionState.shouldLoadInitialEntry {
+                if reset{
+                    missionState.shouldLoadInitialEntry = true
+                    lastRandomEntry = ""  // なんで過去のエントリーを残してるのか分からんくなったけど一応
+                }
+                if missionState.shouldLoadInitialEntry { // 英会話画面から戻ってきたときに単語が変わらないように
+                    print("ini")
                     loadInitialEntry()
                     missionState.shouldLoadInitialEntry = false
                 }else{
@@ -272,7 +308,8 @@ struct Pre_Mission: View {
 
     func loadRandomEntry() -> (String, String, String, String, String) {
         // 英単語読み込み先
-        guard let csvURL = Bundle.main.url(forResource: missionState.material, withExtension: "csv") else {
+        print("aaaaaa"+material)
+        guard let csvURL = Bundle.main.url(forResource: material, withExtension: "csv") else {
             return ("Error", "CSV file not found", "", "", "")
         }
 
@@ -280,7 +317,7 @@ struct Pre_Mission: View {
             let csv = try CSV<Named>(url: csvURL)
             createUserCSVIfNeeded(csv: csv)
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let userCSVURL = documentDirectory.appendingPathComponent(missionState.material+"_status"+".csv")
+            let userCSVURL = documentDirectory.appendingPathComponent(material+"_status"+".csv")
             let statuses = readStatuses(from: userCSVURL)
 
             if statuses.isEmpty {
@@ -324,7 +361,7 @@ struct Pre_Mission: View {
 
     func createUserCSVIfNeeded(csv: CSV<Named>) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent(missionState.material+"_status"+".csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(material+"_status"+".csv")
         print(userCSVURL.path)
 
         if !FileManager.default.fileExists(atPath: userCSVURL.path) {
@@ -344,7 +381,7 @@ struct Pre_Mission: View {
 
     func loadStatus(for entry: String) -> Int {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent(missionState.material+"_status"+".csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(material+"_status"+".csv")
 
         do {
             let csv = try CSV<Named>(url: userCSVURL)
@@ -361,7 +398,7 @@ struct Pre_Mission: View {
 
     func saveStatus(for entry: String, status: Int) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent(missionState.material+"_status"+".csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(material+"_status"+".csv")
 
         do {
             let csv = try CSV<Named>(url: userCSVURL)

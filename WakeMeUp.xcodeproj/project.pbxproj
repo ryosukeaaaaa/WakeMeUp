@@ -23,6 +23,7 @@
 		821FD6A12C3313CC00F445C7 /* MissionClear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6A02C3313CC00F445C7 /* MissionClear.swift */; };
 		821FD6A52C33E64300F445C7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821FD6A42C33E64300F445C7 /* Launch Screen.storyboard */; };
 		821FD6A72C34503E00F445C7 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6A62C34503E00F445C7 /* test.swift */; };
+		821FD6A92C358F0F00F445C7 /* HomeMission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6A82C358F0F00F445C7 /* HomeMission.swift */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
 		827A15952C175F8E003B4468 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15942C175F8E003B4468 /* Start.swift */; };
@@ -80,6 +81,7 @@
 		821FD6A02C3313CC00F445C7 /* MissionClear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionClear.swift; sourceTree = "<group>"; };
 		821FD6A42C33E64300F445C7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		821FD6A62C34503E00F445C7 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		821FD6A82C358F0F00F445C7 /* HomeMission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMission.swift; sourceTree = "<group>"; };
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
 				341C36562C2B30D7009F9594 /* AppDelegate.swift */,
 				827A159C2C176087003B4468 /* Home.swift */,
+				821FD6A82C358F0F00F445C7 /* HomeMission.swift */,
 				821FD69E2C329F8100F445C7 /* MissionState.swift */,
 				827A15982C176053003B4468 /* Mission.swift */,
 				829A59CB2C163ECD002D7DA3 /* audio.swift */,
@@ -398,6 +401,7 @@
 				829A59CC2C163ECD002D7DA3 /* audio.swift in Sources */,
 				3483CF752C2BFE8600FA5BD3 /* AlarmListView.swift in Sources */,
 				827A15A32C18641A003B4468 /* ContentView.swift in Sources */,
+				821FD6A92C358F0F00F445C7 /* HomeMission.swift in Sources */,
 				827A159B2C176077003B4468 /* GPT.swift in Sources */,
 				34EB07042C18B94800535988 /* AlarmData.swift in Sources */,
 				828A07DF2C1994070008A956 /* Config.swift in Sources */,

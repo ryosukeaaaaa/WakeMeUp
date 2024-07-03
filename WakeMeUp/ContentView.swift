@@ -8,10 +8,6 @@ struct ContentView: View {
     @State private var debugMessage = ""
     
     @State private var isMissionViewActive = false
-    
-    @State private var MissionView = false
-    
-    @StateObject private var missionState = MissionState()
 
     var body: some View {
         NavigationStack {
@@ -25,25 +21,7 @@ struct ContentView: View {
                 }
 
                 NavigationStack {
-                    Button(action: {
-                        MissionView = true
-                    }) {
-                        HStack {
-                            Image(systemName: "pencil")
-                            Text("Mission")
-                                .font(.headline)
-                        }
-                        .padding(10)
-                        .background(Color.gray)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                    }
-                    .navigationDestination(isPresented: $MissionView) {
-                        Pre_Mission()
-                            .onAppear {
-                            MissionView = false
-                            }
-                    }
+                    HomeMission()
                 }
                 .tabItem {
                     Image(systemName: "flag")
@@ -66,6 +44,7 @@ struct ContentView: View {
                     Text("設定")
                 }
             }
+            .navigationTitle("Home")// 遷移先を設定している。具体的にはClearMission画面から
         }
     }
 }

@@ -57,7 +57,7 @@ class ChatViewModel: ObservableObject {
     
     func sendInitialChatRequest() {
         let messages = [
-            Message(role: "system", content: "Please provide a short example sentence in English using the word \(self.missionState.randomEntry.0).")
+            Message(role: "system", content:"Please provide an example sentence using the word '\(self.missionState.randomEntry.0)' in the shortest possible way.")
         ]
         
         let chatRequest = ChatRequest(model: "gpt-4o", messages: messages)
