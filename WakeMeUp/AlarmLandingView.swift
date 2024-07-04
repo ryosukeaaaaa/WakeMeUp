@@ -6,6 +6,8 @@ struct AlarmLandingView: View {
     let groupId: String
     @Binding var isPresented: Bool
     @State private var navigateToPreMission = false
+    
+    @State private var isReset: Bool = true
 
     var body: some View {
         NavigationStack {
@@ -36,7 +38,7 @@ struct AlarmLandingView: View {
             }
             .navigationBarBackButtonHidden(true)
             .navigationDestination(isPresented: $navigateToPreMission) {
-                Pre_Mission()
+                Pre_Mission(reset: $isReset)
             }
         }
         .onAppear {

@@ -28,10 +28,16 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(EnglishLevel, forKey: "EnglishLevel")
         }
     }
+    @Published var PastWords: [String] {
+        didSet {
+            UserDefaults.standard.set(PastWords, forKey: "PastWords")
+        }
+    }
     
     init() {
         self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
         self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC英単語"
         self.EnglishLevel = UserDefaults.standard.string(forKey: "EnglishLevel") ?? "中級者"
+        self.PastWords = UserDefaults.standard.stringArray(forKey: "PastWords") ?? []
     }
 }

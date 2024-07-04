@@ -24,7 +24,7 @@ struct Pre_Mission: View {
     
     var material: String = MissionState().material // デフォルト値を設定
     
-    @State var reset: Bool = false
+    @Binding var reset: Bool
     
     var body: some View {
         NavigationView {  // なぜかStackだと上手くいかない
@@ -199,32 +199,6 @@ struct Pre_Mission: View {
                     }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if self.fromHome {
-                    Text("\(missionState.missionCount+1) 問目")
-                    .fontWeight(.light)
-                    .font(.subheadline)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
-                }else{
-                    Text("\(missionState.missionCount+1)問目 / \(missionState.ClearCount)問")
-                    .fontWeight(.light)
-                    .font(.subheadline)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if self.fromHome {
-                    Button(action: {
-                        navigateToHome = true
-                    }) {
-                        Text("終了")
-                    }
-                }
-            }
-       }
     }
 
     private func cardView() -> some View {
@@ -505,6 +479,4 @@ struct Pre_Mission: View {
     }
 }
 
-#Preview {
-    Pre_Mission()
-}
+
