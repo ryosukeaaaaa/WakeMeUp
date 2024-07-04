@@ -15,14 +15,24 @@ struct MissionClear: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
-                Text("ミッション完了")
+                Text("Mission Complete!")
                     .font(.largeTitle)
                     .padding()
-                Text("おめでとうございます！")
-                    .font(.title)
+                    .overlay(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        .mask(
+                            Text("Mission Complete!")
+                                .font(.largeTitle)
+                        )
+                    )
                 Spacer()
                 Text("今日の単語")
                     .font(.title)
+                    .padding(.top)
                 ScrollView {
                     ForEach(missionState.PastWords, id: \.self) { word in
                         HStack {

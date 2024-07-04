@@ -25,6 +25,8 @@ struct Pre_Mission: View {
     
     @Binding var reset: Bool
     
+    @State private var labelText: String = ""
+    
     var body: some View {
         NavigationView {  // なぜかStackだと上手くいかない
             VStack {
@@ -40,6 +42,14 @@ struct Pre_Mission: View {
                                         translation = value.translation
                                         degree = Double(translation.width / 20)
                                     }
+                                    // Update labelText based on the degree value
+                                    if degree > 5 {
+                                        labelText = "perfect"
+                                    } else if degree < -5 {
+                                        labelText = "not"
+                                    } else {
+                                        labelText = ""
+                                    }
                                 }
                                 .onEnded { value in
                                     if missionState.clear_mission {
@@ -51,6 +61,8 @@ struct Pre_Mission: View {
                                                     navigateToHome = true
                                                 }else{
                                                     loadNextEntry()
+                                                    speechRecognizer.transcript = "長押しして話す"
+                                                    labelText = ""
                                                 }
                                             } else {
                                                 makeStatus(for: missionState.randomEntry.0, num: 0)
@@ -59,6 +71,8 @@ struct Pre_Mission: View {
                                                     navigateToHome = true
                                                 }else{
                                                     loadNextEntry()
+                                                    speechRecognizer.transcript = "長押しして話す"
+                                                    labelText = ""
                                                 }
                                             }
                                         }
@@ -81,21 +95,53 @@ struct Pre_Mission: View {
                 .padding()
 
                 if !missionState.clear_mission {
-                    Button(action: {
-                        isRecording.toggle()
-                        if isRecording {
-                            speechRecognizer.startRecording()
-                        } else {
-                            speechRecognizer.stopRecording()
-                        }
-                    }) {
-                        Text(isRecording ? "Stop" : "Start")
-                            .font(.title)
-                            .padding(15)
-                            .background(isRecording ? Color.red : Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
+                    //ボタン切り替え式録音
+//                    Button(action: {
+//                        isRecording.toggle()
+//                        if isRecording {
+//                            speechRecognizer.startRecording()
+//                        } else {
+//                            speechRecognizer.stopRecording()
+//                        }
+//                    }) {
+//                        Text(isRecording ? "Stop" : "Start")
+//                            .font(.title)
+//                            .padding(15)
+//                            .background(isRecording ? Color.red : Color.blue)
+//                            .foregroundColor(.white)
+//                            .cornerRadius(10)
+//                    }
+                    
+                    Circle()
+                        .fill(isRecording ? Color.white : Color.red)
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Circle()
+                                .stroke(isRecording ? Color.white : Color.white, lineWidth: 5)
+                                .frame(width: 60, height: 60)
+                        )
+                        .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                        .gesture(
+                            LongPressGesture(minimumDuration: 0.1)
+                                .onChanged { _ in
+                                    if !isRecording {
+                                        isRecording = true
+                                        speechRecognizer.startRecording()
+                                    }
+                                }
+                                .sequenced(before: DragGesture(minimumDistance: 0))
+                                .onEnded { value in
+                                    switch value {
+                                    case .second(true, _):
+                                        if isRecording {
+                                            isRecording = false
+                                            speechRecognizer.stopRecording()
+                                        }
+                                    default:
+                                        break
+                                    }
+                                }
+                        )
 
                     ScrollView {
                         Text(speechRecognizer.transcript)
@@ -143,24 +189,46 @@ struct Pre_Mission: View {
                         }
                     }
                 } else {
-                    HStack {
-                        Text("←不安")
-                            .foregroundColor(.white)
+                    //                    HStack {
+                    //                        Text("←不安")
+                    //                            .foregroundColor(.white)
+                    //                            .padding()
+                    //                            .background(Color.blue)
+                    //                            .cornerRadius(10)
+                    //                            .frame(maxWidth: .infinity)
+                    //
+                    //                        Text("完璧→")
+                    //                            .foregroundColor(.white)
+                    //                            .padding()
+                    //                            .background(Color.yellow)
+                    //                            .cornerRadius(10)
+                    //                            .frame(maxWidth: .infinity)
+                    //                    }
+                    if labelText == "perfect" {
+                        Text("完璧！")
+                            .font(.headline)
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.green.opacity(0.3))
                             .cornerRadius(10)
-                            .frame(maxWidth: .infinity)
-
-                        Text("完璧→")
-                            .foregroundColor(.white)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.green, lineWidth: 2)
+                            )
+                    } else if labelText == "not" {
+                        Text("まだ不安...")
+                            .font(.headline)
                             .padding()
-                            .background(Color.yellow)
+                            .background(Color.red.opacity(0.3))
                             .cornerRadius(10)
-                            .frame(maxWidth: .infinity)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.red, lineWidth: 2)
+                            )
+                    }else{
+                        Text("スワイプして次のステップへ")
+                            .font(.headline)
+                            .padding()
                     }
-                    Text("スワイプして次のステップへ")
-                        .font(.headline)
-                        .padding()
                 }
 
                 Spacer() // Add this Spacer to ensure the card stays in the middle
@@ -175,6 +243,7 @@ struct Pre_Mission: View {
                 if missionState.shouldLoadInitialEntry { // 英会話画面から戻ってきたときに単語が変わらないように
                     print("ini")
                     loadNextEntry()
+                    speechRecognizer.transcript = "長押しして話す"
                     missionState.shouldLoadInitialEntry = false
                 }else{
                     GPT = false

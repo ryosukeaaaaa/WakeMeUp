@@ -28,7 +28,7 @@ class SpeechRecognizer: ObservableObject {
     func startRecording() {
         // UIの更新を先に行う
         DispatchQueue.main.async {
-            self.transcript = "Say something, I'm listening!"
+            self.transcript = "長押しして話す"
         }
 
         guard let speechRecognizer = speechRecognizer, speechRecognizer.isAvailable else {
