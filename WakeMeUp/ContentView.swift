@@ -44,7 +44,32 @@ struct ContentView: View {
                     Text("設定")
                 }
             }
-            .navigationTitle("Home")// 遷移先を設定している。具体的にはClearMission画面から
+            .navigationTitle("Home")
         }
+        .sheet(isPresented: $showingAlarmLanding) {
+            if let alarmId = currentAlarmId, let groupId = currentGroupId {
+                AlarmLandingView(alarmStore: alarmStore, alarmId: alarmId, groupId: groupId, isPresented: $showingAlarmLanding)
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
+            if let userInfo = notification.userInfo,
+               let alarmId = userInfo["alarmId"] as? String,
+               let groupId = userInfo["groupId"] as? String {
+                currentAlarmId = alarmId
+                currentGroupId = groupId
+                showingAlarmLanding = true
+                debugMessage = "Received notification: AlarmId = \(alarmId), GroupId = \(groupId)"
+            } else {
+                debugMessage = "Received notification but couldn't extract alarmId or groupId"
+            }
+        }
+        .overlay(
+            Text(debugMessage)
+                .padding()
+                .background(Color.black.opacity(0.7))
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .opacity(debugMessage.isEmpty ? 0 : 1)
+        )
     }
 }
