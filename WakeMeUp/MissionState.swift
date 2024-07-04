@@ -28,9 +28,11 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(EnglishLevel, forKey: "EnglishLevel")
         }
     }
-    @Published var PastWords: [String] {
+    @Published var PastWords: [[String: String]] {
         didSet {
-            UserDefaults.standard.set(PastWords, forKey: "PastWords")
+            if let data = try? JSONEncoder().encode(PastWords) {
+                UserDefaults.standard.set(data, forKey: "PastWords")
+            }
         }
     }
     
@@ -38,6 +40,11 @@ class MissionState: ObservableObject {
         self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
         self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC英単語"
         self.EnglishLevel = UserDefaults.standard.string(forKey: "EnglishLevel") ?? "中級者"
-        self.PastWords = UserDefaults.standard.stringArray(forKey: "PastWords") ?? []
+        if let data = UserDefaults.standard.data(forKey: "PastWords"),
+           let decoded = try? JSONDecoder().decode([[String: String]].self, from: data) {
+            self.PastWords = decoded
+        } else {
+            self.PastWords = []
+        }
     }
 }

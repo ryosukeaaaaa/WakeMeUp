@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MissionClear: View {
+    @ObservedObject var missionState: MissionState
     @State private var HomeView = false
-    
     @State private var navigationPath = NavigationPath()
-    
+
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
@@ -20,13 +20,29 @@ struct MissionClear: View {
                     .padding()
                 Text("おめでとうございます！")
                     .font(.title)
+                Spacer()
+                Text("今日の単語")
+                    .font(.title)
+                ScrollView {
+                    ForEach(missionState.PastWords, id: \.self) { word in
+                        HStack {
+                            Text(" \(word["entry"] ?? "N/A")")
+                            Spacer()
+                            Text(" \(word["meaning"] ?? "N/A")")
+                        }
+                        .padding()
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(10)
+                    }
+                }
+                .padding()
                 Button(action: {
                     // Clear the navigation stack and navigate to HomeView
                     navigationPath.removeLast(navigationPath.count)
                     navigationPath.append("HomeView")
                 }) {
                     HStack {
-                        Image(systemName: "pencil")
+                        Image(systemName: "house")
                         Text("ホームへ")
                             .font(.headline)
                     }
@@ -42,19 +58,6 @@ struct MissionClear: View {
                         .navigationBarBackButtonHidden(true)
                 }
             }
-//            .navigationBarItems(
-//                trailing: HStack {
-//                    Button(action: {
-//                        // ここにHomeへの操作を。具体的にはpathを消去することでコントロール
-//                    }) {
-//                        Text("Homeへ")
-//                    }
-//                }
-//            )
         }
     }
-}
-
-#Preview {
-    MissionClear()
 }

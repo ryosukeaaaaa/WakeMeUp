@@ -3,7 +3,6 @@ import SwiftCSV
 import AVFoundation
 
 struct Pre_Mission: View {
-    @AppStorage("lastRandomEntry") private var lastRandomEntry: String = ""
     @StateObject private var missionState = MissionState() // MissionStateを使用
 
     @State private var lastSpokenText: String = ""
@@ -170,12 +169,12 @@ struct Pre_Mission: View {
                 print("misision")
                 if reset{
                     missionState.shouldLoadInitialEntry = true
-                    lastRandomEntry = ""  // なんで過去のエントリーを残してるのか分からんくなったけど一応
                     reset = false
+                    missionState.PastWords = []  // 過去の単語一覧を消去
                 }
                 if missionState.shouldLoadInitialEntry { // 英会話画面から戻ってきたときに単語が変わらないように
                     print("ini")
-                    loadInitialEntry()
+                    loadNextEntry()
                     missionState.shouldLoadInitialEntry = false
                 }else{
                     GPT = false
@@ -186,11 +185,8 @@ struct Pre_Mission: View {
                     audio_rec(speechRecognizer.transcript, missionState.randomEntry.0)
                 }
             }
-            .onDisappear {
-                lastRandomEntry = "\(missionState.randomEntry.0),\(missionState.randomEntry.1),\(missionState.randomEntry.2),\(missionState.randomEntry.3),\(missionState.randomEntry.4)"
-            }
             .navigationDestination(isPresented: $navigateToHome) {
-                MissionClear()
+                MissionClear(missionState: missionState)
                     .onAppear {
                     navigateToHome = false
                     missionState.missionCount = 0
@@ -199,6 +195,32 @@ struct Pre_Mission: View {
                     }
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if self.fromHome {
+                    Text("\(missionState.missionCount+1) 問目")
+                    .fontWeight(.light)
+                    .font(.subheadline)
+                    .multilineTextAlignment(.trailing)
+                    .padding()
+                }else{
+                    Text("\(missionState.missionCount+1)問目 / \(missionState.ClearCount)問")
+                    .fontWeight(.light)
+                    .font(.subheadline)
+                    .multilineTextAlignment(.trailing)
+                    .padding()
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if self.fromHome {
+                    Button(action: {
+                        navigateToHome = true
+                    }) {
+                        Text("終了")
+                    }
+                }
+            }
+       }
     }
 
     private func cardView() -> some View {
@@ -234,27 +256,14 @@ struct Pre_Mission: View {
         .shadow(radius: 5)
     }
 
-    private func loadInitialEntry() {
-        if lastRandomEntry.isEmpty {
-            missionState.randomEntry = loadRandomEntry()
-            if missionState.randomEntry.0 != "Error" {
-                lastRandomEntry = "\(missionState.randomEntry.0),\(missionState.randomEntry.1),\(missionState.randomEntry.2),\(missionState.randomEntry.3),\(missionState.randomEntry.4)"
-            }
-        } else {
-            missionState.randomEntry = parseEntry(lastRandomEntry)
-            if missionState.randomEntry.0 == "Error" || missionState.randomEntry.1 == "CSV file not found" {
-                missionState.randomEntry = loadRandomEntry()
-            }
-        }
-        speakText(missionState.randomEntry.0)
-    }
-
     private func loadNextEntry() {
         missionState.randomEntry = loadRandomEntry()
         speakText(missionState.randomEntry.0)
         missionState.clear_mission = false
         userInput = ""
         isTypingVisible = false
+        
+        missionState.PastWords.append(["entry": missionState.randomEntry.0, "meaning": missionState.randomEntry.2])
     }
 
     private func checkUserInput() {
