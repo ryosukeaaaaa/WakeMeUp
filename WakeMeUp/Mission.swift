@@ -43,9 +43,9 @@ struct Pre_Mission: View {
                                         degree = Double(translation.width / 20)
                                     }
                                     // Update labelText based on the degree value
-                                    if degree > 5 {
+                                    if degree > 1 {
                                         labelText = "perfect"
-                                    } else if degree < -5 {
+                                    } else if degree < -1 {
                                         labelText = "not"
                                     } else {
                                         labelText = ""
@@ -53,7 +53,7 @@ struct Pre_Mission: View {
                                 }
                                 .onEnded { value in
                                     if missionState.clear_mission {
-                                        if abs(value.translation.width) > 100 {
+                                        if abs(value.translation.width) > 120 {
                                             if value.translation.width > 0 {
                                                 makeStatus(for: missionState.randomEntry.0, num: 1)
                                                 missionState.missionCount += 1
