@@ -45,10 +45,11 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Home")
-        }
-        .sheet(isPresented: $showingAlarmLanding) {
-            if let alarmId = currentAlarmId, let groupId = currentGroupId {
-                AlarmLandingView(alarmStore: alarmStore, alarmId: alarmId, groupId: groupId, isPresented: $showingAlarmLanding)
+            .navigationDestination(isPresented: $showingAlarmLanding) {
+                if let alarmId = currentAlarmId, let groupId = currentGroupId {
+                    AlarmLandingView(alarmStore: alarmStore, alarmId: alarmId, groupId: groupId, isPresented: $showingAlarmLanding)
+                        .navigationBarBackButtonHidden(true)
+                }
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in

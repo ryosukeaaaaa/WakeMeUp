@@ -256,6 +256,7 @@ struct Pre_Mission: View {
             }
             .navigationDestination(isPresented: $navigateToHome) {
                 MissionClear(missionState: missionState)
+                    .navigationBarBackButtonHidden(true)
                     .onAppear {
                     navigateToHome = false
                     missionState.missionCount = 0

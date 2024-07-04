@@ -36,9 +36,9 @@ struct AlarmLandingView: View {
                 }
                 .padding()
             }
-            .navigationBarBackButtonHidden(true)
             .navigationDestination(isPresented: $navigateToPreMission) {
                 Pre_Mission(reset: $isReset)
+                    .navigationBarBackButtonHidden(true)
             }
         }
         .onAppear {
