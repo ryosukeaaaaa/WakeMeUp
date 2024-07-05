@@ -1,18 +1,49 @@
-//
-//  test.swift
-//  WakeMeUp
-//
-//  Created by 長井亮輔 on 2024/07/03.
-//
-
 import SwiftUI
+import UserNotifications
 
-struct test: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+// @main
+struct WakeMeUpApp2: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView2()
+        }
     }
 }
 
-#Preview {
-    test()
+struct ContentView2: View {
+    var body: some View {
+        VStack {
+            Button(action: {
+                listAllPendingNotifications()
+            }) {
+                Text("Show Pending Notifications")
+            }
+            .padding()
+            
+            Button(action: {
+                removeAllPendingNotifications()
+            }) {
+                Text("Remove All Pending Notifications")
+            }
+            .padding()
+        }
+    }
+
+    func listAllPendingNotifications() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("Identifier: \(request.identifier)")
+                print("Content: \(request.content)")
+                print("Trigger: \(String(describing: request.trigger))")
+                print("-----")
+            }
+        }
+    }
+
+    func removeAllPendingNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        print("All pending notifications have been removed.")
+    }
 }
+
+

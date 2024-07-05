@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 struct Alarm: Identifiable {
     let id = UUID()
@@ -15,15 +16,30 @@ class AlarmStore: ObservableObject {
     }
     
     func deleteAlarm(at offsets: IndexSet) {
-        alarms.remove(atOffsets: offsets)
+        offsets.forEach { index in
+            let groupId = alarms[index].groupId
+            alarms.remove(atOffsets: offsets)
+            cancelAlarmNotifications(groupId: groupId)
+        }
     }
+
     func deleteAlarmsByGroupId(_ groupId: String) {
         alarms.removeAll { $0.groupId == groupId }
     }
+
+    private func cancelAlarmNotifications(groupId: String) {
+        let center = UNUserNotificationCenter.current()
+        var identifiers: [String] = []
+
+        for n in 0...10 {
+            let identifier = "AlarmNotification\(groupId)_\(n)"
+            identifiers.append(identifier)
+        }
+
+        center.removePendingNotificationRequests(withIdentifiers: identifiers)
+        center.removeDeliveredNotifications(withIdentifiers: identifiers)
+    }
 }
-
-
-import SwiftUI
 
 struct AlarmListView: View {
     @ObservedObject var alarmStore: AlarmStore
@@ -45,7 +61,9 @@ struct AlarmListView: View {
                     ))
                 }
             }
-            .onDelete(perform: alarmStore.deleteAlarm)
+            .onDelete { indexSet in
+                alarmStore.deleteAlarm(at: indexSet)
+            }
         }
         .navigationTitle("アラーム")
         .toolbar {
@@ -67,5 +85,5 @@ struct AlarmListView: View {
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
-    
 }
+

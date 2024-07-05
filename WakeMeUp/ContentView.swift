@@ -58,7 +58,7 @@ struct ContentView: View {
             }
             .onAppear {
                 checkNotificationPermission()
-                if isPermissionGranted{
+                if !isPermissionGranted{
                     showAlert = true
                 }
             }
