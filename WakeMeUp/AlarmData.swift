@@ -1,5 +1,6 @@
 import Foundation
 
+//　アラームの構造を決めてる
 struct AlarmData: Identifiable {
     let id = UUID()
     var time: Date
@@ -7,4 +8,3 @@ struct AlarmData: Identifiable {
     var mission: String
     var isOn: Bool
 }
-

@@ -27,31 +27,6 @@ struct HonkiView: View {
                 }
             }
             .navigationTitle("アラームを追加")
-            .onAppear(perform: checkNotificationPermission)
-        }
-    }
-
-    private func checkNotificationPermission() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            DispatchQueue.main.async {
-                self.isPermissionGranted = settings.authorizationStatus == .authorized
-                if !self.isPermissionGranted {
-                    requestNotificationPermission()
-                }
-            }
-        }
-    }
-
-    private func requestNotificationPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            DispatchQueue.main.async {
-                self.isPermissionGranted = granted
-                if granted {
-                    print("通知の許可が得られました")
-                } else {
-                    print("通知の許可が得られませんでした")
-                }
-            }
         }
     }
 
