@@ -54,7 +54,7 @@ class AlarmStore: ObservableObject {
 import SwiftUI
 
 struct AlarmListView: View {
-    @ObservedObject var alarmStore: AlarmStore  // AlarmDta必要ないかも
+    @ObservedObject var alarmStore: AlarmStore
     @State private var showingAddAlarm = false
 
     var body: some View {
