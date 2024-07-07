@@ -6,7 +6,6 @@ struct AlarmLandingView: View {
     let groupId: String
     @Binding var isPresented: Bool
     @State private var navigateToPreMission = false
-    
     @State private var isReset: Bool = true
 
     var body: some View {
@@ -54,3 +53,4 @@ struct AlarmLandingView: View {
         navigateToPreMission = true
     }
 }
+

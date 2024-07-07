@@ -5,7 +5,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array/>
 	<key>NSUserNotificationsUsageDescription</key>
-	<string></string>
+	<string>アラーム動作のために許可が必要です。余計な通知は行いません。</string>
 	<key>com.yourdomain.repeatingAlarm</key>
 	<string></string>
 </dict>

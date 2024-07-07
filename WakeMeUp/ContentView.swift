@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 struct ContentView: View {
     @StateObject private var alarmStore = AlarmStore()
@@ -8,9 +9,7 @@ struct ContentView: View {
     @State private var debugMessage = ""
     
     @State private var isMissionViewActive = false
-    
     @State private var isPermissionGranted = true // 通知設定の確認
-    
     @State private var showAlert = false
 
     var body: some View {
@@ -48,8 +47,7 @@ struct ContentView: View {
                     Text("設定")
                 }
             }
-            .navigationTitle("Home") // <backが<Homeに
-            // 画面開始画面
+            .navigationTitle("Home")
             .navigationDestination(isPresented: $showingAlarmLanding) {
                 if let alarmId = currentAlarmId, let groupId = currentGroupId {
                     AlarmLandingView(alarmStore: alarmStore, alarmId: alarmId, groupId: groupId, isPresented: $showingAlarmLanding)
@@ -58,7 +56,7 @@ struct ContentView: View {
             }
             .onAppear {
                 checkNotificationPermission()
-                if !isPermissionGranted{
+                if !isPermissionGranted {
                     showAlert = true
                 }
             }
@@ -82,15 +80,16 @@ struct ContentView: View {
                 debugMessage = "Received notification but couldn't extract alarmId or groupId"
             }
         }
-//        .overlay(
-//            Text(debugMessage)
-//                .padding()
-//                .background(Color.black.opacity(0.7))
-//                .foregroundColor(.white)
-//                .cornerRadius(10)
-//                .opacity(debugMessage.isEmpty ? 0 : 1)
-//        )
+        .overlay(
+            Text(debugMessage)
+                .padding()
+                .background(Color.black.opacity(0.7))
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .opacity(debugMessage.isEmpty ? 0 : 1)
+        )
     }
+    
     private func checkNotificationPermission() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             DispatchQueue.main.async {

@@ -183,6 +183,7 @@
 				34EB07032C18B94800535988 /* AlarmData.swift */,
 				341C36542C2B3035009F9594 /* HonkiView.swift */,
 				3483CF722C2BC37800FA5BD3 /* AlarmLandingView.swift */,
+				821FD6B62C37E2A900F445C7 /* AppDelegate.swift */,
 				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
 				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
 				821FD6A82C358F0F00F445C7 /* HomeMission.swift */,
@@ -207,7 +208,6 @@
 				341C36582C2B31A6009F9594 /* alarm_sound.wav */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
 				821FD6A62C34503E00F445C7 /* test.swift */,
-				821FD6B62C37E2A900F445C7 /* AppDelegate.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";

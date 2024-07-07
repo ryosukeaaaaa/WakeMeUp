@@ -1,7 +1,7 @@
 import SwiftUI
 import UserNotifications
 
-// @main
+//@main
 struct WakeMeUpApp2: App {
     var body: some Scene {
         WindowGroup {
