@@ -4,6 +4,7 @@ import UserNotifications
 @main
 struct WakeMeUpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject var alarmStore = AlarmStore() // ここでインスタンスを作成
 
     init() {
         requestNotificationPermissions()
@@ -12,6 +13,7 @@ struct WakeMeUpApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(alarmStore)
         }
     }
 

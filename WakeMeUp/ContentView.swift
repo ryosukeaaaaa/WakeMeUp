@@ -2,10 +2,11 @@ import SwiftUI
 import UserNotifications
 
 struct ContentView: View {
-    @StateObject private var alarmStore = AlarmStore()
-    @State private var showingAlarmLanding = false
-    @State private var currentAlarmId: String?
-    @State private var currentGroupId: String?
+    @EnvironmentObject var alarmStore: AlarmStore
+    @State private var showingAlarmLanding: Bool = false
+    // @State private var showingAlarmLanding = false
+    // @State private var currentAlarmId: String?
+    // @State private var currentGroupId: String?
     @State private var debugMessage = ""
     
     @State private var isMissionViewActive = false
@@ -48,17 +49,21 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Home")
-            .navigationDestination(isPresented: $showingAlarmLanding) {
-                if let alarmId = currentAlarmId, let groupId = currentGroupId {
-                    AlarmLandingView(alarmStore: alarmStore, alarmId: alarmId, groupId: groupId, isPresented: $showingAlarmLanding)
+            .navigationDestination(isPresented: $alarmStore.showingAlarmLanding) {
+                AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupId, isPresented: $alarmStore.showingAlarmLanding)
                         .navigationBarBackButtonHidden(true)
-                }
             }
             .onAppear {
                 checkNotificationPermission()
+                print("aaaaa", alarmStore.showingAlarmLanding)
+                self.showingAlarmLanding = self.alarmStore.showingAlarmLanding
                 if !isPermissionGranted {
                     showAlert = true
                 }
+            }
+            .onChange(of: alarmStore.showingAlarmLanding) {
+                // showingAlarmLanding の変更を監視して、必要なアクションを実行
+                print("showingAlarmLanding changed to: \(alarmStore.showingAlarmLanding)")
             }
             .alert(isPresented: $showAlert) {
                 Alert(
@@ -69,25 +74,23 @@ struct ContentView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
-            if let userInfo = notification.userInfo,
-               let alarmId = userInfo["alarmId"] as? String,
-               let groupId = userInfo["groupId"] as? String {
-                currentAlarmId = alarmId
-                currentGroupId = groupId
-                showingAlarmLanding = true
-                debugMessage = "Received notification: AlarmId = \(alarmId), GroupId = \(groupId)"
+            if let outerUserInfo = notification.userInfo,
+               let groupId = outerUserInfo["groupId"] as? String {
+                alarmStore.groupId = groupId
+                alarmStore.showingAlarmLanding = true
+                debugMessage = "Received notification: GroupId = \(alarmStore.groupId)"
             } else {
-                debugMessage = "Received notification but couldn't extract alarmId or groupId"
+                debugMessage = "Received notification but couldn't extract groupId"
             }
         }
-        .overlay(
-            Text(debugMessage)
-                .padding()
-                .background(Color.black.opacity(0.7))
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .opacity(debugMessage.isEmpty ? 0 : 1)
-        )
+//        .overlay(
+//            Text(debugMessage)
+//                .padding()
+//                .background(Color.black.opacity(0.7))
+//                .foregroundColor(.white)
+//                .cornerRadius(10)
+//                .opacity(debugMessage.isEmpty ? 0 : 1)
+//        )
     }
     
     private func checkNotificationPermission() {

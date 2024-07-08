@@ -1,14 +1,15 @@
 import SwiftUI
 import UserNotifications
-import AVFoundation
 
-struct HonkiView: View {
+//　アラームの追加
+struct AddAlarmView: View {
     @ObservedObject var alarmStore: AlarmStore
     @State private var alarmTime = Date()
+    @State private var repeatLabel = "なし"
+    @State private var mission = "通知"
+    @State private var isOn = true
     @State private var soundName = "alarm_sound.wav"
     @State private var snoozeEnabled = false
-    @State private var isAlarmSet = false
-    @State private var audioPlayer: AVAudioPlayer?
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
@@ -60,8 +61,6 @@ struct HonkiView: View {
                 }
             }
         }
-
-        isAlarmSet = true
     }
 }
 

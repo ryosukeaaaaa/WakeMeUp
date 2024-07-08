@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AlarmLandingView: View {
     @ObservedObject var alarmStore: AlarmStore
-    let alarmId: String
+    // let alarmId: String
     let groupId: String
     @Binding var isPresented: Bool
     @State private var navigateToPreMission = false
@@ -24,7 +24,6 @@ struct AlarmLandingView: View {
                     .padding()
 
                 Button(action: {
-                    stopAlarm()
                     navigateToPreMission = true
                 }) {
                     Text("ミッション開始")
@@ -43,14 +42,6 @@ struct AlarmLandingView: View {
         .onAppear {
             print("AlarmLandingView appeared with groupId: \(groupId)")
         }
-    }
-
-    private func stopAlarm() {
-        alarmStore.deleteAlarmsByGroupId(groupId)
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: (0...10).map { "AlarmNotification\(groupId)_\($0)" })
-        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: (0...10).map { "AlarmNotification\(groupId)_\($0)" })
-        
-        navigateToPreMission = true
     }
 }
 

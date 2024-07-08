@@ -1,16 +1,12 @@
-//
-//  MissionClear.swift
-//  WakeMeUp
-//
-//  Created by 長井亮輔 on 2024/07/02.
-//
-
 import SwiftUI
+import UserNotifications
 
 struct MissionClear: View {
     @ObservedObject var missionState: MissionState
     @State private var HomeView = false
     @State private var navigationPath = NavigationPath()
+    
+    @StateObject private var alarmStore = AlarmStore()
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -68,6 +64,21 @@ struct MissionClear: View {
                         .navigationBarBackButtonHidden(true)
                 }
             }
+            .onAppear{
+                stopAlarm(groupId: alarmStore.groupId)
+                alarmStore.showingAlarmLanding = false
+            }
         }
+    }
+    private func stopAlarm(groupId: String) {
+        let center = UNUserNotificationCenter.current()
+        var identifiers: [String] = []
+
+        for n in 0...10 {
+            let identifier = "AlarmNotification\(groupId)_\(n)"
+            identifiers.append(identifier)
+        }
+        center.removePendingNotificationRequests(withIdentifiers: identifiers)
+        center.removeDeliveredNotifications(withIdentifiers: identifiers)
     }
 }

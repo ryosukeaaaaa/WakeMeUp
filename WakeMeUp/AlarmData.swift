@@ -1,6 +1,7 @@
 import Foundation
 import UserNotifications
 
+// データの形状指定とエンコード・デコード
 struct AlarmData: Identifiable, Codable {
     let id: UUID
     var time: Date
@@ -59,56 +60,3 @@ struct AlarmData: Identifiable, Codable {
         case groupId
     }
 }
-//
-//func saveAlarmsToUserDefaults(alarms: [AlarmData]) {
-//    let encoder = JSONEncoder()
-//    if let encodedAlarms = try? encoder.encode(alarms) {
-//        UserDefaults.standard.set(encodedAlarms, forKey: "alarms")
-//    }
-//}
-//
-//func loadAlarmsFromUserDefaults() -> [AlarmData] {
-//    if let savedAlarms = UserDefaults.standard.object(forKey: "alarms") as? Data {
-//        let decoder = JSONDecoder()
-//        if let loadedAlarms = try? decoder.decode([AlarmData].self, from: savedAlarms) {
-//            return loadedAlarms
-//        }
-//    }
-//    return []
-//}
-//
-//var alarms = [AlarmData]()
-//
-//func scheduleNotification(alarmId: String, groupId: String, soundName: String, snoozeEnabled: Bool) {
-//    let content = UNMutableNotificationContent()
-//    content.title = "アラーム"
-//    content.body = "アラームが発生しました"
-//    content.userInfo = ["alarmId": alarmId, "groupId": groupId]
-//    content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
-//
-//    let calendar = Calendar.current
-//    var targetDate = Date()
-//    if targetDate < Date() {
-//        targetDate = calendar.date(byAdding: .day, value: 1, to: targetDate)!
-//    }
-//
-//    for n in 0...10 {
-//        let triggerDate = calendar.date(byAdding: .second, value: 8 * n, to: targetDate)!
-//        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-//        let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(n)", content: content, trigger: trigger)
-//
-//        UNUserNotificationCenter.current().add(request) { error in
-//            if let error = error {
-//                print("アラーム\(n)の設定に失敗しました: \(error.localizedDescription)")
-//            } else {
-//                print("アラーム\(n)が設定されました: \(triggerDate)")
-//            }
-//        }
-//
-//        let alarmData = AlarmData(time: triggerDate, repeatLabel: "なし", mission: "通知", isOn: true, soundName: soundName, snoozeEnabled: snoozeEnabled, groupId: groupId)
-//        alarms.append(alarmData)
-//    }
-//
-//    saveAlarmsToUserDefaults(alarms: alarms)
-//}

@@ -1,61 +1,12 @@
 import Foundation
 import Combine
-
 import SwiftUI
 import UserNotifications
-
-class AlarmStore: ObservableObject {
-    @Published var alarms: [AlarmData] = []
-
-    init() {
-        loadAlarms()
-    }
-
-    func addAlarm(_ alarm: AlarmData) {
-        alarms.append(alarm)
-        saveAlarms()
-    }
-
-    func deleteAlarmsByGroupId(_ groupId: String) {
-        cancelAlarmNotifications(groupId: groupId)
-        alarms.removeAll { $0.groupId == groupId }
-        saveAlarms()
-    }
-    
-    private func cancelAlarmNotifications(groupId: String) {
-        let center = UNUserNotificationCenter.current()
-        var identifiers: [String] = []
-
-        for n in 0...10 {
-            let identifier = "AlarmNotification\(groupId)_\(n)"
-            identifiers.append(identifier)
-        }
-
-        center.removePendingNotificationRequests(withIdentifiers: identifiers)
-        center.removeDeliveredNotifications(withIdentifiers: identifiers)
-    }
-    func saveAlarms() {  // アクセスレベルを変更
-        let encoder = JSONEncoder()
-        if let encodedAlarms = try? encoder.encode(alarms) {
-            UserDefaults.standard.set(encodedAlarms, forKey: "alarms")
-        }
-    }
-
-    private func loadAlarms() {  // このまま private にします
-        if let savedAlarms = UserDefaults.standard.object(forKey: "alarms") as? Data {
-            let decoder = JSONDecoder()
-            if let loadedAlarms = try? decoder.decode([AlarmData].self, from: savedAlarms) {
-                alarms = loadedAlarms
-            }
-        }
-    }
-}
-
-import SwiftUI
 
 struct AlarmListView: View {
     @ObservedObject var alarmStore: AlarmStore
     @State private var showingAddAlarm = false
+    @State private var selectedAlarm: AlarmData? = nil
 
     var body: some View {
         NavigationView {
@@ -73,6 +24,9 @@ struct AlarmListView: View {
                                 }
                             }
                         ))
+                    }
+                    .onTapGesture {
+                        selectedAlarm = alarm
                     }
                 }
                 .onDelete { indexSet in
@@ -93,7 +47,10 @@ struct AlarmListView: View {
                 }
             }
             .sheet(isPresented: $showingAddAlarm) {
-                HonkiView(alarmStore: alarmStore) // groupId を渡す
+                AddAlarmView(alarmStore: alarmStore)
+            }
+            .sheet(item: $selectedAlarm) { alarm in
+                AlarmSettingView(groupId: alarm.groupId, alarmStore: alarmStore)
             }
         }
     }
@@ -104,3 +61,4 @@ struct AlarmListView: View {
         return formatter.string(from: date)
     }
 }
+
