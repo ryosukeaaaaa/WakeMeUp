@@ -48,7 +48,7 @@ struct AlarmSettingView: View {
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
-    private func rescheduleAlarm() {  // 新しいUUIDを生成
+    private func rescheduleAlarm() {
         alarmStore.deleteAlarmsByGroupId(groupId)
         let newAlarm = AlarmData(time: alarmTime, repeatLabel: "なし", mission: "通知", isOn: true, soundName: soundName, snoozeEnabled: snoozeEnabled, groupId: groupId) // アラーム集合をここで追加
         alarmStore.addAlarm(newAlarm)

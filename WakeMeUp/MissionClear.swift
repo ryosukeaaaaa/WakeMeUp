@@ -64,21 +64,10 @@ struct MissionClear: View {
                         .navigationBarBackButtonHidden(true)
                 }
             }
-            .onAppear{
-                stopAlarm(groupId: alarmStore.groupId)
-                alarmStore.showingAlarmLanding = false
-            }
+//            .onAppear{
+//                alarmStore.stopAlarm(alarmStore.groupId)  // アラームを止める
+//                alarmStore.showingAlarmLanding = false
+//            }
         }
-    }
-    private func stopAlarm(groupId: String) {
-        let center = UNUserNotificationCenter.current()
-        var identifiers: [String] = []
-
-        for n in 0...10 {
-            let identifier = "AlarmNotification\(groupId)_\(n)"
-            identifiers.append(identifier)
-        }
-        center.removePendingNotificationRequests(withIdentifiers: identifiers)
-        center.removeDeliveredNotifications(withIdentifiers: identifiers)
     }
 }

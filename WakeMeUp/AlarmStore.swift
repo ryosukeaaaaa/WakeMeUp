@@ -20,10 +20,10 @@ class AlarmStore: ObservableObject {
     
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
-        self.groupId = UserDefaults.standard.string(forKey: "groupId") ?? ""
+        self.groupId = UserDefaults.standard.string(forKey: "groupId") ?? ""  //　なってるアラーム
         loadAlarms()
     }
-
+    
     func addAlarm(_ alarm: AlarmData) {
         alarms.append(alarm)
         saveAlarms()
@@ -35,18 +35,26 @@ class AlarmStore: ObservableObject {
         saveAlarms()
     }
     
+    //　アラームを止める。実際には通知を消去してる
+    func stopAlarm(_ groupId: String) {
+        cancelAlarmNotifications(groupId: groupId)
+        if let index = alarms.firstIndex(where: { $0.groupId == groupId }) {
+            alarms[index].isOn = false
+        }
+        saveAlarms() // アラームの状態を保存します
+    }
+    
     private func cancelAlarmNotifications(groupId: String) {
         let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
-
         for n in 0...10 {
             let identifier = "AlarmNotification\(groupId)_\(n)"
             identifiers.append(identifier)
         }
-
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
         center.removeDeliveredNotifications(withIdentifiers: identifiers)
     }
+    
     func saveAlarms() {  // アクセスレベルを変更
         let encoder = JSONEncoder()
         if let encodedAlarms = try? encoder.encode(alarms) {
