@@ -10,16 +10,23 @@ class SpeechRecognizer: ObservableObject {
     private var recognitionTask: SFSpeechRecognitionTask?
     private var audioEngine = AVAudioEngine()
 
+    // 修正: AVSpeechSynthesizerのインスタンスをクラスプロパティとして保持
+    private var speechSynthesizer = AVSpeechSynthesizer()
+    private var speechSynthesizerDelegate = SpeechSynthesizerDelegate()
+
     init() {
         speechRecognizer = SFSpeechRecognizer()
         configureAudioSession()
+        speechSynthesizer.delegate = speechSynthesizerDelegate
     }
 
     private func configureAudioSession() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
+            // 修正: setCategoryの設定を見直し、音声再生にも対応
+            try audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.duckOthers, .defaultToSpeaker])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            print("Audio session successfully set up")
         } catch {
             print("Failed to setup audio session: \(error.localizedDescription)")
         }
@@ -87,6 +94,41 @@ class SpeechRecognizer: ObservableObject {
         // タップが既にある場合は削除
         let inputNode = audioEngine.inputNode
         inputNode.removeTap(onBus: 0)
+    }
+
+    // 音声合成のメソッドを追加
+    func speak(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        print("Speaking: \(text)")
+        speechSynthesizer.speak(utterance)
+    }
+}
+
+// AVSpeechSynthesizerDelegateの実装
+class SpeechSynthesizerDelegate: NSObject, AVSpeechSynthesizerDelegate {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        print("Finished speaking: \(utterance.speechString)")
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        print("Cancelled speaking: \(utterance.speechString)")
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        print("Started speaking: \(utterance.speechString)")
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
+        print("Paused speaking: \(utterance.speechString)")
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
+        print("Continued speaking: \(utterance.speechString)")
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
+        print("Will speak: \(utterance.speechString) from \(characterRange.location) to \(characterRange.location + characterRange.length)")
     }
 }
 
