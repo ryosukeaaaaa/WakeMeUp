@@ -105,69 +105,90 @@ struct Pre_Mission: View {
                 .padding()
 
                 if !missionState.clear_mission {
-                    Circle()
-                        .fill(isRecording ? Color.white : Color.red)
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            Circle()
-                                .stroke(isRecording ? Color.white : Color.white, lineWidth: 5)
-                                .frame(width: 60, height: 60)
-                        )
-                        .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                        .gesture(
-                            LongPressGesture(minimumDuration: 0.01)
-                                .onChanged { _ in
-                                    resetIdleTimer()
-                                    if !isRecording {
-                                        isRecording = true
-                                        speechRecognizer.startRecording()
-                                    }
-                                }
-                                .sequenced(before: DragGesture(minimumDistance: 0))
-                                .onEnded { value in
-                                    resetIdleTimer()
-                                    switch value {
-                                    case .second(true, _):
-                                        if isRecording {
-                                            isRecording = false
-                                            speechRecognizer.stopRecording()
-                                        }
-                                    default:
-                                        break
-                                    }
-                                }
-                        )
-
-                    ScrollView {
-                        Text(speechRecognizer.transcript)
-                            .padding()
-                    }
-
                     if isTypingVisible {
-                        TextField("入力してください", text: $userInput, onCommit: {
-                            resetIdleTimer()
-                            checkUserInput()
-                        })
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    }
-
-                    HStack {
-                        Button(action: {
-                            resetIdleTimer()
-                            isTypingVisible.toggle()
-                        }) {
-                            HStack {
-                                Image(systemName: "pencil")
-                                Text("タイピング")
-                                    .font(.headline)
+                        HStack{
+                            TextField("入力してください", text: $userInput, onCommit: {
+                                resetIdleTimer()
+                                checkUserInput()
+                            })
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            Button(action: {
+                                // ここでキーボードを下げる
+                                UIApplication.shared.endEditing()
+                            }) {
+                                Image(systemName: "keyboard.chevron.compact.down")
                             }
-                            .padding(10)
-                            .background(Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
                         }
+                    }else{
+                        Circle()
+                            .fill(isRecording ? Color.white : Color.red)
+                            .frame(width: 50, height: 50)
+                            .overlay(
+                                Circle()
+                                    .stroke(isRecording ? Color.white : Color.white, lineWidth: 5)
+                                    .frame(width: 60, height: 60)
+                            )
+                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                            .gesture(
+                                LongPressGesture(minimumDuration: 0.01)
+                                    .onChanged { _ in
+                                        resetIdleTimer()
+                                        if !isRecording {
+                                            isRecording = true
+                                            speechRecognizer.startRecording()
+                                        }
+                                    }
+                                    .sequenced(before: DragGesture(minimumDistance: 0))
+                                    .onEnded { value in
+                                        resetIdleTimer()
+                                        switch value {
+                                        case .second(true, _):
+                                            if isRecording {
+                                                isRecording = false
+                                                speechRecognizer.stopRecording()
+                                            }
+                                        default:
+                                            break
+                                        }
+                                    }
+                            )
                         
+                        ScrollView {
+                            Text(speechRecognizer.transcript)
+                                .padding()
+                        }
+                    }
+                    
+                    HStack {
+                        if !isTypingVisible {
+                            Button(action: {
+                                resetIdleTimer()
+                                isTypingVisible.toggle()
+                            }) {
+                                HStack {
+                                    Image(systemName: "pencil")
+                                    Text("タイピング")
+                                        .font(.headline)
+                                }
+                                .padding(10)
+                                .background(Color.gray)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                            }
+                        }else{
+                            Button(action: {
+                                isTypingVisible = false
+                            }) {
+                                HStack {
+                                    Image(systemName: "mic.fill")
+                                    Text("音声認識")
+                                        .font(.headline)
+                                }
+                                .padding(10)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                            }}
                         Button(action: {
                             resetIdleTimer()
                             GPT = true
@@ -593,3 +614,13 @@ struct Pre_Mission: View {
     }
 }
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil
+        )
+    }
+}
