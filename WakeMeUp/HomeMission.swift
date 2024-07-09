@@ -7,6 +7,8 @@ struct HomeMission: View {
     @State private var academic = false
     @StateObject private var missionState = MissionState()
     
+    @State private var isReset: Bool = true
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
@@ -27,7 +29,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $basic) {
-                        Pre_Mission(fromHome: true, material: "基礎英単語", reset: $basic)// trueにすることで目覚ましと区別
+                        Pre_Mission(fromHome: true, material: "基礎英単語", reset: $isReset)// trueにすることで目覚ましと区別
                     }
                     
                     Button(action: {
@@ -46,7 +48,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $toeic) {
-                        Pre_Mission(fromHome: true, material: "TOEIC英単語", reset: $toeic)// trueにすることで目覚ましと区別
+                        Pre_Mission(fromHome: true, material: "TOEIC英単語", reset: $isReset)// trueにすることで目覚ましと区別
                     }
                 
                     Button(action: {
@@ -65,7 +67,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $business) {
-                        Pre_Mission(fromHome: true, material: "ビジネス英単語", reset: $business)// trueにすることで目覚ましと区別
+                        Pre_Mission(fromHome: true, material: "ビジネス英単語", reset: $isReset)// trueにすることで目覚ましと区別
                     }
                 
                     Button(action: {
@@ -84,7 +86,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $academic) {
-                        Pre_Mission(fromHome: true, material: "学術英単語", reset: $academic)// trueにすることで目覚ましと区別
+                        Pre_Mission(fromHome: true, material: "学術英単語", reset: $isReset)// trueにすることで目覚ましと区別
                     }
                     
                     //デバイスに残っている通知チェック
@@ -106,7 +108,6 @@ struct HomeMission: View {
             .padding()
             .navigationTitle("ミッション")
             .onAppear {
-                print("aaaadaf")
                 basic = false
                 toeic = false
                 business = false
@@ -134,5 +135,46 @@ struct HomeMission: View {
 
 #Preview {
     HomeMission()
+}
+
+import SwiftUI
+
+struct AlarmLandingView2: View {
+    @State private var basic = false
+    @State private var toeic = false
+    @State private var business = false
+    @State private var academic = false
+    @StateObject private var missionState = MissionState()
+    
+    @State private var isReset: Bool = true
+
+    var body: some View {
+        NavigationStack {
+            Button(action: {
+                    basic = true
+            }) {
+                HStack {
+                    Image(systemName: "flag")
+                    Text("基礎英単語")
+                        .font(.headline)
+                    Spacer()  // ここにSpacerを追加
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+            .padding()
+            .navigationDestination(isPresented: $basic) {
+                Pre_Mission(fromHome: true, material: "基礎英単語", reset: $isReset)
+                    .navigationBarBackButtonHidden(true)
+            }
+            
+        }
+        .onAppear {
+            print("AlarmLandingView appeared with groupId:")
+        }
+    }
 }
 

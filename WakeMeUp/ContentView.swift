@@ -12,9 +12,11 @@ struct ContentView: View {
     @State private var isMissionViewActive = false
     @State private var isPermissionGranted = true // 通知設定の確認
     @State private var showAlert = false
+    
+    @State private var navigationPath = NavigationPath()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath){
             TabView {
                 NavigationStack {
                     AlarmListView(alarmStore: alarmStore)
@@ -54,6 +56,7 @@ struct ContentView: View {
                         .navigationBarBackButtonHidden(true)
             }
             .onAppear {
+                navigationPath.removeLast(navigationPath.count) // 履歴消去
                 checkNotificationPermission()
                 print("aaaaa", alarmStore.showingAlarmLanding)
                 self.showingAlarmLanding = self.alarmStore.showingAlarmLanding

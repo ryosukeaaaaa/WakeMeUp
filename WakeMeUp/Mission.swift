@@ -79,6 +79,8 @@ struct Pre_Mission: View {
                                         translation = .zero
                                         degree = 0.0
                                     }
+                                   // ドラッグ操作が終了したときにlabelTextを空にする
+                                   labelText = ""
                                 }
                         )
                 }
@@ -269,6 +271,7 @@ struct Pre_Mission: View {
                 if self.fromHome {
                     Button(action: {
                         navigateToHome = true
+                        print("tap")
                     }) {
                         Text("終了")
                     }

@@ -7,6 +7,8 @@ struct MissionClear: View {
     @State private var navigationPath = NavigationPath()
     
     @StateObject private var alarmStore = AlarmStore()
+    
+    @State private var Home = false
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -45,7 +47,8 @@ struct MissionClear: View {
                 Button(action: {
                     // Clear the navigation stack and navigate to HomeView
                     navigationPath.removeLast(navigationPath.count)
-                    navigationPath.append("HomeView")
+                    // navigationPath.append("HomeView")
+                    Home = true
                 }) {
                     HStack {
                         Image(systemName: "house")
@@ -58,11 +61,9 @@ struct MissionClear: View {
                     .cornerRadius(10)
                 }
             }
-            .navigationDestination(for: String.self) { viewName in
-                if viewName == "HomeView" {
-                    ContentView()
-                        .navigationBarBackButtonHidden(true)
-                }
+            .navigationDestination(isPresented: $Home) {
+                ContentView()
+                    .navigationBarBackButtonHidden(true)
             }
 //            .onAppear{
 //                alarmStore.stopAlarm(alarmStore.groupId)  // アラームを止める
