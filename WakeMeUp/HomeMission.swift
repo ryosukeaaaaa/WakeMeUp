@@ -89,25 +89,26 @@ struct HomeMission: View {
                         Pre_Mission(fromHome: true, material: "学術英単語", reset: $isReset)// trueにすることで目覚ましと区別
                     }
                     
-                    //デバイスに残っている通知チェック
-                    Button(action: {
-                        listAllPendingNotifications()
-                    }) {
-                        Text("Show Pending Notifications")
-                    }
-                    .padding()
-                    
-                    Button(action: {
-                        removeAllPendingNotifications()
-                    }) {
-                        Text("Remove All Pending Notifications")
-                    }
-                    .padding()
+//                    //デバイスに残っている通知チェック
+//                    Button(action: {
+//                        listAllPendingNotifications()
+//                    }) {
+//                        Text("Show Pending Notifications")
+//                    }
+//                    .padding()
+//                    
+//                    Button(action: {
+//                        removeAllPendingNotifications()
+//                    }) {
+//                        Text("Remove All Pending Notifications")
+//                    }
+//                    .padding()
                 }
             }
             .padding()
             .navigationTitle("ミッション")
             .onAppear {
+                isReset = true
                 basic = false
                 toeic = false
                 business = false
@@ -135,46 +136,5 @@ struct HomeMission: View {
 
 #Preview {
     HomeMission()
-}
-
-import SwiftUI
-
-struct AlarmLandingView2: View {
-    @State private var basic = false
-    @State private var toeic = false
-    @State private var business = false
-    @State private var academic = false
-    @StateObject private var missionState = MissionState()
-    
-    @State private var isReset: Bool = true
-
-    var body: some View {
-        NavigationStack {
-            Button(action: {
-                    basic = true
-            }) {
-                HStack {
-                    Image(systemName: "flag")
-                    Text("基礎英単語")
-                        .font(.headline)
-                    Spacer()  // ここにSpacerを追加
-                }
-                .padding(10)
-                .frame(maxWidth: .infinity)  // 横幅を最大に設定
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            .padding()
-            .navigationDestination(isPresented: $basic) {
-                Pre_Mission(fromHome: true, material: "基礎英単語", reset: $isReset)
-                    .navigationBarBackButtonHidden(true)
-            }
-            
-        }
-        .onAppear {
-            print("AlarmLandingView appeared with groupId:")
-        }
-    }
 }
 

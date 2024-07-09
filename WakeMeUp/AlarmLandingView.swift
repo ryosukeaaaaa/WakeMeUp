@@ -18,7 +18,7 @@ struct AlarmLandingView: View {
                 Text("起きる時間です！")
                     .font(.title2)
                     .padding()
-
+                
                 Text("GroupId: \(groupId)")
                     .font(.caption)
                     .padding()

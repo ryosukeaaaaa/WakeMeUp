@@ -27,6 +27,11 @@ struct Pre_Mission: View {
     
     @State private var labelText: String = ""
     
+    // 追加する状態変数
+    @State private var idleTimer: Timer?
+    @State private var audioPlayer: AVAudioPlayer?
+    @State private var isAlarmPlaying = false
+
     var body: some View {
         NavigationView {  // なぜかStackだと上手くいかない
             VStack {
@@ -38,6 +43,7 @@ struct Pre_Mission: View {
                         .gesture(
                             DragGesture()
                                 .onChanged { value in
+                                    resetIdleTimer()
                                     if missionState.clear_mission {
                                         translation = value.translation
                                         degree = Double(translation.width / 20)
@@ -52,6 +58,7 @@ struct Pre_Mission: View {
                                     }
                                 }
                                 .onEnded { value in
+                                    resetIdleTimer()
                                     if missionState.clear_mission {
                                         if abs(value.translation.width) > 120 {
                                             if value.translation.width > 0 {
@@ -89,6 +96,7 @@ struct Pre_Mission: View {
                 Spacer()
 
                 Button(action: {
+                    resetIdleTimer()
                     lastSpokenText = missionState.randomEntry.0
                     speakText(lastSpokenText)
                 }) {
@@ -97,23 +105,6 @@ struct Pre_Mission: View {
                 .padding()
 
                 if !missionState.clear_mission {
-                    //ボタン切り替え式録音
-//                    Button(action: {
-//                        isRecording.toggle()
-//                        if isRecording {
-//                            speechRecognizer.startRecording()
-//                        } else {
-//                            speechRecognizer.stopRecording()
-//                        }
-//                    }) {
-//                        Text(isRecording ? "Stop" : "Start")
-//                            .font(.title)
-//                            .padding(15)
-//                            .background(isRecording ? Color.red : Color.blue)
-//                            .foregroundColor(.white)
-//                            .cornerRadius(10)
-//                    }
-                    
                     Circle()
                         .fill(isRecording ? Color.white : Color.red)
                         .frame(width: 50, height: 50)
@@ -126,6 +117,7 @@ struct Pre_Mission: View {
                         .gesture(
                             LongPressGesture(minimumDuration: 0.01)
                                 .onChanged { _ in
+                                    resetIdleTimer()
                                     if !isRecording {
                                         isRecording = true
                                         speechRecognizer.startRecording()
@@ -133,6 +125,7 @@ struct Pre_Mission: View {
                                 }
                                 .sequenced(before: DragGesture(minimumDistance: 0))
                                 .onEnded { value in
+                                    resetIdleTimer()
                                     switch value {
                                     case .second(true, _):
                                         if isRecording {
@@ -152,6 +145,7 @@ struct Pre_Mission: View {
 
                     if isTypingVisible {
                         TextField("入力してください", text: $userInput, onCommit: {
+                            resetIdleTimer()
                             checkUserInput()
                         })
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -160,6 +154,7 @@ struct Pre_Mission: View {
 
                     HStack {
                         Button(action: {
+                            resetIdleTimer()
                             isTypingVisible.toggle()
                         }) {
                             HStack {
@@ -174,6 +169,7 @@ struct Pre_Mission: View {
                         }
                         
                         Button(action: {
+                            resetIdleTimer()
                             GPT = true
                         }) {
                             HStack {
@@ -234,6 +230,13 @@ struct Pre_Mission: View {
                 }else{
                     GPT = false
                 }
+                if !fromHome { // fromHomeがfalseの場合のみタイマーを開始
+                    startIdleTimer()
+                }
+            }
+            .onDisappear {
+                // 画面が非表示になるときにタイマーとアラームを停止
+                stopIdleTimerAndAlarm()
             }
             .onChange(of: speechRecognizer.transcript) {
                 if isRecording {
@@ -543,6 +546,50 @@ struct Pre_Mission: View {
 
         return nil
     }
-}
 
+    private func startIdleTimer() {
+        idleTimer?.invalidate()
+        print("start")
+        idleTimer = Timer.scheduledTimer(withTimeInterval: 180, repeats: false) { _ in
+            playAlarm()
+        }
+    }
+
+    private func resetIdleTimer() {
+        idleTimer?.invalidate()
+        print("reset")
+        if !fromHome {
+            print("reset2")
+            idleTimer = Timer.scheduledTimer(withTimeInterval: 180, repeats: false) { _ in
+                playAlarm()
+                print("アラーム再開")
+            }
+        }
+        stopAlarm()
+    }
+
+    private func playAlarm() {
+        guard let soundURL = Bundle.main.url(forResource: "alarm_sound", withExtension: "wav") else { return }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.numberOfLoops = -1 // ループ再生
+            audioPlayer?.play()
+            isAlarmPlaying = true
+        } catch {
+            print("Error playing alarm sound: \(error)")
+        }
+    }
+
+    private func stopAlarm() {
+        audioPlayer?.stop()
+        isAlarmPlaying = false
+    }
+    
+    private func stopIdleTimerAndAlarm() {
+        idleTimer?.invalidate()
+        idleTimer = nil
+        stopAlarm()
+    }
+}
 
