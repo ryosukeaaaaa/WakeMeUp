@@ -30,6 +30,7 @@ struct HomeMission: View {
                     }
                     .navigationDestination(isPresented: $basic) {
                         Pre_Mission(fromHome: true, material: "基礎英単語", reset: $isReset)// trueにすることで目覚ましと区別
+                            .navigationBarBackButtonHidden(true)
                     }
                     
                     Button(action: {
@@ -49,6 +50,7 @@ struct HomeMission: View {
                     }
                     .navigationDestination(isPresented: $toeic) {
                         Pre_Mission(fromHome: true, material: "TOEIC英単語", reset: $isReset)// trueにすることで目覚ましと区別
+                            .navigationBarBackButtonHidden(true)
                     }
                 
                     Button(action: {
@@ -68,6 +70,7 @@ struct HomeMission: View {
                     }
                     .navigationDestination(isPresented: $business) {
                         Pre_Mission(fromHome: true, material: "ビジネス英単語", reset: $isReset)// trueにすることで目覚ましと区別
+                            .navigationBarBackButtonHidden(true)
                     }
                 
                     Button(action: {
@@ -87,6 +90,7 @@ struct HomeMission: View {
                     }
                     .navigationDestination(isPresented: $academic) {
                         Pre_Mission(fromHome: true, material: "学術英単語", reset: $isReset)// trueにすることで目覚ましと区別
+                            .navigationBarBackButtonHidden(true)
                     }
                     
 //                    //デバイスに残っている通知チェック

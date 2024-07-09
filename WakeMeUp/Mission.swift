@@ -327,7 +327,7 @@ struct Pre_Mission: View {
     }
 
     private func checkUserInput() {
-        if userInput.lowercased() == missionState.randomEntry.0.lowercased() {
+        if userInput.lowercased().contains(self.missionState.randomEntry.0.lowercased()) {
             missionState.clear_mission = true
             userInput = ""
         }
