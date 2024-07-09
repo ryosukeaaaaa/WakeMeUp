@@ -3,61 +3,64 @@ import SwiftCSV
 
 struct StatusView: View {
     var body: some View {
-        VStack(spacing: 10) {
-            NavigationLink(destination: WordView(material: "基礎英単語")) {
-                HStack {
-                    Image(systemName: "person.fill")
-                    Text("基礎英単語")
-                        .font(.headline)
-                    Spacer()  // ここにSpacerを追加
+        NavigationView {
+            VStack(spacing: 10) {
+                NavigationLink(destination: WordView(material: "基礎英単語")) {
+                    HStack {
+                        Image(systemName: "person.fill")
+                        Text("基礎英単語")
+                            .font(.headline)
+                        Spacer()  // ここにSpacerを追加
+                    }
+                    .padding(10)
+                    .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
-                .padding(10)
-                .frame(maxWidth: .infinity)  // 横幅を最大に設定
-                .background(Color.orange)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            NavigationLink(destination: WordView(material: "TOEIC英単語")) {
-                HStack {
-                    Image(systemName: "person.fill")
-                    Text("TOEIC英単語")
-                        .font(.headline)
-                    Spacer()  // ここにSpacerを追加
+                NavigationLink(destination: WordView(material: "TOEIC英単語")) {
+                    HStack {
+                        Image(systemName: "person.fill")
+                        Text("TOEIC英単語")
+                            .font(.headline)
+                        Spacer()  // ここにSpacerを追加
+                    }
+                    .padding(10)
+                    .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
-                .padding(10)
-                .frame(maxWidth: .infinity)  // 横幅を最大に設定
-                .background(Color.orange)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            NavigationLink(destination: WordView(material: "ビジネス英単語")) {
-                HStack {
-                    Image(systemName: "person.fill")
-                    Text("ビジネス英単語")
-                        .font(.headline)
-                    Spacer()  // ここにSpacerを追加
+                NavigationLink(destination: WordView(material: "ビジネス英単語")) {
+                    HStack {
+                        Image(systemName: "person.fill")
+                        Text("ビジネス英単語")
+                            .font(.headline)
+                        Spacer()  // ここにSpacerを追加
+                    }
+                    .padding(10)
+                    .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
-                .padding(10)
-                .frame(maxWidth: .infinity)  // 横幅を最大に設定
-                .background(Color.orange)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            NavigationLink(destination: WordView(material: "学術英単語")) {
-                HStack {
-                    Image(systemName: "person.fill")
-                    Text("学術英単語")
-                        .font(.headline)
-                    Spacer()  // ここにSpacerを追加
+                NavigationLink(destination: WordView(material: "学術英単語")) {
+                    HStack {
+                        Image(systemName: "person.fill")
+                        Text("学術英単語")
+                            .font(.headline)
+                        Spacer()  // ここにSpacerを追加
+                    }
+                    .padding(10)
+                    .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
-                .padding(10)
-                .frame(maxWidth: .infinity)  // 横幅を最大に設定
-                .background(Color.orange)
-                .foregroundColor(.white)
-                .cornerRadius(10)
             }
+            .padding()
+            .navigationTitle("学習状況")
         }
-        .padding()
     }
 }
 

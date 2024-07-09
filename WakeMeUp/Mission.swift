@@ -122,7 +122,7 @@ struct Pre_Mission: View {
                         )
                         .shadow(color: .gray, radius: 5, x: 0, y: 5)
                         .gesture(
-                            LongPressGesture(minimumDuration: 0.1)
+                            LongPressGesture(minimumDuration: 0.01)
                                 .onChanged { _ in
                                     if !isRecording {
                                         isRecording = true
@@ -189,21 +189,6 @@ struct Pre_Mission: View {
                         }
                     }
                 } else {
-                    //                    HStack {
-                    //                        Text("←不安")
-                    //                            .foregroundColor(.white)
-                    //                            .padding()
-                    //                            .background(Color.blue)
-                    //                            .cornerRadius(10)
-                    //                            .frame(maxWidth: .infinity)
-                    //
-                    //                        Text("完璧→")
-                    //                            .foregroundColor(.white)
-                    //                            .padding()
-                    //                            .background(Color.yellow)
-                    //                            .cornerRadius(10)
-                    //                            .frame(maxWidth: .infinity)
-                    //                    }
                     if labelText == "perfect" {
                         Text("完璧！")
                             .font(.headline)
@@ -234,7 +219,6 @@ struct Pre_Mission: View {
                 Spacer() // Add this Spacer to ensure the card stays in the middle
             }
             .onAppear {
-                print("misision")
                 if reset{
                     missionState.shouldLoadInitialEntry = true
                     reset = false

@@ -48,7 +48,7 @@ struct ContentView: View {
                     Text("設定")
                 }
             }
-            //.navigationTitle("Home")
+            // .navigationTitle("Home")
             .navigationDestination(isPresented: $alarmStore.showingAlarmLanding) {
                 AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupId, isPresented: $alarmStore.showingAlarmLanding)
                         .navigationBarBackButtonHidden(true)

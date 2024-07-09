@@ -99,6 +99,7 @@ class SpeechRecognizer: ObservableObject {
     // 音声合成のメソッドを追加
     func speak(text: String) {
         let utterance = AVSpeechUtterance(string: text)
+        utterance.volume = 1.0  // 音量を最大に設定
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         print("Speaking: \(text)")
         speechSynthesizer.speak(utterance)

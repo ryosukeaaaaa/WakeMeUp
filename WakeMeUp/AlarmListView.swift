@@ -12,14 +12,19 @@ struct AlarmListView: View {
         NavigationView {
             List {
                 ForEach(alarmStore.alarms) { alarm in
-                    HStack {
-                        Text(formatTime(alarm.time))
-                        Spacer()
-                        Button(action: {}) {
-                            Toggle("", isOn: binding(for: alarm))
-                                .labelsHidden()
+                    VStack{
+                        HStack {
+                            Text(formatTime(alarm.time))
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                            Spacer()
+                            Button(action: {}) {
+                                Toggle("", isOn: binding(for: alarm))
+                                    .labelsHidden()
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        Text(alarm.soundName)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -33,14 +38,14 @@ struct AlarmListView: View {
                     }
                 }
             }
-        }
-        .navigationTitle("アラーム")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    showingAddAlarm = true
-                }) {
-                    Image(systemName: "plus")
+            .navigationTitle("アラーム")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showingAddAlarm = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
                 }
             }
         }
