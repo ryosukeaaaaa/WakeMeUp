@@ -7,6 +7,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     var window: UIWindow?
     var alarmStore = AlarmStore()
     
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // 通知センターのデリゲートを設定
         UNUserNotificationCenter.current().delegate = self
@@ -34,8 +35,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         print("gggggg")
         // オプショナルバインディングを使用してuserInfoの値をアンラップ
         if let groupId = userInfo["groupId"] as? String {
-//            self.alarmStore.showingAlarmLanding = true
-//            self.alarmStore.groupId = groupId
             NotificationCenter.default.post(name: NSNotification.Name("ShowAlarmLanding"), object: nil, userInfo: ["groupId": groupId])
         } else {
             print("groupIdを取得できませんでした。")
@@ -43,22 +42,21 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         completionHandler([.banner, .sound, .badge])
     }
     
-    // 通知をタップした時の処理
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let userInfo = response.notification.request.content.userInfo
-        // 通知に応じた処理をここに記述
-        print("通知がタップされました: \(response.notification.request.content.title)")
-        
-       // オプショナルバインディングを使用してuserInfoの値をアンラップ
-       if let groupId = userInfo["groupId"] as? String {
-//           self.alarmStore.showingAlarmLanding = true
-//           self.alarmStore.groupId = groupId
-           NotificationCenter.default.post(name: NSNotification.Name("ShowAlarmLanding"), object: nil, userInfo: ["groupId": groupId])
-       } else {
-           print("groupIdを取得できませんでした。")
-       }
-        
-        print("aaa", self.alarmStore.showingAlarmLanding)
-        completionHandler()
-    }
+//    // 通知をタップした時の処理
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        let userInfo = response.notification.request.content.userInfo
+//        // 通知に応じた処理をここに記述
+//        print("通知がタップされました: \(response.notification.request.content.title)")
+//        
+//       // オプショナルバインディングを使用してuserInfoの値をアンラップ
+//       if let groupId = userInfo["groupId"] as? String {
+//           NotificationCenter.default.post(name: NSNotification.Name("ShowAlarmLanding"), object: nil, userInfo: ["groupId": groupId])
+//       } else {
+//           print("groupIdを取得できませんでした。")
+//       }
+//        
+//        print("aaa", self.alarmStore.showingAlarmLanding)
+//        completionHandler()
+//    }
 }
+

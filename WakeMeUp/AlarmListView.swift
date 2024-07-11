@@ -53,7 +53,7 @@ struct AlarmListView: View {
             AddAlarmView(alarmStore: alarmStore)
         }
         .sheet(item: $selectedAlarm) { alarm in
-            AlarmSettingView(groupId: alarm.groupId, alarmStore: alarmStore)
+            AlarmSettingView(groupId: alarm.groupId, alarmStore: alarmStore, repeatLabel: alarm.repeatLabel)
         }
     }
     
@@ -79,54 +79,13 @@ struct AlarmListView: View {
             }
         )
     }
-
     // Toggleが変更されたときの処理を行う関数
     private func handleToggleChange(_ isOn: Bool, for index: Int) {
         if isOn {
-            onAlarm(
-                alarmTime: alarmStore.alarms[index].time,
-                isOn: alarmStore.alarms[index].isOn,
-                soundName: alarmStore.alarms[index].soundName,
-                snoozeEnabled: alarmStore.alarms[index].snoozeEnabled,
-                groupId: alarmStore.alarms[index].groupId,
-                alarmStore: alarmStore
+            alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, snoozeEnabled: alarmStore.alarms[index].snoozeEnabled, groupId: alarmStore.alarms[index].groupId
             )
         } else {
             alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
-        }
-    }
-    
-    // scheduleAlarm関数
-    func onAlarm(alarmTime: Date, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String, alarmStore: AlarmStore) {
-        alarmStore.deleteAlarmsByGroupId(groupId)
-        
-        let newAlarm = AlarmData(time: alarmTime, repeatLabel: "なし", mission: "通知", isOn: true, soundName: soundName, snoozeEnabled: snoozeEnabled, groupId: groupId)
-        alarmStore.addAlarm(newAlarm)
-        
-        let content = UNMutableNotificationContent()
-        content.title = "アラーム"
-        content.body = "時間です！起きましょう！"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
-        content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
-        
-        let calendar = Calendar.current
-        var targetDate = alarmTime
-        if targetDate < Date() {
-            targetDate = calendar.date(byAdding: .day, value: 1, to: targetDate)!
-        }
-        
-        for n in 0...10 {
-            let triggerDate = calendar.date(byAdding: .second, value: 8 * n, to: targetDate)!
-            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(n)", content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request) { error in
-                if let error = error {
-                    print("アラーム\(n)の設定に失敗しました: \(error.localizedDescription)")
-                } else {
-                    print("アラーム\(n)が設定されました: \(triggerDate)")
-                }
-            }
         }
     }
 }

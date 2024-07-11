@@ -37,7 +37,13 @@ class MissionState: ObservableObject {
     }
     
     init() {
-        self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
+//        self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
+        let savedClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
+        if savedClearCount == 0 && UserDefaults.standard.object(forKey: "ClearCount") == nil {
+            self.ClearCount = 5
+        } else {
+            self.ClearCount = savedClearCount
+        }
         self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC英単語"
         self.EnglishLevel = UserDefaults.standard.string(forKey: "EnglishLevel") ?? "中級者"
         if let data = UserDefaults.standard.data(forKey: "PastWords"),

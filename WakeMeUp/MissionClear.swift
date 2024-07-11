@@ -64,9 +64,12 @@ struct MissionClear: View {
             .navigationDestination(isPresented: $Home) {
                 ContentView()
                     .navigationBarBackButtonHidden(true)
+                    .onAppear {
+                        navigationPath.removeLast(navigationPath.count)
+                    }
             }
 //            .onAppear{
-//                alarmStore.stopAlarm(alarmStore.groupId)  // アラームを止める
+//                alarmStore.stopAlarm(alarmStore.groupIds)  // アラームを止める
 //                alarmStore.showingAlarmLanding = false
 //            }
         }

@@ -3,7 +3,7 @@ import SwiftUI
 struct AlarmLandingView: View {
     @ObservedObject var alarmStore: AlarmStore
     // let alarmId: String
-    let groupId: String
+    let groupId: [String]
     @Binding var isPresented: Bool
     @State private var navigateToPreMission = false
     @State private var isReset: Bool = true
@@ -25,7 +25,7 @@ struct AlarmLandingView: View {
 
                 Button(action: {
                     navigateToPreMission = true
-                    alarmStore.stopAlarm(alarmStore.groupId)  // アラームを止める
+                    alarmStore.stopAlarm_All(alarmStore.groupIds)  // アラームを止める
                     alarmStore.showingAlarmLanding = false
                 }) {
                     Text("ミッション開始")

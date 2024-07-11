@@ -14,6 +14,10 @@ struct ContentView: View {
     @State private var showAlert = false
     
     @State private var navigationPath = NavigationPath()
+    
+    
+    @Environment(\.scenePhase) private var scenePhase
+    
 
     var body: some View {
         NavigationStack(path: $navigationPath){
@@ -52,21 +56,31 @@ struct ContentView: View {
             }
             // .navigationTitle("Home")
             .navigationDestination(isPresented: $alarmStore.showingAlarmLanding) {
-                AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupId, isPresented: $alarmStore.showingAlarmLanding)
+                AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupIds, isPresented: $alarmStore.showingAlarmLanding)
                         .navigationBarBackButtonHidden(true)
             }
             .onAppear {
-                navigationPath.removeLast(navigationPath.count) // 履歴消去
                 checkNotificationPermission()
-                print("aaaaa", alarmStore.showingAlarmLanding)
-                self.showingAlarmLanding = self.alarmStore.showingAlarmLanding
                 if !isPermissionGranted {
                     showAlert = true
                 }
+                print("aaaaa", alarmStore.showingAlarmLanding)
             }
             .onChange(of: alarmStore.showingAlarmLanding) {
                 // showingAlarmLanding の変更を監視して、必要なアクションを実行
                 print("showingAlarmLanding changed to: \(alarmStore.showingAlarmLanding)")
+            }
+            .onChange(of: scenePhase) {
+                //            if scenePhase == .background {
+                //                print("バックグラウンド（.background）")
+                //            }
+                if scenePhase == .active {
+                    alarmStore.groupIds = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+                    print("groupids:", alarmStore.groupIds)
+                    if !alarmStore.groupIds.isEmpty {
+                        alarmStore.showingAlarmLanding = true
+                    }
+                }
             }
             .alert(isPresented: $showAlert) {
                 Alert(
@@ -78,10 +92,15 @@ struct ContentView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
             if let outerUserInfo = notification.userInfo,
-               let groupId = outerUserInfo["groupId"] as? String {
-                alarmStore.groupId = groupId
-                alarmStore.showingAlarmLanding = true
-                debugMessage = "Received notification: GroupId = \(alarmStore.groupId)"
+               let groupId = outerUserInfo["groupId"] as? [String] {
+                alarmStore.groupIds = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+                print("groupids:", alarmStore.groupIds)
+                if !alarmStore.groupIds.isEmpty {
+                    alarmStore.showingAlarmLanding = true
+                }
+//                alarmStore.groupIds = groupId
+//                alarmStore.showingAlarmLanding = true
+                debugMessage = "Received notification: GroupId = \(alarmStore.groupIds)"
             } else {
                 debugMessage = "Received notification but couldn't extract groupId"
             }

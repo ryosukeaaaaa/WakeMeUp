@@ -93,20 +93,20 @@ struct HomeMission: View {
                             .navigationBarBackButtonHidden(true)
                     }
                     
-//                    //デバイスに残っている通知チェック
-//                    Button(action: {
-//                        listAllPendingNotifications()
-//                    }) {
-//                        Text("Show Pending Notifications")
-//                    }
-//                    .padding()
-//                    
-//                    Button(action: {
-//                        removeAllPendingNotifications()
-//                    }) {
-//                        Text("Remove All Pending Notifications")
-//                    }
-//                    .padding()
+                    //デバイスに残っている通知チェック
+                    Button(action: {
+                        listAllPendingNotifications()
+                    }) {
+                        Text("Show Pending Notifications")
+                    }
+                    .padding()
+                    
+                    Button(action: {
+                        removeAllPendingNotifications()
+                    }) {
+                        Text("Remove All Pending Notifications")
+                    }
+                    .padding()
                 }
             }
             .padding()
