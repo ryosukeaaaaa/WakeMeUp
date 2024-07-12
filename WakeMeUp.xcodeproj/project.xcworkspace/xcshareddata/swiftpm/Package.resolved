@@ -1,5 +1,5 @@
 {
-  "originHash" : "7788c17f6d4534b383ea5aef956b67fd1d0c72f5d448a346fda275c6b86e86ec",
+  "originHash" : "ff93f1ca8cfc593fd3eb8bfe4a06b4ca195d37d049a42b3636e1729b0e8a7c85",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
         "version" : "5.9.1"
+      }
+    },
+    {
+      "identity" : "keyboardobserving",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nickffox/KeyboardObserving",
+      "state" : {
+        "branch" : "master",
+        "revision" : "48134b5460435cc9d048223ad7560ee2e40f3d4a"
       }
     },
     {

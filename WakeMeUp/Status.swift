@@ -1,30 +1,26 @@
 import SwiftUI
 import SwiftCSV
 import AVFoundation
-
-import Charts // 新しく必要なインポート
+import Charts
 
 struct ProgressData: Identifiable {
     let id = UUID()
     let category: String
     let value: Double
+    let exerciseCount: Int
 }
 
 struct StatusView: View {
-    let progressData: [ProgressData] = [
-        ProgressData(category: "基礎英単語", value: 70),
-        ProgressData(category: "TOEIC英単語", value: 85),
-        ProgressData(category: "ビジネス英単語", value: 55),
-        ProgressData(category: "学術英単語", value: 90)
-    ]
+    @State private var progressData: [ProgressData] = []
+    
+    var totalExerciseCount: Int {
+        progressData.reduce(0) { $0 + $1.exerciseCount }
+    }
     
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
                 VStack {
-//                    Text("達成率")
-//                        .font(.title2)
-//                        .padding(.bottom, 2)
                     Chart {
                         ForEach(progressData) { data in
                             BarMark(
@@ -36,12 +32,53 @@ struct StatusView: View {
                                 Text("\(Int(data.value))%")
                                     .font(.caption)
                                     .foregroundColor(.black)
-                                    .offset(y: -5) // バーから少し上にオフセット
+                                    .offset(y: -5)
                             }
                         }
                     }
+                    .chartYScale(domain: 0...100)
                     .frame(height: 100)
                     .padding()
+                }
+                
+                VStack {
+                    VStack {
+//                        HStack {
+//                            Text("カテゴリー")
+//                                .font(.headline)
+//                            Spacer()
+//                            Text("演習回数")
+//                                .font(.headline)
+//                        }
+//                        .padding(.horizontal)
+//                        
+//                        Divider()
+                        
+                        ForEach(progressData) { data in
+                            HStack {
+                                Text(data.category)
+                                Spacer()
+                                Text("\(data.exerciseCount)回")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                        }
+                        
+                        Divider()
+                        
+                        HStack {
+                            Text("総演習回数")
+                                .font(.headline)
+                            Spacer()
+                            Text("\(totalExerciseCount)回")
+                                .font(.headline)
+                        }
+                        .padding(.horizontal)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(5)
                 }
                 
                 NavigationLink(destination: WordView(material: "基礎英単語")) {
@@ -99,9 +136,43 @@ struct StatusView: View {
             }
             .padding()
             .navigationTitle("学習状況")
+            .onAppear(perform: loadProgressData)
+        }
+    }
+    
+    func loadProgressData() {
+        let categories = ["基礎英単語", "TOEIC英単語", "ビジネス英単語", "学術英単語"]
+        var data: [ProgressData] = []
+        
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        for category in categories {
+            let userCSVURL = documentDirectory.appendingPathComponent("\(category)_status.csv")
+            
+            do {
+                let csv = try CSV<Named>(url: userCSVURL)
+                let total = csv.rows.count
+                let completeCount = csv.rows.filter { $0["status"] != "1" }.count
+                let progressValue = (Double(completeCount) / Double(total)) * 100
+                
+                let exerciseCount = csv.rows.reduce(0) { sum, row in
+                    sum + (Int(row["status"] ?? "0") ?? 0) - 1
+                }
+                
+                data.append(ProgressData(category: category, value: progressValue, exerciseCount: exerciseCount))
+            } catch {
+                print("Failed to read CSV file for \(category): \(error.localizedDescription)")
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.progressData = data
         }
     }
 }
+
+
+
 
 struct WordView: View {
     let material: String

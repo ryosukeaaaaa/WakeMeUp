@@ -2,6 +2,8 @@ import SwiftUI
 import SwiftCSV
 import AVFoundation
 
+import KeyboardObserving
+
 struct Pre_Mission: View {
     @StateObject private var missionState = MissionState() // MissionStateを使用
 
@@ -31,14 +33,18 @@ struct Pre_Mission: View {
     @State private var idleTimer: Timer?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isAlarmPlaying = false
+    
+    @State private var isSheetPresented: Bool = false
+    @State private var sheet: Bool = false
 
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
                 GeometryReader { geometry in
                     VStack {
                         Spacer()
-                        
+
                         ZStack {
                             cardView()
                                 .offset(x: translation.width, y: 0)
@@ -51,7 +57,7 @@ struct Pre_Mission: View {
                                                 translation = value.translation
                                                 degree = Double(translation.width / 20)
                                             }
-                                            // Update labelText based on the degree value
+                                            // degree値に基づいてlabelTextを更新
                                             if degree > 1 {
                                                 labelText = "perfect"
                                             } else if degree < -1 {
@@ -94,13 +100,12 @@ struct Pre_Mission: View {
                                         }
                                 )
                         }
-                        .frame(width: geometry.size.width, height: geometry.size.height * 0.5) // Adjusted the size to fit in half of the screen height
-                        .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25) // Position in the upper half
-                        
-                        Spacer()
-                        
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.5) // サイズを画面の半分の高さに調整
+                        .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25) // 上半分に位置させる
+
+
                         VStack {
-                            Spacer()
+                            Spacer().frame(width: 1)
                             Button(action: {
                                 resetIdleTimer()
                                 lastSpokenText = missionState.randomEntry.0
@@ -109,7 +114,8 @@ struct Pre_Mission: View {
                                 Text("もう一度再生")
                             }
                             .padding()
-                            
+                            Spacer().frame(width: 1)
+
                             if !missionState.clear_mission {
                                 Circle()
                                     .fill(isRecording ? Color.white : Color.red)
@@ -147,29 +153,42 @@ struct Pre_Mission: View {
                                 Spacer()
                                 ScrollView {
                                     Text(speechRecognizer.transcript)
-                                        .frame(maxWidth: .infinity)// Increase the vertical padding to make it larger
+                                        .frame(maxWidth: .infinity)// 垂直方向のパディングを増やして大きくする
                                         .padding(.horizontal)
                                 }
-                                .background(Color(.systemBackground)) // Optional: Set a background color
-                                
-                                HStack {
-                                    TextField("入力してください", text: $userInput, onCommit: {
-                                        resetIdleTimer()
-                                        checkUserInput()
-                                    })
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    Button(action: {
-                                        // ここでキーボードを下げる
-                                        UIApplication.shared.endEditing()
-                                    }) {
-                                        Image(systemName: "keyboard.chevron.compact.down")
-                                    }
+                                .background(Color(.systemBackground)) // オプション: 背景色を設定
+                                Button("タイピングで答える"){
+                                    sheet.toggle()
                                 }
-                                .padding()
+                                .sheet(isPresented: $sheet) {
+                                    NavigationStack {
+                                        VStack {
+                                            HStack {
+                                                TextField("入力してください", text: $userInput)
+                                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                                Button(action: {
+                                                    isSheetPresented = false
+                                                    resetIdleTimer()
+                                                    checkUserInput()
+                                                }) {
+                                                    Text("送信")
+                                                }
+                                            }
+                                            .padding()
+                                        }
+                                        .toolbar {
+                                            Button("閉じる", role: .cancel){
+                                                sheet.toggle()
+                                            }
+                                        }
+                                    }.presentationDetents([.fraction(1/8)])
+                                }
+
                             } else {
                                 if labelText == "perfect" {
                                     Text("完璧！")
                                         .font(.headline)
+                                        .foregroundColor(Color.green)
                                         .padding()
                                         .background(Color.green.opacity(0.3))
                                         .cornerRadius(10)
@@ -178,8 +197,9 @@ struct Pre_Mission: View {
                                                 .stroke(Color.green, lineWidth: 2)
                                         )
                                 } else if labelText == "not" {
-                                    Text("まだ不安...")
+                                    Text("もう少し")
                                         .font(.headline)
+                                        .foregroundColor(Color.red)
                                         .padding()
                                         .background(Color.red.opacity(0.3))
                                         .cornerRadius(10)
@@ -194,8 +214,8 @@ struct Pre_Mission: View {
                                 }
                             }
                         }
-                        
-                        Spacer() // Add this Spacer to ensure the card stays in the middle
+
+                        Spacer() // このSpacerを追加してカードを中央に配置
                     }
                 }
             }

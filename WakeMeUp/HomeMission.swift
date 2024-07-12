@@ -1,4 +1,5 @@
 import SwiftUI
+import KeyboardObserving // KeyboardObservingライブラリをインポート
 
 struct HomeMission: View {
     @State private var basic = false
@@ -10,6 +11,8 @@ struct HomeMission: View {
     @State private var isReset: Bool = true
     
     @State private var lastmission = false
+    
+    @StateObject var keyboard = Keyboard() // ここでKeyboardのインスタンスを作成
     
     var body: some View {
         NavigationView {
@@ -33,6 +36,7 @@ struct HomeMission: View {
                     .navigationDestination(isPresented: $basic) {
                         Pre_Mission(fromHome: true, material: "基礎英単語", reset: $isReset)// trueにすることで目覚ましと区別
                             .navigationBarBackButtonHidden(true)
+                            .environmentObject(keyboard)
                     }
                     
                     Button(action: {
@@ -107,7 +111,7 @@ struct HomeMission: View {
                         }
                         .padding(10)
                         .frame(maxWidth: .infinity)  // 横幅を最大に設定
-                        .background(Color.green)
+                        .background(Color.cyan)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                     }

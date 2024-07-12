@@ -27,9 +27,10 @@
 		8232E88E2C3BF23400D1BF22 /* AlarmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */; };
 		8232E8902C3BF29C00D1BF22 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */; };
 		8232E8922C3FE08A00D1BF22 /* AlarmDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */; };
-		8232E8962C40F37C00D1BF22 /* keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E8952C40F37C00D1BF22 /* keyboard.swift */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
+		8272A5872C41088E006697E1 /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = 8272A5862C41088E006697E1 /* KeyboardObserving */; };
+		8272A5892C4120BD006697E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272A5882C4120BD006697E1 /* SceneDelegate.swift */; };
 		827A15992C176053003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Mission.swift */; };
 		827A159B2C176077003B4468 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* GPT.swift */; };
 		827A159D2C176087003B4468 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159C2C176087003B4468 /* Home.swift */; };
@@ -88,10 +89,10 @@
 		8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmStore.swift; sourceTree = "<group>"; };
 		8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
 		8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDay.swift; sourceTree = "<group>"; };
-		8232E8952C40F37C00D1BF22 /* keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboard.swift; sourceTree = "<group>"; };
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
+		8272A5882C4120BD006697E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		827A15982C176053003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		827A159A2C176077003B4468 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
 		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */,
+				8272A5872C41088E006697E1 /* KeyboardObserving in Frameworks */,
 				82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */,
 				828A07D92C1956270008A956 /* Alamofire in Frameworks */,
 			);
@@ -219,7 +221,7 @@
 				821FD6A62C34503E00F445C7 /* test.swift */,
 				34EB07052C18B9E900535988 /* AlarmEditView.swift */,
 				8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */,
-				8232E8952C40F37C00D1BF22 /* keyboard.swift */,
+				8272A5882C4120BD006697E1 /* SceneDelegate.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
@@ -269,6 +271,7 @@
 			packageProductDependencies = (
 				82053D8D2C188F3300D2D191 /* SwiftCSV */,
 				828A07D82C1956270008A956 /* Alamofire */,
+				8272A5862C41088E006697E1 /* KeyboardObserving */,
 			);
 			productName = WakeMeUp;
 			productReference = 829A599E2C1635B2002D7DA3 /* WakeMeUp.app */;
@@ -345,6 +348,7 @@
 			packageReferences = (
 				82053D8B2C188D7F00D2D191 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 				828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
 			);
 			productRefGroup = 829A599F2C1635B2002D7DA3 /* Products */;
 			projectDirPath = "";
@@ -403,7 +407,6 @@
 				34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */,
 				3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */,
 				827A15992C176053003B4468 /* Mission.swift in Sources */,
-				8232E8962C40F37C00D1BF22 /* keyboard.swift in Sources */,
 				8232E8922C3FE08A00D1BF22 /* AlarmDay.swift in Sources */,
 				821FD6A12C3313CC00F445C7 /* MissionClear.swift in Sources */,
 				3483CF732C2BC37800FA5BD3 /* AlarmLandingView.swift in Sources */,
@@ -419,6 +422,7 @@
 				828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */,
 				827A159D2C176087003B4468 /* Home.swift in Sources */,
 				824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */,
+				8272A5892C4120BD006697E1 /* SceneDelegate.swift in Sources */,
 				821FD69D2C32741900F445C7 /* Status.swift in Sources */,
 				829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */,
 				8232E88E2C3BF23400D1BF22 /* AlarmStore.swift in Sources */,
@@ -774,6 +778,14 @@
 				minimumVersion = 0.10.0;
 			};
 		};
+		8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nickffox/KeyboardObserving";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -789,6 +801,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 82053D8B2C188D7F00D2D191 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
 			productName = SwiftCSV;
+		};
+		8272A5862C41088E006697E1 /* KeyboardObserving */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
+			productName = KeyboardObserving;
 		};
 		828A07D82C1956270008A956 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

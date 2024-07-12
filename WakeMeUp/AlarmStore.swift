@@ -4,6 +4,7 @@ import Combine
 import SwiftUI
 import UserNotifications
 
+import AVFoundation
 // AlarmStore クラスの定義
 class AlarmStore: ObservableObject {
     @Published var alarms: [AlarmData] = []
@@ -135,6 +136,14 @@ class AlarmStore: ObservableObject {
         )
         
         addAlarm(newAlarm)
+        
+//        let audioSession = AVAudioSession.sharedInstance()
+//        do {
+//            try audioSession.setCategory(.playback)
+//            try audioSession.setActive(true)
+//        } catch {
+//            print("Audio session setup failed: \(error)")
+//        }
         
         let content = UNMutableNotificationContent()
         content.title = "アラーム"
