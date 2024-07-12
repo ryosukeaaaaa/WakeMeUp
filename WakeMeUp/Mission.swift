@@ -33,209 +33,171 @@ struct Pre_Mission: View {
     @State private var isAlarmPlaying = false
 
     var body: some View {
-        NavigationView {  // なぜかStackだと上手くいかない
+        NavigationView {
             VStack {
-                Spacer()
-                ZStack {
-                    cardView()
-                        .offset(x: translation.width, y: 0)
-                        .rotationEffect(.degrees(degree))
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    resetIdleTimer()
-                                    if missionState.clear_mission {
-                                        translation = value.translation
-                                        degree = Double(translation.width / 20)
-                                    }
-                                    // Update labelText based on the degree value
-                                    if degree > 1 {
-                                        labelText = "perfect"
-                                    } else if degree < -1 {
-                                        labelText = "not"
-                                    } else {
-                                        labelText = ""
-                                    }
-                                }
-                                .onEnded { value in
-                                    resetIdleTimer()
-                                    if missionState.clear_mission {
-                                        if abs(value.translation.width) > 120 {
-                                            if value.translation.width > 0 {
-                                                makeStatus(for: missionState.randomEntry.0, num: 1)
-                                                missionState.missionCount += 1
-                                                if missionState.missionCount >= missionState.ClearCount && !fromHome {
-                                                    navigateToHome = true
-                                                }else{
-                                                    loadNextEntry()
-                                                    speechRecognizer.transcript = "長押しして話す"
-                                                    labelText = ""
-                                                }
-                                            } else {
-                                                makeStatus(for: missionState.randomEntry.0, num: 0)
-                                                missionState.missionCount += 1
-                                                if missionState.missionCount >= missionState.ClearCount && !fromHome{
-                                                    navigateToHome = true
-                                                }else{
-                                                    loadNextEntry()
-                                                    speechRecognizer.transcript = "長押しして話す"
-                                                    labelText = ""
-                                                }
-                                            }
-                                        }
-                                        translation = .zero
-                                        degree = 0.0
-                                    }
-                                   // ドラッグ操作が終了したときにlabelTextを空にする
-                                   labelText = ""
-                                }
-                        )
-                }
-                .frame(width: 400, height: 400) // Fix the size of the ZStack
-
-                Spacer()
-
-                Button(action: {
-                    resetIdleTimer()
-                    lastSpokenText = missionState.randomEntry.0
-                    speakText(lastSpokenText)
-                }) {
-                    Text("もう一度再生")
-                }
-                .padding()
-
-                if !missionState.clear_mission {
-                    if isTypingVisible {
-                        HStack{
-                            TextField("入力してください", text: $userInput, onCommit: {
-                                resetIdleTimer()
-                                checkUserInput()
-                            })
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            Button(action: {
-                                // ここでキーボードを下げる
-                                UIApplication.shared.endEditing()
-                            }) {
-                                Image(systemName: "keyboard.chevron.compact.down")
-                            }
-                        }
-                    }else{
-                        Circle()
-                            .fill(isRecording ? Color.white : Color.red)
-                            .frame(width: 50, height: 50)
-                            .overlay(
-                                Circle()
-                                    .stroke(isRecording ? Color.white : Color.white, lineWidth: 5)
-                                    .frame(width: 60, height: 60)
-                            )
-                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                            .gesture(
-                                LongPressGesture(minimumDuration: 0.01)
-                                    .onChanged { _ in
-                                        resetIdleTimer()
-                                        if !isRecording {
-                                            isRecording = true
-                                            speechRecognizer.startRecording()
-                                        }
-                                    }
-                                    .sequenced(before: DragGesture(minimumDistance: 0))
-                                    .onEnded { value in
-                                        resetIdleTimer()
-                                        switch value {
-                                        case .second(true, _):
-                                            if isRecording {
-                                                isRecording = false
-                                                speechRecognizer.stopRecording()
-                                            }
-                                        default:
-                                            break
-                                        }
-                                    }
-                            )
+                GeometryReader { geometry in
+                    VStack {
+                        Spacer()
                         
-                        ScrollView {
-                            Text(speechRecognizer.transcript)
-                                .padding()
+                        ZStack {
+                            cardView()
+                                .offset(x: translation.width, y: 0)
+                                .rotationEffect(.degrees(degree))
+                                .gesture(
+                                    DragGesture()
+                                        .onChanged { value in
+                                            resetIdleTimer()
+                                            if missionState.clear_mission {
+                                                translation = value.translation
+                                                degree = Double(translation.width / 20)
+                                            }
+                                            // Update labelText based on the degree value
+                                            if degree > 1 {
+                                                labelText = "perfect"
+                                            } else if degree < -1 {
+                                                labelText = "not"
+                                            } else {
+                                                labelText = ""
+                                            }
+                                        }
+                                        .onEnded { value in
+                                            resetIdleTimer()
+                                            if missionState.clear_mission {
+                                                if abs(value.translation.width) > 120 {
+                                                    if value.translation.width > 0 {
+                                                        makeStatus(for: missionState.randomEntry.0, num: 1)
+                                                        missionState.missionCount += 1
+                                                        if missionState.missionCount >= missionState.ClearCount && !fromHome {
+                                                            navigateToHome = true
+                                                        } else {
+                                                            loadNextEntry()
+                                                            speechRecognizer.transcript = "長押しして話す"
+                                                            labelText = ""
+                                                        }
+                                                    } else {
+                                                        makeStatus(for: missionState.randomEntry.0, num: 0)
+                                                        missionState.missionCount += 1
+                                                        if missionState.missionCount >= missionState.ClearCount && !fromHome {
+                                                            navigateToHome = true
+                                                        } else {
+                                                            loadNextEntry()
+                                                            speechRecognizer.transcript = "長押しして話す"
+                                                            labelText = ""
+                                                        }
+                                                    }
+                                                }
+                                                translation = .zero
+                                                degree = 0.0
+                                            }
+                                            // ドラッグ操作が終了したときにlabelTextを空にする
+                                            labelText = ""
+                                        }
+                                )
                         }
-                    }
-                    
-                    HStack {
-                        if !isTypingVisible {
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.5) // Adjusted the size to fit in half of the screen height
+                        .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25) // Position in the upper half
+                        
+                        Spacer()
+                        
+                        VStack {
+                            Spacer()
                             Button(action: {
                                 resetIdleTimer()
-                                isTypingVisible.toggle()
+                                lastSpokenText = missionState.randomEntry.0
+                                speakText(lastSpokenText)
                             }) {
-                                HStack {
-                                    Image(systemName: "pencil")
-                                    Text("タイピング")
-                                        .font(.headline)
-                                }
-                                .padding(10)
-                                .background(Color.gray)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                                Text("もう一度再生")
                             }
-                        }else{
-                            Button(action: {
-                                isTypingVisible = false
-                            }) {
-                                HStack {
-                                    Image(systemName: "mic.fill")
-                                    Text("音声認識")
-                                        .font(.headline)
+                            .padding()
+                            
+                            if !missionState.clear_mission {
+                                Circle()
+                                    .fill(isRecording ? Color.white : Color.red)
+                                    .frame(width: 70, height: 70)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(isRecording ? Color.white : Color.white, lineWidth: 5)
+                                            .frame(width: 80, height: 80)
+                                    )
+                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                    .gesture(
+                                        LongPressGesture(minimumDuration: 0.01)
+                                            .onChanged { _ in
+                                                resetIdleTimer()
+                                                if !isRecording {
+                                                    isRecording = true
+                                                    speechRecognizer.startRecording()
+                                                }
+                                            }
+                                            .sequenced(before: DragGesture(minimumDistance: 0))
+                                            .onEnded { value in
+                                                resetIdleTimer()
+                                                switch value {
+                                                case .second(true, _):
+                                                    if isRecording {
+                                                        isRecording = false
+                                                        speechRecognizer.stopRecording()
+                                                    }
+                                                default:
+                                                    break
+                                                }
+                                            }
+                                    )
+                                    .padding()
+                                Spacer()
+                                ScrollView {
+                                    Text(speechRecognizer.transcript)
+                                        .frame(maxWidth: .infinity)// Increase the vertical padding to make it larger
+                                        .padding(.horizontal)
                                 }
-                                .padding(10)
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                            }}
-                        Button(action: {
-                            resetIdleTimer()
-                            GPT = true
-                        }) {
-                            HStack {
-                                Image(systemName: "person.fill")
-                                Text("英会話練習")
-                                    .font(.headline)
+                                .background(Color(.systemBackground)) // Optional: Set a background color
+                                
+                                HStack {
+                                    TextField("入力してください", text: $userInput, onCommit: {
+                                        resetIdleTimer()
+                                        checkUserInput()
+                                    })
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    Button(action: {
+                                        // ここでキーボードを下げる
+                                        UIApplication.shared.endEditing()
+                                    }) {
+                                        Image(systemName: "keyboard.chevron.compact.down")
+                                    }
+                                }
+                                .padding()
+                            } else {
+                                if labelText == "perfect" {
+                                    Text("完璧！")
+                                        .font(.headline)
+                                        .padding()
+                                        .background(Color.green.opacity(0.3))
+                                        .cornerRadius(10)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(Color.green, lineWidth: 2)
+                                        )
+                                } else if labelText == "not" {
+                                    Text("まだ不安...")
+                                        .font(.headline)
+                                        .padding()
+                                        .background(Color.red.opacity(0.3))
+                                        .cornerRadius(10)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(Color.red, lineWidth: 2)
+                                        )
+                                } else {
+                                    Text("スワイプして次のステップへ")
+                                        .font(.headline)
+                                        .padding()
+                                }
                             }
-                            .padding(10)
-                            .background(Color.orange)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
                         }
-                        .navigationDestination(isPresented: $GPT) {
-                            GPTView(missionState: missionState)
-                        }
-                    }
-                } else {
-                    if labelText == "perfect" {
-                        Text("完璧！")
-                            .font(.headline)
-                            .padding()
-                            .background(Color.green.opacity(0.3))
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.green, lineWidth: 2)
-                            )
-                    } else if labelText == "not" {
-                        Text("まだ不安...")
-                            .font(.headline)
-                            .padding()
-                            .background(Color.red.opacity(0.3))
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.red, lineWidth: 2)
-                            )
-                    }else{
-                        Text("スワイプして次のステップへ")
-                            .font(.headline)
-                            .padding()
+                        
+                        Spacer() // Add this Spacer to ensure the card stays in the middle
                     }
                 }
-
-                Spacer() // Add this Spacer to ensure the card stays in the middle
             }
             .onAppear {
                 if reset{
@@ -624,3 +586,5 @@ extension UIApplication {
         )
     }
 }
+
+

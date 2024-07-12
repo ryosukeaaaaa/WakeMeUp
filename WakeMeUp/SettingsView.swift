@@ -13,7 +13,7 @@ struct SettingsView: View {
                     }
                     
                     // materialの設定
-                    Picker("教材", selection: $missionState.material) {
+                    Picker("出題教材", selection: $missionState.material) {
                         Text("基礎英単語").tag("基礎英単語")
                         Text("TOEIC英単語").tag("TOEIC英単語")
                         Text("ビジネス英単語").tag("ビジネス英単語")

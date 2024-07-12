@@ -27,6 +27,7 @@
 		8232E88E2C3BF23400D1BF22 /* AlarmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */; };
 		8232E8902C3BF29C00D1BF22 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */; };
 		8232E8922C3FE08A00D1BF22 /* AlarmDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */; };
+		8232E8962C40F37C00D1BF22 /* keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E8952C40F37C00D1BF22 /* keyboard.swift */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
 		827A15992C176053003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Mission.swift */; };
@@ -87,6 +88,7 @@
 		8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmStore.swift; sourceTree = "<group>"; };
 		8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
 		8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDay.swift; sourceTree = "<group>"; };
+		8232E8952C40F37C00D1BF22 /* keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboard.swift; sourceTree = "<group>"; };
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				821FD6A62C34503E00F445C7 /* test.swift */,
 				34EB07052C18B9E900535988 /* AlarmEditView.swift */,
 				8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */,
+				8232E8952C40F37C00D1BF22 /* keyboard.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */,
 				3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */,
 				827A15992C176053003B4468 /* Mission.swift in Sources */,
+				8232E8962C40F37C00D1BF22 /* keyboard.swift in Sources */,
 				8232E8922C3FE08A00D1BF22 /* AlarmDay.swift in Sources */,
 				821FD6A12C3313CC00F445C7 /* MissionClear.swift in Sources */,
 				3483CF732C2BC37800FA5BD3 /* AlarmLandingView.swift in Sources */,

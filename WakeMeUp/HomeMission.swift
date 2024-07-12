@@ -9,6 +9,8 @@ struct HomeMission: View {
     
     @State private var isReset: Bool = true
     
+    @State private var lastmission = false
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
@@ -93,6 +95,26 @@ struct HomeMission: View {
                             .navigationBarBackButtonHidden(true)
                     }
                     
+                    //　前回の単語
+                    Button(action: {
+                        lastmission = true
+                    }) {
+                        HStack {
+                            Image(systemName: "flag")
+                            Text("前回の単語")
+                                .font(.headline)
+                            Spacer()  // ここにSpacerを追加
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
+                    .navigationDestination(isPresented: $lastmission) {
+                        LastMission(missionState: missionState)
+                    }
+                    
                     //デバイスに残っている通知チェック
                     Button(action: {
                         listAllPendingNotifications()
@@ -142,3 +164,31 @@ struct HomeMission: View {
     HomeMission()
 }
 
+struct LastMission: View {
+    @ObservedObject var missionState: MissionState
+    
+    @StateObject private var alarmStore = AlarmStore()
+    
+    @State private var Home = false
+
+    var body: some View {
+        VStack {
+            Text("前回の単語")
+                .font(.title)
+                .padding(.top)
+            ScrollView {
+                ForEach(missionState.PastWords, id: \.self) { word in
+                    HStack {
+                        Text(" \(word["entry"] ?? "N/A")")
+                        Spacer()
+                        Text(" \(word["meaning"] ?? "N/A")")
+                    }
+                    .padding()
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(10)
+                }
+            }
+            .padding()
+        }
+    }
+}
