@@ -1,14 +1,11 @@
 import SwiftUI
 import UserNotifications
+import AVFoundation
 
 @main
 struct WakeMeUpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject var alarmStore = AlarmStore() // ここでインスタンスを作成
-
-    init() {
-        requestNotificationPermissions()
-    }
+    @StateObject var alarmStore = AlarmStore()
 
     var body: some Scene {
         WindowGroup {
@@ -16,13 +13,51 @@ struct WakeMeUpApp: App {
                 .environmentObject(alarmStore)
         }
     }
+}
+import SwiftUI
+import AVFoundation
 
-    private func requestNotificationPermissions() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if success {
-                print("通知の許可が得られました")
-            } else if let error = error {
-                print(error.localizedDescription)
+class AudioPlayerManager: ObservableObject {
+    private var player: AVAudioPlayer?
+
+    @Published var isSilentMode: Bool = false
+
+    func checkSilentMode() {
+        guard let soundURL = Bundle.main.url(forResource: "alarm_sound", withExtension: "wav") else {
+            isSilentMode = false
+            return
+        }
+
+        do {
+            player = try AVAudioPlayer(contentsOf: soundURL)
+            player?.volume = 1.0
+            player?.numberOfLoops = -1
+
+            NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(notification:)), name: AVAudioSession.interruptionNotification, object: nil)
+
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+            player?.play()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.player?.stop()
+                if self.isSilentMode == false {
+                    self.isSilentMode = true
+                }
+            }
+        } catch {
+            isSilentMode = false
+        }
+    }
+
+    @objc private func handleInterruption(notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+           let type = AVAudioSession.InterruptionType(rawValue: typeValue) {
+            if type == .began {
+                isSilentMode = true
+            } else {
+                isSilentMode = false
             }
         }
     }
@@ -30,24 +65,26 @@ struct WakeMeUpApp: App {
 
 import SwiftUI
 
-struct ContentView5: View {
-    
-    @Environment(\.scenePhase) private var scenePhase
-    
+struct ContentView7: View {
+    @StateObject private var audioPlayerManager = AudioPlayerManager()
+
     var body: some View {
         VStack {
-            Text("Hello, world!")
+            Text(audioPlayerManager.isSilentMode ? "サイレントモードです" : "サイレントモードではありません")
+                .padding()
+            
+            Button(action: {
+                audioPlayerManager.checkSilentMode()
+            }) {
+                Text("サイレントモードをチェック")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
         }
-        .onChange(of: scenePhase) {
-            if scenePhase == .background {
-                print("バックグラウンド（.background）")
-            }
-            if scenePhase == .active {
-                print("フォアグラウンド（.active）")
-            }
-            if scenePhase == .inactive {
-                print("バックグラウンドorフォアグラウンド直前（.inactive）")
-            }
+        .onAppear {
+            audioPlayerManager.checkSilentMode()
         }
     }
 }

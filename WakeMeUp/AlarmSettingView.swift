@@ -14,6 +14,7 @@ struct AlarmSettingView: View {
     @State private var snoozeEnabled = false
     
     @State private var isRepeatDaysExpanded = false  // DisclosureGroupの展開状態を管理するState
+    @State private var isExpanded: Bool = false
     
     init(groupId: String, alarmStore: AlarmStore, repeatLabel: Set<Weekday> = []) {
         self.groupId = groupId
@@ -43,8 +44,45 @@ struct AlarmSettingView: View {
                             .foregroundColor(.gray)
                     }
                 }
-                Picker("サウンド", selection: $soundName) {
-                    Text("alarm_sound.wav").tag("alarm_sound.wav")
+                DisclosureGroup("サウンド", isExpanded: $isExpanded) {
+                    VStack {
+                        Button(action: {
+                            alarmStore.testSound(sound: "alarm_sound.wav")
+                        }) {
+                            Text("テスト")
+                        }
+                        .padding(.bottom, 5)
+                        Text("alarm_sound.wav")
+                            .onTapGesture {
+                                soundName = "alarm_sound.wav"
+                            }
+                    }
+
+                    VStack {
+                        Button(action: {
+                            alarmStore.testSound(sound: "G.mp3")
+                        }) {
+                            Text("テスト")
+                        }
+                        .padding(.bottom, 5)
+                        Text("G.mp3")
+                            .onTapGesture {
+                                soundName = "G.mp3"
+                            }
+                    }
+
+                    VStack {
+                        Button(action: {
+                            alarmStore.testSound(sound: "alarm_sound_small.wav")
+                        }) {
+                            Text("テスト")
+                        }
+                        .padding(.bottom, 5)
+                        Text("alarm_sound_small.wav")
+                            .onTapGesture {
+                                soundName = "alarm_sound_small.wav"
+                            }
+                    }
                 }
                 Toggle("スヌーズを有効にする", isOn: $snoozeEnabled)
                 Button(action: {
@@ -83,6 +121,9 @@ struct AlarmSettingView: View {
                     self.soundName = firstAlarm.soundName
                     self.snoozeEnabled = firstAlarm.snoozeEnabled
                 }
+            }
+            .onDisappear {
+                alarmStore.stopTestSound()
             }
         }
     }

@@ -26,11 +26,14 @@
 		821FD6B72C37E2A900F445C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6B62C37E2A900F445C7 /* AppDelegate.swift */; };
 		8232E88E2C3BF23400D1BF22 /* AlarmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */; };
 		8232E8902C3BF29C00D1BF22 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */; };
-		8232E8922C3FE08A00D1BF22 /* AlarmDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */; };
+		8232E8922C3FE08A00D1BF22 /* keep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E8912C3FE08A00D1BF22 /* keep.swift */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
-		8272A5872C41088E006697E1 /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = 8272A5862C41088E006697E1 /* KeyboardObserving */; };
 		8272A5892C4120BD006697E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272A5882C4120BD006697E1 /* SceneDelegate.swift */; };
+		8272A58C2C42E928006697E1 /* Mute in Frameworks */ = {isa = PBXBuildFile; productRef = 8272A58B2C42E928006697E1 /* Mute */; };
+		8272A58E2C42EB80006697E1 /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = 8272A58D2C42EB80006697E1 /* KeyboardObserving */; };
+		8272A5922C439BDA006697E1 /* G.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8272A5912C439BDA006697E1 /* G.mp3 */; };
+		8272A5962C43A045006697E1 /* alarm_sound_small.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8272A5952C43A045006697E1 /* alarm_sound_small.wav */; };
 		827A15992C176053003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Mission.swift */; };
 		827A159B2C176077003B4468 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* GPT.swift */; };
 		827A159D2C176087003B4468 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159C2C176087003B4468 /* Home.swift */; };
@@ -88,11 +91,13 @@
 		821FD6B62C37E2A900F445C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmStore.swift; sourceTree = "<group>"; };
 		8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
-		8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDay.swift; sourceTree = "<group>"; };
+		8232E8912C3FE08A00D1BF22 /* keep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keep.swift; sourceTree = "<group>"; };
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
 		8272A5882C4120BD006697E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		8272A5912C439BDA006697E1 /* G.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G.mp3; path = ../../../../../../Downloads/G.mp3; sourceTree = "<group>"; };
+		8272A5952C43A045006697E1 /* alarm_sound_small.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = alarm_sound_small.wav; path = ../../../../../../Downloads/alarm_sound_small.wav; sourceTree = "<group>"; };
 		827A15982C176053003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		827A159A2C176077003B4468 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
 		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -123,9 +128,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */,
-				8272A5872C41088E006697E1 /* KeyboardObserving in Frameworks */,
 				82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */,
 				828A07D92C1956270008A956 /* Alamofire in Frameworks */,
+				8272A58C2C42E928006697E1 /* Mute in Frameworks */,
+				8272A58E2C42EB80006697E1 /* KeyboardObserving in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +202,7 @@
 				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
 				8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */,
 				8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */,
+				8272A5882C4120BD006697E1 /* SceneDelegate.swift */,
 				34EB07032C18B94800535988 /* AlarmData.swift */,
 				341C36542C2B3035009F9594 /* AddAlarmView.swift */,
 				821FD6A82C358F0F00F445C7 /* HomeMission.swift */,
@@ -210,18 +217,19 @@
 				827AE3B62C18880D00DABD95 /* ビジネス英単語.csv */,
 				827AE3B72C18880D00DABD95 /* 学術英単語.csv */,
 				827AE3B82C18880D00DABD95 /* 基礎英単語.csv */,
+				341C36582C2B31A6009F9594 /* alarm_sound.wav */,
+				8272A5952C43A045006697E1 /* alarm_sound_small.wav */,
+				8272A5912C439BDA006697E1 /* G.mp3 */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				341C36522C2B2FA0009F9594 /* Config.plist */,
 				827A159C2C176087003B4468 /* Home.swift */,
 				827A159A2C176077003B4468 /* GPT.swift */,
 				828A07E02C19DE7A0008A956 /* GPT_audio.swift */,
 				828A07DE2C1994070008A956 /* Config.swift */,
-				341C36582C2B31A6009F9594 /* alarm_sound.wav */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
 				821FD6A62C34503E00F445C7 /* test.swift */,
 				34EB07052C18B9E900535988 /* AlarmEditView.swift */,
-				8232E8912C3FE08A00D1BF22 /* AlarmDay.swift */,
-				8272A5882C4120BD006697E1 /* SceneDelegate.swift */,
+				8232E8912C3FE08A00D1BF22 /* keep.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
@@ -271,7 +279,8 @@
 			packageProductDependencies = (
 				82053D8D2C188F3300D2D191 /* SwiftCSV */,
 				828A07D82C1956270008A956 /* Alamofire */,
-				8272A5862C41088E006697E1 /* KeyboardObserving */,
+				8272A58B2C42E928006697E1 /* Mute */,
+				8272A58D2C42EB80006697E1 /* KeyboardObserving */,
 			);
 			productName = WakeMeUp;
 			productReference = 829A599E2C1635B2002D7DA3 /* WakeMeUp.app */;
@@ -349,6 +358,7 @@
 				82053D8B2C188D7F00D2D191 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 				828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
+				8272A58A2C42E90C006697E1 /* XCRemoteSwiftPackageReference "Mute" */,
 			);
 			productRefGroup = 829A599F2C1635B2002D7DA3 /* Products */;
 			projectDirPath = "";
@@ -371,6 +381,8 @@
 				341C36592C2B31A6009F9594 /* alarm_sound.wav in Resources */,
 				827AE3BD2C18880D00DABD95 /* TOEIC英単語.csv in Resources */,
 				827AE3BC2C18880D00DABD95 /* 基礎英単語.csv in Resources */,
+				8272A5962C43A045006697E1 /* alarm_sound_small.wav in Resources */,
+				8272A5922C439BDA006697E1 /* G.mp3 in Resources */,
 				827AE3BB2C18880D00DABD95 /* 学術英単語.csv in Resources */,
 				827AE3BA2C18880D00DABD95 /* ビジネス英単語.csv in Resources */,
 				829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */,
@@ -407,7 +419,7 @@
 				34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */,
 				3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */,
 				827A15992C176053003B4468 /* Mission.swift in Sources */,
-				8232E8922C3FE08A00D1BF22 /* AlarmDay.swift in Sources */,
+				8232E8922C3FE08A00D1BF22 /* keep.swift in Sources */,
 				821FD6A12C3313CC00F445C7 /* MissionClear.swift in Sources */,
 				3483CF732C2BC37800FA5BD3 /* AlarmLandingView.swift in Sources */,
 				8232E8902C3BF29C00D1BF22 /* AlarmSettingView.swift in Sources */,
@@ -786,6 +798,14 @@
 				kind = branch;
 			};
 		};
+		8272A58A2C42E90C006697E1 /* XCRemoteSwiftPackageReference "Mute" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/akramhussein/Mute?tab=readme-ov-file";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.1;
+			};
+		};
 		828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -802,7 +822,12 @@
 			package = 82053D8B2C188D7F00D2D191 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
 			productName = SwiftCSV;
 		};
-		8272A5862C41088E006697E1 /* KeyboardObserving */ = {
+		8272A58B2C42E928006697E1 /* Mute */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8272A58A2C42E90C006697E1 /* XCRemoteSwiftPackageReference "Mute" */;
+			productName = Mute;
+		};
+		8272A58D2C42EB80006697E1 /* KeyboardObserving */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
 			productName = KeyboardObserving;

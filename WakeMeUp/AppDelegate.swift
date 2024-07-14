@@ -42,6 +42,20 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         completionHandler([.banner, .sound, .badge])
     }
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("アプリがキルされました")
+    }
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//        audioPlayerManager.playSound()
+//        completionHandler([.banner, .sound])
+//    }
+//
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        audioPlayerManager.playSound()
+//        completionHandler()
+//    }
+    
+    
 //    // 通知をタップした時の処理
 //    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 //        let userInfo = response.notification.request.content.userInfo

@@ -1,5 +1,5 @@
 {
-  "originHash" : "ff93f1ca8cfc593fd3eb8bfe4a06b4ca195d37d049a42b3636e1729b0e8a7c85",
+  "originHash" : "b79a4b8e7cbe96fba50be00b0b775bcef729be7ed808ef31739035568326c756",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -17,6 +17,15 @@
       "state" : {
         "branch" : "master",
         "revision" : "48134b5460435cc9d048223ad7560ee2e40f3d4a"
+      }
+    },
+    {
+      "identity" : "mute?tab=readme-ov-file",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/akramhussein/Mute?tab=readme-ov-file",
+      "state" : {
+        "revision" : "f99f26150c1b4806fb9720642d03159b87fddf40",
+        "version" : "0.6.1"
       }
     },
     {

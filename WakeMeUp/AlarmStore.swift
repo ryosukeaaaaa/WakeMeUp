@@ -8,17 +8,13 @@ import AVFoundation
 // AlarmStore クラスの定義
 class AlarmStore: ObservableObject {
     @Published var alarms: [AlarmData] = []
+    
     @Published var showingAlarmLanding: Bool {
         didSet {
             UserDefaults.standard.set(showingAlarmLanding, forKey: "showingAlarmLanding")
         }
     }
     @Published var groupIds: [String] = []
-//    {
-//        didSet {
-//            UserDefaults.standard.set(groupId, forKey: "groupId")
-//        }
-//    }
     
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
@@ -137,14 +133,6 @@ class AlarmStore: ObservableObject {
         
         addAlarm(newAlarm)
         
-//        let audioSession = AVAudioSession.sharedInstance()
-//        do {
-//            try audioSession.setCategory(.playback)
-//            try audioSession.setActive(true)
-//        } catch {
-//            print("Audio session setup failed: \(error)")
-//        }
-        
         let content = UNMutableNotificationContent()
         content.title = "アラーム"
         content.body = "時間です！起きましょう！"
@@ -185,6 +173,35 @@ class AlarmStore: ObservableObject {
                 }
             }
         }
+    }
+    
+    func testSound(sound: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "テストアラーム"
+        content.body = "これはテスト通知です"
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
+        
+        // トリガーの作成（5秒後に通知を送信）
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+        
+        // 通知リクエストの作成
+        let request = UNNotificationRequest(identifier: "testAlarm", content: content, trigger: trigger)
+        
+        // 通知をスケジュール
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("通知のスケジュールに失敗しました: \(error.localizedDescription)")
+            } else {
+                print("通知がスケジュールされました")
+            }
+        }
+    }
+    
+    func stopTestSound() {
+        // スケジュールされた通知をキャンセル
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testAlarm"])
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ["testAlarm"])
+        print("通知がキャンセルされました")
     }
     
     func getNextWeekday(from date: Date, weekday: Weekday) -> Date {
