@@ -326,7 +326,7 @@ struct DetailView: View {
             currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
             loadEntryDetails()
         }
-        .onChange(of: currentIndex) { _ in
+        .onChange(of: currentIndex) {
             loadEntryDetails()
         }
     }

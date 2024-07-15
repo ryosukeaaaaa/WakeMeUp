@@ -8,7 +8,7 @@ struct AddAlarmView: View {
     @State private var repeatLabel: Set<Weekday> = []
     @State private var mission = "通知"
     @State private var isOn = true
-    @State private var soundName = "alarm_sound.wav"
+    @StateObject private var soundData = SoundData()
     @State private var snoozeEnabled = false
     @Environment(\.presentationMode) var presentationMode
 
@@ -39,44 +39,14 @@ struct AddAlarmView: View {
                     }
                 }
                 
-                DisclosureGroup("サウンド", isExpanded: $isExpanded) {
-                    VStack {
-                        Button(action: {
-                            alarmStore.testSound(sound: "alarm_sound.wav")
-                        }) {
-                            Text("テスト")
-                        }
-                        .padding(.bottom, 5)
-                        Text("alarm_sound.wav")
-                            .onTapGesture {
-                                soundName = "alarm_sound.wav"
-                            }
-                    }
-
-                    VStack {
-                        Button(action: {
-                            alarmStore.testSound(sound: "G.mp3")
-                        }) {
-                            Text("テスト")
-                        }
-                        .padding(.bottom, 5)
-                        Text("G.mp3")
-                            .onTapGesture {
-                                soundName = "G.mp3"
-                            }
-                    }
-
-                    VStack {
-                        Button(action: {
-                            alarmStore.testSound(sound: "alarm_sound_small.wav")
-                        }) {
-                            Text("テスト")
-                        }
-                        .padding(.bottom, 5)
-                        Text("alarm_sound_small.wav")
-                            .onTapGesture {
-                                soundName = "alarm_sound_small.wav"
-                            }
+                NavigationLink {
+                    Sound(alarmStore: alarmStore).environmentObject(soundData)
+                } label: {
+                    HStack {
+                        Text("サウンド")
+                        Spacer()
+                        Text(soundData.soundName)
+                            .foregroundColor(.gray)
                     }
                 }
                 
@@ -86,7 +56,7 @@ struct AddAlarmView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        alarmStore.scheduleAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, soundName: soundName, snoozeEnabled: snoozeEnabled)
+                        alarmStore.scheduleAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, soundName: soundData.soundName, snoozeEnabled: snoozeEnabled)
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("保存")
@@ -100,8 +70,14 @@ struct AddAlarmView: View {
                     }
                 }
             }
+            .onAppear{
+                if self.soundData.soundName.isEmpty {
+                    self.soundData.soundName = "default"
+                }
+            }
             .onDisappear {
                 alarmStore.stopTestSound()
+                soundData.soundName = ""
             }
         }
     }
@@ -110,7 +86,9 @@ struct AddAlarmView: View {
         if repeatLabel.isEmpty {
             return "なし"
         } else {
-            return repeatLabel.map { $0.rawValue }.joined(separator: ", ")
+            let sortedLabels = repeatLabel.sorted(by: { $0.index < $1.index })
+            let abbreviatedLabels = sortedLabels.map { String($0.rawValue.prefix(1)) }
+            return abbreviatedLabels.joined(separator: ",")
         }
     }
 }

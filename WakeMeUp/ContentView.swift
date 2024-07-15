@@ -18,7 +18,6 @@ struct ContentView: View {
     
     @Environment(\.scenePhase) private var scenePhase
     
-
     var body: some View {
         NavigationStack(path: $navigationPath){
             TabView {

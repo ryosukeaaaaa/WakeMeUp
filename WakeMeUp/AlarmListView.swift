@@ -24,7 +24,12 @@ struct AlarmListView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
-                        Text(alarm.soundName)
+                        HStack{
+                            Text("サウンド")
+                            Spacer()
+                            Text(alarm.soundName)
+                        }
+                        .foregroundColor(.gray)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
