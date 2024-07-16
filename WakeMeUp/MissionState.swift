@@ -1,10 +1,3 @@
-//
-//  MissionState.swift
-//  WakeMeUp
-//
-//  Created by 長井亮輔 on 2024/07/01.
-//
-
 import Foundation
 
 class MissionState: ObservableObject {
@@ -65,7 +58,7 @@ class MissionState: ObservableObject {
         } else {
             self.ClearCount = savedClearCount
         }
-        self.material = UserDefaults.standard.string(forKey: "material") ?? "toeic"
+        self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC"
         if let data = UserDefaults.standard.data(forKey: "PastWords"),
            let decoded = try? JSONDecoder().decode([[String: String]].self, from: data) {
             self.PastWords = decoded

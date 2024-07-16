@@ -15,7 +15,6 @@
 		3483CF752C2BFE8600FA5BD3 /* AlarmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */; };
 		3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */; };
 		34EB07042C18B94800535988 /* AlarmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EB07032C18B94800535988 /* AlarmData.swift */; };
-		34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EB07052C18B9E900535988 /* AlarmEditView.swift */; };
 		82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 82053D8D2C188F3300D2D191 /* SwiftCSV */; };
 		821FD69D2C32741900F445C7 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD69C2C32741900F445C7 /* Status.swift */; };
 		821FD69F2C329F8100F445C7 /* MissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD69E2C329F8100F445C7 /* MissionState.swift */; };
@@ -29,7 +28,6 @@
 		8232E8922C3FE08A00D1BF22 /* keep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E8912C3FE08A00D1BF22 /* keep.swift */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
-		8272A5892C4120BD006697E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272A5882C4120BD006697E1 /* SceneDelegate.swift */; };
 		8272A5922C439BDA006697E1 /* G_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8272A5912C439BDA006697E1 /* G_medium.mp3 */; };
 		8272A5962C43A045006697E1 /* alarmsound_low.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8272A5952C43A045006697E1 /* alarmsound_low.wav */; };
 		8272A5982C44E2F7006697E1 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272A5972C44E2F7006697E1 /* Sound.swift */; };
@@ -46,7 +44,10 @@
 		828A07DD2C1959C90008A956 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 828A07DC2C1959C90008A956 /* .gitignore */; };
 		828A07DF2C1994070008A956 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07DE2C1994070008A956 /* Config.swift */; };
 		828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07E02C19DE7A0008A956 /* GPT_audio.swift */; };
-		8292006A2C460B4500C96C30 /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = 829200692C460B4500C96C30 /* KeyboardObserving */; };
+		8292006C2C469B2200C96C30 /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292006B2C469B2200C96C30 /* ItemState.swift */; };
+		829200702C469F3600C96C30 /* Gacha.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8292006F2C469F3600C96C30 /* Gacha.sks */; };
+		829200722C46A7BB00C96C30 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200712C46A7BB00C96C30 /* ItemView.swift */; };
+		829200742C46A81600C96C30 /* Gacha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200732C46A81600C96C30 /* Gacha.swift */; };
 		829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */; };
 		829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A52C1635B3002D7DA3 /* Assets.xcassets */; };
 		829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A82C1635B3002D7DA3 /* Preview Assets.xcassets */; };
@@ -81,7 +82,6 @@
 		3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListView.swift; sourceTree = "<group>"; };
 		3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		34EB07032C18B94800535988 /* AlarmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmData.swift; sourceTree = "<group>"; };
-		34EB07052C18B9E900535988 /* AlarmEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditView.swift; sourceTree = "<group>"; };
 		821FD69C2C32741900F445C7 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		821FD69E2C329F8100F445C7 /* MissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionState.swift; sourceTree = "<group>"; };
 		821FD6A02C3313CC00F445C7 /* MissionClear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionClear.swift; sourceTree = "<group>"; };
@@ -95,7 +95,6 @@
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
-		8272A5882C4120BD006697E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8272A5912C439BDA006697E1 /* G_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G_medium.mp3; path = ../../../../../../Downloads/G_medium.mp3; sourceTree = "<group>"; };
 		8272A5952C43A045006697E1 /* alarmsound_low.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = alarmsound_low.wav; path = ../../../../../../Downloads/alarmsound_low.wav; sourceTree = "<group>"; };
 		8272A5972C44E2F7006697E1 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
@@ -111,6 +110,10 @@
 		828A07DC2C1959C90008A956 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		828A07DE2C1994070008A956 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		828A07E02C19DE7A0008A956 /* GPT_audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT_audio.swift; sourceTree = "<group>"; };
+		8292006B2C469B2200C96C30 /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
+		8292006F2C469F3600C96C30 /* Gacha.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Gacha.sks; sourceTree = "<group>"; };
+		829200712C46A7BB00C96C30 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
+		829200732C46A81600C96C30 /* Gacha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gacha.swift; sourceTree = "<group>"; };
 		829A599E2C1635B2002D7DA3 /* WakeMeUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WakeMeUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpApp.swift; sourceTree = "<group>"; };
 		829A59A32C1635B2002D7DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -130,7 +133,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */,
-				8292006A2C460B4500C96C30 /* KeyboardObserving in Frameworks */,
 				82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */,
 				828A07D92C1956270008A956 /* Alamofire in Frameworks */,
 			);
@@ -204,7 +206,6 @@
 				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
 				8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */,
 				8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */,
-				8272A5882C4120BD006697E1 /* SceneDelegate.swift */,
 				34EB07032C18B94800535988 /* AlarmData.swift */,
 				341C36542C2B3035009F9594 /* AddAlarmView.swift */,
 				8272A5972C44E2F7006697E1 /* Sound.swift */,
@@ -216,6 +217,8 @@
 				829A59CB2C163ECD002D7DA3 /* audio.swift */,
 				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
+				8292006B2C469B2200C96C30 /* ItemState.swift */,
+				829200712C46A7BB00C96C30 /* ItemView.swift */,
 				827AE3B92C18880D00DABD95 /* TOEIC英単語.csv */,
 				827AE3B62C18880D00DABD95 /* ビジネス英単語.csv */,
 				827AE3B72C18880D00DABD95 /* 学術英単語.csv */,
@@ -231,8 +234,9 @@
 				828A07DE2C1994070008A956 /* Config.swift */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
 				821FD6A62C34503E00F445C7 /* test.swift */,
-				34EB07052C18B9E900535988 /* AlarmEditView.swift */,
 				8232E8912C3FE08A00D1BF22 /* keep.swift */,
+				8292006F2C469F3600C96C30 /* Gacha.sks */,
+				829200732C46A81600C96C30 /* Gacha.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
@@ -282,7 +286,6 @@
 			packageProductDependencies = (
 				82053D8D2C188F3300D2D191 /* SwiftCSV */,
 				828A07D82C1956270008A956 /* Alamofire */,
-				829200692C460B4500C96C30 /* KeyboardObserving */,
 			);
 			productName = WakeMeUp;
 			productReference = 829A599E2C1635B2002D7DA3 /* WakeMeUp.app */;
@@ -381,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				828A07DD2C1959C90008A956 /* .gitignore in Resources */,
+				829200702C469F3600C96C30 /* Gacha.sks in Resources */,
 				341C36532C2B2FA0009F9594 /* Config.plist in Resources */,
 				341C36592C2B31A6009F9594 /* alarmsound_medium.wav in Resources */,
 				827AE3BD2C18880D00DABD95 /* TOEIC英単語.csv in Resources */,
@@ -420,7 +424,7 @@
 				821FD6B72C37E2A900F445C7 /* AppDelegate.swift in Sources */,
 				341C365A2C2B31BC009F9594 /* alarmsound_medium.wav in Sources */,
 				341C36552C2B3035009F9594 /* AddAlarmView.swift in Sources */,
-				34EB07062C18B9E900535988 /* AlarmEditView.swift in Sources */,
+				8292006C2C469B2200C96C30 /* ItemState.swift in Sources */,
 				3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */,
 				827A15992C176053003B4468 /* Mission.swift in Sources */,
 				8232E8922C3FE08A00D1BF22 /* keep.swift in Sources */,
@@ -428,17 +432,18 @@
 				3483CF732C2BC37800FA5BD3 /* AlarmLandingView.swift in Sources */,
 				8232E8902C3BF29C00D1BF22 /* AlarmSettingView.swift in Sources */,
 				821FD69F2C329F8100F445C7 /* MissionState.swift in Sources */,
+				829200722C46A7BB00C96C30 /* ItemView.swift in Sources */,
 				829A59CC2C163ECD002D7DA3 /* audio.swift in Sources */,
 				3483CF752C2BFE8600FA5BD3 /* AlarmListView.swift in Sources */,
 				827A15A32C18641A003B4468 /* ContentView.swift in Sources */,
 				821FD6A92C358F0F00F445C7 /* HomeMission.swift in Sources */,
 				827A159B2C176077003B4468 /* GPT.swift in Sources */,
 				34EB07042C18B94800535988 /* AlarmData.swift in Sources */,
+				829200742C46A81600C96C30 /* Gacha.swift in Sources */,
 				828A07DF2C1994070008A956 /* Config.swift in Sources */,
 				828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */,
 				827A159D2C176087003B4468 /* Home.swift in Sources */,
 				824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */,
-				8272A5892C4120BD006697E1 /* SceneDelegate.swift in Sources */,
 				821FD69D2C32741900F445C7 /* Status.swift in Sources */,
 				8272A5982C44E2F7006697E1 /* Sound.swift in Sources */,
 				829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */,
@@ -847,11 +852,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		829200692C460B4500C96C30 /* KeyboardObserving */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
-			productName = KeyboardObserving;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

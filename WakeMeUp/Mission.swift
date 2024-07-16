@@ -2,8 +2,6 @@ import SwiftUI
 import SwiftCSV
 import AVFoundation
 
-import KeyboardObserving
-
 struct Pre_Mission: View {
     @StateObject private var missionState = MissionState() // MissionStateを使用
 
@@ -269,6 +267,7 @@ struct Pre_Mission: View {
                     missionState.PastWords = []  // 過去の単語一覧を消去
                 }
                 if missionState.shouldLoadInitialEntry { // 英会話画面から戻ってきたときに単語が変わらないように
+                    print(material)
                     print("ini")
                     loadNextEntry()
                     speechRecognizer.transcript = "長押しして話す"

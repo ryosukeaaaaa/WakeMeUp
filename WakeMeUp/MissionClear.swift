@@ -13,20 +13,12 @@ struct MissionClear: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
+                Spacer()
                 Text("Mission Complete!")
-                    .font(.largeTitle)
-                    .padding()
-                    .overlay(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                        .mask(
-                            Text("Mission Complete!")
-                                .font(.largeTitle)
-                        )
-                    )
+                    .font(.title)
+                    .italic()
+                    .fontWeight(.semibold)
+                    .foregroundColor(.blue)
                 Spacer()
                 Text("今日の単語")
                     .font(.title)

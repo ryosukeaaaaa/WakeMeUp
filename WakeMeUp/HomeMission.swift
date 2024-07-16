@@ -1,5 +1,4 @@
 import SwiftUI
-import KeyboardObserving // KeyboardObservingライブラリをインポート
 
 struct HomeMission: View {
     @State private var basic = false

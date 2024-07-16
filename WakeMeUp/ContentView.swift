@@ -44,7 +44,15 @@ struct ContentView: View {
                     Image(systemName: "chart.bar")
                     Text("習得状況")
                 }
-
+                
+                NavigationStack {
+                    GachaView()
+                }
+                .tabItem {
+                    Image(systemName: "die.face.5")
+                    Text("ガチャ")
+                }
+                
                 NavigationStack {
                     SettingsView()
                 }
