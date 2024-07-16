@@ -32,24 +32,13 @@ class AlarmStore: ObservableObject {
     }
 
     func deleteAlarmsByGroupId(_ groupId: String) {
-        cancelAlarmNotifications(groupId: groupId)
+        cancelAlarmNotifications(groupId: groupId, snoozeEnabled: isSnoozeEnabled(groupId: groupId))
         alarms.removeAll { $0.groupId == groupId }
         saveAlarms()
     }
     
-    func deleteAlarmsByGroupId_All(_ groupIds: [String]) {
-        for groupId in groupIds {
-            // 各 groupId に対してアラーム通知をキャンセル
-            cancelAlarmNotifications(groupId: groupId)
-            
-            // alarms 配列内で一致する groupId を持つアラームの isOn プロパティを false に設定
-            alarms.removeAll { $0.groupId == groupId }
-        }
-        saveAlarms()
-    }
-    
     func stopAlarm(_ groupId: String) {
-        cancelAlarmNotifications(groupId: groupId)
+        cancelAlarmNotifications(groupId: groupId, snoozeEnabled: isSnoozeEnabled(groupId: groupId))
         if let index = alarms.firstIndex(where: { $0.groupId == groupId }) {
             alarms[index].isOn = false
         }
@@ -59,7 +48,7 @@ class AlarmStore: ObservableObject {
     func stopAlarm_All(_ groupIds: [String]) {
         for groupId in groupIds {
             // 各 groupId に対してアラーム通知をキャンセル
-            cancelAlarmNotifications(groupId: groupId)
+            cancelAlarmNotifications(groupId: groupId, snoozeEnabled: isSnoozeEnabled(groupId: groupId))
             
             // alarms 配列内で一致する groupId を持つアラームの isOn プロパティを false に設定
             if let index = alarms.firstIndex(where: { $0.groupId == groupId }) {
@@ -70,19 +59,26 @@ class AlarmStore: ObservableObject {
         saveAlarms()
     }
     
-    private func cancelAlarmNotifications(groupId: String) {
+    //スヌーズかどうかをgroupIdから取得
+    func isSnoozeEnabled(groupId: String) -> Bool {
+        return alarms.first(where: { $0.groupId == groupId })?.snoozeEnabled ?? false
+    }
+    
+    private func cancelAlarmNotifications(groupId: String, snoozeEnabled: Bool) {
         let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
         for n in 0...10 {
             let identifier = "AlarmNotification\(groupId)_\(n)"
             identifiers.append(identifier)
         }
-//        if snoozeEnabled {
-//            for m in 1...3 {
-//                let identifier = "AlarmNotification\(groupId)_\(n)_\(m)"
-//                identifiers.append(identifier)
-//            }
-//        }
+        if snoozeEnabled {
+            for m in 1...3 {
+                for l in 0...10 {
+                    let identifier = "AlarmNotification\(groupId)_\(l)_\(m)"
+                    identifiers.append(identifier)
+                }
+            }
+        }
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
         center.removeDeliveredNotifications(withIdentifiers: identifiers)
     }
@@ -142,7 +138,7 @@ class AlarmStore: ObservableObject {
         content.body = "時間です！起きましょう！"
         content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
         
-        for n in 0...10 {
+        for n in 0...11 {
             let secondsToAdd = 7 * n
             let nanosecondsToAdd = 500_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
             var dateComponents = DateComponents()
@@ -172,10 +168,10 @@ class AlarmStore: ObservableObject {
         }
         
         if snoozeEnabled {
-            for m in 1...3 {
+            for m in 1...5 {
                 let snoozeTriggerDate = calendar.date(byAdding: .minute, value: 5 * m, to: targetDate)!
-                for n in 0...10 {
-                    let secondsToAdd = 7 * n
+                for l in 0...11 {
+                    let secondsToAdd = 7 * l
                     let nanosecondsToAdd = 800_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
                     var dateComponents = DateComponents()
                     dateComponents.second = secondsToAdd
@@ -186,19 +182,19 @@ class AlarmStore: ObservableObject {
                     let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                     
                     // サウンド設定を条件に応じて変更
-                    if n == 0 || n == 4 || n == 8 {
+                    if l == 0 || l == 4 || l == 8 {
                         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
                     } else {
                         content.sound = nil
                     }
                     
-                    let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(n)_\(m)", content: content, trigger: trigger)
+                    let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(l)_\(m)", content: content, trigger: trigger)
                     
                     UNUserNotificationCenter.current().add(request) { error in
                         if let error = error {
-                            print("アラーム\(n)_\(m)の設定に失敗しました: \(error.localizedDescription)")
+                            print("アラーム\(l)_\(m)の設定に失敗しました: \(error.localizedDescription)")
                         } else {
-                            print("アラーム\(n)_\(m)が設定されました: \(triggerDate)")
+                            print("アラーム\(l)_\(m)が設定されました: \(triggerDate)")
                         }
                     }
                 }
@@ -208,28 +204,41 @@ class AlarmStore: ObservableObject {
 
     
     func testSound(sound: String) {
+        let calendar = Calendar.current
+        
         let content = UNMutableNotificationContent()
         content.title = "テストアラーム"
         content.body = "これはテスト通知です"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
         
-        // トリガーの作成（5秒後に通知を送信）
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-        
-        // 通知リクエストの作成
-        let request = UNNotificationRequest(identifier: "testAlarm", content: content, trigger: trigger)
-        
-        // 通知をスケジュール
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("通知のスケジュールに失敗しました: \(error.localizedDescription)")
+        for n in 0...3 {
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1 + 7.5 * Double(n), repeats: false)
+            // サウンド設定を条件に応じて変更
+            if n == 0 || n == 4 || n == 8 {
+                content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
             } else {
-                print("通知がスケジュールされました")
+                content.sound = nil
+            }
+            
+            let request = UNNotificationRequest(identifier: "testAlarm_\(n)", content: content, trigger: trigger)
+            
+            // 通知をスケジュール
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("通知のスケジュールに失敗しました: \(error.localizedDescription)")
+                } else {
+                    print("通知がスケジュールされました")
+                }
             }
         }
     }
     
     func stopTestSound() {
+        let center = UNUserNotificationCenter.current()
+        var identifiers: [String] = []
+        for n in 0...3 {
+            let identifier = "testAlarm_\(n)"
+            identifiers.append(identifier)
+        }
         // スケジュールされた通知をキャンセル
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testAlarm"])
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ["testAlarm"])
