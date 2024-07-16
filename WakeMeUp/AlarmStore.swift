@@ -22,8 +22,12 @@ class AlarmStore: ObservableObject {
         loadAlarms()
     }
     
-    func addAlarm(_ alarm: AlarmData) {
-        alarms.append(alarm)
+    func addAlarm(_ alarm: AlarmData, at index: Int? = nil) {
+        if let index = index, index >= 0, index <= alarms.count {
+            alarms.insert(alarm, at: index)
+        } else {
+            alarms.append(alarm)
+        }
         saveAlarms()
     }
 
@@ -108,12 +112,12 @@ class AlarmStore: ObservableObject {
         setAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: true, soundName: soundName, snoozeEnabled: snoozeEnabled, groupId: groupId)
     }
     
-    func rescheduleAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String) {
+    func rescheduleAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String, at index: Int? = nil) {
         deleteAlarmsByGroupId(groupId)
-        setAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: isOn, soundName: soundName, snoozeEnabled: snoozeEnabled, groupId: groupId)
+        setAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: isOn, soundName: soundName, snoozeEnabled: snoozeEnabled, groupId: groupId, at: index)
     }
     
-    func setAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String) {
+    func setAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String, at index: Int? = nil) {
         let calendar = Calendar.current
         var targetDate = alarmTime
         if targetDate < Date() {
@@ -131,18 +135,31 @@ class AlarmStore: ObservableObject {
             groupId: groupId
         )
         
-        addAlarm(newAlarm)
+        addAlarm(newAlarm, at: index)
         
         let content = UNMutableNotificationContent()
         content.title = "アラーム"
         content.body = "時間です！起きましょう！"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
         content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
         
         for n in 0...10 {
-            let triggerDate = calendar.date(byAdding: .second, value: 8 * n, to: targetDate)!
-            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
+            let secondsToAdd = 7 * n
+            let nanosecondsToAdd = 500_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
+            var dateComponents = DateComponents()
+            dateComponents.second = secondsToAdd
+            dateComponents.nanosecond = nanosecondsToAdd
+            
+            let triggerDate = calendar.date(byAdding: dateComponents, to: targetDate)!
+            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .nanosecond], from: triggerDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            
+            // サウンド設定を条件に応じて変更
+            if n == 0 || n == 4 || n == 8 {
+                content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
+            } else {
+                content.sound = nil
+            }
+            
             let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(n)", content: content, trigger: trigger)
             
             UNUserNotificationCenter.current().add(request) { error in
@@ -158,9 +175,23 @@ class AlarmStore: ObservableObject {
             for m in 1...3 {
                 let snoozeTriggerDate = calendar.date(byAdding: .minute, value: 5 * m, to: targetDate)!
                 for n in 0...10 {
-                    let triggerDate = calendar.date(byAdding: .second, value: 8 * n, to: snoozeTriggerDate)!
-                    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
+                    let secondsToAdd = 7 * n
+                    let nanosecondsToAdd = 800_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
+                    var dateComponents = DateComponents()
+                    dateComponents.second = secondsToAdd
+                    dateComponents.nanosecond = nanosecondsToAdd
+                    
+                    let triggerDate = calendar.date(byAdding: dateComponents, to: snoozeTriggerDate)!
+                    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .nanosecond], from: triggerDate)
                     let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                    
+                    // サウンド設定を条件に応じて変更
+                    if n == 0 || n == 4 || n == 8 {
+                        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
+                    } else {
+                        content.sound = nil
+                    }
+                    
                     let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(n)_\(m)", content: content, trigger: trigger)
                     
                     UNUserNotificationCenter.current().add(request) { error in
@@ -174,6 +205,7 @@ class AlarmStore: ObservableObject {
             }
         }
     }
+
     
     func testSound(sound: String) {
         let content = UNMutableNotificationContent()

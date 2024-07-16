@@ -88,3 +88,54 @@ struct ContentView7: View {
         }
     }
 }
+
+struct GachaView: View {
+    @State private var items = ["🍎", "🍊", "🍌", "🍉", "🍇", "🍓"]
+    @State private var selectedItem = ""
+    @State private var isShaking = false
+    @State private var isItemVisible = false
+
+    var body: some View {
+        VStack {
+            Spacer()
+
+            Text(selectedItem)
+                .font(.system(size: 100))
+                .opacity(isItemVisible ? 1.0 : 0.0)
+                .animation(.easeIn(duration: 0.5), value: isItemVisible)
+
+            Spacer()
+
+            Image(systemName: "g.circle.fill")
+                .resizable()
+                .frame(width: 100, height: 100)
+                .rotationEffect(.degrees(isShaking ? 10 : 0))
+                .animation(isShaking ? Animation.linear(duration: 0.1).repeatCount(15, autoreverses: true) : .default, value: isShaking)
+
+            Spacer()
+
+            Button(action: {
+                startGacha()
+            }) {
+                Text("コインを投入してガチャを回す")
+                    .font(.largeTitle)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+        }
+        .padding()
+    }
+
+    func startGacha() {
+        isShaking = true
+        isItemVisible = false
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            isShaking = false
+            selectedItem = items.randomElement() ?? ""
+            isItemVisible = true
+        }
+    }
+}

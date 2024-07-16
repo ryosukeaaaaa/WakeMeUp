@@ -12,8 +12,6 @@ struct HomeMission: View {
     
     @State private var lastmission = false
     
-    @StateObject var keyboard = Keyboard() // ここでKeyboardのインスタンスを作成
-    
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
@@ -36,7 +34,6 @@ struct HomeMission: View {
                     .navigationDestination(isPresented: $basic) {
                         Pre_Mission(fromHome: true, material: "基礎英単語", reset: $isReset)// trueにすることで目覚ましと区別
                             .navigationBarBackButtonHidden(true)
-                            .environmentObject(keyboard)
                     }
                     
                     Button(action: {
@@ -117,6 +114,67 @@ struct HomeMission: View {
                     }
                     .navigationDestination(isPresented: $lastmission) {
                         LastMission(missionState: missionState)
+                    }
+                    
+                    VStack {
+                        VStack {
+    //                        HStack {
+    //                            Text("カテゴリー")
+    //                                .font(.headline)
+    //                            Spacer()
+    //                            Text("演習回数")
+    //                                .font(.headline)
+    //                        }
+    //                        .padding(.horizontal)
+    //
+    //                        Divider()
+                            HStack {
+                                Text("基礎英単語")
+                                Spacer()
+                                Text("\(missionState.basicCount)回")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                            
+                            HStack {
+                                Text("TOEIC英単語")
+                                Spacer()
+                                Text("\(missionState.toeicCount)回")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                            
+                            HStack {
+                                Text("ビジネス英単語")
+                                Spacer()
+                                Text("\(missionState.businessCount)回")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                            
+                            HStack {
+                                Text("学術英単語")
+                                Spacer()
+                                Text("\(missionState.academicCount)回")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                            
+                            Divider()
+                            
+                            HStack {
+                                Text("総演習回数")
+                                    .font(.headline)
+                                Spacer()
+                                Text("\(missionState.basicCount+missionState.toeicCount+missionState.businessCount+missionState.academicCount)回")
+                                    .font(.headline)
+                            }
+                            .padding(.horizontal)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(5)
                     }
                     
                     //デバイスに残っている通知チェック

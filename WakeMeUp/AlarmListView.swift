@@ -1,18 +1,17 @@
-import Foundation
-import Combine
 import SwiftUI
-import UserNotifications
 
 struct AlarmListView: View {
     @ObservedObject var alarmStore: AlarmStore
     @State private var showingAddAlarm = false
     @State private var selectedAlarm: AlarmData? = nil
+    @State private var selectedIndex: Int? = nil
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(alarmStore.alarms) { alarm in
-                    VStack{
+                ForEach(alarmStore.alarms.indices, id: \.self) { index in
+                    let alarm = alarmStore.alarms[index]
+                    VStack {
                         HStack {
                             Text(formatTime(alarm.time))
                                 .font(.largeTitle)
@@ -24,7 +23,7 @@ struct AlarmListView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
-                        HStack{
+                        HStack {
                             Text("サウンド")
                             Spacer()
                             Text(alarm.soundName)
@@ -34,6 +33,7 @@ struct AlarmListView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         selectedAlarm = alarm
+                        selectedIndex = index
                     }
                 }
                 .onDelete { indexSet in
@@ -58,7 +58,9 @@ struct AlarmListView: View {
             AddAlarmView(alarmStore: alarmStore)
         }
         .sheet(item: $selectedAlarm) { alarm in
-            AlarmSettingView(groupId: alarm.groupId, alarmStore: alarmStore, repeatLabel: alarm.repeatLabel)
+            if let index = selectedIndex {
+                AlarmSettingView(groupId: alarm.groupId, alarmStore: alarmStore, repeatLabel: alarm.repeatLabel, index: index)
+            }
         }
     }
     
@@ -84,11 +86,11 @@ struct AlarmListView: View {
             }
         )
     }
+    
     // Toggleが変更されたときの処理を行う関数
     private func handleToggleChange(_ isOn: Bool, for index: Int) {
         if isOn {
-            alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, snoozeEnabled: alarmStore.alarms[index].snoozeEnabled, groupId: alarmStore.alarms[index].groupId
-            )
+            alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, snoozeEnabled: alarmStore.alarms[index].snoozeEnabled, groupId: alarmStore.alarms[index].groupId, at: index)
         } else {
             alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
         }

@@ -7,80 +7,15 @@ struct ProgressData: Identifiable {
     let id = UUID()
     let category: String
     let value: Double
-    let exerciseCount: Int
 }
 
 struct StatusView: View {
     @State private var progressData: [ProgressData] = []
     
-    var totalExerciseCount: Int {
-        progressData.reduce(0) { $0 + $1.exerciseCount }
-    }
-    
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
-                VStack {
-                    Chart {
-                        ForEach(progressData) { data in
-                            BarMark(
-                                x: .value("Category", data.category),
-                                y: .value("Value", data.value)
-                            )
-                            .foregroundStyle(data.value < 60 ? Color(red: 0.1, green: 0.5, blue: 1.0) : (data.value < 80 ? Color.yellow : Color.green))
-                            .annotation(position: .top) {
-                                Text("\(Int(data.value))%")
-                                    .font(.caption)
-                                    .foregroundColor(.black)
-                                    .offset(y: -5)
-                            }
-                        }
-                    }
-                    .chartYScale(domain: 0...100)
-                    .frame(height: 100)
-                    .padding()
-                }
-                
-                VStack {
-                    VStack {
-//                        HStack {
-//                            Text("カテゴリー")
-//                                .font(.headline)
-//                            Spacer()
-//                            Text("演習回数")
-//                                .font(.headline)
-//                        }
-//                        .padding(.horizontal)
-//                        
-//                        Divider()
-                        
-                        ForEach(progressData) { data in
-                            HStack {
-                                Text(data.category)
-                                Spacer()
-                                Text("\(data.exerciseCount)回")
-                            }
-                            .padding(.vertical, 3)
-                            .padding(.horizontal)
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Text("総演習回数")
-                                .font(.headline)
-                            Spacer()
-                            Text("\(totalExerciseCount)回")
-                                .font(.headline)
-                        }
-                        .padding(.horizontal)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                }
-                
+
                 NavigationLink(destination: WordView(material: "基礎英単語")) {
                     HStack {
                         Image(systemName: "person.fill")
@@ -133,6 +68,28 @@ struct StatusView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
+                
+                VStack {
+                    Chart {
+                        ForEach(progressData) { data in
+                            BarMark(
+                                x: .value("Category", data.category),
+                                y: .value("Value", data.value)
+                            )
+                            .foregroundStyle(data.value < 60 ? Color(red: 0.1, green: 0.5, blue: 1.0) : (data.value < 80 ? Color.yellow : Color.green))
+                            .annotation(position: .top) {
+                                Text("\(Int(data.value))%")
+                                    .font(.caption)
+                                    .foregroundColor(.black)
+                                    .offset(y: -5)
+                            }
+                        }
+                    }
+                    .chartYScale(domain: 0...100)
+                    .frame(height: 150)
+                    .padding()
+                    Text("達成率")
+                }
             }
             .padding()
             .navigationTitle("学習状況")
@@ -155,11 +112,7 @@ struct StatusView: View {
                 let completeCount = csv.rows.filter { $0["status"] != "1" }.count
                 let progressValue = (Double(completeCount) / Double(total)) * 100
                 
-                let exerciseCount = csv.rows.reduce(0) { sum, row in
-                    sum + (Int(row["status"] ?? "0") ?? 0) - 1
-                }
-                
-                data.append(ProgressData(category: category, value: progressValue, exerciseCount: exerciseCount))
+                data.append(ProgressData(category: category, value: progressValue))
             } catch {
                 print("Failed to read CSV file for \(category): \(error.localizedDescription)")
             }

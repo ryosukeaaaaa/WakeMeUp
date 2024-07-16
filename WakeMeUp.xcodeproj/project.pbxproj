@@ -30,8 +30,6 @@
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
 		8272A5892C4120BD006697E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272A5882C4120BD006697E1 /* SceneDelegate.swift */; };
-		8272A58C2C42E928006697E1 /* Mute in Frameworks */ = {isa = PBXBuildFile; productRef = 8272A58B2C42E928006697E1 /* Mute */; };
-		8272A58E2C42EB80006697E1 /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = 8272A58D2C42EB80006697E1 /* KeyboardObserving */; };
 		8272A5922C439BDA006697E1 /* G_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8272A5912C439BDA006697E1 /* G_medium.mp3 */; };
 		8272A5962C43A045006697E1 /* alarm_sound_low.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8272A5952C43A045006697E1 /* alarm_sound_low.wav */; };
 		8272A5982C44E2F7006697E1 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272A5972C44E2F7006697E1 /* Sound.swift */; };
@@ -48,6 +46,7 @@
 		828A07DD2C1959C90008A956 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 828A07DC2C1959C90008A956 /* .gitignore */; };
 		828A07DF2C1994070008A956 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07DE2C1994070008A956 /* Config.swift */; };
 		828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07E02C19DE7A0008A956 /* GPT_audio.swift */; };
+		8292006A2C460B4500C96C30 /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = 829200692C460B4500C96C30 /* KeyboardObserving */; };
 		829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */; };
 		829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A52C1635B3002D7DA3 /* Assets.xcassets */; };
 		829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A82C1635B3002D7DA3 /* Preview Assets.xcassets */; };
@@ -100,6 +99,7 @@
 		8272A5912C439BDA006697E1 /* G_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G_medium.mp3; path = ../../../../../../Downloads/G_medium.mp3; sourceTree = "<group>"; };
 		8272A5952C43A045006697E1 /* alarm_sound_low.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = alarm_sound_low.wav; path = ../../../../../../Downloads/alarm_sound_low.wav; sourceTree = "<group>"; };
 		8272A5972C44E2F7006697E1 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
+		8272A59C2C4584AE006697E1 /* swift-package-manager-google-user-messaging-platform */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "swift-package-manager-google-user-messaging-platform"; path = "/Users/nagairyousuke/Library/Developer/Xcode/DerivedData/WakeMeUp-fbariaalosqyfbcfsszuzzanjplm/SourcePackages/checkouts/swift-package-manager-google-user-messaging-platform"; sourceTree = "<absolute>"; };
 		827A15982C176053003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		827A159A2C176077003B4468 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
 		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -130,10 +130,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */,
+				8292006A2C460B4500C96C30 /* KeyboardObserving in Frameworks */,
 				82053D8E2C188F3300D2D191 /* SwiftCSV in Frameworks */,
 				828A07D92C1956270008A956 /* Alamofire in Frameworks */,
-				8272A58C2C42E928006697E1 /* Mute in Frameworks */,
-				8272A58E2C42EB80006697E1 /* KeyboardObserving in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +156,7 @@
 		82053D8C2C188F3300D2D191 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8272A59C2C4584AE006697E1 /* swift-package-manager-google-user-messaging-platform */,
 				824D789C2C1A103C0070D045 /* CoreAudio.framework */,
 				824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */,
 			);
@@ -282,8 +282,7 @@
 			packageProductDependencies = (
 				82053D8D2C188F3300D2D191 /* SwiftCSV */,
 				828A07D82C1956270008A956 /* Alamofire */,
-				8272A58B2C42E928006697E1 /* Mute */,
-				8272A58D2C42EB80006697E1 /* KeyboardObserving */,
+				829200692C460B4500C96C30 /* KeyboardObserving */,
 			);
 			productName = WakeMeUp;
 			productReference = 829A599E2C1635B2002D7DA3 /* WakeMeUp.app */;
@@ -362,6 +361,8 @@
 				828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
 				8272A58A2C42E90C006697E1 /* XCRemoteSwiftPackageReference "Mute" */,
+				8272A5992C458354006697E1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				829200682C4609EC00C96C30 /* XCRemoteSwiftPackageReference "GoogleUserMessagingPlatform" */,
 			);
 			productRefGroup = 829A599F2C1635B2002D7DA3 /* Products */;
 			projectDirPath = "";
@@ -810,12 +811,28 @@
 				minimumVersion = 0.6.1;
 			};
 		};
+		8272A5992C458354006697E1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.6.0;
+			};
+		};
 		828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.9.1;
+			};
+		};
+		829200682C4609EC00C96C30 /* XCRemoteSwiftPackageReference "GoogleUserMessagingPlatform" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/quanghits/GoogleUserMessagingPlatform";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -826,20 +843,15 @@
 			package = 82053D8B2C188D7F00D2D191 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
 			productName = SwiftCSV;
 		};
-		8272A58B2C42E928006697E1 /* Mute */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8272A58A2C42E90C006697E1 /* XCRemoteSwiftPackageReference "Mute" */;
-			productName = Mute;
-		};
-		8272A58D2C42EB80006697E1 /* KeyboardObserving */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
-			productName = KeyboardObserving;
-		};
 		828A07D82C1956270008A956 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		829200692C460B4500C96C30 /* KeyboardObserving */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
+			productName = KeyboardObserving;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AlarmSettingView: View {
     let groupId: String
+    var index: Int
     @ObservedObject var alarmStore: AlarmStore
     @Environment(\.presentationMode) var presentationMode
     
@@ -16,10 +17,11 @@ struct AlarmSettingView: View {
     @State private var isRepeatDaysExpanded = false  // DisclosureGroupの展開状態を管理するState
     @State private var isExpanded: Bool = false
     
-    init(groupId: String, alarmStore: AlarmStore, repeatLabel: Set<Weekday> = []) {
+    init(groupId: String, alarmStore: AlarmStore, repeatLabel: Set<Weekday> = [], index: Int) {
         self.groupId = groupId
         self._alarmStore = ObservedObject(initialValue: alarmStore)
         self._repeatLabel = State(initialValue: repeatLabel)
+        self.index = index
     }
 
     var body: some View {
@@ -69,7 +71,7 @@ struct AlarmSettingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        alarmStore.rescheduleAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: true, soundName: soundData.soundName, snoozeEnabled: snoozeEnabled, groupId: groupId)
+                        alarmStore.rescheduleAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: true, soundName: soundData.soundName, snoozeEnabled: snoozeEnabled, groupId: groupId, at: index)
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("保存")

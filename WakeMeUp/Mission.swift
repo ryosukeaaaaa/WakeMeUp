@@ -73,6 +73,16 @@ struct Pre_Mission: View {
                                                     if value.translation.width > 0 {
                                                         makeStatus(for: missionState.randomEntry.0, num: 1)
                                                         missionState.missionCount += 1
+                                                        if material == "基礎英単語"{
+                                                            print("mission",missionState.basicCount)
+                                                            missionState.basicCount += 1
+                                                        }else if material == "TOEIC英単語"{
+                                                            missionState.toeicCount += 1
+                                                        }else if material == "ビジネス英単語"{
+                                                            missionState.businessCount += 1
+                                                        }else if material == "学術英単語"{
+                                                            missionState.academicCount += 1
+                                                        }
                                                         if missionState.missionCount >= missionState.ClearCount && !fromHome {
                                                             navigateToHome = true
                                                         } else {
@@ -83,6 +93,15 @@ struct Pre_Mission: View {
                                                     } else {
                                                         makeStatus(for: missionState.randomEntry.0, num: 0)
                                                         missionState.missionCount += 1
+                                                        if material == "基礎英単語"{
+                                                            missionState.basicCount += 1
+                                                        }else if material == "TOEIC英単語"{
+                                                            missionState.toeicCount += 1
+                                                        }else if material == "ビジネス英単語"{
+                                                            missionState.businessCount += 1
+                                                        }else if material == "学術英単語"{
+                                                            missionState.academicCount += 1
+                                                        }
                                                         if missionState.missionCount >= missionState.ClearCount && !fromHome {
                                                             navigateToHome = true
                                                         } else {
