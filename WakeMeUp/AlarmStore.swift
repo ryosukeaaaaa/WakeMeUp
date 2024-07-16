@@ -18,7 +18,7 @@ class AlarmStore: ObservableObject {
     
     
     //　アラーム編集用の格納庫
-    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "", snoozeEnabled: true, groupId: "")
+    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "default", snoozeEnabled: false, groupId: "")
     
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
@@ -244,8 +244,8 @@ class AlarmStore: ObservableObject {
             identifiers.append(identifier)
         }
         // スケジュールされた通知をキャンセル
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testAlarm"])
-        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ["testAlarm"])
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: identifiers)
         print("通知がキャンセルされました")
     }
     

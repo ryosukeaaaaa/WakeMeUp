@@ -8,7 +8,6 @@ struct AddAlarmView: View {
     @State private var repeatLabel: Set<Weekday> = []
     @State private var mission = "通知"
     @State private var isOn = true
-    @StateObject private var soundData = SoundData()
     @State private var snoozeEnabled = false
     @Environment(\.presentationMode) var presentationMode
 
@@ -18,21 +17,20 @@ struct AddAlarmView: View {
     var body: some View {
         NavigationView {
             Form {
-                DatePicker("アラーム時間", selection: $alarmTime, displayedComponents: .hourAndMinute)
-                
+                DatePicker("アラーム時間", selection: $alarmStore.settingalarm.time, displayedComponents: .hourAndMinute)
                 DisclosureGroup(isExpanded: $isRepeatDaysExpanded) {
                     ForEach(Weekday.allCases) { day in
-                        MultipleSelectionRow(day: day, isSelected: repeatLabel.contains(day)) {
-                            if repeatLabel.contains(day) {
-                                repeatLabel.remove(day)
+                        MultipleSelectionRow(day: day, isSelected: alarmStore.settingalarm.repeatLabel.contains(day)) {
+                            if alarmStore.settingalarm.repeatLabel.contains(day) {
+                                alarmStore.settingalarm.repeatLabel.remove(day)
                             } else {
-                                repeatLabel.insert(day)
+                                alarmStore.settingalarm.repeatLabel.insert(day)
                             }
                         }
                     }
-                } label: {
+                }label: {
                     HStack {
-                        Text("鳴らす日")
+                        Text("繰り返し")
                         Spacer()
                         Text(repeatLabelSummary())
                             .foregroundColor(.gray)
@@ -40,23 +38,30 @@ struct AddAlarmView: View {
                 }
                 
                 NavigationLink {
-                    Sound(alarmStore: alarmStore).environmentObject(soundData)
+                    Sound(alarmStore: alarmStore)
                 } label: {
                     HStack {
                         Text("サウンド")
                         Spacer()
-                        Text(soundData.soundName)
+                        Text(alarmStore.settingalarm.soundName)
                             .foregroundColor(.gray)
                     }
                 }
                 
-                Toggle("スヌーズを有効にする", isOn: $snoozeEnabled)
+                Toggle("スヌーズを有効にする", isOn: $alarmStore.settingalarm.snoozeEnabled)
+                Button(action: {
+                    alarmStore.deleteAlarmsByGroupId(alarmStore.settingalarm.groupId)
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("アラームを削除")
+                        .foregroundColor(.red)
+                }
             }
-            .navigationTitle("アラームの追加")
+            .navigationTitle("アラームの編集")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        alarmStore.scheduleAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, soundName: soundData.soundName, snoozeEnabled: snoozeEnabled)
+                        alarmStore.scheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, soundName: alarmStore.settingalarm.soundName, snoozeEnabled: alarmStore.settingalarm.snoozeEnabled)
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("保存")
@@ -71,13 +76,10 @@ struct AddAlarmView: View {
                 }
             }
             .onAppear{
-                if self.soundData.soundName.isEmpty {
-                    self.soundData.soundName = "default"
-                }
+                alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "default", snoozeEnabled: false, groupId: "")
             }
             .onDisappear {
                 alarmStore.stopTestSound()
-                soundData.soundName = ""
             }
         }
     }

@@ -10,7 +10,6 @@ struct AlarmSettingView: View {
     @State private var repeatLabel: Set<Weekday> = []
     @State private var mission = "通知"
     @State private var isOn = true
-    @StateObject private var soundData = SoundData()
     @State private var snoozeEnabled = false
     
     @State private var isRepeatDaysExpanded = false  // DisclosureGroupの展開状態を管理するState
@@ -45,12 +44,12 @@ struct AlarmSettingView: View {
                 }
                 
                 NavigationLink {
-                    Sound(alarmStore: alarmStore).environmentObject(soundData)
+                    Sound(alarmStore: alarmStore)
                 } label: {
                     HStack {
                         Text("サウンド")
                         Spacer()
-                        Text(soundData.soundName)
+                        Text(alarmStore.settingalarm.soundName)
                             .foregroundColor(.gray)
                     }
                 }
@@ -68,7 +67,7 @@ struct AlarmSettingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        alarmStore.rescheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, isOn: true, soundName: soundData.soundName, snoozeEnabled: alarmStore.settingalarm.snoozeEnabled, groupId: alarmStore.settingalarm.groupId, at: index)
+                        alarmStore.rescheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, isOn: true, soundName: alarmStore.settingalarm.soundName, snoozeEnabled: alarmStore.settingalarm.snoozeEnabled, groupId: alarmStore.settingalarm.groupId, at: index)
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("保存")
@@ -94,7 +93,6 @@ struct AlarmSettingView: View {
 //            }
             .onDisappear {
                 alarmStore.stopTestSound()
-                soundData.soundName = ""
             }
         }
     }
