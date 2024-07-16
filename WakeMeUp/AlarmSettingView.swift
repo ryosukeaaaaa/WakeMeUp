@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct AlarmSettingView: View {
-    let groupId: String
     var index: Int
     @ObservedObject var alarmStore: AlarmStore
     @Environment(\.presentationMode) var presentationMode
@@ -17,24 +16,22 @@ struct AlarmSettingView: View {
     @State private var isRepeatDaysExpanded = false  // DisclosureGroupの展開状態を管理するState
     @State private var isExpanded: Bool = false
     
-    init(groupId: String, alarmStore: AlarmStore, repeatLabel: Set<Weekday> = [], index: Int) {
-        self.groupId = groupId
-        self._alarmStore = ObservedObject(initialValue: alarmStore)
-        self._repeatLabel = State(initialValue: repeatLabel)
+    init(alarmStore: AlarmStore, index: Int) {
         self.index = index
+        self._alarmStore = ObservedObject(initialValue: alarmStore)
     }
 
     var body: some View {
         NavigationView {
             Form {
-                DatePicker("アラーム時間", selection: $alarmTime, displayedComponents: .hourAndMinute)
+                DatePicker("アラーム時間", selection: $alarmStore.settingalarm.time, displayedComponents: .hourAndMinute)
                 DisclosureGroup(isExpanded: $isRepeatDaysExpanded) {
                     ForEach(Weekday.allCases) { day in
-                        MultipleSelectionRow(day: day, isSelected: repeatLabel.contains(day)) {
-                            if repeatLabel.contains(day) {
-                                repeatLabel.remove(day)
+                        MultipleSelectionRow(day: day, isSelected: alarmStore.settingalarm.repeatLabel.contains(day)) {
+                            if alarmStore.settingalarm.repeatLabel.contains(day) {
+                                alarmStore.settingalarm.repeatLabel.remove(day)
                             } else {
-                                repeatLabel.insert(day)
+                                alarmStore.settingalarm.repeatLabel.insert(day)
                             }
                         }
                     }
@@ -58,9 +55,9 @@ struct AlarmSettingView: View {
                     }
                 }
                 
-                Toggle("スヌーズを有効にする", isOn: $snoozeEnabled)
+                Toggle("スヌーズを有効にする", isOn: $alarmStore.settingalarm.snoozeEnabled)
                 Button(action: {
-                    alarmStore.deleteAlarmsByGroupId(groupId)
+                    alarmStore.deleteAlarmsByGroupId(alarmStore.settingalarm.groupId)
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("アラームを削除")
@@ -71,7 +68,7 @@ struct AlarmSettingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        alarmStore.rescheduleAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: true, soundName: soundData.soundName, snoozeEnabled: snoozeEnabled, groupId: groupId, at: index)
+                        alarmStore.rescheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, isOn: true, soundName: soundData.soundName, snoozeEnabled: alarmStore.settingalarm.snoozeEnabled, groupId: alarmStore.settingalarm.groupId, at: index)
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("保存")
@@ -85,20 +82,16 @@ struct AlarmSettingView: View {
                     }
                 }
             }
-            .onAppear {
-                self.alarmsForGroup = alarmStore.getAlarms(byGroupId: groupId)
-                if let firstAlarm = alarmsForGroup.first {
-                    self.alarmTime = firstAlarm.time
-                    self.repeatLabel = firstAlarm.repeatLabel
-                    self.mission = firstAlarm.mission
-                    self.isOn = firstAlarm.isOn
-                    // soundName が空の場合にのみ設定を行う
-                    if self.soundData.soundName.isEmpty {
-                        self.soundData.soundName = firstAlarm.soundName
-                    }
-                    self.snoozeEnabled = firstAlarm.snoozeEnabled
-                }
-            }
+//            .onAppear {
+//                if self.soundData.soundName.isEmpty {
+//                    self.soundData.soundName = alarm.soundName
+//                    alarmStore.alarmTime = alarm.time
+//                    alarmStore.repeatLabel = alarm.repeatLabel
+//                    alarmStore.mission = firstAlarm.mission
+//                    alarmStore.isOn = firstAlarm.isOn
+//                    alarmStore.snoozeEnabled = firstAlarm.snoozeEnabled
+//                }
+//            }
             .onDisappear {
                 alarmStore.stopTestSound()
                 soundData.soundName = ""
@@ -112,10 +105,10 @@ struct AlarmSettingView: View {
         return formatter.string(from: date)
     }
     private func repeatLabelSummary() -> String {
-        if repeatLabel.isEmpty {
+        if alarmStore.settingalarm.repeatLabel.isEmpty {
             return "なし"
         } else {
-            let sortedLabels = repeatLabel.sorted(by: { $0.index < $1.index })
+            let sortedLabels = alarmStore.settingalarm.repeatLabel.sorted(by: { $0.index < $1.index })
             let abbreviatedLabels = sortedLabels.map { String($0.rawValue.prefix(1)) }
             return abbreviatedLabels.joined(separator: ",")
         }

@@ -16,6 +16,10 @@ class AlarmStore: ObservableObject {
     }
     @Published var groupIds: [String] = []
     
+    
+    //　アラーム編集用の格納庫
+    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "", snoozeEnabled: true, groupId: "")
+    
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
         //self.groupId = UserDefaults.standard.string(forKey: "groupId") ?? ""

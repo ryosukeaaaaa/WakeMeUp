@@ -1,10 +1,15 @@
 import SwiftUI
 
+// Identifiableに準拠したラッパー
+struct IdentifiableInt: Identifiable {
+    var id: Int
+}
+
 struct AlarmListView: View {
     @ObservedObject var alarmStore: AlarmStore
     @State private var showingAddAlarm = false
     @State private var selectedAlarm: AlarmData? = nil
-    @State private var selectedIndex: Int? = nil
+    @State private var selectedIndex: IdentifiableInt? = nil
 
     var body: some View {
         NavigationView {
@@ -32,8 +37,8 @@ struct AlarmListView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        selectedAlarm = alarm
-                        selectedIndex = index
+                        alarmStore.settingalarm = alarm
+                        selectedIndex = IdentifiableInt(id: index)
                     }
                 }
                 .onDelete { indexSet in
@@ -57,20 +62,18 @@ struct AlarmListView: View {
         .sheet(isPresented: $showingAddAlarm) {
             AddAlarmView(alarmStore: alarmStore)
         }
-        .sheet(item: $selectedAlarm) { alarm in
-            if let index = selectedIndex {
-                AlarmSettingView(groupId: alarm.groupId, alarmStore: alarmStore, repeatLabel: alarm.repeatLabel, index: index)
-            }
+        .sheet(item: $selectedIndex) { selectedItem in
+            AlarmSettingView(alarmStore: alarmStore, index: selectedItem.id)
         }
     }
-    
+
     // アラームの時間をフォーマットする関数
     func formatTime(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
-    
+
     // Toggleのバインディングを取得する関数
     private func binding(for alarm: AlarmData) -> Binding<Bool> {
         guard let index = alarmStore.alarms.firstIndex(where: { $0.id == alarm.id }) else {
@@ -86,11 +89,11 @@ struct AlarmListView: View {
             }
         )
     }
-    
+
     // Toggleが変更されたときの処理を行う関数
     private func handleToggleChange(_ isOn: Bool, for index: Int) {
         if isOn {
-            alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, snoozeEnabled: alarmStore.alarms[index].snoozeEnabled, groupId: alarmStore.alarms[index].groupId, at: index)
+            alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, snoozeEnabled: alarmStore.alarms[index].snoozeEnabled, groupId: alarmStore.alarms[index].groupId)
         } else {
             alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
         }
