@@ -69,7 +69,7 @@ struct StatusView: View {
                     .cornerRadius(10)
                 }
                 
-                VStack {
+                VStack(spacing: 1)  {
                     Chart {
                         ForEach(progressData) { data in
                             BarMark(
@@ -124,22 +124,21 @@ struct StatusView: View {
     }
 }
 
-
-
-
 struct WordView: View {
     let material: String
     @State private var entries: [(entry: String, status: Int)] = []
     @State private var errorMessage: String?
     @State private var showSortOptions = false
     @State private var sortOrder: SortOrder = .statusDescending
-    
+    @State private var searchQuery = ""
+    @State private var lastViewedEntry: String?
+
     enum SortOrder {
         case statusDescending
         case statusAscending
         case alphabetical
     }
-    
+
     var body: some View {
         VStack {
             if let errorMessage = errorMessage {
@@ -147,13 +146,25 @@ struct WordView: View {
                     .foregroundColor(.red)
                     .padding()
             } else {
-                List(entries, id: \.entry) { entry in
-                    NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries)) {
-                        HStack {
-                            Text(entry.entry)
-                            Spacer()
-                            Text("\(entry.status-1)")
-                                .foregroundColor(.gray)
+                SearchBar(text: $searchQuery)
+                    .padding()
+                
+                ScrollViewReader { proxy in
+                    List(filteredEntries, id: \.entry) { entry in
+                        NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries, lastViewedEntry: $lastViewedEntry)) {
+                            HStack {
+                                Text(entry.entry)
+                                Spacer()
+                                Text("\(entry.status-1)")
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
+                    .onAppear {
+                        if let lastViewedEntry = lastViewedEntry {
+                            DispatchQueue.main.async {
+                                proxy.scrollTo(lastViewedEntry, anchor: .center)
+                            }
                         }
                     }
                 }
@@ -199,11 +210,19 @@ struct WordView: View {
         }
     }
     
+    var filteredEntries: [(entry: String, status: Int)] {
+        if searchQuery.isEmpty {
+            return entries
+        } else {
+            return entries.filter { $0.entry.lowercased().contains(searchQuery.lowercased()) }
+        }
+    }
+
     func createUserCSVIfNeeded2(material: String) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
         
-        if !FileManager.default.fileExists(atPath: userCSVURL.path) {
+        if (!FileManager.default.fileExists(atPath: userCSVURL.path)) {
             guard let csvURL_status = Bundle.main.url(forResource: material, withExtension: "csv") else {
                 print("Error: CSVファイルが見つかりません")
                 return
@@ -262,6 +281,7 @@ struct DetailView: View {
     var material: String
     var entry: (entry: String, status: Int)
     var entries: [(entry: String, status: Int)]
+    @Binding var lastViewedEntry: String?
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
     @State private var currentIndex: Int = 0
     @State private var isShowingDetails = false
@@ -277,9 +297,11 @@ struct DetailView: View {
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         .onAppear {
             currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
+            lastViewedEntry = entry.entry
             loadEntryDetails()
         }
         .onChange(of: currentIndex) {
+            lastViewedEntry = entries[currentIndex].entry
             loadEntryDetails()
         }
     }
@@ -389,6 +411,39 @@ struct DetailCardView: View {
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
         synthesizer.speak(utterance)
+    }
+}
+
+struct SearchBar: View {
+    @Binding var text: String
+
+    var body: some View {
+        HStack {
+            TextField("検索", text: $text)
+                .padding(7)
+                .padding(.horizontal, 25)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .overlay(
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray)
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 8)
+                        
+                        if !text.isEmpty {
+                            Button(action: {
+                                text = ""
+                            }) {
+                                Image(systemName: "multiply.circle.fill")
+                                    .foregroundColor(.gray)
+                                    .padding(.trailing, 8)
+                            }
+                        }
+                    }
+                )
+                .padding(.horizontal, 10)
+        }
     }
 }
 

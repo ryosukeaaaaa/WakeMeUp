@@ -20,10 +20,9 @@ struct SettingsView: View {
                         Text("学術英単語").tag("学術英単語")
                     }
                     
-                    Picker("英会話レベル", selection: $missionState.EnglishLevel) {
-                        Text("初級者").tag("初級者")
-                        Text("中級者").tag("中級者")
-                        Text("上級者").tag("上級者")
+                    Picker("正解演出", selection: $missionState.correctcircle) {
+                        Text("あり").tag("あり")
+                        Text("なし").tag("なし")
                     }
                 }
             }

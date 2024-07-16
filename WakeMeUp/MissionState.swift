@@ -23,11 +23,6 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(material, forKey: "material")
         }
     }
-    @Published var EnglishLevel: String {
-        didSet {
-            UserDefaults.standard.set(EnglishLevel, forKey: "EnglishLevel")
-        }
-    }
     @Published var PastWords: [[String: String]] {
         didSet {
             if let data = try? JSONEncoder().encode(PastWords) {
@@ -56,6 +51,12 @@ class MissionState: ObservableObject {
         }
     }
     
+    @Published var correctcircle: String {
+        didSet {
+            UserDefaults.standard.set(correctcircle, forKey: "correctcircle")
+        }
+    }
+    
     init() {
 //        self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
         let savedClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
@@ -65,7 +66,6 @@ class MissionState: ObservableObject {
             self.ClearCount = savedClearCount
         }
         self.material = UserDefaults.standard.string(forKey: "material") ?? "toeic"
-        self.EnglishLevel = UserDefaults.standard.string(forKey: "EnglishLevel") ?? "中級者"
         if let data = UserDefaults.standard.data(forKey: "PastWords"),
            let decoded = try? JSONDecoder().decode([[String: String]].self, from: data) {
             self.PastWords = decoded
@@ -76,5 +76,7 @@ class MissionState: ObservableObject {
         self.toeicCount = UserDefaults.standard.integer(forKey: "toeicCount")
         self.businessCount = UserDefaults.standard.integer(forKey: "businessCount")
         self.academicCount = UserDefaults.standard.integer(forKey: "academicCount")
+        
+        self.correctcircle = UserDefaults.standard.string(forKey: "correctcircle") ?? "あり"
     }
 }

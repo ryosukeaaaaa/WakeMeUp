@@ -36,6 +36,8 @@ struct Pre_Mission: View {
     
     @State private var isSheetPresented: Bool = false
     @State private var sheet: Bool = false
+    
+    @State private var showCircle = false
 
     var body: some View {
         NavigationView {
@@ -47,8 +49,30 @@ struct Pre_Mission: View {
 
                         ZStack {
                             cardView()
+                                .overlay(
+                                    Group {
+                                        if showCircle && missionState.correctcircle == "あり"{
+                                            Circle()
+                                                .stroke(Color.red.opacity(0.5), lineWidth: 20) // Donut-shaped ring
+                                                .frame(width: 350, height: 350)
+                                                .transition(.opacity)
+                                        }
+                                    }
+                                )
                                 .offset(x: translation.width, y: 0)
                                 .rotationEffect(.degrees(degree))
+                                .onChange(of: missionState.clear_mission) {
+                                    if missionState.clear_mission {
+                                        withAnimation {
+                                            showCircle = true
+                                        }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            withAnimation {
+                                                showCircle = false
+                                            }
+                                        }
+                                    }
+                                }
                                 .gesture(
                                     DragGesture()
                                         .onChanged { value in

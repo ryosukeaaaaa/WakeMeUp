@@ -139,3 +139,4 @@ struct GachaView: View {
         }
     }
 }
+
