@@ -1,50 +1,49 @@
-//
-//  Gacha.swift
-//  WakeMeUp
-//
-//  Created by 長井亮輔 on 2024/07/16.
-//
-
 import SwiftUI
+import SpriteKit
+
 
 struct Gacha: View {
     @ObservedObject var itemState = ItemState()
     @State private var resultItem: String? = nil
     @State private var showResult = false
+    @State private var currentGif: String? = nil
+
     var body: some View {
-        VStack{
-            SpriteView(scene: GachaScene(size: CGSize(width: 300, height: 300)))
-                .frame(width: 300, height: 300)
-                .padding()
-            HStack{
-                Button(action: {
-                    spinGacha()
-                }) {
+        NavigationStack {
+            VStack {
+                NavigationLink(destination: GIFView(gifName: "Gacha", minimumInterval: 0.03, isGifPlaying: .constant(true))) {
                     VStack{
-                        Text("ノーマルガチャ")
-                            .font(.title)
-                            .padding()
-                            .background(Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                        HStack {
+                            Image(systemName: "lock.shield")
+                            Text("ノーマルガチャ")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                         Text("所持枚数: \(itemState.NormalCoin)")
                     }
                 }
-                Button(action: {
-                    spinGacha()
-                }) {
+                NavigationLink(destination: GIFView(gifName: "Gacha2", minimumInterval: 0.03, isGifPlaying: .constant(true))) {
                     VStack{
-                        Text("スペシャルガチャ")
-                            .font(.title)
-                            .padding()
-                            .background(Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                        HStack {
+                            Image(systemName: "lock.shield")
+                            Text("スペシャルガチャ")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.yellow)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                         Text("所持枚数: \(itemState.SpecialCoin)")
                     }
                 }
             }
-            
             if let resultItem = resultItem {
                 Text("結果: \(resultItem)")
                     .font(.title)
@@ -55,80 +54,144 @@ struct Gacha: View {
             Alert(title: Text("ガチャ結果"), message: Text(resultItem ?? ""), dismissButton: .default(Text("OK")))
         }
     }
+    
     func spinGacha() {
-        // ガチャを回すロジックをここに追加
-        // 結果を反映
         let items = itemState.ItemSources
         resultItem = items.randomElement()
         showResult = true
     }
 }
 
-import SpriteKit
-
-class GachaScene: SKScene {
-    private var handle: SKShapeNode!
-    private var timer: Timer?
-
-    override func didMove(to view: SKView) {
-        backgroundColor = .white
-
-        // ガチャボールを表示
-        for _ in 0..<20 {
-            let ball = SKShapeNode(circleOfRadius: 20)
-            ball.fillColor = .random
-            ball.position = CGPoint(x: CGFloat.random(in: 0...size.width), y: CGFloat.random(in: size.height...size.height*1.5))
-            ball.physicsBody = SKPhysicsBody(circleOfRadius: 20)
-            ball.physicsBody?.restitution = 0.6
-            addChild(ball)
+struct GIFView: View {
+    @State private var images: [Image] = []
+    @State private var gifCount: Int = 0
+    @State private var currentIndex: Int = 0
+    
+    var gifName: String
+    var minimumInterval: Double
+    var shouldEmitRain: Bool = true
+    @Binding var isGifPlaying: Bool
+    
+    var body: some View {
+        TimelineView(.animation(minimumInterval: minimumInterval)) { context in
+            Group {
+                if images.isEmpty {
+                    Text("エラー")
+                } else {
+                    ZStack {
+                        if shouldEmitRain {
+                            GeometryReader { geometry in
+                                SpriteView(
+                                    scene: self.createRainParticleScene(size: geometry.sizeWithSafeArea),
+                                    options: [.allowsTransparency]
+                                ).edgesIgnoringSafeArea(.all)
+                            }
+                        }
+                        images[currentIndex]
+                            .resizable()
+                            .scaledToFit()
+                    }
+                }
+            }
+            .onChange(of: context.date) { _ in
+                if isGifPlaying {
+                    if currentIndex == (gifCount - 1) {
+                        currentIndex = 0
+                    } else {
+                        currentIndex += 1
+                    }
+                }
+            }
         }
-
-        // ガチャポンの回転部分
-        handle = SKShapeNode(rectOf: CGSize(width: 50, height: 10))
-        handle.fillColor = .gray
-        handle.position = CGPoint(x: size.width/2, y: size.height/2)
-        handle.name = "handle"
-        handle.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 10))
-        handle.physicsBody?.isDynamic = false
-        addChild(handle)
-
-        // Start the rotation
-        startRotation()
-    }
-
-    override func update(_ currentTime: TimeInterval) {
-        // 回転アニメーション
-        if let handle = childNode(withName: "handle") {
-            handle.zRotation += 0.1
+        .onAppear {
+            guard let bundleURL = Bundle.main.url(forResource: gifName, withExtension: "gif"),
+                  let gifData = try? Data(contentsOf: bundleURL),
+                  let source = CGImageSourceCreateWithData(gifData as CFData, nil)
+            else {
+                return
+            }
+            gifCount = CGImageSourceGetCount(source)
+            var cgImages: [CGImage?] = []
+            for i in 0..<gifCount {
+                cgImages.append(CGImageSourceCreateImageAtIndex(source, i, nil))
+            }
+            let uiImages = cgImages.compactMap({ $0 }).map({ UIImage(cgImage: $0) })
+            images = uiImages.map({ Image(uiImage: $0) })
         }
     }
-
-    private func startRotation() {
-        // Start the timer to release a capsule after a few seconds
-        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(releaseCapsule), userInfo: nil, repeats: false)
-    }
-
-    @objc private func releaseCapsule() {
-        // Stop the rotation
-        handle.removeAllActions()
-        
-        // Release a capsule
-        if let capsule = children.filter({ $0 is SKShapeNode && $0 != handle }).randomElement() {
-            capsule.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -10))
-        }
-
-        // Restart the rotation for the next round
-        startRotation()
+    
+    private func createRainParticleScene(size: CGSize) -> SKScene {
+        let emitterNode = SKEmitterNode(fileNamed: "RainParticle")!
+        let scene = SKScene(size: size)
+        scene.addChild(emitterNode)
+        scene.backgroundColor = .clear
+        scene.anchorPoint = .init(x: 0.7, y: 1)
+        return scene
     }
 }
 
-extension SKColor {
-    static var random: SKColor {
-        return SKColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)
+struct ContentViewgif: View {
+    @State private var shouldEmitRain = true
+    @State private var isGifPlaying = false
+    @State private var isButtonHidden = false
+    @State private var currentGif = "Gacha1"
+
+    var body: some View {
+        VStack {
+            ZStack {
+                GeometryReader { geometry in
+                    SpriteView(
+                        scene: self.createRainParticleScene(size: geometry.sizeWithSafeArea),
+                        options: [.allowsTransparency]
+                    ).edgesIgnoringSafeArea(.all)
+                }
+                
+                Image("Gacha1")
+                    .resizable()
+                    .scaledToFit()
+                    .opacity(isGifPlaying ? 0 : 1)
+
+                if isGifPlaying {
+                    GIFView(gifName: currentGif, minimumInterval: 0.03, isGifPlaying: $isGifPlaying)
+                        .frame(width: 300, height: 300)
+                }
+            }
+
+            if !isButtonHidden {
+                Button(action: {
+                    isButtonHidden = true
+                    isGifPlaying = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        currentGif = "Ultra"
+                    }
+                }) {
+                    Text("ガチャを引く")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.top, 20)
+            }
+        }
+    }
+
+    private func createRainParticleScene(size: CGSize) -> SKScene {
+        let emitterNode = SKEmitterNode(fileNamed: "RainParticle")!
+        let scene = SKScene(size: size)
+        scene.addChild(emitterNode)
+        scene.backgroundColor = .clear
+        scene.anchorPoint = .init(x: 0.7, y: 1)
+        return scene
     }
 }
 
-#Preview {
-    Gacha()
+private extension GeometryProxy {
+    var sizeWithSafeArea: CGSize {
+        .init(
+            width: self.size.width + self.safeAreaInsets.trailing + self.safeAreaInsets.leading,
+            height: self.size.height + self.safeAreaInsets.top + self.safeAreaInsets.bottom
+        )
+    }
 }
 

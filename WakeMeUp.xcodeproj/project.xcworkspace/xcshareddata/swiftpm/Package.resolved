@@ -1,5 +1,5 @@
 {
-  "originHash" : "fa221086051d2f1db3cb1eadc4a60cc2cb1e435a4f74c356247295dd730e17d5",
+  "originHash" : "2e1675d6af4591ecebe66c5cfc55cdb1ba23ac22192e06ed14e09e6ec5af7aaf",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -11,57 +11,21 @@
       }
     },
     {
-      "identity" : "googleusermessagingplatform",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/quanghits/GoogleUserMessagingPlatform",
-      "state" : {
-        "revision" : "f322d91b6b0497b727b228a5fa5b9394e7886d3a",
-        "version" : "2.0.0"
-      }
-    },
-    {
-      "identity" : "keyboardobserving",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/nickffox/KeyboardObserving",
-      "state" : {
-        "branch" : "master",
-        "revision" : "48134b5460435cc9d048223ad7560ee2e40f3d4a"
-      }
-    },
-    {
-      "identity" : "mute?tab=readme-ov-file",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/akramhussein/Mute?tab=readme-ov-file",
-      "state" : {
-        "revision" : "f99f26150c1b4806fb9720642d03159b87fddf40",
-        "version" : "0.6.1"
-      }
-    },
-    {
-      "identity" : "swift-package-manager-google-mobile-ads",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/googleads/swift-package-manager-google-mobile-ads.git",
-      "state" : {
-        "revision" : "6457f9651bea0d62a548ac63fa9d34aae7d0488e",
-        "version" : "11.7.0"
-      }
-    },
-    {
-      "identity" : "swift-package-manager-google-user-messaging-platform",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git",
-      "state" : {
-        "revision" : "459949af1286c12487a6efd76f00f3e9d951c9ba",
-        "version" : "2.5.0"
-      }
-    },
-    {
       "identity" : "swiftcsv",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swiftcsv/SwiftCSV",
       "state" : {
         "revision" : "6ab5d0fe9b6ef3c79d717eefa70862df389e74d9",
         "version" : "0.10.0"
+      }
+    },
+    {
+      "identity" : "swiftygif",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alexiscreuzot/SwiftyGif",
+      "state" : {
+        "revision" : "4430cbc148baa3907651d40562d96325426f409a",
+        "version" : "5.4.5"
       }
     }
   ],

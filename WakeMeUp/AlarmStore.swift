@@ -32,6 +32,7 @@ class AlarmStore: ObservableObject {
         } else {
             alarms.append(alarm)
         }
+        print("alarms:",alarms)
         saveAlarms()
     }
 
@@ -126,7 +127,7 @@ class AlarmStore: ObservableObject {
         
         let newAlarm = AlarmData(
             id: UUID(),
-            time: alarmTime,
+            time: targetDate,  // 気を付ける+1しないとならない。
             repeatLabel: repeatLabel,
             mission: "通知",
             isOn: isOn,
@@ -208,8 +209,6 @@ class AlarmStore: ObservableObject {
 
     
     func testSound(sound: String) {
-        let calendar = Calendar.current
-        
         let content = UNMutableNotificationContent()
         content.title = "テストアラーム"
         content.body = "これはテスト通知です"
@@ -237,7 +236,7 @@ class AlarmStore: ObservableObject {
     }
     
     func stopTestSound() {
-        let center = UNUserNotificationCenter.current()
+//        let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
         for n in 0...3 {
             let identifier = "testAlarm_\(n)"
@@ -264,7 +263,8 @@ class AlarmStore: ObservableObject {
     func groupIdsForAlarmsWithinTimeRange() -> [String] {
         let currentDate = Date()
         let fiveMinutesAgo = currentDate.addingTimeInterval(-5 * 60) // 現在から5分前
-
+        print(alarms)
+        print("current:", currentDate)
         return alarms.filter { alarm in
             alarm.isOn && alarm.time >= fiveMinutesAgo && alarm.time <= currentDate
         }.map { $0.groupId }

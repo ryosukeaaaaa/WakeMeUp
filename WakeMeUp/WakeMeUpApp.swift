@@ -63,28 +63,4 @@ class AudioPlayerManager: ObservableObject {
     }
 }
 
-import SwiftUI
 
-struct ContentView7: View {
-    @StateObject private var audioPlayerManager = AudioPlayerManager()
-
-    var body: some View {
-        VStack {
-            Text(audioPlayerManager.isSilentMode ? "サイレントモードです" : "サイレントモードではありません")
-                .padding()
-            
-            Button(action: {
-                audioPlayerManager.checkSilentMode()
-            }) {
-                Text("サイレントモードをチェック")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
-        }
-        .onAppear {
-            audioPlayerManager.checkSilentMode()
-        }
-    }
-}

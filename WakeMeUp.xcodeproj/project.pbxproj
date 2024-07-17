@@ -48,6 +48,15 @@
 		829200702C469F3600C96C30 /* Gacha.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8292006F2C469F3600C96C30 /* Gacha.sks */; };
 		829200722C46A7BB00C96C30 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200712C46A7BB00C96C30 /* ItemView.swift */; };
 		829200742C46A81600C96C30 /* Gacha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200732C46A81600C96C30 /* Gacha.swift */; };
+		8292007E2C46FC8B00C96C30 /* Gacha2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8292007D2C46FC8B00C96C30 /* Gacha2.gif */; };
+		829200802C4777B300C96C30 /* RainParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8292007F2C4777B300C96C30 /* RainParticle.sks */; };
+		829200842C477C5D00C96C30 /* Gacha.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200832C477C5D00C96C30 /* Gacha.gif */; };
+		829200862C47853D00C96C30 /* Ultra.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200852C47853D00C96C30 /* Ultra.gif */; };
+		829200882C47891100C96C30 /* Normal.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200872C47891100C96C30 /* Normal.gif */; };
+		8292008A2C47891800C96C30 /* Rare.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200892C47891800C96C30 /* Rare.gif */; };
+		8292008C2C47893100C96C30 /* SuperRare.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8292008B2C47893100C96C30 /* SuperRare.gif */; };
+		8292008E2C4794D700C96C30 /* Gacha.001.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 8292008D2C4794D700C96C30 /* Gacha.001.jpeg */; };
+		829200902C4794DF00C96C30 /* Gacha.002.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 8292008F2C4794DF00C96C30 /* Gacha.002.jpeg */; };
 		829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */; };
 		829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A52C1635B3002D7DA3 /* Assets.xcassets */; };
 		829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A82C1635B3002D7DA3 /* Preview Assets.xcassets */; };
@@ -114,6 +123,15 @@
 		8292006F2C469F3600C96C30 /* Gacha.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Gacha.sks; sourceTree = "<group>"; };
 		829200712C46A7BB00C96C30 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		829200732C46A81600C96C30 /* Gacha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gacha.swift; sourceTree = "<group>"; };
+		8292007D2C46FC8B00C96C30 /* Gacha2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Gacha2.gif; sourceTree = SOURCE_ROOT; };
+		8292007F2C4777B300C96C30 /* RainParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainParticle.sks; sourceTree = "<group>"; };
+		829200832C477C5D00C96C30 /* Gacha.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Gacha.gif; sourceTree = SOURCE_ROOT; };
+		829200852C47853D00C96C30 /* Ultra.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ultra.gif; sourceTree = SOURCE_ROOT; };
+		829200872C47891100C96C30 /* Normal.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Normal.gif; sourceTree = SOURCE_ROOT; };
+		829200892C47891800C96C30 /* Rare.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rare.gif; sourceTree = SOURCE_ROOT; };
+		8292008B2C47893100C96C30 /* SuperRare.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SuperRare.gif; sourceTree = SOURCE_ROOT; };
+		8292008D2C4794D700C96C30 /* Gacha.001.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Gacha.001.jpeg; path = Gacha/Gacha.001.jpeg; sourceTree = SOURCE_ROOT; };
+		8292008F2C4794DF00C96C30 /* Gacha.002.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Gacha.002.jpeg; path = Gacha/Gacha.002.jpeg; sourceTree = SOURCE_ROOT; };
 		829A599E2C1635B2002D7DA3 /* WakeMeUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WakeMeUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpApp.swift; sourceTree = "<group>"; };
 		829A59A32C1635B2002D7DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -219,6 +237,7 @@
 				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
 				8292006B2C469B2200C96C30 /* ItemState.swift */,
 				829200712C46A7BB00C96C30 /* ItemView.swift */,
+				829200732C46A81600C96C30 /* Gacha.swift */,
 				827AE3B92C18880D00DABD95 /* TOEIC英単語.csv */,
 				827AE3B62C18880D00DABD95 /* ビジネス英単語.csv */,
 				827AE3B72C18880D00DABD95 /* 学術英単語.csv */,
@@ -226,6 +245,15 @@
 				341C36582C2B31A6009F9594 /* alarmsound_medium.wav */,
 				8272A5952C43A045006697E1 /* alarmsound_low.wav */,
 				8272A5912C439BDA006697E1 /* G_medium.mp3 */,
+				829200832C477C5D00C96C30 /* Gacha.gif */,
+				8292007D2C46FC8B00C96C30 /* Gacha2.gif */,
+				829200852C47853D00C96C30 /* Ultra.gif */,
+				8292008B2C47893100C96C30 /* SuperRare.gif */,
+				829200892C47891800C96C30 /* Rare.gif */,
+				829200872C47891100C96C30 /* Normal.gif */,
+				8292008D2C4794D700C96C30 /* Gacha.001.jpeg */,
+				8292008F2C4794DF00C96C30 /* Gacha.002.jpeg */,
+				8292007F2C4777B300C96C30 /* RainParticle.sks */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				341C36522C2B2FA0009F9594 /* Config.plist */,
 				827A159C2C176087003B4468 /* Home.swift */,
@@ -236,7 +264,6 @@
 				821FD6A62C34503E00F445C7 /* test.swift */,
 				8232E8912C3FE08A00D1BF22 /* keep.swift */,
 				8292006F2C469F3600C96C30 /* Gacha.sks */,
-				829200732C46A81600C96C30 /* Gacha.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
@@ -362,10 +389,6 @@
 			packageReferences = (
 				82053D8B2C188D7F00D2D191 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 				828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
-				8272A58A2C42E90C006697E1 /* XCRemoteSwiftPackageReference "Mute" */,
-				8272A5992C458354006697E1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
-				829200682C4609EC00C96C30 /* XCRemoteSwiftPackageReference "GoogleUserMessagingPlatform" */,
 			);
 			productRefGroup = 829A599F2C1635B2002D7DA3 /* Products */;
 			projectDirPath = "";
@@ -383,18 +406,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8292008A2C47891800C96C30 /* Rare.gif in Resources */,
 				828A07DD2C1959C90008A956 /* .gitignore in Resources */,
+				829200842C477C5D00C96C30 /* Gacha.gif in Resources */,
 				829200702C469F3600C96C30 /* Gacha.sks in Resources */,
 				341C36532C2B2FA0009F9594 /* Config.plist in Resources */,
 				341C36592C2B31A6009F9594 /* alarmsound_medium.wav in Resources */,
 				827AE3BD2C18880D00DABD95 /* TOEIC英単語.csv in Resources */,
 				827AE3BC2C18880D00DABD95 /* 基礎英単語.csv in Resources */,
 				8272A5962C43A045006697E1 /* alarmsound_low.wav in Resources */,
+				8292007E2C46FC8B00C96C30 /* Gacha2.gif in Resources */,
+				8292008E2C4794D700C96C30 /* Gacha.001.jpeg in Resources */,
+				8292008C2C47893100C96C30 /* SuperRare.gif in Resources */,
 				8272A5922C439BDA006697E1 /* G_medium.mp3 in Resources */,
 				827AE3BB2C18880D00DABD95 /* 学術英単語.csv in Resources */,
 				827AE3BA2C18880D00DABD95 /* ビジネス英単語.csv in Resources */,
 				829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */,
+				829200862C47853D00C96C30 /* Ultra.gif in Resources */,
 				821FD6A52C33E64300F445C7 /* Launch Screen.storyboard in Resources */,
+				829200882C47891100C96C30 /* Normal.gif in Resources */,
+				829200802C4777B300C96C30 /* RainParticle.sks in Resources */,
+				829200902C4794DF00C96C30 /* Gacha.002.jpeg in Resources */,
 				829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,44 +832,12 @@
 				minimumVersion = 0.10.0;
 			};
 		};
-		8272A5852C4107F5006697E1 /* XCRemoteSwiftPackageReference "KeyboardObserving" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nickffox/KeyboardObserving";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		8272A58A2C42E90C006697E1 /* XCRemoteSwiftPackageReference "Mute" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/akramhussein/Mute?tab=readme-ov-file";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.1;
-			};
-		};
-		8272A5992C458354006697E1 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.6.0;
-			};
-		};
 		828A07D72C1955A50008A956 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.9.1;
-			};
-		};
-		829200682C4609EC00C96C30 /* XCRemoteSwiftPackageReference "GoogleUserMessagingPlatform" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/quanghits/GoogleUserMessagingPlatform";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
