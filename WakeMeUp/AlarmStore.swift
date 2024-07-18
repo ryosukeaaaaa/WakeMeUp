@@ -72,13 +72,13 @@ class AlarmStore: ObservableObject {
     private func cancelAlarmNotifications(groupId: String, snoozeEnabled: Bool) {
         let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
-        for n in 0...10 {
+        for n in 0...11 {
             let identifier = "AlarmNotification\(groupId)_\(n)"
             identifiers.append(identifier)
         }
         if snoozeEnabled {
             for m in 1...3 {
-                for l in 0...10 {
+                for l in 0...11 {
                     let identifier = "AlarmNotification\(groupId)_\(l)_\(m)"
                     identifiers.append(identifier)
                 }
@@ -120,7 +120,9 @@ class AlarmStore: ObservableObject {
     
     func setAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String, at index: Int? = nil) {
         let calendar = Calendar.current
+        print("alaemtime", alarmTime)
         var targetDate = alarmTime
+        print("alarmerror:", targetDate)
         if targetDate < Date() {
             targetDate = calendar.date(byAdding: .day, value: 1, to: targetDate)!
         }
