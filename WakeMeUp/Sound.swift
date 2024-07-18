@@ -80,6 +80,7 @@ struct Sound: View {
                 }
             }
             .onDisappear{
+                alarmStore.stopTestSound()
                 alarmStore.settingalarm.soundName = "\(testsound)_\(volume).wav"
             }
         }

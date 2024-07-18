@@ -98,8 +98,7 @@ struct ContentView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
-            if let outerUserInfo = notification.userInfo,
-               let groupId = outerUserInfo["groupId"] as? [String] {
+            if let outerUserInfo = notification.userInfo{
                 alarmStore.groupIds = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
                 print("groupids:", alarmStore.groupIds)
                 if !alarmStore.groupIds.isEmpty {

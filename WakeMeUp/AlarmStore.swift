@@ -124,7 +124,6 @@ class AlarmStore: ObservableObject {
     
     func setAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String, at index: Int? = nil) {
         let calendar = Calendar.current
-        let japanTimeZone = TimeZone(identifier: "Asia/Tokyo")!
         
         print("alarmTime (UTC):", alarmTime)
         var targetDate = alarmTime
@@ -141,7 +140,7 @@ class AlarmStore: ObservableObject {
         }
         
         // targetDateを日本時間に修正
-        var targetDay = calendar.date(byAdding: .hour, value: -9, to: targetDate)!
+        let targetDay = calendar.date(byAdding: .hour, value: 9, to: targetDate)!
         
         // 繰り返し処理。repeatLabelに含まれる特定の曜日まで調整
         if !repeatLabel.isEmpty {

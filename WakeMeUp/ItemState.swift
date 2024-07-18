@@ -6,8 +6,24 @@ struct Item: Codable, Identifiable {
     let rarity: Rarity
 }
 
-enum Rarity: String, Codable {
+
+enum Rarity: String, Codable, CaseIterable, Identifiable {
     case Ultra, SuperRare, Rare, Normal
+    
+    var id: String { self.rawValue }
+    
+    var probability: Double {
+        switch self {
+        case .Ultra:
+            return 0.005
+        case .SuperRare:
+            return 0.01
+        case .Rare:
+            return 0.02
+        case .Normal:
+            return 0.04
+        }
+    }
 }
 
 class ItemState: ObservableObject {
@@ -23,10 +39,46 @@ class ItemState: ObservableObject {
     }
     
     @Published var ItemSources: [Item] = [
-        Item(name: "eagle", rarity: .SuperRare),
-        Item(name: "mice", rarity: .Normal),
-        Item(name: "elephant", rarity: .Ultra),
-        Item(name: "rabbit", rarity: .Rare)
+        //　全39種
+        Item(name: "Tyrannosaurus", rarity: .Ultra),
+        Item(name: "Triceratops", rarity: .Ultra),
+        Item(name: "Elephant", rarity: .SuperRare),
+        Item(name: "Lion", rarity: .SuperRare),
+        Item(name: "Tiger", rarity: .SuperRare),
+        Item(name: "Giraffe", rarity: .SuperRare),
+        Item(name: "Eagle", rarity: .SuperRare),
+        Item(name: "Crocodile", rarity: .SuperRare),
+        Item(name: "Rhinoceros", rarity: .SuperRare),
+        Item(name: "Wolf", rarity: .Rare),
+        Item(name: "Cheetah", rarity: .Rare),
+        Item(name: "Hippo", rarity: .Rare),
+        Item(name: "Snake", rarity: .Rare),
+        Item(name: "Fox", rarity: .Rare),
+        Item(name: "Gorilla", rarity: .Rare),
+        Item(name: "Bear", rarity: .Rare),
+        Item(name: "Panda", rarity: .Rare),
+        Item(name: "Kangal", rarity: .Rare),
+        Item(name: "Zebra", rarity: .Rare),
+        Item(name: "Deer", rarity: .Rare),
+        Item(name: "Penguin", rarity: .Rare),
+        Item(name: "Camel", rarity: .Rare),
+        Item(name: "Ostrich", rarity: .Rare),
+        Item(name: "Dog", rarity: .Normal),
+        Item(name: "Cat", rarity: .Normal),
+        Item(name: "Koala", rarity: .Normal),
+        Item(name: "Turtle", rarity: .Normal),
+        Item(name: "Squirrel", rarity: .Normal),
+        Item(name: "Monkey", rarity: .Normal),
+        Item(name: "Raccoon", rarity: .Normal),
+        Item(name: "Goat", rarity: .Normal),
+        Item(name: "Pig", rarity: .Normal),
+        Item(name: "Sheep", rarity: .Normal),
+        Item(name: "Duck", rarity: .Normal),
+        Item(name: "Chick", rarity: .Normal),
+        Item(name: "Owl", rarity: .Normal),
+        Item(name: "Capybara", rarity: .Normal),
+        Item(name: "Mice", rarity: .Normal),
+        Item(name: "Rabbit", rarity: .Normal)
     ]
     
     @Published var UserItems: [String] {
@@ -84,55 +136,6 @@ struct GachaView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                VStack {
-                    VStack {
-                        HStack {
-                            Text("レアリティ")
-                                .font(.headline)
-                            Spacer()
-                            Text("排出確率")
-                                .font(.headline)
-                        }
-                        .padding(.horizontal)
-                        
-                        Divider()
-                        HStack {
-                            Text("Normal")
-                            Spacer()
-                            Text("64 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
-                        
-                        HStack {
-                            Text("Rare")
-                            Spacer()
-                            Text("28 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
-                        
-                        HStack {
-                            Text("SuperRare")
-                            Spacer()
-                            Text("7 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
-                        
-                        HStack {
-                            Text("UltraRare")
-                            Spacer()
-                            Text("1 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(5)
             }
         }
     }

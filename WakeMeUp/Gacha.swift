@@ -27,7 +27,7 @@ struct Gacha: View {
                         Text("所持枚数: \(itemState.NormalCoin)")
                     }
                 }
-                NavigationLink(destination: GachaGIF(itemState: itemState)) {
+                NavigationLink(destination: GachaGIF2(itemState: itemState)) {
                     VStack{
                         HStack {
                             Image(systemName: "lock.shield")
@@ -43,11 +43,55 @@ struct Gacha: View {
                         Text("所持枚数: \(itemState.SpecialCoin)")
                     }
                 }
-            }
-            if let resultItem = resultItem {
-                Text("結果: \(resultItem)")
-                    .font(.title)
-                    .padding()
+                VStack {
+                    VStack {
+                        HStack {
+                            Text("レアリティ")
+                                .font(.headline)
+                            Spacer()
+                            Text("排出確率")
+                                .font(.headline)
+                        }
+                        .padding(.horizontal)
+                        
+                        Divider()
+                        HStack {
+                            Text("Normal")
+                            Spacer()
+                            Text("64 %")
+                        }
+                        .padding(.vertical, 3)
+                        .padding(.horizontal)
+                        
+                        HStack {
+                            Text("Rare")
+                            Spacer()
+                            Text("28 %")
+                        }
+                        .padding(.vertical, 3)
+                        .padding(.horizontal)
+                        
+                        HStack {
+                            Text("SuperRare")
+                            Spacer()
+                            Text("7 %")
+                        }
+                        .padding(.vertical, 3)
+                        .padding(.horizontal)
+                        
+                        HStack {
+                            Text("UltraRare")
+                            Spacer()
+                            Text("1 %")
+                        }
+                        .padding(.vertical, 3)
+                        .padding(.horizontal)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(5)
             }
         }
         .alert(isPresented: $showResult) {
