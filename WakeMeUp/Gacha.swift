@@ -4,9 +4,6 @@ import SpriteKit
 
 struct Gacha: View {
     @ObservedObject var itemState: ItemState
-    @State private var resultItem: String? = nil
-    @State private var showResult = false
-    @State private var currentGif: String? = nil
 
     var body: some View {
         NavigationStack {
@@ -93,9 +90,6 @@ struct Gacha: View {
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(5)
             }
-        }
-        .alert(isPresented: $showResult) {
-            Alert(title: Text("ガチャ結果"), message: Text(resultItem ?? ""), dismissButton: .default(Text("OK")))
         }
     }
 }
