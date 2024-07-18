@@ -57,7 +57,11 @@ class AlarmStore: ObservableObject {
             
             // alarms 配列内で一致する groupId を持つアラームの isOn プロパティを false に設定
             if let index = alarms.firstIndex(where: { $0.groupId == groupId }) {
-                alarms[index].isOn = false
+                if alarms[index].repeatLabel.isEmpty{
+                    alarms[index].isOn = false
+                }else{
+                    rescheduleAlarm(alarmTime: alarms[index].time, repeatLabel: alarms[index].repeatLabel, isOn: true, soundName: alarms[index].soundName, snoozeEnabled: alarms[index].snoozeEnabled, groupId: alarms[index].groupId)
+                }
             }
         }
         // すべてのアラームを保存
@@ -77,7 +81,7 @@ class AlarmStore: ObservableObject {
             identifiers.append(identifier)
         }
         if snoozeEnabled {
-            for m in 1...3 {
+            for m in 1...5 {
                 for l in 0...11 {
                     let identifier = "AlarmNotification\(groupId)_\(l)_\(m)"
                     identifiers.append(identifier)
@@ -120,12 +124,45 @@ class AlarmStore: ObservableObject {
     
     func setAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String, at index: Int? = nil) {
         let calendar = Calendar.current
-        print("alaemtime", alarmTime)
+        let japanTimeZone = TimeZone(identifier: "Asia/Tokyo")!
+        
+        print("alarmTime (UTC):", alarmTime)
         var targetDate = alarmTime
-        print("alarmerror:", targetDate)
+        
+        // targetDateが現在の日付より前の場合、1日加算
         if targetDate < Date() {
             targetDate = calendar.date(byAdding: .day, value: 1, to: targetDate)!
         }
+        print("Initial Target Date:", targetDate)
+        
+        // targetDateが現在の日付の翌日よりも後の場合
+        while targetDate > calendar.date(byAdding: .day, value: 1, to: Date())! {
+            targetDate = calendar.date(byAdding: .day, value: -1, to: targetDate)!
+        }
+        
+        // targetDateを日本時間に修正
+        var targetDay = calendar.date(byAdding: .hour, value: -9, to: targetDate)!
+        
+        // 繰り返し処理。repeatLabelに含まれる特定の曜日まで調整
+        if !repeatLabel.isEmpty {
+            var foundMatchingDay = false
+            for dayOffset in 0..<7 {
+                if let nextTarget = calendar.date(byAdding: .day, value: dayOffset, to: targetDate),
+                   let nextDate = calendar.date(byAdding: .day, value: dayOffset, to: targetDay),
+                   let nextWeekday = Weekday.allCases.first(where: { $0.index == calendar.component(.weekday, from: nextDate) }),
+                    repeatLabel.contains(nextWeekday){
+                    targetDate = nextTarget
+                    foundMatchingDay = true
+                    print("Matching Target Date:", targetDate)
+                    break
+                }
+            }
+            
+            if !foundMatchingDay {
+                print("No matching weekday found in repeatLabel")
+            }
+        }
+        print("Final Target Date:", targetDate)
         
         let newAlarm = AlarmData(
             id: UUID(),
@@ -173,7 +210,8 @@ class AlarmStore: ObservableObject {
                 }
             }
         }
-        
+         
+        // スヌーズ処理
         if snoozeEnabled {
             for m in 1...5 {
                 let snoozeTriggerDate = calendar.date(byAdding: .minute, value: 5 * m, to: targetDate)!

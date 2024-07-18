@@ -57,7 +57,7 @@ struct AddAlarmView: View {
                         .foregroundColor(.red)
                 }
             }
-            .navigationTitle("アラームの編集")
+            .navigationTitle("アラームの追加")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -74,9 +74,6 @@ struct AddAlarmView: View {
                         Text("キャンセル")
                     }
                 }
-            }
-            .onAppear{
-                alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "default", snoozeEnabled: false, groupId: "")
             }
             .onDisappear {
                 alarmStore.stopTestSound()

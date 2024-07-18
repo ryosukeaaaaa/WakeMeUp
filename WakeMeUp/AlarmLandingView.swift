@@ -25,7 +25,9 @@ struct AlarmLandingView: View {
 
                 Button(action: {
                     navigateToPreMission = true
+                    print("eee")
                     alarmStore.stopAlarm_All(alarmStore.groupIds)  // アラームを止める
+                    print("ddd")
                     alarmStore.showingAlarmLanding = false
                 }) {
                     Text("ミッション開始")

@@ -52,6 +52,7 @@ struct AlarmListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
+                        alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "default", snoozeEnabled: false, groupId: "")
                         showingAddAlarm = true
                     }) {
                         Image(systemName: "plus")
