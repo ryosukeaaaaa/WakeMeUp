@@ -8,12 +8,14 @@ struct Item: Codable, Identifiable {
 
 
 enum Rarity: String, Codable, CaseIterable, Identifiable {
-    case Ultra, SuperRare, Rare, Normal
+    case Secret, Ultra, SuperRare, Rare, Normal
     
     var id: String { self.rawValue }
     
     var probability: Double {
         switch self {
+        case .Secret:
+            return 0.005
         case .Ultra:
             return 0.005
         case .SuperRare:
@@ -39,9 +41,13 @@ class ItemState: ObservableObject {
     }
     
     @Published var ItemSources: [Item] = [
-        //　全39種
+        //　全44種
+        Item(name: "Dragon", rarity: .Secret),
+        Item(name: "Unicorn", rarity: .Secret),
         Item(name: "Tyrannosaurus", rarity: .Ultra),
         Item(name: "Triceratops", rarity: .Ultra),
+        Item(name: "Spinosaurus", rarity: .Ultra),
+        Item(name: "Pteranodon", rarity: .Ultra),
         Item(name: "Elephant", rarity: .SuperRare),
         Item(name: "Lion", rarity: .SuperRare),
         Item(name: "Tiger", rarity: .SuperRare),
@@ -49,8 +55,8 @@ class ItemState: ObservableObject {
         Item(name: "Eagle", rarity: .SuperRare),
         Item(name: "Crocodile", rarity: .SuperRare),
         Item(name: "Rhinoceros", rarity: .SuperRare),
-        Item(name: "Wolf", rarity: .Rare),
-        Item(name: "Cheetah", rarity: .Rare),
+        Item(name: "Wolf", rarity: .SuperRare),
+        Item(name: "Cheetah", rarity: .SuperRare),
         Item(name: "Hippo", rarity: .Rare),
         Item(name: "Snake", rarity: .Rare),
         Item(name: "Fox", rarity: .Rare),
@@ -63,6 +69,8 @@ class ItemState: ObservableObject {
         Item(name: "Penguin", rarity: .Rare),
         Item(name: "Camel", rarity: .Rare),
         Item(name: "Ostrich", rarity: .Rare),
+        Item(name: "Goat", rarity: .Rare),
+        Item(name: "Meerkat", rarity: .Rare),
         Item(name: "Dog", rarity: .Normal),
         Item(name: "Cat", rarity: .Normal),
         Item(name: "Koala", rarity: .Normal),
@@ -70,7 +78,6 @@ class ItemState: ObservableObject {
         Item(name: "Squirrel", rarity: .Normal),
         Item(name: "Monkey", rarity: .Normal),
         Item(name: "Raccoon", rarity: .Normal),
-        Item(name: "Goat", rarity: .Normal),
         Item(name: "Pig", rarity: .Normal),
         Item(name: "Sheep", rarity: .Normal),
         Item(name: "Duck", rarity: .Normal),
