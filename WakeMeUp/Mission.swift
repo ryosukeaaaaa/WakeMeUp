@@ -28,7 +28,6 @@ struct Pre_Mission: View {
     
     // 追加する状態変数
     @State private var idleTimer: Timer?
-    @State private var audioPlayer: AVAudioPlayer?
     @State private var isAlarmPlaying = false
     
     @State private var isSheetPresented: Bool = false
@@ -61,7 +60,7 @@ struct Pre_Mission: View {
                                 )
                                 .offset(x: translation.width, y: 0)
                                 .rotationEffect(.degrees(degree))
-                                .onChange(of: missionState.clear_mission) { _ in
+                                .onChange(of: missionState.clear_mission) {
                                     if missionState.clear_mission {
                                         withAnimation {
                                             showCircle = true
@@ -627,24 +626,6 @@ struct Pre_Mission: View {
             }
         }
         alarmStore.stopTestSound()
-    }
-
-    private func playAlarm() {
-        guard let soundURL = Bundle.main.url(forResource: "alarm_sound", withExtension: "wav") else { return }
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-            audioPlayer?.numberOfLoops = -1 // ループ再生
-            audioPlayer?.play()
-            isAlarmPlaying = true
-        } catch {
-            print("Error playing alarm sound: \(error)")
-        }
-    }
-
-    private func stopAlarm() {
-        audioPlayer?.stop()
-        isAlarmPlaying = false
     }
     
     private func stopIdleTimerAndAlarm() {
