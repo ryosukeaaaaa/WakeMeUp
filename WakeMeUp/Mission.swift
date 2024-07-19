@@ -6,7 +6,6 @@ struct Pre_Mission: View {
     @StateObject private var missionState = MissionState() // MissionStateを使用
 
     @State private var lastSpokenText: String = ""
-    @State private var synthesizer = AVSpeechSynthesizer()
     @StateObject private var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
     @State private var userInput: String = ""
@@ -36,6 +35,9 @@ struct Pre_Mission: View {
     @State private var sheet: Bool = false
     
     @State private var showCircle = false
+    
+    @ObservedObject var alarmStore: AlarmStore
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         NavigationView {
@@ -59,7 +61,7 @@ struct Pre_Mission: View {
                                 )
                                 .offset(x: translation.width, y: 0)
                                 .rotationEffect(.degrees(degree))
-                                .onChange(of: missionState.clear_mission) {
+                                .onChange(of: missionState.clear_mission) { _ in
                                     if missionState.clear_mission {
                                         withAnimation {
                                             showCircle = true
@@ -280,8 +282,22 @@ struct Pre_Mission: View {
                 }
             }
             .onDisappear {
-                // 画面が非表示になるときにタイマーとアラームを停止
-                stopIdleTimerAndAlarm()
+                if !fromHome{
+                    stopIdleTimerAndAlarm()
+                }
+            }
+            .onChange(of: scenePhase) {
+                if scenePhase == .active {
+                    if missionState.missionCount < missionState.ClearCount && !fromHome {
+                        alarmStore.stopTestSound()
+                    }
+                }
+                if scenePhase == .background {
+                    if missionState.missionCount < missionState.ClearCount && !fromHome {
+                        alarmStore.testSound(sound: alarmStore.Sound)
+                    }
+                    print("バックグラウンド（.background）")
+                }
             }
             .onChange(of: speechRecognizer.transcript) {
                 if isRecording {
@@ -289,13 +305,13 @@ struct Pre_Mission: View {
                 }
             }
             .navigationDestination(isPresented: $navigateToHome) {
-                MissionClear(missionState: missionState)
+                MissionClear(missionState: missionState, alarmStore: alarmStore)
                     .navigationBarBackButtonHidden(true)
                     .onAppear {
-                    navigateToHome = false
-                    missionState.missionCount = 0
-                    missionState.clear_mission = false
-                    missionState.shouldLoadInitialEntry = true
+                        navigateToHome = false
+                        missionState.missionCount = 0
+                        missionState.clear_mission = false
+                        missionState.shouldLoadInitialEntry = true
                     }
             }
         }
@@ -303,16 +319,16 @@ struct Pre_Mission: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if self.fromHome {
                     Text("\(missionState.missionCount+1) 問目")
-                    .fontWeight(.light)
-                    .font(.subheadline)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
-                }else{
+                        .fontWeight(.light)
+                        .font(.subheadline)
+                        .multilineTextAlignment(.trailing)
+                        .padding()
+                } else {
                     Text("\(missionState.missionCount+1)問目 / \(missionState.ClearCount)問")
-                    .fontWeight(.light)
-                    .font(.subheadline)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
+                        .fontWeight(.light)
+                        .font(.subheadline)
+                        .multilineTextAlignment(.trailing)
+                        .padding()
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -325,7 +341,7 @@ struct Pre_Mission: View {
                     }
                 }
             }
-       }
+        }
     }
 
     private func cardView() -> some View {
@@ -392,7 +408,7 @@ struct Pre_Mission: View {
 
     func loadRandomEntry() -> (String, String, String, String, String) {
         // 英単語読み込み先
-        print("aaaaaa"+material)
+        print("aaaaaa" + material)
         guard let csvURL = Bundle.main.url(forResource: material, withExtension: "csv") else {
             return ("Error", "CSV file not found", "", "", "")
         }
@@ -401,7 +417,7 @@ struct Pre_Mission: View {
             let csv = try CSV<Named>(url: csvURL)
             createUserCSVIfNeeded(csv: csv)
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let userCSVURL = documentDirectory.appendingPathComponent(material+"_status"+".csv")
+            let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
             let statuses = readStatuses(from: userCSVURL)
 
             if statuses.isEmpty {
@@ -445,7 +461,7 @@ struct Pre_Mission: View {
 
     func createUserCSVIfNeeded(csv: CSV<Named>) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent(material+"_status"+".csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
         print(userCSVURL.path)
 
         if !FileManager.default.fileExists(atPath: userCSVURL.path) {
@@ -465,7 +481,7 @@ struct Pre_Mission: View {
 
     func loadStatus(for entry: String) -> Int {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent(material+"_status"+".csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
 
         do {
             let csv = try CSV<Named>(url: userCSVURL)
@@ -482,7 +498,7 @@ struct Pre_Mission: View {
 
     func saveStatus(for entry: String, status: Int) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent(material+"_status"+".csv")
+        let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
 
         do {
             let csv = try CSV<Named>(url: userCSVURL)
@@ -537,7 +553,7 @@ struct Pre_Mission: View {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-        synthesizer.speak(utterance)
+        speechRecognizer.speechSynthesizer.speak(utterance)
     }
 
     func readStatuses(from csvURL: URL) -> [Int] {
@@ -596,7 +612,7 @@ struct Pre_Mission: View {
         idleTimer?.invalidate()
         print("start")
         idleTimer = Timer.scheduledTimer(withTimeInterval: 180, repeats: false) { _ in
-            playAlarm()
+            alarmStore.testSound(sound: alarmStore.Sound)
         }
     }
 
@@ -606,11 +622,11 @@ struct Pre_Mission: View {
         if !fromHome {
             print("reset2")
             idleTimer = Timer.scheduledTimer(withTimeInterval: 180, repeats: false) { _ in
-                playAlarm()
+                alarmStore.testSound(sound: alarmStore.Sound)
                 print("アラーム再開")
             }
         }
-        stopAlarm()
+        alarmStore.stopTestSound()
     }
 
     private func playAlarm() {
@@ -634,7 +650,7 @@ struct Pre_Mission: View {
     private func stopIdleTimerAndAlarm() {
         idleTimer?.invalidate()
         idleTimer = nil
-        stopAlarm()
+        alarmStore.stopTestSound()
     }
 }
 
@@ -648,5 +664,4 @@ extension UIApplication {
         )
     }
 }
-
 

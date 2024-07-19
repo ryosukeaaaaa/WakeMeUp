@@ -11,7 +11,7 @@ struct ProgressData: Identifiable {
 
 struct StatusView: View {
     @State private var progressData: [ProgressData] = []
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
@@ -68,8 +68,8 @@ struct StatusView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                
-                VStack(spacing: 1)  {
+
+                VStack(spacing: 1) {
                     Chart {
                         ForEach(progressData) { data in
                             BarMark(
@@ -96,28 +96,28 @@ struct StatusView: View {
             .onAppear(perform: loadProgressData)
         }
     }
-    
+
     func loadProgressData() {
         let categories = ["基礎英単語", "TOEIC英単語", "ビジネス英単語", "学術英単語"]
         var data: [ProgressData] = []
-        
+
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
+
         for category in categories {
             let userCSVURL = documentDirectory.appendingPathComponent("\(category)_status.csv")
-            
+
             do {
                 let csv = try CSV<Named>(url: userCSVURL)
                 let total = csv.rows.count
                 let completeCount = csv.rows.filter { $0["status"] != "1" }.count
                 let progressValue = (Double(completeCount) / Double(total)) * 100
-                
+
                 data.append(ProgressData(category: category, value: progressValue))
             } catch {
                 print("Failed to read CSV file for \(category): \(error.localizedDescription)")
             }
         }
-        
+
         DispatchQueue.main.async {
             self.progressData = data
         }
@@ -132,6 +132,7 @@ struct WordView: View {
     @State private var sortOrder: SortOrder = .statusDescending
     @State private var searchQuery = ""
     @State private var lastViewedEntry: String?
+    @StateObject private var speechRecognizer = SpeechRecognizer()
 
     enum SortOrder {
         case statusDescending
@@ -148,14 +149,14 @@ struct WordView: View {
             } else {
                 SearchBar(text: $searchQuery)
                     .padding()
-                
+
                 ScrollViewReader { proxy in
                     List(filteredEntries, id: \.entry) { entry in
-                        NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries, lastViewedEntry: $lastViewedEntry)) {
+                        NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries, lastViewedEntry: $lastViewedEntry, speechRecognizer: speechRecognizer)) {
                             HStack {
                                 Text(entry.entry)
                                 Spacer()
-                                Text("\(entry.status-1)")
+                                Text("\(entry.status - 1)")
                                     .foregroundColor(.gray)
                             }
                         }
@@ -209,7 +210,7 @@ struct WordView: View {
             ])
         }
     }
-    
+
     var filteredEntries: [(entry: String, status: Int)] {
         if searchQuery.isEmpty {
             return entries
@@ -221,7 +222,7 @@ struct WordView: View {
     func createUserCSVIfNeeded2(material: String) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
-        
+
         if (!FileManager.default.fileExists(atPath: userCSVURL.path)) {
             guard let csvURL_status = Bundle.main.url(forResource: material, withExtension: "csv") else {
                 print("Error: CSVファイルが見つかりません")
@@ -241,14 +242,14 @@ struct WordView: View {
             }
         }
     }
-    
+
     private func loadEntries() {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             errorMessage = "ドキュメントディレクトリが見つかりません"
             return
         }
         let userCSVURL = documentDirectory.appendingPathComponent("\(material)_status.csv")
-        
+
         do {
             let csv = try CSV<Named>(url: userCSVURL)
             var loadedEntries: [(entry: String, status: Int)] = []
@@ -264,7 +265,7 @@ struct WordView: View {
             errorMessage = "CSVの読み込みエラー: \(error.localizedDescription)"
         }
     }
-    
+
     private func sortEntries() {
         switch sortOrder {
         case .statusDescending:
@@ -285,12 +286,12 @@ struct DetailView: View {
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
     @State private var currentIndex: Int = 0
     @State private var isShowingDetails = false
-    @State private var synthesizer = AVSpeechSynthesizer()
-    
+    @StateObject var speechRecognizer: SpeechRecognizer
+
     var body: some View {
         TabView(selection: $currentIndex) {
             ForEach(0..<entries.count, id: \.self) { index in
-                DetailCardView(entry: entries[index], material: material, synthesizer: synthesizer)
+                DetailCardView(entry: entries[index], material: material, speechRecognizer: speechRecognizer)
                     .tag(index)
             }
         }
@@ -300,12 +301,12 @@ struct DetailView: View {
             lastViewedEntry = entry.entry
             loadEntryDetails()
         }
-        .onChange(of: currentIndex) {
+        .onChange(of: currentIndex) { _ in
             lastViewedEntry = entries[currentIndex].entry
             loadEntryDetails()
         }
     }
-    
+
     func loadEntryDetails() {
         guard let csvURL = Bundle.main.url(forResource: material, withExtension: "csv") else {
             entryDetails = ("Error", "CSV file not found", "", "", "")
@@ -335,11 +336,11 @@ struct DetailCardView: View {
     var entry: (entry: String, status: Int)
     var material: String
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
-    var synthesizer: AVSpeechSynthesizer
-    
+    @StateObject var speechRecognizer: SpeechRecognizer
+
     var body: some View {
         VStack {
-            VStack{
+            VStack {
                 Text(entryDetails.entry)
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -368,7 +369,7 @@ struct DetailCardView: View {
             .background(Color.white)
             .cornerRadius(10)
             .shadow(radius: 5)
-            
+
             Button(action: {
                 speakText(entryDetails.entry)
             }) {
@@ -381,7 +382,7 @@ struct DetailCardView: View {
             speakText(entryDetails.entry)
         }
     }
-    
+
     func loadEntryDetails() {
         guard let csvURL = Bundle.main.url(forResource: material, withExtension: "csv") else {
             entryDetails = ("Error", "CSV file not found", "", "", "")
@@ -405,12 +406,9 @@ struct DetailCardView: View {
             entryDetails = ("Error", "reading CSV file", "", "", "")
         }
     }
-    
+
     func speakText(_ text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-        synthesizer.speak(utterance)
+        speechRecognizer.speak(text: text)
     }
 }
 
@@ -430,7 +428,7 @@ struct SearchBar: View {
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
-                        
+
                         if !text.isEmpty {
                             Button(action: {
                                 text = ""

@@ -82,7 +82,9 @@ struct ContentView: View {
                 //                print("バックグラウンド（.background）")
                 //            }
                 if scenePhase == .active {
-                    alarmStore.groupIds = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+                    let result = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+                    alarmStore.groupIds = result.groupIds
+                    alarmStore.Sound = result.firstSound ?? "default"
                     print("groupids:", alarmStore.groupIds)
                     if !alarmStore.groupIds.isEmpty {
                         alarmStore.showingAlarmLanding = true
@@ -97,20 +99,20 @@ struct ContentView: View {
                 )
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
-            if let outerUserInfo = notification.userInfo{
-                alarmStore.groupIds = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
-                print("groupids:", alarmStore.groupIds)
-                if !alarmStore.groupIds.isEmpty {
-                    alarmStore.showingAlarmLanding = true
-                }
+//        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
+//            if let outerUserInfo = notification.userInfo{
+//                alarmStore.groupIds = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+//                print("groupids:", alarmStore.groupIds)
+//                if !alarmStore.groupIds.isEmpty {
+//                    alarmStore.showingAlarmLanding = true
+//                }
 //                alarmStore.groupIds = groupId
 //                alarmStore.showingAlarmLanding = true
-                debugMessage = "Received notification: GroupId = \(alarmStore.groupIds)"
-            } else {
-                debugMessage = "Received notification but couldn't extract groupId"
-            }
-        }
+//                debugMessage = "Received notification: GroupId = \(alarmStore.groupIds)"
+//            } else {
+//                debugMessage = "Received notification but couldn't extract groupId"
+//            }
+//        }
 //        .overlay(
 //            Text(debugMessage)
 //                .padding()

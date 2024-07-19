@@ -16,6 +16,11 @@ class AlarmStore: ObservableObject {
     }
     @Published var groupIds: [String] = []
     
+    @Published var Sound: String {
+        didSet {
+            UserDefaults.standard.set(Sound, forKey: "Sound")
+        }
+    }
     
     //　アラーム編集用の格納庫
     @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "default", snoozeEnabled: false, groupId: "")
@@ -23,6 +28,7 @@ class AlarmStore: ObservableObject {
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
         //self.groupId = UserDefaults.standard.string(forKey: "groupId") ?? ""
+        self.Sound = UserDefaults.standard.string(forKey: "Sound") ?? ""
         loadAlarms()
     }
     
@@ -76,13 +82,13 @@ class AlarmStore: ObservableObject {
     private func cancelAlarmNotifications(groupId: String, snoozeEnabled: Bool) {
         let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
-        for n in 0...11 {
+        for n in 0...16 {
             let identifier = "AlarmNotification\(groupId)_\(n)"
             identifiers.append(identifier)
         }
         if snoozeEnabled {
             for m in 1...5 {
-                for l in 0...11 {
+                for l in 0...16 {
                     let identifier = "AlarmNotification\(groupId)_\(l)_\(m)"
                     identifiers.append(identifier)
                 }
@@ -181,7 +187,7 @@ class AlarmStore: ObservableObject {
         content.body = "時間です！起きましょう！"
         content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
         
-        for n in 0...11 {
+        for n in 0...16 {
             let secondsToAdd = 7 * n
             let nanosecondsToAdd = 500_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
             var dateComponents = DateComponents()
@@ -193,7 +199,7 @@ class AlarmStore: ObservableObject {
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
             
             // サウンド設定を条件に応じて変更
-            if n == 0 || n == 4 || n == 8 {
+            if n == 0 || n == 4 || n == 8  || n==12 {
                 content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
             } else {
                 content.sound = nil
@@ -214,7 +220,7 @@ class AlarmStore: ObservableObject {
         if snoozeEnabled {
             for m in 1...5 {
                 let snoozeTriggerDate = calendar.date(byAdding: .minute, value: 5 * m, to: targetDate)!
-                for l in 0...11 {
+                for l in 0...16 {
                     let secondsToAdd = 7 * l
                     let nanosecondsToAdd = 800_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
                     var dateComponents = DateComponents()
@@ -226,7 +232,7 @@ class AlarmStore: ObservableObject {
                     let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                     
                     // サウンド設定を条件に応じて変更
-                    if l == 0 || l == 4 || l == 8 {
+                    if l == 0 || l == 4 || l == 8 || l == 12 {
                         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
                     } else {
                         content.sound = nil
@@ -249,13 +255,13 @@ class AlarmStore: ObservableObject {
     
     func testSound(sound: String) {
         let content = UNMutableNotificationContent()
-        content.title = "テストアラーム"
-        content.body = "これはテスト通知です"
+        content.title = "アラーム"
+        content.body = "時間です！起きましょう！"
         
         for n in 0...3 {
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1 + 7.5 * Double(n), repeats: false)
             // サウンド設定を条件に応じて変更
-            if n == 0 || n == 4 || n == 8 {
+            if n == 0 || n == 4 || n == 8 || n == 12 {
                 content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
             } else {
                 content.sound = nil
@@ -299,13 +305,27 @@ class AlarmStore: ObservableObject {
         return targetDate
     }
     
-    func groupIdsForAlarmsWithinTimeRange() -> [String] {
+//    func groupIdsForAlarmsWithinTimeRange() -> [String] {
+//        let currentDate = Date()
+//        let fiveMinutesAgo = currentDate.addingTimeInterval(-5 * 60) // 現在から5分前
+//        print(alarms)
+//        print("current:", currentDate)
+//        return alarms.filter { alarm in
+//            alarm.isOn && alarm.time >= fiveMinutesAgo && alarm.time <= currentDate
+//        }.map { $0.groupId }
+//    }
+    func groupIdsForAlarmsWithinTimeRange() -> (groupIds: [String], firstSound: String?) {
         let currentDate = Date()
         let fiveMinutesAgo = currentDate.addingTimeInterval(-5 * 60) // 現在から5分前
         print(alarms)
         print("current:", currentDate)
-        return alarms.filter { alarm in
+
+        let matchingAlarms = alarms.filter { alarm in
             alarm.isOn && alarm.time >= fiveMinutesAgo && alarm.time <= currentDate
-        }.map { $0.groupId }
+        }
+
+        let groupIds = matchingAlarms.map { $0.groupId }
+        let firstSound = matchingAlarms.first?.soundName
+        return (groupIds, firstSound)
     }
 }

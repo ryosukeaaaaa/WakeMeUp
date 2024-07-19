@@ -11,6 +11,8 @@ struct HomeMission: View {
     
     @State private var lastmission = false
     
+    @State private var alarmStore = AlarmStore()
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
@@ -31,7 +33,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $basic) {
-                        Pre_Mission(fromHome: true, material: "基礎英単語", reset: $isReset)// trueにすることで目覚ましと区別
+                        Pre_Mission(fromHome: true, material: "基礎英単語", reset: $isReset, alarmStore: alarmStore)// trueにすることで目覚ましと区別
                             .navigationBarBackButtonHidden(true)
                     }
                     
@@ -51,7 +53,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $toeic) {
-                        Pre_Mission(fromHome: true, material: "TOEIC英単語", reset: $isReset)// trueにすることで目覚ましと区別
+                        Pre_Mission(fromHome: true, material: "TOEIC英単語", reset: $isReset, alarmStore: alarmStore)// trueにすることで目覚ましと区別
                             .navigationBarBackButtonHidden(true)
                     }
                 
@@ -71,7 +73,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $business) {
-                        Pre_Mission(fromHome: true, material: "ビジネス英単語", reset: $isReset)// trueにすることで目覚ましと区別
+                        Pre_Mission(fromHome: true, material: "ビジネス英単語", reset: $isReset, alarmStore: alarmStore)// trueにすることで目覚ましと区別
                             .navigationBarBackButtonHidden(true)
                     }
                 
@@ -91,7 +93,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $academic) {
-                        Pre_Mission(fromHome: true, material: "学術英単語", reset: $isReset)// trueにすることで目覚ましと区別
+                        Pre_Mission(fromHome: true, material: "学術英単語", reset: $isReset, alarmStore: alarmStore)// trueにすることで目覚ましと区別
                             .navigationBarBackButtonHidden(true)
                     }
                     

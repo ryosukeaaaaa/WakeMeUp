@@ -6,7 +6,7 @@ struct MissionClear: View {
     @State private var HomeView = false
     @State private var navigationPath = NavigationPath()
     
-    @StateObject private var alarmStore = AlarmStore()
+    @ObservedObject var alarmStore: AlarmStore
     
     @State private var Home = false
 
@@ -60,10 +60,9 @@ struct MissionClear: View {
                         navigationPath.removeLast(navigationPath.count)
                     }
             }
-//            .onAppear{
-//                alarmStore.stopAlarm(alarmStore.groupIds)  // アラームを止める
-//                alarmStore.showingAlarmLanding = false
-//            }
+            .onAppear{
+                alarmStore.showingAlarmLanding = false
+            }
         }
     }
 }

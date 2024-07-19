@@ -39,7 +39,7 @@ struct AlarmLandingView: View {
                 .padding()
             }
             .navigationDestination(isPresented: $navigateToPreMission) {
-                Pre_Mission(reset: $isReset)
+                Pre_Mission(reset: $isReset, alarmStore: alarmStore)
                     .navigationBarBackButtonHidden(true)
             }
         }
