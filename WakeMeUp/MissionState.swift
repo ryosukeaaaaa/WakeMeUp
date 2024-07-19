@@ -1,4 +1,5 @@
 import Foundation
+import SwiftCSV
 
 class MissionState: ObservableObject {
     @Published var randomEntry: (String, String, String, String, String) = ("", "", "", "", "")
@@ -50,6 +51,9 @@ class MissionState: ObservableObject {
         }
     }
     
+    @Published var starredEntries: [(String, String, String, String, String)] = [] // スターをつけたエントリーを保持
+    
+    
     init() {
 //        self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
         let savedClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
@@ -71,5 +75,26 @@ class MissionState: ObservableObject {
         self.academicCount = UserDefaults.standard.integer(forKey: "academicCount")
         
         self.correctcircle = UserDefaults.standard.string(forKey: "correctcircle") ?? "あり"
+    }
+    
+    func loadStarredEntries() {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+        
+        if FileManager.default.fileExists(atPath: starCSVURL.path) {
+            do {
+                let csv = try CSV<Named>(url: starCSVURL)
+                for row in csv.rows {
+                    let entry = row["entry"] ?? ""
+                    let ipa = row["ipa"] ?? ""
+                    let meaning = row["meaning"] ?? ""
+                    let example = row["example_sentence"] ?? ""
+                    let translated = row["translated_sentence"] ?? ""
+                    starredEntries.append((entry, ipa, meaning, example, translated))
+                }
+            } catch {
+                print("Error loading starred entries: \(error)")
+            }
+        }
     }
 }

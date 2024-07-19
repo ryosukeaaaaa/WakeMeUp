@@ -15,8 +15,7 @@ struct StatusView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
-
-                NavigationLink(destination: WordView(material: "基礎英単語")) {
+                NavigationLink(destination: NormalWordView(material: "基礎英単語")) {
                     HStack {
                         Image(systemName: "person.fill")
                         Text("基礎英単語")
@@ -29,7 +28,7 @@ struct StatusView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                NavigationLink(destination: WordView(material: "TOEIC英単語")) {
+                NavigationLink(destination: NormalWordView(material: "TOEIC英単語")) {
                     HStack {
                         Image(systemName: "person.fill")
                         Text("TOEIC英単語")
@@ -42,7 +41,7 @@ struct StatusView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                NavigationLink(destination: WordView(material: "ビジネス英単語")) {
+                NavigationLink(destination: NormalWordView(material: "ビジネス英単語")) {
                     HStack {
                         Image(systemName: "person.fill")
                         Text("ビジネス英単語")
@@ -55,7 +54,7 @@ struct StatusView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                NavigationLink(destination: WordView(material: "学術英単語")) {
+                NavigationLink(destination: NormalWordView(material: "学術英単語")) {
                     HStack {
                         Image(systemName: "person.fill")
                         Text("学術英単語")
@@ -65,6 +64,21 @@ struct StatusView: View {
                     .padding(10)
                     .frame(maxWidth: .infinity)
                     .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+
+                // star.csvから読み込んだWordViewを表示するボタン
+                NavigationLink(destination: StarredWordView()) {
+                    HStack {
+                        Image(systemName: "star.fill")
+                        Text("後で復習")
+                            .font(.headline)
+                        Spacer()
+                    }
+                    .padding(10)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(red: 1.2, green: 0.8, blue: 0.1))
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
@@ -88,7 +102,6 @@ struct StatusView: View {
                     .chartYScale(domain: 0...100)
                     .frame(height: 150)
                     .padding()
-                    Text("達成率")
                 }
             }
             .padding()
@@ -124,7 +137,7 @@ struct StatusView: View {
     }
 }
 
-struct WordView: View {
+struct NormalWordView: View {
     let material: String
     @State private var entries: [(entry: String, status: Int)] = []
     @State private var errorMessage: String?
@@ -132,7 +145,7 @@ struct WordView: View {
     @State private var sortOrder: SortOrder = .statusDescending
     @State private var searchQuery = ""
     @State private var lastViewedEntry: String?
-    @StateObject private var speechRecognizer = SpeechRecognizer()
+    @StateObject private var speechSynthesizer = SpeechSynthesizer()
 
     enum SortOrder {
         case statusDescending
@@ -151,13 +164,15 @@ struct WordView: View {
                     .padding()
 
                 ScrollViewReader { proxy in
-                    List(filteredEntries, id: \.entry) { entry in
-                        NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries, lastViewedEntry: $lastViewedEntry, speechRecognizer: speechRecognizer)) {
-                            HStack {
-                                Text(entry.entry)
-                                Spacer()
-                                Text("\(entry.status - 1)")
-                                    .foregroundColor(.gray)
+                    List {
+                        ForEach(filteredEntries, id: \.entry) { entry in
+                            NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries, lastViewedEntry: $lastViewedEntry, speechSynthesizer: speechSynthesizer)) {
+                                HStack {
+                                    Text(entry.entry)
+                                    Spacer()
+                                    Text("\(entry.status - 1)")
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
                     }
@@ -172,7 +187,6 @@ struct WordView: View {
             }
         }
         .onAppear {
-            createUserCSVIfNeeded2(material: material)
             loadEntries()
         }
         .toolbar {
@@ -219,30 +233,6 @@ struct WordView: View {
         }
     }
 
-    func createUserCSVIfNeeded2(material: String) {
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
-
-        if (!FileManager.default.fileExists(atPath: userCSVURL.path)) {
-            guard let csvURL_status = Bundle.main.url(forResource: material, withExtension: "csv") else {
-                print("Error: CSVファイルが見つかりません")
-                return
-            }
-            do {
-                let csv = try CSV<Named>(url: csvURL_status)
-                var userCSVString = "entry,status\n"
-                for row in csv.rows {
-                    if let entry = row["entry"] {
-                        userCSVString += "\(entry),1\n"
-                    }
-                }
-                try userCSVString.write(to: userCSVURL, atomically: true, encoding: .utf8)
-            } catch {
-                print("Error creating user.csv: \(error)")
-            }
-        }
-    }
-
     private func loadEntries() {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             errorMessage = "ドキュメントディレクトリが見つかりません"
@@ -278,6 +268,154 @@ struct WordView: View {
     }
 }
 
+struct StarredWordView: View {
+    @State private var entries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+    @State private var errorMessage: String?
+    @State private var showSortOptions = false
+    @State private var sortOrder: SortOrder = .alphabetical
+    @State private var searchQuery = ""
+    @State private var lastViewedEntry: String?
+    @StateObject private var speechSynthesizer: SpeechSynthesizer = SpeechSynthesizer()
+
+    enum SortOrder {
+        case alphabetical
+    }
+
+    var body: some View {
+        VStack {
+            if let errorMessage = errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .padding()
+            } else {
+                SearchBar(text: $searchQuery)
+                    .padding()
+
+                ScrollViewReader { proxy in
+                    List {
+                        ForEach(filteredEntries, id: \.entry) { entry in
+                            NavigationLink(destination: StarredDetailView(entry: entry, entries: $entries, lastViewedEntry: $lastViewedEntry, speechSynthesizer: speechSynthesizer)) {
+                                Text(entry.entry)
+                            }
+                        }
+                        .onDelete(perform: deleteEntry)
+                    }
+                    .onAppear {
+                        if let lastViewedEntry = lastViewedEntry {
+                            DispatchQueue.main.async {
+                                proxy.scrollTo(lastViewedEntry, anchor: .center)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .onAppear {
+            loadEntries()
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("スター単語")
+                        .font(.headline)
+                    Text("全\(String(entries.count))単語")
+                        .font(.subheadline)
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showSortOptions.toggle()
+                }) {
+                    Image(systemName: "arrow.up.arrow.down")
+                }
+            }
+        }
+        .actionSheet(isPresented: $showSortOptions) {
+            ActionSheet(title: Text("並び替えオプション"), buttons: [
+                .default(Text("アルファベット順")) {
+                    sortOrder = .alphabetical
+                    sortEntries()
+                },
+                .cancel()
+            ])
+        }
+    }
+
+    var filteredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] {
+        if searchQuery.isEmpty {
+            return entries
+        } else {
+            return entries.filter { $0.entry.lowercased().contains(searchQuery.lowercased()) }
+        }
+    }
+
+    private func loadEntries() {
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            errorMessage = "ドキュメントディレクトリが見つかりません"
+            return
+        }
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+
+            for row in csv.rows {
+                if let entry = row["entry"],
+                   let ipa = row["ipa"],
+                   let meaning = row["meaning"],
+                   let example = row["example_sentence"],
+                   let translated = row["translated_sentence"] {
+                    loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
+                }
+            }
+            entries = loadedEntries
+            sortEntries()
+        } catch {
+            errorMessage = "CSVの読み込みエラー: \(error.localizedDescription)"
+        }
+    }
+
+    private func sortEntries() {
+        switch sortOrder {
+        case .alphabetical:
+            entries.sort(by: { $0.entry < $1.entry })
+        }
+    }
+
+    private func deleteEntry(at offsets: IndexSet) {
+        for index in offsets {
+            let entry = entries[index]
+            removeStarredEntry(entry)
+        }
+        entries.remove(atOffsets: offsets)
+    }
+
+    private func removeStarredEntry(_ entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            let filteredRows = csv.rows.filter { $0["entry"] != entry.entry }
+
+            var updatedCSVString = "entry,ipa,meaning,example_sentence,translated_sentence\n"
+            for row in filteredRows {
+                let entry = row["entry"] ?? ""
+                let ipa = row["ipa"] ?? ""
+                let meaning = row["meaning"] ?? ""
+                let example = row["example_sentence"] ?? ""
+                let translated = row["translated_sentence"] ?? ""
+                updatedCSVString += "\(entry),\(ipa),\(meaning),\(example),\(translated)\n"
+            }
+
+            try updatedCSVString.write(to: starCSVURL, atomically: true, encoding: .utf8)
+        } catch {
+            print("Error removing starred entry: \(error)")
+        }
+    }
+}
+
 struct DetailView: View {
     var material: String
     var entry: (entry: String, status: Int)
@@ -286,12 +424,13 @@ struct DetailView: View {
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
     @State private var currentIndex: Int = 0
     @State private var isShowingDetails = false
-    @StateObject var speechRecognizer: SpeechRecognizer
+    @StateObject var speechSynthesizer: SpeechSynthesizer
+    @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
 
     var body: some View {
         TabView(selection: $currentIndex) {
             ForEach(0..<entries.count, id: \.self) { index in
-                DetailCardView(entry: entries[index], material: material, speechRecognizer: speechRecognizer)
+                DetailCardView(entry: entries[index], material: material, speechSynthesizer: speechSynthesizer, starredEntries: $starredEntries)
                     .tag(index)
             }
         }
@@ -300,8 +439,9 @@ struct DetailView: View {
             currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
             lastViewedEntry = entry.entry
             loadEntryDetails()
+            loadStarredEntries()
         }
-        .onChange(of: currentIndex) { _ in
+        .onChange(of: currentIndex) {
             lastViewedEntry = entries[currentIndex].entry
             loadEntryDetails()
         }
@@ -330,13 +470,93 @@ struct DetailView: View {
             entryDetails = ("Error", "reading CSV file", "", "", "")
         }
     }
+
+    func loadStarredEntries() {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+
+            for row in csv.rows {
+                if let entry = row["entry"],
+                   let ipa = row["ipa"],
+                   let meaning = row["meaning"],
+                   let example = row["example_sentence"],
+                   let translated = row["translated_sentence"] {
+                    loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
+                }
+            }
+            starredEntries = loadedEntries
+        } catch {
+            print("Failed to read starred entries: \(error.localizedDescription)")
+        }
+    }
+}
+
+struct StarredDetailView: View {
+    var entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)
+    @Binding var entries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)]
+    @Binding var lastViewedEntry: String?
+    @State private var currentIndex: Int = 0
+    @StateObject var speechSynthesizer: SpeechSynthesizer
+
+    var body: some View {
+        TabView(selection: $currentIndex) {
+            ForEach(entries.indices, id: \.self) { index in
+                StarredDetailCardView(entry: entries[index], speechSynthesizer: speechSynthesizer, removeAction: {
+                    removeStarredEntry(entries[index])
+                    removeEntry(at: index)
+                })
+                .tag(index)
+            }
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        .onAppear {
+            currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
+            lastViewedEntry = entry.entry
+        }
+        .onChange(of: currentIndex) {
+            lastViewedEntry = entries[currentIndex].entry
+        }
+    }
+
+    private func removeEntry(at index: Int) {
+        entries.remove(at: index)
+    }
+
+    private func removeStarredEntry(_ entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            let filteredRows = csv.rows.filter { $0["entry"] != entry.entry }
+
+            var updatedCSVString = "entry,ipa,meaning,example_sentence,translated_sentence\n"
+            for row in filteredRows {
+                let entry = row["entry"] ?? ""
+                let ipa = row["ipa"] ?? ""
+                let meaning = row["meaning"] ?? ""
+                let example = row["example_sentence"] ?? ""
+                let translated = row["translated_sentence"] ?? ""
+                updatedCSVString += "\(entry),\(ipa),\(meaning),\(example),\(translated)\n"
+            }
+
+            try updatedCSVString.write(to: starCSVURL, atomically: true, encoding: .utf8)
+        } catch {
+            print("Error removing starred entry: \(error)")
+        }
+    }
 }
 
 struct DetailCardView: View {
     var entry: (entry: String, status: Int)
     var material: String
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
-    @StateObject var speechRecognizer: SpeechRecognizer
+    @StateObject var speechSynthesizer: SpeechSynthesizer
+    @Binding var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)]
 
     var body: some View {
         VStack {
@@ -363,6 +583,20 @@ struct DetailCardView: View {
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
                     .padding()
+                
+                if starredEntries.contains(where: { $0.entry == entryDetails.entry }) {
+                    Text("追加済み")
+                        .foregroundColor(.gray)
+                        .padding(.top, 10)
+                } else {
+                    Button(action: {
+                        starredEntries.append(entryDetails)
+                        saveStarredEntry(entryDetails)
+                    }) {
+                        Text("後で復習")
+                    }
+                    .padding(.top, 10)
+                }
             }
             .padding()
             .frame(width: 400, height: 400)
@@ -407,8 +641,100 @@ struct DetailCardView: View {
         }
     }
 
+    private func saveStarredEntry(_ entry: (String, String, String, String, String)) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+        print("やばいね",starCSVURL.path)
+        
+        var starCSVString = ""
+        
+        // ファイルが存在しない場合はヘッダー行を追加
+        if !FileManager.default.fileExists(atPath: starCSVURL.path) {
+            starCSVString += "entry,ipa,meaning,example_sentence,translated_sentence\n"
+        }
+        
+        // エントリーをCSV形式に変換して追加
+        starCSVString += "\(entry.0),\(entry.1),\(entry.2),\(entry.3),\(entry.4)\n"
+        
+        do {
+            if let fileHandle = try? FileHandle(forWritingTo: starCSVURL) {
+                fileHandle.seekToEndOfFile()
+                if let data = starCSVString.data(using: .utf8) {
+                    fileHandle.write(data)
+                }
+                fileHandle.closeFile()
+            } else {
+                try starCSVString.write(to: starCSVURL, atomically: true, encoding: .utf8)
+            }
+        } catch {
+            print("Error saving starred entry: \(error)")
+        }
+    }
+
     func speakText(_ text: String) {
-        speechRecognizer.speak(text: text)
+        speechSynthesizer.speak(text: text)
+    }
+}
+
+struct StarredDetailCardView: View {
+    var entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)
+    @StateObject var speechSynthesizer: SpeechSynthesizer
+    var removeAction: () -> Void
+
+    var body: some View {
+        VStack {
+            VStack {
+                Text(entry.entry)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 10)
+                Text(entry.ipa)
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                Text(entry.meaning)
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 10)
+                Text(entry.example)
+                    .italic()
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 10)
+                Text(entry.translated)
+                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            }
+            .padding()
+            .frame(width: 400, height: 400)
+            .background(Color.white)
+            .cornerRadius(10)
+            .shadow(radius: 5)
+
+            Button(action: {
+                speakText(entry.entry)
+            }) {
+                Text("もう一度再生")
+            }
+            
+            Button(action: {
+                removeAction()
+            }) {
+                Text("削除")
+                    .foregroundColor(.red)
+                    .padding()
+            }
+            .padding()
+        }
+        .onAppear {
+            speakText(entry.entry)
+        }
+    }
+
+    func speakText(_ text: String) {
+        speechSynthesizer.speak(text: text)
     }
 }
 
@@ -445,7 +771,16 @@ struct SearchBar: View {
     }
 }
 
+class SpeechSynthesizer: ObservableObject {
+    func speak(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
+    }
+}
+
 #Preview {
-    WordView(material: "TOEIC英単語")
+    StatusView()
 }
 

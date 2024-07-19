@@ -4,91 +4,114 @@ import SpriteKit
 
 struct Gacha: View {
     @ObservedObject var itemState: ItemState
-
+    
+    @State private var normal = false
+    @State private var special = false
+    
     var body: some View {
-        NavigationStack {
-            VStack {
-                NavigationLink(destination: GachaGIF(itemState: itemState)) {
+        NavigationView {
+            VStack(spacing: 10) {
+                NavigationStack {
                     VStack{
-                        HStack {
-                            Image(systemName: "lock.shield")
-                            Text("ノーマルガチャ")
-                                .font(.headline)
-                            Spacer()
+                        Button(action: {
+                            normal = true
+                        }) {
+                            HStack {
+                                Image(systemName: "lock.shield")
+                                Text("ノーマルガチャ")
+                                    .font(.headline)
+                                Spacer()  // ここにSpacerを追加
+                            }
+                            .padding(10)
+                            .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                            .background(Color.gray)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                         }
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .navigationDestination(isPresented: $normal) {
+                            GachaGIF(itemState: itemState)
+                                .navigationBarBackButtonHidden(true)
+                        }
                         Text("所持枚数: \(itemState.NormalCoin)")
                     }
-                }
-                NavigationLink(destination: GachaGIF2(itemState: itemState)) {
                     VStack{
-                        HStack {
-                            Image(systemName: "lock.shield")
-                            Text("スペシャルガチャ")
-                                .font(.headline)
-                            Spacer()
+                        Button(action: {
+                            special = true
+                        }) {
+                            HStack {
+                                Image(systemName: "lock.shield")
+                                Text("スペシャルガチャ")
+                                    .font(.headline)
+                                Spacer()  // ここにSpacerを追加
+                            }
+                            .padding(10)
+                            .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                            .background(Color.yellow)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                         }
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.yellow)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .navigationDestination(isPresented: $special) {
+                            GachaGIF2(itemState: itemState)
+                                .navigationBarBackButtonHidden(true)
+                        }
                         Text("所持枚数: \(itemState.SpecialCoin)")
                     }
-                }
-                VStack {
                     VStack {
-                        HStack {
-                            Text("レアリティ")
-                                .font(.headline)
-                            Spacer()
-                            Text("排出確率")
-                                .font(.headline)
+                        VStack {
+                            HStack {
+                                Text("レアリティ")
+                                    .font(.headline)
+                                Spacer()
+                                Text("排出確率")
+                                    .font(.headline)
+                            }
+                            .padding(.horizontal)
+                            
+                            Divider()
+                            HStack {
+                                Text("Normal")
+                                Spacer()
+                                Text("64 %")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                            
+                            HStack {
+                                Text("Rare")
+                                Spacer()
+                                Text("28 %")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                            
+                            HStack {
+                                Text("SuperRare")
+                                Spacer()
+                                Text("7 %")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                            
+                            HStack {
+                                Text("UltraRare")
+                                Spacer()
+                                Text("1 %")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
-                        
-                        Divider()
-                        HStack {
-                            Text("Normal")
-                            Spacer()
-                            Text("64 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
-                        
-                        HStack {
-                            Text("Rare")
-                            Spacer()
-                            Text("28 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
-                        
-                        HStack {
-                            Text("SuperRare")
-                            Spacer()
-                            Text("7 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
-                        
-                        HStack {
-                            Text("UltraRare")
-                            Spacer()
-                            Text("1 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(5)
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(5)
+            }
+            .padding()
+            .navigationTitle("ガチャ")
+            .onAppear {
+                normal = false
+                special = false
             }
         }
     }

@@ -368,6 +368,20 @@ struct Pre_Mission: View {
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding()
+            
+            if missionState.starredEntries.contains(where: { $0.0 == missionState.randomEntry.0 }) {
+                Text("追加済み")
+                    .foregroundColor(.gray)
+                    .padding(.top, 10)
+            } else {
+                Button(action: {
+                    missionState.starredEntries.append(missionState.randomEntry)
+                    saveStarredEntry(missionState.randomEntry)
+                }) {
+                    Text("後で復習")
+                }
+                .padding(.top, 10)
+            }
         }
         .padding()
         .frame(width: 400, height: 400)
@@ -632,6 +646,36 @@ struct Pre_Mission: View {
         idleTimer?.invalidate()
         idleTimer = nil
         alarmStore.stopTestSound()
+    }
+    
+    private func saveStarredEntry(_ entry: (String, String, String, String, String)) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+        print("やばいね",starCSVURL.path)
+        
+        var starCSVString = ""
+        
+        // ファイルが存在しない場合はヘッダー行を追加
+        if !FileManager.default.fileExists(atPath: starCSVURL.path) {
+            starCSVString += "entry,ipa,meaning,example_sentence,translated_sentence\n"
+        }
+        
+        // エントリーをCSV形式に変換して追加
+        starCSVString += "\(entry.0),\(entry.1),\(entry.2),\(entry.3),\(entry.4)\n"
+        
+        do {
+            if let fileHandle = try? FileHandle(forWritingTo: starCSVURL) {
+                fileHandle.seekToEndOfFile()
+                if let data = starCSVString.data(using: .utf8) {
+                    fileHandle.write(data)
+                }
+                fileHandle.closeFile()
+            } else {
+                try starCSVString.write(to: starCSVURL, atomically: true, encoding: .utf8)
+            }
+        } catch {
+            print("Error saving starred entry: \(error)")
+        }
     }
 }
 

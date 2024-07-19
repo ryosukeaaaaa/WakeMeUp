@@ -106,38 +106,92 @@ import SpriteKit
 
 struct GachaView: View {
     @ObservedObject var itemState = ItemState() // ItemStateのインスタンスを作成
+    
+    @State private var collection = false
+    @State private var gacha = false
 
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
-                NavigationLink(destination: Collection(itemState: itemState)) { // itemStateを渡す
-                    HStack {
-                        Image(systemName: "lock.shield")
-                        Text("コレクション")
-                            .font(.headline)
-                        Spacer()
+                NavigationStack {
+                    VStack{
+                        Button(action: {
+                            collection = true
+                        }) {
+                            HStack {
+                                Image(systemName: "lock.shield")
+                                Text("コレクション")
+                                    .font(.headline)
+                                Spacer()  // ここにSpacerを追加
+                            }
+                            .padding(10)
+                            .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .navigationDestination(isPresented: $collection) {
+                            Collection(itemState: itemState)
+                        }
                     }
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                NavigationLink(destination: Gacha(itemState: itemState)) {
-                    HStack {
-                        Image(systemName: "capsule.fill")
-                        Text("ガチャ")
-                            .font(.headline)
-                        Spacer()
+                    VStack{
+                        Button(action: {
+                            gacha = true
+                        }) {
+                            HStack {
+                                Image(systemName: "capsule.fill")
+                                Text("ガチャ")
+                                    .font(.headline)
+                                Spacer()  // ここにSpacerを追加
+                            }
+                            .padding(10)
+                            .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .navigationDestination(isPresented: $gacha) {
+                            Gacha(itemState: itemState)
+                        }
                     }
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
                 }
+                //デバイスに残っている通知チェック
+                Button(action: {
+                    listAllPendingNotifications()
+                }) {
+                    Text("Show Pending Notifications")
+                }
+                .padding()
+                
+                Button(action: {
+                    removeAllPendingNotifications()
+                }) {
+                    Text("Remove All Pending Notifications")
+                }
+                .padding()
+            }
+            .padding()
+            .navigationTitle("ガチャ")
+            .onAppear {
+                collection = false
+                gacha = false
             }
         }
+    }
+    func listAllPendingNotifications() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("Identifier: \(request.identifier)")
+                print("Content: \(request.content)")
+                print("Trigger: \(String(describing: request.trigger))")
+                print("-----")
+            }
+        }
+    }
+
+    func removeAllPendingNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        print("All pending notifications have been removed.")
     }
 }
 
