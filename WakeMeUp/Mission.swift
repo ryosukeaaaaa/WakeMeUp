@@ -110,7 +110,7 @@ struct Pre_Mission: View {
                                                             navigateToHome = true
                                                         } else {
                                                             loadNextEntry()
-                                                            speechRecognizer.transcript = "長押しして話す"
+                                                            speechRecognizer.transcript = "長押ししながら発音"
                                                             labelText = ""
                                                         }
                                                     } else {
@@ -129,7 +129,7 @@ struct Pre_Mission: View {
                                                             navigateToHome = true
                                                         } else {
                                                             loadNextEntry()
-                                                            speechRecognizer.transcript = "長押しして話す"
+                                                            speechRecognizer.transcript = "長押ししながら発音"
                                                             labelText = ""
                                                         }
                                                     }
@@ -250,7 +250,7 @@ struct Pre_Mission: View {
                                                 .stroke(Color.red, lineWidth: 2)
                                         )
                                 } else {
-                                    Text("スワイプして次のステップへ")
+                                    Text("単語カードを左右にスワイプして次のステップ")
                                         .font(.headline)
                                         .padding()
                                 }
@@ -271,7 +271,7 @@ struct Pre_Mission: View {
                     print(material)
                     print("ini")
                     loadNextEntry()
-                    speechRecognizer.transcript = "長押しして話す"
+                    speechRecognizer.transcript = "長押ししながら発音"
                     missionState.shouldLoadInitialEntry = false
                 }else{
                     GPT = false
@@ -370,9 +370,13 @@ struct Pre_Mission: View {
                 .padding()
             
             if missionState.starredEntries.contains(where: { $0.0 == missionState.randomEntry.0 }) {
-                Text("追加済み")
-                    .foregroundColor(.gray)
-                    .padding(.top, 10)
+                Button(action: {
+                    removeStarredEntry(missionState.randomEntry)
+                }) {
+                    Text("追加済み")
+                        .foregroundColor(.gray)
+                        .padding(.top, 10)
+                }
             } else {
                 Button(action: {
                     missionState.starredEntries.append(missionState.randomEntry)
@@ -384,7 +388,10 @@ struct Pre_Mission: View {
             }
         }
         .padding()
-        .frame(width: 400, height: 400)
+        .frame(
+            width: UIScreen.main.bounds.width,
+            height: UIScreen.main.bounds.height * 24/50
+        )
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
@@ -649,6 +656,7 @@ struct Pre_Mission: View {
     }
     
     private func saveStarredEntry(_ entry: (String, String, String, String, String)) {
+        print("やばいよやばいよ",entry)
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
         print("やばいね",starCSVURL.path)
@@ -675,6 +683,30 @@ struct Pre_Mission: View {
             }
         } catch {
             print("Error saving starred entry: \(error)")
+        }
+    }
+    
+    private func removeStarredEntry(_ entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            let filteredRows = csv.rows.filter { $0["entry"] != entry.entry }
+
+            var updatedCSVString = "entry,ipa,meaning,example_sentence,translated_sentence\n"
+            for row in filteredRows {
+                let entry = row["entry"] ?? ""
+                let ipa = row["ipa"] ?? ""
+                let meaning = row["meaning"] ?? ""
+                let example = row["example_sentence"] ?? ""
+                let translated = row["translated_sentence"] ?? ""
+                updatedCSVString += "\(entry),\(ipa),\(meaning),\(example),\(translated)\n"
+            }
+
+            try updatedCSVString.write(to: starCSVURL, atomically: true, encoding: .utf8)
+        } catch {
+            print("Error removing starred entry: \(error)")
         }
     }
 }

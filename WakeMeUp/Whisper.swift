@@ -262,7 +262,7 @@ class WhisperSpeechRecognizer: ObservableObject {
         }
 
         DispatchQueue.main.async {
-            self.transcript = "長押しして話す"
+            self.transcript = "長押ししながら発音"
         }
     }
 

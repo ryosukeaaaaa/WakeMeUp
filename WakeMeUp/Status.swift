@@ -145,7 +145,6 @@ struct NormalWordView: View {
     @State private var sortOrder: SortOrder = .statusDescending
     @State private var searchQuery = ""
     @State private var lastViewedEntry: String?
-    @StateObject private var speechSynthesizer = SpeechSynthesizer()
 
     enum SortOrder {
         case statusDescending
@@ -166,7 +165,7 @@ struct NormalWordView: View {
                 ScrollViewReader { proxy in
                     List {
                         ForEach(filteredEntries, id: \.entry) { entry in
-                            NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries, lastViewedEntry: $lastViewedEntry, speechSynthesizer: speechSynthesizer)) {
+                            NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries, lastViewedEntry: $lastViewedEntry)) {
                                 HStack {
                                     Text(entry.entry)
                                     Spacer()
@@ -275,7 +274,6 @@ struct StarredWordView: View {
     @State private var sortOrder: SortOrder = .alphabetical
     @State private var searchQuery = ""
     @State private var lastViewedEntry: String?
-    @StateObject private var speechSynthesizer: SpeechSynthesizer = SpeechSynthesizer()
 
     enum SortOrder {
         case alphabetical
@@ -294,7 +292,7 @@ struct StarredWordView: View {
                 ScrollViewReader { proxy in
                     List {
                         ForEach(filteredEntries, id: \.entry) { entry in
-                            NavigationLink(destination: StarredDetailView(entry: entry, entries: $entries, lastViewedEntry: $lastViewedEntry, speechSynthesizer: speechSynthesizer)) {
+                            NavigationLink(destination: StarredDetailView(entry: entry, entries: $entries, lastViewedEntry: $lastViewedEntry)) {
                                 Text(entry.entry)
                             }
                         }
@@ -424,14 +422,36 @@ struct DetailView: View {
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
     @State private var currentIndex: Int = 0
     @State private var isShowingDetails = false
-    @StateObject var speechSynthesizer: SpeechSynthesizer
     @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+    @State private var offset: CGFloat = 0
 
     var body: some View {
-        TabView(selection: $currentIndex) {
-            ForEach(0..<entries.count, id: \.self) { index in
-                DetailCardView(entry: entries[index], material: material, speechSynthesizer: speechSynthesizer, starredEntries: $starredEntries)
-                    .tag(index)
+        VStack {
+            Spacer()
+            GeometryReader { geometry in
+                TabView(selection: $currentIndex) {
+                    ForEach(0..<entries.count, id: \.self) { index in
+                        DetailCardView(entry: entries[index], material: material, starredEntries: $starredEntries)
+                            .tag(index)
+                            .offset(x: self.offset)
+                            .gesture(
+                                DragGesture()
+                                    .onChanged { value in
+                                        self.offset = value.translation.width
+                                    }
+                                    .onEnded { value in
+                                        if value.translation.width < -geometry.size.width / 2 {
+                                            self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
+                                        } else if value.translation.width > geometry.size.width / 2 {
+                                            self.currentIndex = max(self.currentIndex - 1, 0)
+                                        }
+                                        withAnimation {
+                                            self.offset = 0
+                                        }
+                                    }
+                            )
+                    }
+                }
             }
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -500,16 +520,38 @@ struct StarredDetailView: View {
     @Binding var entries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)]
     @Binding var lastViewedEntry: String?
     @State private var currentIndex: Int = 0
-    @StateObject var speechSynthesizer: SpeechSynthesizer
+    @State private var offset: CGFloat = 0
 
     var body: some View {
-        TabView(selection: $currentIndex) {
-            ForEach(entries.indices, id: \.self) { index in
-                StarredDetailCardView(entry: entries[index], speechSynthesizer: speechSynthesizer, removeAction: {
-                    removeStarredEntry(entries[index])
-                    removeEntry(at: index)
-                })
-                .tag(index)
+        VStack {
+            Spacer()
+            GeometryReader { geometry in
+                TabView(selection: $currentIndex) {
+                    ForEach(0..<entries.count, id: \.self) { index in
+                        StarredDetailCardView(entry: entries[index], removeAction: {
+                            removeStarredEntry(entries[index])
+                            removeEntry(at: index)
+                        })
+                        .tag(index)
+                        .offset(x: self.offset)
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    self.offset = value.translation.width
+                                }
+                                .onEnded { value in
+                                    if value.translation.width < -geometry.size.width / 2 {
+                                        self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
+                                    } else if value.translation.width > geometry.size.width / 2 {
+                                        self.currentIndex = max(self.currentIndex - 1, 0)
+                                    }
+                                    withAnimation {
+                                        self.offset = 0
+                                    }
+                                }
+                        )
+                    }
+                }
             }
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -555,11 +597,12 @@ struct DetailCardView: View {
     var entry: (entry: String, status: Int)
     var material: String
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
-    @StateObject var speechSynthesizer: SpeechSynthesizer
     @Binding var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)]
+    @StateObject private var speechRecognizer = SpeechRecognizer()
 
     var body: some View {
         VStack {
+            Spacer()
             VStack {
                 Text(entryDetails.entry)
                     .font(.largeTitle)
@@ -599,11 +642,15 @@ struct DetailCardView: View {
                 }
             }
             .padding()
-            .frame(width: 400, height: 400)
+            .frame(
+                width: UIScreen.main.bounds.width,
+                height: UIScreen.main.bounds.height * 24/50
+            )
             .background(Color.white)
             .cornerRadius(10)
             .shadow(radius: 5)
-
+            
+            Spacer()
             Button(action: {
                 speakText(entryDetails.entry)
             }) {
@@ -671,18 +718,22 @@ struct DetailCardView: View {
         }
     }
 
-    func speakText(_ text: String) {
-        speechSynthesizer.speak(text: text)
+    private func speakText(_ text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        speechRecognizer.speechSynthesizer.speak(utterance)
     }
 }
 
 struct StarredDetailCardView: View {
     var entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)
-    @StateObject var speechSynthesizer: SpeechSynthesizer
     var removeAction: () -> Void
+    @StateObject private var speechRecognizer = SpeechRecognizer()
 
     var body: some View {
         VStack {
+            Spacer()
             VStack {
                 Text(entry.entry)
                     .font(.largeTitle)
@@ -712,7 +763,8 @@ struct StarredDetailCardView: View {
             .background(Color.white)
             .cornerRadius(10)
             .shadow(radius: 5)
-
+            
+            Spacer()
             Button(action: {
                 speakText(entry.entry)
             }) {
@@ -733,8 +785,11 @@ struct StarredDetailCardView: View {
         }
     }
 
-    func speakText(_ text: String) {
-        speechSynthesizer.speak(text: text)
+    private func speakText(_ text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        speechRecognizer.speechSynthesizer.speak(utterance)
     }
 }
 
@@ -768,15 +823,6 @@ struct SearchBar: View {
                 )
                 .padding(.horizontal, 10)
         }
-    }
-}
-
-class SpeechSynthesizer: ObservableObject {
-    func speak(text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
     }
 }
 
