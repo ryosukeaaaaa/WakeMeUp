@@ -6,6 +6,11 @@
 	<array/>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>アラーム動作のために許可が必要です。余計な通知は行いません。</string>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIImageName</key>
+		<string>LaunchImage</string>
+	</dict>
 	<key>com.yourdomain.repeatingAlarm</key>
 	<string></string>
 </dict>
