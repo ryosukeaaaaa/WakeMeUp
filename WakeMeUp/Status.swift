@@ -433,23 +433,23 @@ struct DetailView: View {
                     ForEach(0..<entries.count, id: \.self) { index in
                         DetailCardView(entry: entries[index], material: material, starredEntries: $starredEntries)
                             .tag(index)
-                            .offset(x: self.offset)
-                            .gesture(
-                                DragGesture()
-                                    .onChanged { value in
-                                        self.offset = value.translation.width
-                                    }
-                                    .onEnded { value in
-                                        if value.translation.width < -geometry.size.width / 2 {
-                                            self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
-                                        } else if value.translation.width > geometry.size.width / 2 {
-                                            self.currentIndex = max(self.currentIndex - 1, 0)
-                                        }
-                                        withAnimation {
-                                            self.offset = 0
-                                        }
-                                    }
-                            )
+//                            .offset(x: self.offset)
+//                            .gesture(
+//                                DragGesture()
+//                                    .onChanged { value in
+//                                        self.offset = value.translation.width
+//                                    }
+//                                    .onEnded { value in
+//                                        if value.translation.width < -geometry.size.width / 2 {
+//                                            self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
+//                                        } else if value.translation.width > geometry.size.width / 2 {
+//                                            self.currentIndex = max(self.currentIndex - 1, 0)
+//                                        }
+//                                        withAnimation {
+//                                            self.offset = 0
+//                                        }
+//                                    }
+//                            )
                     }
                 }
             }
@@ -533,23 +533,23 @@ struct StarredDetailView: View {
                             removeEntry(at: index)
                         })
                         .tag(index)
-                        .offset(x: self.offset)
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    self.offset = value.translation.width
-                                }
-                                .onEnded { value in
-                                    if value.translation.width < -geometry.size.width / 2 {
-                                        self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
-                                    } else if value.translation.width > geometry.size.width / 2 {
-                                        self.currentIndex = max(self.currentIndex - 1, 0)
-                                    }
-                                    withAnimation {
-                                        self.offset = 0
-                                    }
-                                }
-                        )
+//                        .offset(x: self.offset)
+//                        .gesture(
+//                            DragGesture()
+//                                .onChanged { value in
+//                                    self.offset = value.translation.width
+//                                }
+//                                .onEnded { value in
+//                                    if value.translation.width < -geometry.size.width / 2 {
+//                                        self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
+//                                    } else if value.translation.width > geometry.size.width / 2 {
+//                                        self.currentIndex = max(self.currentIndex - 1, 0)
+//                                    }
+//                                    withAnimation {
+//                                        self.offset = 0
+//                                    }
+//                                }
+//                        )
                     }
                 }
             }

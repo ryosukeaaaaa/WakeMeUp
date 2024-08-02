@@ -4,36 +4,31 @@ import Speech
 
 class SpeechRecognizer: ObservableObject {
     @Published var transcript = ""
-
+    @Published var speechSynthesizer = AVSpeechSynthesizer()
     private var speechRecognizer: SFSpeechRecognizer?
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var audioEngine = AVAudioEngine()
-
-    // 修正: AVSpeechSynthesizerのインスタンスをクラスプロパティとして保持
-    @Published var speechSynthesizer = AVSpeechSynthesizer()
     private var speechSynthesizerDelegate = SpeechSynthesizerDelegate()
 
     init() {
         speechRecognizer = SFSpeechRecognizer()
-        configureAudioSession()
         speechSynthesizer.delegate = speechSynthesizerDelegate
+        configureAudioSessionForPlaybackAndRecording() // 初期設定は再生と録音用
     }
 
-    private func configureAudioSession() {
+    private func configureAudioSessionForPlaybackAndRecording() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            // 修正: setCategoryの設定を見直し、音声再生にも対応
-            try audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.duckOthers, .defaultToSpeaker])
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.duckOthers, .defaultToSpeaker])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-            print("Audio session successfully set up")
+            print("Audio session for playback and recording successfully set up")
         } catch {
-            print("Failed to setup audio session: \(error.localizedDescription)")
+            print("Failed to setup audio session for playback and recording: \(error.localizedDescription)")
         }
     }
 
     func startRecording() {
-        // UIの更新を先に行う
         DispatchQueue.main.async {
             self.transcript = "長押ししながら発音"
         }
@@ -51,7 +46,6 @@ class SpeechRecognizer: ObservableObject {
         }
         recognitionRequest.shouldReportPartialResults = true
 
-        // タップが既にある場合は削除
         inputNode.removeTap(onBus: 0)
 
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
@@ -91,23 +85,24 @@ class SpeechRecognizer: ObservableObject {
         recognitionTask = nil
         recognitionRequest = nil
 
-        // タップが既にある場合は削除
         let inputNode = audioEngine.inputNode
         inputNode.removeTap(onBus: 0)
+        
     }
 
-    // 音声合成のメソッドを追加
     func speak(text: String) {
         let utterance = AVSpeechUtterance(string: text)
         utterance.volume = 1.0  // 音量を最大に設定
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         print("Speaking: \(text)")
-        
+
         DispatchQueue.global(qos: .userInitiated).async {
             self.speechSynthesizer.speak(utterance)
         }
     }
 }
+
+
 
 // AVSpeechSynthesizerDelegateの実装
 class SpeechSynthesizerDelegate: NSObject, AVSpeechSynthesizerDelegate {

@@ -369,8 +369,10 @@ struct Pre_Mission: View {
                 .multilineTextAlignment(.center)
                 .padding()
             
+            // 全然ダメ
             if missionState.starredEntries.contains(where: { $0.0 == missionState.randomEntry.0 }) {
                 Button(action: {
+                    print(missionState.starredEntries)
                     removeStarredEntry(missionState.randomEntry)
                 }) {
                     Text("追加済み")

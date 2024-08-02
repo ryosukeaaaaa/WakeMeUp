@@ -64,3 +64,20 @@ class AudioPlayerManager: ObservableObject {
 }
 
 
+import SwiftUI
+import AVFoundation
+
+struct ContentViewo: View {
+    let synthesizer = AVSpeechSynthesizer()
+    var body: some View {
+        Button("スピーチ") {
+            speech()
+        }
+    }
+    func speech() {
+        let text = AVSpeechUtterance(string: "fault")
+        let language = AVSpeechSynthesisVoice(language: "en-US")
+        text.voice = language
+        synthesizer.speak(text)
+    }
+}

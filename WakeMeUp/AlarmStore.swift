@@ -135,7 +135,7 @@ class AlarmStore: ObservableObject {
         var targetDate = alarmTime
         
         // targetDateが現在の日付より前の場合、1日加算
-        if targetDate < Date() {
+        while targetDate < Date() {
             targetDate = calendar.date(byAdding: .day, value: 1, to: targetDate)!
         }
         print("Initial Target Date:", targetDate)
