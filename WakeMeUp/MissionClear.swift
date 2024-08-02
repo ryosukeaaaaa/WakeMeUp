@@ -13,15 +13,17 @@ struct MissionClear: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
+//                Spacer()
+//                Text("Mission Complete!")
+//                    .font(.title)
+//                    .italic()
+//                    .fontWeight(.semibold)
+//                    .foregroundColor(.blue)
                 Spacer()
-                Text("Mission Complete!")
+                Text("今回の単語")
                     .font(.title)
-                    .italic()
                     .fontWeight(.semibold)
-                    .foregroundColor(.blue)
-                Spacer()
-                Text("今日の単語")
-                    .font(.title)
+                    .italic()
                     .padding(.top)
                 ScrollView {
                     ForEach(missionState.PastWords, id: \.self) { word in

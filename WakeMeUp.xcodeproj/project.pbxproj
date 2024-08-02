@@ -159,7 +159,7 @@
 		829200B32C49453200C96C30 /* Rare.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rare.gif; sourceTree = SOURCE_ROOT; };
 		829200B82C49458E00C96C30 /* GachaIm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GachaIm.png; path = GachaIm/GachaIm.png; sourceTree = SOURCE_ROOT; };
 		829200B92C49458E00C96C30 /* Gacha2Im.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Gacha2Im.png; path = GachaIm/Gacha2Im.png; sourceTree = SOURCE_ROOT; };
-		829A599E2C1635B2002D7DA3 /* WakeMeUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WakeMeUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		829A599E2C1635B2002D7DA3 /* 朝単-英単語アラーム.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "朝単-英単語アラーム.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpApp.swift; sourceTree = "<group>"; };
 		829A59A32C1635B2002D7DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		829A59A52C1635B3002D7DA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -259,7 +259,7 @@
 		829A599F2C1635B2002D7DA3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				829A599E2C1635B2002D7DA3 /* WakeMeUp.app */,
+				829A599E2C1635B2002D7DA3 /* 朝単-英単語アラーム.app */,
 				829A59AE2C1635B3002D7DA3 /* WakeMeUpTests.xctest */,
 				829A59B82C1635B3002D7DA3 /* WakeMeUpUITests.xctest */,
 			);
@@ -346,9 +346,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		829A599D2C1635B2002D7DA3 /* WakeMeUp */ = {
+		829A599D2C1635B2002D7DA3 /* 朝単-英単語アラーム */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 829A59C22C1635B3002D7DA3 /* Build configuration list for PBXNativeTarget "WakeMeUp" */;
+			buildConfigurationList = 829A59C22C1635B3002D7DA3 /* Build configuration list for PBXNativeTarget "朝単-英単語アラーム" */;
 			buildPhases = (
 				829A599A2C1635B2002D7DA3 /* Sources */,
 				829A599B2C1635B2002D7DA3 /* Frameworks */,
@@ -358,14 +358,14 @@
 			);
 			dependencies = (
 			);
-			name = WakeMeUp;
+			name = "朝単-英単語アラーム";
 			packageProductDependencies = (
 				82053D8D2C188F3300D2D191 /* SwiftCSV */,
 				828A07D82C1956270008A956 /* Alamofire */,
 				829200922C47A03300C96C30 /* SwiftyGif */,
 			);
 			productName = WakeMeUp;
-			productReference = 829A599E2C1635B2002D7DA3 /* WakeMeUp.app */;
+			productReference = 829A599E2C1635B2002D7DA3 /* 朝単-英単語アラーム.app */;
 			productType = "com.apple.product-type.application";
 		};
 		829A59AD2C1635B3002D7DA3 /* WakeMeUpTests */ = {
@@ -445,7 +445,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				829A599D2C1635B2002D7DA3 /* WakeMeUp */,
+				829A599D2C1635B2002D7DA3 /* 朝単-英単語アラーム */,
 				829A59AD2C1635B3002D7DA3 /* WakeMeUpTests */,
 				829A59B72C1635B3002D7DA3 /* WakeMeUpUITests */,
 			);
@@ -570,12 +570,12 @@
 /* Begin PBXTargetDependency section */
 		829A59B02C1635B3002D7DA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 829A599D2C1635B2002D7DA3 /* WakeMeUp */;
+			target = 829A599D2C1635B2002D7DA3 /* 朝単-英単語アラーム */;
 			targetProxy = 829A59AF2C1635B3002D7DA3 /* PBXContainerItemProxy */;
 		};
 		829A59BA2C1635B3002D7DA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 829A599D2C1635B2002D7DA3 /* WakeMeUp */;
+			target = 829A599D2C1635B2002D7DA3 /* 朝単-英単語アラーム */;
 			targetProxy = 829A59B92C1635B3002D7DA3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -858,7 +858,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		829A59C22C1635B3002D7DA3 /* Build configuration list for PBXNativeTarget "WakeMeUp" */ = {
+		829A59C22C1635B3002D7DA3 /* Build configuration list for PBXNativeTarget "朝単-英単語アラーム" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				829A59C32C1635B3002D7DA3 /* Debug */,
