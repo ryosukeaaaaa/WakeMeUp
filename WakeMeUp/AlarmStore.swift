@@ -23,7 +23,7 @@ class AlarmStore: ObservableObject {
     }
     
     //　アラーム編集用の格納庫
-    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "default", snoozeEnabled: false, groupId: "")
+    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト", snoozeEnabled: false, groupId: "")
     
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
@@ -189,7 +189,7 @@ class AlarmStore: ObservableObject {
         
         for n in 0...16 {
             let secondsToAdd = 7 * n
-            let nanosecondsToAdd = 500_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
+            let nanosecondsToAdd = 0 //500_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
             var dateComponents = DateComponents()
             dateComponents.second = secondsToAdd
             dateComponents.nanosecond = nanosecondsToAdd
@@ -259,7 +259,7 @@ class AlarmStore: ObservableObject {
         content.body = "時間です！起きましょう！"
         
         for n in 0...3 {
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1 + 7.5 * Double(n), repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1 + 7 * Double(n), repeats: false)
             // サウンド設定を条件に応じて変更
             if n == 0 || n == 4 || n == 8 || n == 12 {
                 content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))

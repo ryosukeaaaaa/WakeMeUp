@@ -84,7 +84,7 @@ struct ContentView: View {
                 if scenePhase == .active {
                     let result = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
                     alarmStore.groupIds = result.groupIds
-                    alarmStore.Sound = result.firstSound ?? "default"
+                    alarmStore.Sound = result.firstSound ?? "デフォルト"
                     print("groupids:", alarmStore.groupIds)
                     if !alarmStore.groupIds.isEmpty {
                         alarmStore.showingAlarmLanding = true

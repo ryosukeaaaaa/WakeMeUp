@@ -43,19 +43,19 @@ struct AddAlarmView: View {
                     HStack {
                         Text("サウンド")
                         Spacer()
-                        Text(alarmStore.settingalarm.soundName)
+                        Text(alarmStore.settingalarm.soundName.dropLast(4))
                             .foregroundColor(.gray)
                     }
                 }
                 
                 Toggle("スヌーズを有効にする", isOn: $alarmStore.settingalarm.snoozeEnabled)
-                Button(action: {
-                    alarmStore.deleteAlarmsByGroupId(alarmStore.settingalarm.groupId)
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("アラームを削除")
-                        .foregroundColor(.red)
-                }
+//                Button(action: {
+//                    alarmStore.deleteAlarmsByGroupId(alarmStore.settingalarm.groupId)
+//                    presentationMode.wrappedValue.dismiss()
+//                }) {
+//                    Text("アラームを削除")
+//                        .foregroundColor(.red)
+//                }
             }
             .navigationTitle("アラームの追加")
             .toolbar {

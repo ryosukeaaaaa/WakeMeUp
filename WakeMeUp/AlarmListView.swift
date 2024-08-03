@@ -31,7 +31,7 @@ struct AlarmListView: View {
                         HStack {
                             Text("サウンド")
                             Spacer()
-                            Text(alarm.soundName)
+                            Text(alarm.soundName.dropLast(4))
                         }
                         .foregroundColor(.gray)
                     }
@@ -52,7 +52,7 @@ struct AlarmListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "default", snoozeEnabled: false, groupId: "")
+                        alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト", snoozeEnabled: false, groupId: "")
                         showingAddAlarm = true
                     }) {
                         Image(systemName: "plus")

@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		341C36532C2B2FA0009F9594 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 341C36522C2B2FA0009F9594 /* Config.plist */; };
 		341C36552C2B3035009F9594 /* AddAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341C36542C2B3035009F9594 /* AddAlarmView.swift */; };
-		341C36592C2B31A6009F9594 /* alarmsound_medium.wav in Resources */ = {isa = PBXBuildFile; fileRef = 341C36582C2B31A6009F9594 /* alarmsound_medium.wav */; };
-		341C365A2C2B31BC009F9594 /* alarmsound_medium.wav in Sources */ = {isa = PBXBuildFile; fileRef = 341C36582C2B31A6009F9594 /* alarmsound_medium.wav */; };
 		3483CF732C2BC37800FA5BD3 /* AlarmLandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3483CF722C2BC37800FA5BD3 /* AlarmLandingView.swift */; };
 		3483CF752C2BFE8600FA5BD3 /* AlarmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */; };
 		3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */; };
@@ -37,7 +35,6 @@
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
 		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
 		8272A5922C439BDA006697E1 /* G_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8272A5912C439BDA006697E1 /* G_medium.mp3 */; };
-		8272A5962C43A045006697E1 /* alarmsound_low.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8272A5952C43A045006697E1 /* alarmsound_low.wav */; };
 		8272A5982C44E2F7006697E1 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272A5972C44E2F7006697E1 /* Sound.swift */; };
 		827A15992C176053003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Mission.swift */; };
 		827A159B2C176077003B4468 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* GPT.swift */; };
@@ -78,6 +75,21 @@
 		829A59BD2C1635B3002D7DA3 /* WakeMeUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59BC2C1635B3002D7DA3 /* WakeMeUpUITests.swift */; };
 		829A59BF2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59BE2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift */; };
 		829A59CC2C163ECD002D7DA3 /* audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59CB2C163ECD002D7DA3 /* audio.swift */; };
+		82E926702C5E088B002B3DF9 /* 春_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E9266F2C5E088B002B3DF9 /* 春_medium.mp3 */; };
+		82E926722C5E08AF002B3DF9 /* 春_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926712C5E08AF002B3DF9 /* 春_high.mp3 */; };
+		82E926742C5E08C7002B3DF9 /* 春_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926732C5E08C7002B3DF9 /* 春_low.mp3 */; };
+		82E926762C5E0CD6002B3DF9 /* アイーダ凱旋行進曲_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926752C5E0CD6002B3DF9 /* アイーダ凱旋行進曲_medium.mp3 */; };
+		82E926782C5E0D04002B3DF9 /* アイーダ凱旋行進曲_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926772C5E0D04002B3DF9 /* アイーダ凱旋行進曲_high.mp3 */; };
+		82E9267A2C5E0D29002B3DF9 /* アイーダ凱旋行進曲_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926792C5E0D29002B3DF9 /* アイーダ凱旋行進曲_low.mp3 */; };
+		82E9267C2C5E0EE1002B3DF9 /* 威風堂々_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E9267B2C5E0EE1002B3DF9 /* 威風堂々_medium.mp3 */; };
+		82E9267E2C5E0EFA002B3DF9 /* 威風堂々_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E9267D2C5E0EFA002B3DF9 /* 威風堂々_high.mp3 */; };
+		82E926802C5E0F0D002B3DF9 /* 威風堂々_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E9267F2C5E0F0D002B3DF9 /* 威風堂々_low.mp3 */; };
+		82E926822C5E1164002B3DF9 /* G線上のアリア_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926812C5E1164002B3DF9 /* G線上のアリア_medium.mp3 */; };
+		82E926842C5E118E002B3DF9 /* G線上のアリア_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926832C5E118E002B3DF9 /* G線上のアリア_high.mp3 */; };
+		82E926862C5E11A1002B3DF9 /* G線上のアリア_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926852C5E11A1002B3DF9 /* G線上のアリア_low.mp3 */; };
+		82E9268A2C5E17CF002B3DF9 /* デフォルト_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926892C5E17CF002B3DF9 /* デフォルト_medium.mp3 */; };
+		82E9268C2C5E17DC002B3DF9 /* デフォルト_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E9268B2C5E17DC002B3DF9 /* デフォルト_low.mp3 */; };
+		82E926902C5E181D002B3DF9 /* デフォルト_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E9268F2C5E181D002B3DF9 /* デフォルト_high.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,7 +112,6 @@
 /* Begin PBXFileReference section */
 		341C36522C2B2FA0009F9594 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		341C36542C2B3035009F9594 /* AddAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAlarmView.swift; sourceTree = "<group>"; };
-		341C36582C2B31A6009F9594 /* alarmsound_medium.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarmsound_medium.wav; sourceTree = "<group>"; };
 		3483CF722C2BC37800FA5BD3 /* AlarmLandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmLandingView.swift; sourceTree = "<group>"; };
 		3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListView.swift; sourceTree = "<group>"; };
 		3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -127,7 +138,6 @@
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
 		8272A5912C439BDA006697E1 /* G_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G_medium.mp3; path = ../../../../../../Downloads/G_medium.mp3; sourceTree = "<group>"; };
-		8272A5952C43A045006697E1 /* alarmsound_low.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = alarmsound_low.wav; path = ../../../../../../Downloads/alarmsound_low.wav; sourceTree = "<group>"; };
 		8272A5972C44E2F7006697E1 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		8272A59C2C4584AE006697E1 /* swift-package-manager-google-user-messaging-platform */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "swift-package-manager-google-user-messaging-platform"; path = "/Users/nagairyousuke/Library/Developer/Xcode/DerivedData/WakeMeUp-fbariaalosqyfbcfsszuzzanjplm/SourcePackages/checkouts/swift-package-manager-google-user-messaging-platform"; sourceTree = "<absolute>"; };
 		827A15982C176053003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
@@ -170,6 +180,21 @@
 		829A59BC2C1635B3002D7DA3 /* WakeMeUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpUITests.swift; sourceTree = "<group>"; };
 		829A59BE2C1635B3002D7DA3 /* WakeMeUpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		829A59CB2C163ECD002D7DA3 /* audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = audio.swift; sourceTree = "<group>"; };
+		82E9266F2C5E088B002B3DF9 /* 春_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "春_medium.mp3"; path = "../../../../../../Downloads/春_medium.mp3"; sourceTree = "<group>"; };
+		82E926712C5E08AF002B3DF9 /* 春_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "春_high.mp3"; path = "../../../../../../Downloads/春_high.mp3"; sourceTree = "<group>"; };
+		82E926732C5E08C7002B3DF9 /* 春_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "春_low.mp3"; path = "../../../../../../Downloads/春_low.mp3"; sourceTree = "<group>"; };
+		82E926752C5E0CD6002B3DF9 /* アイーダ凱旋行進曲_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "アイーダ凱旋行進曲_medium.mp3"; path = "../../../../../../Downloads/アイーダ凱旋行進曲_medium.mp3"; sourceTree = "<group>"; };
+		82E926772C5E0D04002B3DF9 /* アイーダ凱旋行進曲_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "アイーダ凱旋行進曲_high.mp3"; path = "../../../../../../Downloads/アイーダ凱旋行進曲_high.mp3"; sourceTree = "<group>"; };
+		82E926792C5E0D29002B3DF9 /* アイーダ凱旋行進曲_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "アイーダ凱旋行進曲_low.mp3"; path = "../../../../../../Downloads/アイーダ凱旋行進曲_low.mp3"; sourceTree = "<group>"; };
+		82E9267B2C5E0EE1002B3DF9 /* 威風堂々_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "威風堂々_medium.mp3"; path = "../../../../../../Downloads/威風堂々_medium.mp3"; sourceTree = "<group>"; };
+		82E9267D2C5E0EFA002B3DF9 /* 威風堂々_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "威風堂々_high.mp3"; path = "../../../../../../Downloads/威風堂々_high.mp3"; sourceTree = "<group>"; };
+		82E9267F2C5E0F0D002B3DF9 /* 威風堂々_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "威風堂々_low.mp3"; path = "../../../../../../Downloads/威風堂々_low.mp3"; sourceTree = "<group>"; };
+		82E926812C5E1164002B3DF9 /* G線上のアリア_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "G線上のアリア_medium.mp3"; path = "../../../../../../Downloads/G線上のアリア_medium.mp3"; sourceTree = "<group>"; };
+		82E926832C5E118E002B3DF9 /* G線上のアリア_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "G線上のアリア_high.mp3"; path = "../../../../../../Downloads/G線上のアリア_high.mp3"; sourceTree = "<group>"; };
+		82E926852C5E11A1002B3DF9 /* G線上のアリア_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "G線上のアリア_low.mp3"; path = "../../../../../../Downloads/G線上のアリア_low.mp3"; sourceTree = "<group>"; };
+		82E926892C5E17CF002B3DF9 /* デフォルト_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "デフォルト_medium.mp3"; path = "../../../../../../Downloads/デフォルト_medium.mp3"; sourceTree = "<group>"; };
+		82E9268B2C5E17DC002B3DF9 /* デフォルト_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "デフォルト_low.mp3"; path = "../../../../../../Downloads/デフォルト_low.mp3"; sourceTree = "<group>"; };
+		82E9268F2C5E181D002B3DF9 /* デフォルト_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "デフォルト_high.mp3"; path = "../../../../../../Downloads/デフォルト_high.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,9 +324,22 @@
 				827AE3B82C18880D00DABD95 /* 基礎英単語.csv */,
 				829200942C47A20D00C96C30 /* UIGIFImageView.swift */,
 				829200962C47A24100C96C30 /* GIFImage.swift */,
-				341C36582C2B31A6009F9594 /* alarmsound_medium.wav */,
-				8272A5952C43A045006697E1 /* alarmsound_low.wav */,
 				8272A5912C439BDA006697E1 /* G_medium.mp3 */,
+				82E926712C5E08AF002B3DF9 /* 春_high.mp3 */,
+				82E9266F2C5E088B002B3DF9 /* 春_medium.mp3 */,
+				82E926732C5E08C7002B3DF9 /* 春_low.mp3 */,
+				82E926772C5E0D04002B3DF9 /* アイーダ凱旋行進曲_high.mp3 */,
+				82E926752C5E0CD6002B3DF9 /* アイーダ凱旋行進曲_medium.mp3 */,
+				82E926792C5E0D29002B3DF9 /* アイーダ凱旋行進曲_low.mp3 */,
+				82E9267B2C5E0EE1002B3DF9 /* 威風堂々_medium.mp3 */,
+				82E9267D2C5E0EFA002B3DF9 /* 威風堂々_high.mp3 */,
+				82E9267F2C5E0F0D002B3DF9 /* 威風堂々_low.mp3 */,
+				82E926812C5E1164002B3DF9 /* G線上のアリア_medium.mp3 */,
+				82E926832C5E118E002B3DF9 /* G線上のアリア_high.mp3 */,
+				82E926852C5E11A1002B3DF9 /* G線上のアリア_low.mp3 */,
+				82E926892C5E17CF002B3DF9 /* デフォルト_medium.mp3 */,
+				82E9268B2C5E17DC002B3DF9 /* デフォルト_low.mp3 */,
+				82E9268F2C5E181D002B3DF9 /* デフォルト_high.mp3 */,
 				8292007F2C4777B300C96C30 /* RainParticle.sks */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				341C36522C2B2FA0009F9594 /* Config.plist */,
@@ -457,34 +495,47 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82E9267E2C5E0EFA002B3DF9 /* 威風堂々_high.mp3 in Resources */,
 				829200B42C49453200C96C30 /* SuperRare.gif in Resources */,
 				828A07DD2C1959C90008A956 /* .gitignore in Resources */,
 				829200702C469F3600C96C30 /* Gacha.sks in Resources */,
 				341C36532C2B2FA0009F9594 /* Config.plist in Resources */,
-				341C36592C2B31A6009F9594 /* alarmsound_medium.wav in Resources */,
+				82E9267C2C5E0EE1002B3DF9 /* 威風堂々_medium.mp3 in Resources */,
 				827AE3BD2C18880D00DABD95 /* TOEIC英単語.csv in Resources */,
 				829200BB2C49458E00C96C30 /* Gacha2Im.png in Resources */,
 				827AE3BC2C18880D00DABD95 /* 基礎英単語.csv in Resources */,
-				8272A5962C43A045006697E1 /* alarmsound_low.wav in Resources */,
 				8272A5922C439BDA006697E1 /* G_medium.mp3 in Resources */,
+				82E926802C5E0F0D002B3DF9 /* 威風堂々_low.mp3 in Resources */,
 				827AE3BB2C18880D00DABD95 /* 学術英単語.csv in Resources */,
 				829200B62C49453200C96C30 /* Ultra.gif in Resources */,
 				829200B52C49453200C96C30 /* Normal.gif in Resources */,
+				82E926762C5E0CD6002B3DF9 /* アイーダ凱旋行進曲_medium.mp3 in Resources */,
 				827AE3BA2C18880D00DABD95 /* ビジネス英単語.csv in Resources */,
+				82E926862C5E11A1002B3DF9 /* G線上のアリア_low.mp3 in Resources */,
 				829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */,
+				82E9267A2C5E0D29002B3DF9 /* アイーダ凱旋行進曲_low.mp3 in Resources */,
+				82E926842C5E118E002B3DF9 /* G線上のアリア_high.mp3 in Resources */,
 				829200A52C47D22500C96C30 /* Mice.png in Resources */,
 				821FD6A52C33E64300F445C7 /* Launch Screen.storyboard in Resources */,
 				829200AF2C4944F800C96C30 /* Gacha2.gif in Resources */,
 				8243CACD2C4ACD38006802F4 /* Duck.png in Resources */,
+				82E926702C5E088B002B3DF9 /* 春_medium.mp3 in Resources */,
+				82E926822C5E1164002B3DF9 /* G線上のアリア_medium.mp3 in Resources */,
+				82E926902C5E181D002B3DF9 /* デフォルト_high.mp3 in Resources */,
 				8243CAC52C4ACD23006802F4 /* Elephant.png in Resources */,
+				82E926722C5E08AF002B3DF9 /* 春_high.mp3 in Resources */,
 				8243CAC72C4ACD29006802F4 /* Eagle.png in Resources */,
+				82E9268C2C5E17DC002B3DF9 /* デフォルト_low.mp3 in Resources */,
 				8243CACF2C4ACD3D006802F4 /* Chick.png in Resources */,
 				8243CACB2C4ACD33006802F4 /* Cat.png in Resources */,
+				82E926782C5E0D04002B3DF9 /* アイーダ凱旋行進曲_high.mp3 in Resources */,
 				829200802C4777B300C96C30 /* RainParticle.sks in Resources */,
 				829200BA2C49458E00C96C30 /* GachaIm.png in Resources */,
 				829200B72C49453200C96C30 /* Rare.gif in Resources */,
 				8243CAD32C4ACD56006802F4 /* Capybara.png in Resources */,
+				82E9268A2C5E17CF002B3DF9 /* デフォルト_medium.mp3 in Resources */,
 				8243CAD12C4ACD51006802F4 /* Owl.png in Resources */,
+				82E926742C5E08C7002B3DF9 /* 春_low.mp3 in Resources */,
 				8243CAC92C4ACD2E006802F4 /* Dog.png in Resources */,
 				829200A32C47D22500C96C30 /* Rabbit.png in Resources */,
 				829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */,
@@ -516,7 +567,6 @@
 			files = (
 				829200972C47A24100C96C30 /* GIFImage.swift in Sources */,
 				821FD6B72C37E2A900F445C7 /* AppDelegate.swift in Sources */,
-				341C365A2C2B31BC009F9594 /* alarmsound_medium.wav in Sources */,
 				341C36552C2B3035009F9594 /* AddAlarmView.swift in Sources */,
 				8292006C2C469B2200C96C30 /* ItemState.swift in Sources */,
 				3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */,

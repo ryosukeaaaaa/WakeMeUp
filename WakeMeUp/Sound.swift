@@ -1,7 +1,7 @@
 import SwiftUI
 
 class SoundData: ObservableObject {
-    @Published var soundSources: [String] = ["alarmsound", "G"]
+    @Published var soundSources: [String] = ["デフォルト", "G線上のアリア", "春", "アイーダ凱旋行進曲", "威風堂々"]
 }
 
 struct Sound: View {
@@ -10,6 +10,8 @@ struct Sound: View {
     
     @State private var testsound: String
     @State private var volume: String
+    
+    @Environment(\.scenePhase) private var scenePhase
     
     init(alarmStore: AlarmStore) {
         self.alarmStore = alarmStore
@@ -44,30 +46,12 @@ struct Sound: View {
                         }
                         .padding(.vertical, 5)
                     }
-                    HStack {
-                        Text("G.mp3")
-                            .onTapGesture {
-                                alarmStore.settingalarm.soundName = "G_medium.mp3"
-                                testsound = "G"
-                            }
-                        Button(action: {
-                            alarmStore.testSound(sound: "G_medium.mp3")
-                        }) {
-                            Image(systemName: "speaker.2.fill")
-                                .foregroundColor(.blue)
-                        }
-                        Spacer()
-                        if testsound == "G" {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.blue)
-                        }
-                    }
                 }
                 
                 Section{
                     Button(action: {
                         alarmStore.stopTestSound()
-                        alarmStore.testSound(sound: "\(testsound)_\(volume).wav")
+                        alarmStore.testSound(sound: "\(testsound)_\(volume).mp3")
                     }) {
                         Text("テスト再生")
                     }
@@ -81,7 +65,10 @@ struct Sound: View {
             }
             .onDisappear{
                 alarmStore.stopTestSound()
-                alarmStore.settingalarm.soundName = "\(testsound)_\(volume).wav"
+                alarmStore.settingalarm.soundName = "\(testsound)_\(volume).mp3"
+            }
+            .onChange(of: scenePhase) {
+                alarmStore.stopTestSound()
             }
         }
     }

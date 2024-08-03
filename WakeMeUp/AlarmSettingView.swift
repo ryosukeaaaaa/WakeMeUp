@@ -49,7 +49,7 @@ struct AlarmSettingView: View {
                     HStack {
                         Text("サウンド")
                         Spacer()
-                        Text(alarmStore.settingalarm.soundName)
+                        Text(alarmStore.settingalarm.soundName.dropLast(4))
                             .foregroundColor(.gray)
                     }
                 }
