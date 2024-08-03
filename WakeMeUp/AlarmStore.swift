@@ -23,7 +23,7 @@ class AlarmStore: ObservableObject {
     }
     
     //　アラーム編集用の格納庫
-    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト", snoozeEnabled: false, groupId: "")
+    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト_medium.mp3", snoozeEnabled: false, groupId: "")
     
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
