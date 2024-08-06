@@ -318,11 +318,16 @@ class AlarmStore: ObservableObject {
     func groupIdsForAlarmsWithinTimeRange() -> (groupIds: [String], firstSound: String?) {
         let currentDate = Date()
         let fiveMinutesAgo = currentDate.addingTimeInterval(-5 * 60) // 現在から5分前
+        let fifteenMinutesAgo = currentDate.addingTimeInterval(-15 * 60)
         print(alarms)
         print("current:", currentDate)
 
         let matchingAlarms = alarms.filter { alarm in
-            alarm.isOn && alarm.time >= fiveMinutesAgo && alarm.time <= currentDate
+            if alarm.snoozeEnabled { //スヌーズの場合
+                alarm.isOn && alarm.time >= fifteenMinutesAgo && alarm.time <= currentDate
+            }else{
+                alarm.isOn && alarm.time >= fiveMinutesAgo && alarm.time <= currentDate
+            }
         }
 
         let groupIds = matchingAlarms.map { $0.groupId }

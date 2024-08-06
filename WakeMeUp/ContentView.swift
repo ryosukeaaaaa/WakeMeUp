@@ -99,28 +99,17 @@ struct ContentView: View {
                 )
             }
         }
-//        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
-//            if let outerUserInfo = notification.userInfo{
-//                alarmStore.groupIds = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
-//                print("groupids:", alarmStore.groupIds)
-//                if !alarmStore.groupIds.isEmpty {
-//                    alarmStore.showingAlarmLanding = true
-//                }
-//                alarmStore.groupIds = groupId
-//                alarmStore.showingAlarmLanding = true
-//                debugMessage = "Received notification: GroupId = \(alarmStore.groupIds)"
-//            } else {
-//                debugMessage = "Received notification but couldn't extract groupId"
-//            }
-//        }
-//        .overlay(
-//            Text(debugMessage)
-//                .padding()
-//                .background(Color.black.opacity(0.7))
-//                .foregroundColor(.white)
-//                .cornerRadius(10)
-//                .opacity(debugMessage.isEmpty ? 0 : 1)
-//        )
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
+            let result = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+            alarmStore.groupIds = result.groupIds
+            alarmStore.Sound = result.firstSound ?? "デフォルト_medium.mp3"
+            print("groupids:", alarmStore.groupIds)
+            if !alarmStore.groupIds.isEmpty {
+                alarmStore.showingAlarmLanding = true
+                print("音になった")
+                print(alarmStore.showingAlarmLanding)
+            }
+        }
     }
     
     private func checkNotificationPermission() {

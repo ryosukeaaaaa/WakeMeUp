@@ -90,6 +90,7 @@
 		82E9268A2C5E17CF002B3DF9 /* デフォルト_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926892C5E17CF002B3DF9 /* デフォルト_medium.mp3 */; };
 		82E9268C2C5E17DC002B3DF9 /* デフォルト_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E9268B2C5E17DC002B3DF9 /* デフォルト_low.mp3 */; };
 		82E926902C5E181D002B3DF9 /* デフォルト_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E9268F2C5E181D002B3DF9 /* デフォルト_high.mp3 */; };
+		82E926922C61F371002B3DF9 /* Answer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82E926912C61F371002B3DF9 /* Answer.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +196,7 @@
 		82E926892C5E17CF002B3DF9 /* デフォルト_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "デフォルト_medium.mp3"; path = "../../../../../../Downloads/デフォルト_medium.mp3"; sourceTree = "<group>"; };
 		82E9268B2C5E17DC002B3DF9 /* デフォルト_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "デフォルト_low.mp3"; path = "../../../../../../Downloads/デフォルト_low.mp3"; sourceTree = "<group>"; };
 		82E9268F2C5E181D002B3DF9 /* デフォルト_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "デフォルト_high.mp3"; path = "../../../../../../Downloads/デフォルト_high.mp3"; sourceTree = "<group>"; };
+		82E926912C61F371002B3DF9 /* Answer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Answer.mp3; path = "../../../../../../Downloads/Quiz-Correct_Answer02-mp3 (2)/Answer.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +326,7 @@
 				827AE3B82C18880D00DABD95 /* 基礎英単語.csv */,
 				829200942C47A20D00C96C30 /* UIGIFImageView.swift */,
 				829200962C47A24100C96C30 /* GIFImage.swift */,
+				82E926912C61F371002B3DF9 /* Answer.mp3 */,
 				8272A5912C439BDA006697E1 /* G_medium.mp3 */,
 				82E926712C5E08AF002B3DF9 /* 春_high.mp3 */,
 				82E9266F2C5E088B002B3DF9 /* 春_medium.mp3 */,
@@ -523,6 +526,7 @@
 				82E926822C5E1164002B3DF9 /* G線上のアリア_medium.mp3 in Resources */,
 				82E926902C5E181D002B3DF9 /* デフォルト_high.mp3 in Resources */,
 				8243CAC52C4ACD23006802F4 /* Elephant.png in Resources */,
+				82E926922C61F371002B3DF9 /* Answer.mp3 in Resources */,
 				82E926722C5E08AF002B3DF9 /* 春_high.mp3 in Resources */,
 				8243CAC72C4ACD29006802F4 /* Eagle.png in Resources */,
 				82E9268C2C5E17DC002B3DF9 /* デフォルト_low.mp3 in Resources */,

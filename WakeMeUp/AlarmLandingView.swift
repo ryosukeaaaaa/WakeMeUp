@@ -18,14 +18,9 @@ struct AlarmLandingView: View {
                 Text("起きる時間です！")
                     .font(.title2)
                     .padding()
-                
-                Text("GroupId: \(groupId)")
-                    .font(.caption)
-                    .padding()
 
                 Button(action: {
                     navigateToPreMission = true
-                    print("eee")
                     alarmStore.stopAlarm_All(alarmStore.groupIds)  // アラームを止める
                     print("ddd")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { //画面が引き戻されるエラーが起こった。

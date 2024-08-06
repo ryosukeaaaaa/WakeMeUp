@@ -21,6 +21,7 @@ struct Pre_Mission: View {
     var fromHome: Bool = false  // デフォルト値を設定
     
     var material: String = MissionState().material // デフォルト値を設定
+    var volume: Float = MissionState().correctvolume
     
     @Binding var reset: Bool
     
@@ -37,6 +38,8 @@ struct Pre_Mission: View {
     
     @ObservedObject var alarmStore: AlarmStore
     @Environment(\.scenePhase) private var scenePhase
+    
+    @State private var audioPlayer: AVAudioPlayer?
 
     var body: some View {
         NavigationView {
@@ -157,11 +160,11 @@ struct Pre_Mission: View {
                             if !missionState.clear_mission {
                                 Circle()
                                     .fill(isRecording ? Color.white : Color.red)
-                                    .frame(width: 70, height: 70)
+                                    .frame(width: 90, height: 90)
                                     .overlay(
                                         Circle()
                                             .stroke(isRecording ? Color.white : Color.white, lineWidth: 5)
-                                            .frame(width: 80, height: 80)
+                                            .frame(width: 110, height: 110)
                                     )
                                     .shadow(color: .gray, radius: 5, x: 0, y: 5)
                                     .gesture(
@@ -409,6 +412,7 @@ struct Pre_Mission: View {
         if userInput.lowercased().contains(self.missionState.randomEntry.0.lowercased()) {
             missionState.clear_mission = true
             userInput = ""
+            playSound()
         }
     }
 
@@ -416,6 +420,7 @@ struct Pre_Mission: View {
         if !missionState.clear_mission {
             if audio.lowercased().contains(word.lowercased()) {
                 missionState.clear_mission = true
+                playSound()
                 isRecording = false
                 speechRecognizer.stopRecording()
             } else {
@@ -705,6 +710,21 @@ struct Pre_Mission: View {
             try updatedCSVString.write(to: starCSVURL, atomically: true, encoding: .utf8)
         } catch {
             print("Error removing starred entry: \(error)")
+        }
+    }
+    
+    private func playSound() {
+        guard let url = Bundle.main.url(forResource: "Answer", withExtension: "mp3") else {
+            print("Failed to find the sound file.")
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.volume = volume // ここで音量を設定（0.0〜1.0の範囲）
+            audioPlayer?.play()
+        } catch let error {
+            print("Failed to play sound: \(error.localizedDescription)")
         }
     }
 }

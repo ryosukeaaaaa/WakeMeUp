@@ -34,6 +34,13 @@ struct AlarmListView: View {
                             Text(alarm.soundName.dropLast(4))
                         }
                         .foregroundColor(.gray)
+//                        HStack {
+//                            Text("繰り返し")
+//                            Spacer()
+//                            Text(repeatLabelSummary(repeatedLabel: alarm.repeatLabel))
+//                                .foregroundColor(.gray)
+//                        }
+//                        .foregroundColor(.gray)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -97,6 +104,16 @@ struct AlarmListView: View {
             alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, snoozeEnabled: alarmStore.alarms[index].snoozeEnabled, groupId: alarmStore.alarms[index].groupId)
         } else {
             alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
+        }
+    }
+    
+    private func repeatLabelSummary(repeatedLabel: Set<Weekday>) -> String {
+        if repeatedLabel.isEmpty {
+            return "なし"
+        } else {
+            let sortedLabels = repeatedLabel.sorted(by: { $0.index < $1.index })
+            let abbreviatedLabels = sortedLabels.map { String($0.rawValue.prefix(1)) }
+            return abbreviatedLabels.joined(separator: ",")
         }
     }
 }

@@ -654,13 +654,13 @@ struct DetailCardView: View {
             Button(action: {
                 speakText(entryDetails.entry)
             }) {
-                Text("もう一度再生")
+                Text("発音再生")
             }
             .padding()
         }
         .onAppear {
             loadEntryDetails()
-            speakText(entryDetails.entry)
+//            speakText(entryDetails.entry)
         }
     }
 
@@ -768,7 +768,7 @@ struct StarredDetailCardView: View {
             Button(action: {
                 speakText(entry.entry)
             }) {
-                Text("もう一度再生")
+                Text("発音再生")
             }
             
             Button(action: {
@@ -781,7 +781,7 @@ struct StarredDetailCardView: View {
             .padding()
         }
         .onAppear {
-            speakText(entry.entry)
+//            speakText(entry.entry)
         }
     }
 

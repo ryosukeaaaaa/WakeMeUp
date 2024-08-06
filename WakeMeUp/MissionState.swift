@@ -50,6 +50,11 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(correctcircle, forKey: "correctcircle")
         }
     }
+    @Published var correctvolume: Float {
+        didSet {
+            UserDefaults.standard.set(correctvolume, forKey: "correctvolume")
+        }
+    }
     
     @Published var starredEntries: [(String, String, String, String, String)] = [] // スターをつけたエントリーを保持
     
@@ -75,6 +80,7 @@ class MissionState: ObservableObject {
         self.academicCount = UserDefaults.standard.integer(forKey: "academicCount")
         
         self.correctcircle = UserDefaults.standard.string(forKey: "correctcircle") ?? "あり"
+        self.correctvolume = UserDefaults.standard.float(forKey: "correctvolume")
     }
     
     func loadStarredEntries() {
