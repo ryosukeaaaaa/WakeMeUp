@@ -160,11 +160,11 @@ struct Pre_Mission: View {
                             if !missionState.clear_mission {
                                 Circle()
                                     .fill(isRecording ? Color.white : Color.red)
-                                    .frame(width: 90, height: 90)
+                                    .frame(width: 100, height: 100)
                                     .overlay(
                                         Circle()
-                                            .stroke(isRecording ? Color.white : Color.white, lineWidth: 5)
-                                            .frame(width: 110, height: 110)
+                                            .stroke(isRecording ? Color.white : Color.white, lineWidth: 10)
+                                            .frame(width: 115, height: 115)
                                     )
                                     .shadow(color: .gray, radius: 5, x: 0, y: 5)
                                     .gesture(
