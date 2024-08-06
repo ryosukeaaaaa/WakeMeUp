@@ -28,7 +28,9 @@ struct AlarmLandingView: View {
                     print("eee")
                     alarmStore.stopAlarm_All(alarmStore.groupIds)  // アラームを止める
                     print("ddd")
-                    alarmStore.showingAlarmLanding = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { //画面が引き戻されるエラーが起こった。
+                        alarmStore.showingAlarmLanding = false
+                    }
                 }) {
                     Text("ミッション開始")
                         .padding()

@@ -12,6 +12,7 @@ class AlarmStore: ObservableObject {
     @Published var showingAlarmLanding: Bool {
         didSet {
             UserDefaults.standard.set(showingAlarmLanding, forKey: "showingAlarmLanding")
+            print("showingAlarmLanding changed to \(showingAlarmLanding)")
         }
     }
     @Published var groupIds: [String] = []
@@ -82,13 +83,13 @@ class AlarmStore: ObservableObject {
     private func cancelAlarmNotifications(groupId: String, snoozeEnabled: Bool) {
         let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
-        for n in 0...16 {
+        for n in 0...7 {
             let identifier = "AlarmNotification\(groupId)_\(n)"
             identifiers.append(identifier)
         }
         if snoozeEnabled {
-            for m in 1...5 {
-                for l in 0...16 {
+            for m in 1...2 {
+                for l in 0...7 {
                     let identifier = "AlarmNotification\(groupId)_\(l)_\(m)"
                     identifiers.append(identifier)
                 }
@@ -187,9 +188,9 @@ class AlarmStore: ObservableObject {
         content.body = "時間です！起きましょう！"
         content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
         
-        for n in 0...16 {
+        for n in 0...7 {
             let secondsToAdd = 7 * n
-            let nanosecondsToAdd = 0 //500_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
+            let nanosecondsToAdd = 300_000_000 * n // 0.5秒（500ミリ秒）をナノ秒に変換
             var dateComponents = DateComponents()
             dateComponents.second = secondsToAdd
             dateComponents.nanosecond = nanosecondsToAdd
@@ -218,11 +219,11 @@ class AlarmStore: ObservableObject {
          
         // スヌーズ処理
         if snoozeEnabled {
-            for m in 1...5 {
+            for m in 1...2 {
                 let snoozeTriggerDate = calendar.date(byAdding: .minute, value: 5 * m, to: targetDate)!
-                for l in 0...16 {
+                for l in 0...7 {
                     let secondsToAdd = 7 * l
-                    let nanosecondsToAdd = 800_000_000  // 0.5秒（500ミリ秒）をナノ秒に変換
+                    let nanosecondsToAdd = 300_000_000 * l // 0.5秒（500ミリ秒）をナノ秒に変換
                     var dateComponents = DateComponents()
                     dateComponents.second = secondsToAdd
                     dateComponents.nanosecond = nanosecondsToAdd
@@ -259,7 +260,7 @@ class AlarmStore: ObservableObject {
         content.body = "時間です！起きましょう！"
         
         for n in 0...3 {
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1 + 7 * Double(n), repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1 + 7.3 * Double(n), repeats: false)
             // サウンド設定を条件に応じて変更
             if n == 0 || n == 4 || n == 8 || n == 12 {
                 content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))

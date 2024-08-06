@@ -30,7 +30,7 @@ struct Gacha: View {
                         }
                         .navigationDestination(isPresented: $normal) {
                             GachaGIF(itemState: itemState)
-                                .navigationBarBackButtonHidden(true)
+//                                .navigationBarBackButtonHidden(true)
                         }
                         Text("所持枚数: \(itemState.NormalCoin)")
                     }
@@ -52,7 +52,7 @@ struct Gacha: View {
                         }
                         .navigationDestination(isPresented: $special) {
                             GachaGIF2(itemState: itemState)
-                                .navigationBarBackButtonHidden(true)
+//                                .navigationBarBackButtonHidden(true)
                         }
                         Text("所持枚数: \(itemState.SpecialCoin)")
                     }

@@ -62,9 +62,9 @@ struct MissionClear: View {
                         navigationPath.removeLast(navigationPath.count)
                     }
             }
-            .onAppear{
-                alarmStore.showingAlarmLanding = false
-            }
+//            .onAppear{
+//                alarmStore.showingAlarmLanding = false
+//            }
         }
     }
 }

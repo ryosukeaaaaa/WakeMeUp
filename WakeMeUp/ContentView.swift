@@ -3,8 +3,6 @@ import UserNotifications
 
 struct ContentView: View {
     @EnvironmentObject var alarmStore: AlarmStore
-    @State private var showingAlarmLanding: Bool = false
-    // @State private var showingAlarmLanding = false
     // @State private var currentAlarmId: String?
     // @State private var currentGroupId: String?
     @State private var debugMessage = ""
@@ -88,6 +86,8 @@ struct ContentView: View {
                     print("groupids:", alarmStore.groupIds)
                     if !alarmStore.groupIds.isEmpty {
                         alarmStore.showingAlarmLanding = true
+                        print("音になった")
+                        print(alarmStore.showingAlarmLanding)
                     }
                 }
             }

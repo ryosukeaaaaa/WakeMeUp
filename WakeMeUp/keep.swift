@@ -641,3 +641,138 @@
 //#Preview {
 //    WordView(material: "TOEIC英単語")
 //}
+
+
+
+
+
+
+//import SwiftUI
+//import MediaPlayer
+//import AVFoundation
+//import UserNotifications
+//
+//struct MediaPicker: UIViewControllerRepresentable {
+//    @Binding var selectedMedia: MPMediaItem?
+//    
+//    func makeUIViewController(context: Context) -> MPMediaPickerController {
+//        let picker = MPMediaPickerController(mediaTypes: .music)
+//        picker.delegate = context.coordinator
+//        picker.allowsPickingMultipleItems = false
+//        return picker
+//    }
+//    
+//    func updateUIViewController(_ uiViewController: MPMediaPickerController, context: Context) {}
+//    
+//    func makeCoordinator() -> Coordinator {
+//        Coordinator(self)
+//    }
+//    
+//    class Coordinator: NSObject, MPMediaPickerControllerDelegate {
+//        var parent: MediaPicker
+//        
+//        init(_ parent: MediaPicker) {
+//            self.parent = parent
+//        }
+//        
+//        func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+//            parent.selectedMedia = mediaItemCollection.items.first
+//            mediaPicker.dismiss(animated: true)
+//        }
+//        
+//        func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+//            mediaPicker.dismiss(animated: true)
+//        }
+//    }
+//}
+//
+//class SoundData: ObservableObject {
+//    @Published var selectedMediaItem: MPMediaItem?
+//    @Published var trimmedAudioURL: URL?
+//}
+//
+//struct SoundView: View {
+//    @StateObject private var soundData = SoundData()
+//    @State private var showingMediaPicker = false
+//    
+//    var body: some View {
+//        VStack {
+//            Button(action: {
+//                showingMediaPicker = true
+//            }) {
+//                Text("Apple Musicから選択")
+//            }
+//            .sheet(isPresented: $showingMediaPicker) {
+//                MediaPicker(selectedMedia: $soundData.selectedMediaItem)
+//            }
+//            
+//            if let selectedMediaItem = soundData.selectedMediaItem {
+//                Text(selectedMediaItem.title ?? "Unknown Title")
+//                Button(action: {
+//                    if let url = selectedMediaItem.assetURL {
+//                        trimAudio(url: url) { trimmedURL in
+//                            DispatchQueue.main.async {
+//                                soundData.trimmedAudioURL = trimmedURL
+//                                scheduleNotification(with: trimmedURL)
+//                            }
+//                        }
+//                    }
+//                }) {
+//                    Text("トリミングして通知")
+//                }
+//            }
+//        }
+//    }
+//    
+//    func trimAudio(url: URL, completion: @escaping (URL) -> Void) {
+//        let asset = AVAsset(url: url)
+//        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else {
+//            print("Failed to create export session")
+//            return
+//        }
+//        let trimmedSoundURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a")
+//        
+//        exportSession.outputURL = trimmedSoundURL
+//        exportSession.outputFileType = .m4a
+//        
+//        let startTime = CMTime(seconds: 0, preferredTimescale: 1)
+//        let endTime = CMTime(seconds: 30, preferredTimescale: 1)
+//        exportSession.timeRange = CMTimeRange(start: startTime, end: endTime)
+//        
+//        exportSession.exportAsynchronously {
+//            if exportSession.status == .completed {
+//                completion(trimmedSoundURL)
+//            } else {
+//                print("Error trimming audio: \(exportSession.error?.localizedDescription ?? "unknown error")")
+//            }
+//        }
+//    }
+//    
+//    func scheduleNotification(with soundURL: URL) {
+//        let content = UNMutableNotificationContent()
+//        content.title = "アラーム"
+//        content.body = "時間です！起きましょう！"
+//        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundURL.lastPathComponent))
+//        
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//        let request = UNNotificationRequest(identifier: "testAlarm", content: content, trigger: trigger)
+//        
+//        UNUserNotificationCenter.current().add(request) { error in
+//            if let error = error {
+//                print("通知のスケジュールに失敗しました: \(error.localizedDescription)")
+//            } else {
+//                print("通知がスケジュールされました")
+//            }
+//        }
+//    }
+//}
+//
+//@main
+//struct MyApp: App {
+//    var body: some Scene {
+//        WindowGroup {
+//            SoundView()
+//        }
+//    }
+//}
+//

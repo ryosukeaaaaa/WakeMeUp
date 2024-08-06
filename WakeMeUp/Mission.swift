@@ -62,13 +62,9 @@ struct Pre_Mission: View {
                                 .rotationEffect(.degrees(degree))
                                 .onChange(of: missionState.clear_mission) {
                                     if missionState.clear_mission {
-                                        withAnimation {
-                                            showCircle = true
-                                        }
+                                        showCircle = true
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            withAnimation {
-                                                showCircle = false
-                                            }
+                                            showCircle = false
                                         }
                                     }
                                 }
