@@ -177,6 +177,11 @@ struct HomeMission: View {
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(5)
                     }
+                    
+                    Spacer()
+                    
+                    AdMobView()
+                        .frame(width: 150, height: 60)
                 }
             }
             .padding()

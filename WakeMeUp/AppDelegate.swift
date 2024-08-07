@@ -1,14 +1,17 @@
+import SwiftUI
 import UIKit
 import UserNotifications
+import GoogleMobileAds
 
-
-//　通知をタップした時の動作
+// 通知をタップした時の動作
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
     var alarmStore = AlarmStore()
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Mobile Ads SDKを初期化する
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        
         // 通知センターのデリゲートを設定
         UNUserNotificationCenter.current().delegate = self
         
@@ -32,7 +35,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         // フォアグラウンドでも通知を表示
-        print("gggggg")
+        print("通知を受け取りました: \(userInfo)")
         // オプショナルバインディングを使用してuserInfoの値をアンラップ
         if let groupId = userInfo["groupId"] as? String {
             NotificationCenter.default.post(name: NSNotification.Name("ShowAlarmLanding"), object: nil, userInfo: ["groupId": groupId])
@@ -45,6 +48,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func applicationWillTerminate(_ application: UIApplication) {
         print("アプリがキルされました")
     }
+}
+
+
 //    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 //        audioPlayerManager.playSound()
 //        completionHandler([.banner, .sound])
@@ -72,5 +78,4 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 //        print("aaa", self.alarmStore.showingAlarmLanding)
 //        completionHandler()
 //    }
-}
 
