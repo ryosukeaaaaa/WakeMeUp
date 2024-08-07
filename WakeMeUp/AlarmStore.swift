@@ -83,13 +83,13 @@ class AlarmStore: ObservableObject {
     private func cancelAlarmNotifications(groupId: String, snoozeEnabled: Bool) {
         let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
-        for n in 0...7 {
+        for n in 0...15 {
             let identifier = "AlarmNotification\(groupId)_\(n)"
             identifiers.append(identifier)
         }
         if snoozeEnabled {
             for m in 1...2 {
-                for l in 0...7 {
+                for l in 0...15 {
                     let identifier = "AlarmNotification\(groupId)_\(l)_\(m)"
                     identifiers.append(identifier)
                 }
@@ -188,7 +188,7 @@ class AlarmStore: ObservableObject {
         content.body = "時間です！起きましょう！"
         content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
         
-        for n in 0...7 {
+        for n in 0...15 {
             let secondsToAdd = 7 * n
             let nanosecondsToAdd = 300_000_000 * n // 0.5秒（500ミリ秒）をナノ秒に変換
             var dateComponents = DateComponents()
@@ -221,7 +221,7 @@ class AlarmStore: ObservableObject {
         if snoozeEnabled {
             for m in 1...2 {
                 let snoozeTriggerDate = calendar.date(byAdding: .minute, value: 5 * m, to: targetDate)!
-                for l in 0...7 {
+                for l in 0...15 {
                     let secondsToAdd = 7 * l
                     let nanosecondsToAdd = 300_000_000 * l // 0.5秒（500ミリ秒）をナノ秒に変換
                     var dateComponents = DateComponents()

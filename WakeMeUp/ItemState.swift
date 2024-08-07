@@ -120,6 +120,7 @@ struct GachaView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
+                Spacer()
                 NavigationStack {
                     VStack{
                         Button(action: {
@@ -176,6 +177,12 @@ struct GachaView: View {
                     Text("Remove All Pending Notifications")
                 }
                 .padding()
+                
+                
+                Spacer()
+                
+                AdMobView()
+                    .frame(width: 450, height: 300)
             }
             .padding()
             .navigationTitle("ガチャ")

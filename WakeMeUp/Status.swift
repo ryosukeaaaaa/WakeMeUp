@@ -15,6 +15,7 @@ struct StatusView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
+                Spacer()
                 NavigationLink(destination: NormalWordView(material: "基礎英単語")) {
                     HStack {
                         Image(systemName: "person.fill")
@@ -103,6 +104,11 @@ struct StatusView: View {
                     .frame(height: 150)
                     .padding()
                 }
+                
+                Spacer()
+                
+                AdMobView()
+                    .frame(width: 450, height: 90)
             }
             .padding()
             .navigationTitle("学習状況")

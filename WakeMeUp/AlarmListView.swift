@@ -12,66 +12,73 @@ struct AlarmListView: View {
     @State private var selectedIndex: IdentifiableInt? = nil
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(alarmStore.alarms.indices, id: \.self) { index in
-                    let alarm = alarmStore.alarms[index]
-                    VStack {
-                        HStack {
-                            Text(formatTime(alarm.time))
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                            Spacer()
-                            Button(action: {}) {
-                                Toggle("", isOn: binding(for: alarm))
-                                    .labelsHidden()
+        VStack {
+            NavigationView {
+                List {
+                    ForEach(alarmStore.alarms.indices, id: \.self) { index in
+                        let alarm = alarmStore.alarms[index]
+                        VStack {
+                            HStack {
+                                Text(formatTime(alarm.time))
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                Spacer()
+                                Button(action: {}) {
+                                    Toggle("", isOn: binding(for: alarm))
+                                        .labelsHidden()
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            HStack {
+                                Text("サウンド")
+                                Spacer()
+                                Text(alarm.soundName.dropLast(4))
+                            }
+                            .foregroundColor(.gray)
+//                            HStack {
+//                                Text("繰り返し")
+//                                Spacer()
+//                                Text(repeatLabelSummary(repeatedLabel: alarm.repeatLabel))
+//                                    .foregroundColor(.gray)
+//                            }
+//                            .foregroundColor(.gray)
                         }
-                        HStack {
-                            Text("サウンド")
-                            Spacer()
-                            Text(alarm.soundName.dropLast(4))
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            alarmStore.settingalarm = alarm
+                            selectedIndex = IdentifiableInt(id: index)
                         }
-                        .foregroundColor(.gray)
-//                        HStack {
-//                            Text("繰り返し")
-//                            Spacer()
-//                            Text(repeatLabelSummary(repeatedLabel: alarm.repeatLabel))
-//                                .foregroundColor(.gray)
-//                        }
-//                        .foregroundColor(.gray)
                     }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        alarmStore.settingalarm = alarm
-                        selectedIndex = IdentifiableInt(id: index)
+                    .onDelete { indexSet in
+                        indexSet.forEach { index in
+                            let groupId = alarmStore.alarms[index].groupId
+                            alarmStore.deleteAlarmsByGroupId(groupId)
+                        }
                     }
                 }
-                .onDelete { indexSet in
-                    indexSet.forEach { index in
-                        let groupId = alarmStore.alarms[index].groupId
-                        alarmStore.deleteAlarmsByGroupId(groupId)
+                .navigationTitle("アラーム")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト_medium.mp3", snoozeEnabled: false, groupId: "")
+                            showingAddAlarm = true
+                        }) {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
             }
-            .navigationTitle("アラーム")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト_medium.mp3", snoozeEnabled: false, groupId: "")
-                        showingAddAlarm = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                }
+            .sheet(isPresented: $showingAddAlarm) {
+                AddAlarmView(alarmStore: alarmStore)
             }
-        }
-        .sheet(isPresented: $showingAddAlarm) {
-            AddAlarmView(alarmStore: alarmStore)
-        }
-        .sheet(item: $selectedIndex) { selectedItem in
-            AlarmSettingView(alarmStore: alarmStore, index: selectedItem.id)
+            .sheet(item: $selectedIndex) { selectedItem in
+                AlarmSettingView(alarmStore: alarmStore, index: selectedItem.id)
+            }
+
+            Spacer() // 画面の残りの部分を埋めるスペーサー
+            
+            AdMobView()
+                .frame(width: 450, height: 90)
         }
     }
 

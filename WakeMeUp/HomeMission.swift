@@ -16,6 +16,7 @@ struct HomeMission: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
+                Spacer()
                 NavigationStack {
                     Button(action: {
                         basic = true
