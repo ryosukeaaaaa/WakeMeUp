@@ -17,6 +17,11 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(material, forKey: "material")
         }
     }
+    @Published var section: Int {
+        didSet {
+            UserDefaults.standard.set(section, forKey: "section")
+        }
+    }
     @Published var PastWords: [[String: String]] {
         didSet {
             if let data = try? JSONEncoder().encode(PastWords) {
@@ -58,16 +63,16 @@ class MissionState: ObservableObject {
     
     @Published var starredEntries: [(String, String, String, String, String)] = [] // スターをつけたエントリーを保持
     
-    
     init() {
-//        self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
         let savedClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
         if savedClearCount == 0 && UserDefaults.standard.object(forKey: "ClearCount") == nil {
             self.ClearCount = 5
         } else {
             self.ClearCount = savedClearCount
         }
-        self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC"
+        self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC英単語"
+        self.section = UserDefaults.standard.integer(forKey: "section")
+        
         if let data = UserDefaults.standard.data(forKey: "PastWords"),
            let decoded = try? JSONDecoder().decode([[String: String]].self, from: data) {
             self.PastWords = decoded
@@ -104,3 +109,4 @@ class MissionState: ObservableObject {
         }
     }
 }
+

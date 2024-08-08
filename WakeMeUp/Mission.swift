@@ -3,7 +3,7 @@ import SwiftCSV
 import AVFoundation
 
 struct Pre_Mission: View {
-    @StateObject private var missionState = MissionState() // MissionStateを使用
+    @StateObject private var missionState = MissionState()
 
     @State private var lastSpokenText: String = ""
     @StateObject private var speechRecognizer = SpeechRecognizer()
@@ -13,33 +13,34 @@ struct Pre_Mission: View {
     @State private var translation: CGSize = .zero
     @State private var degree: Double = 0.0
     @State private var navigateToHome = false
-    
+
     @State private var GPT = false
-    
-    @State private var navigationPath = NavigationPath() //ホーム画面への遷移
-    
-    var fromHome: Bool = false  // デフォルト値を設定
-    
-    var material: String = MissionState().material // デフォルト値を設定
+
+    @State private var navigationPath = NavigationPath()
+
+    var fromHome: Bool = false
+
+    var material: String = MissionState().material
     var volume: Float = MissionState().correctvolume
-    
+
     @Binding var reset: Bool
-    
+
     @State private var labelText: String = ""
-    
-    // 追加する状態変数
+
     @State private var idleTimer: Timer?
     @State private var isAlarmPlaying = false
-    
+
     @State private var isSheetPresented: Bool = false
     @State private var sheet: Bool = false
-    
+
     @State private var showCircle = false
-    
+
     @ObservedObject var alarmStore: AlarmStore
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @State private var audioPlayer: AVAudioPlayer?
+    
+    var selectedSection: Int  = MissionState().section // 追加
 
     var body: some View {
         NavigationView {
@@ -55,7 +56,7 @@ struct Pre_Mission: View {
                                     Group {
                                         if showCircle && missionState.correctcircle == "あり"{
                                             Circle()
-                                                .stroke(Color.red.opacity(0.5), lineWidth: 20) // Donut-shaped ring
+                                                .stroke(Color.red.opacity(0.5), lineWidth: 20)
                                                 .frame(width: 350, height: 350)
                                                 .transition(.opacity)
                                         }
@@ -79,7 +80,6 @@ struct Pre_Mission: View {
                                                 translation = value.translation
                                                 degree = Double(translation.width / 20)
                                             }
-                                            // degree値に基づいてlabelTextを更新
                                             if degree > 1 {
                                                 labelText = "perfect"
                                             } else if degree < -1 {
@@ -96,7 +96,6 @@ struct Pre_Mission: View {
                                                         makeStatus(for: missionState.randomEntry.0, num: 1)
                                                         missionState.missionCount += 1
                                                         if material == "基礎英単語"{
-                                                            print("mission",missionState.basicCount)
                                                             missionState.basicCount += 1
                                                         }else if material == "TOEIC英単語"{
                                                             missionState.toeicCount += 1
@@ -136,14 +135,12 @@ struct Pre_Mission: View {
                                                 translation = .zero
                                                 degree = 0.0
                                             }
-                                            // ドラッグ操作が終了したときにlabelTextを空にする
                                             labelText = ""
                                         }
                                 )
                         }
-                        .frame(width: geometry.size.width, height: geometry.size.height * 0.5) // サイズを画面の半分の高さに調整
-                        .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25) // 上半分に位置させる
-
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.5)
+                        .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25)
 
                         VStack {
                             Spacer().frame(width: 1)
@@ -194,10 +191,10 @@ struct Pre_Mission: View {
                                 Spacer()
                                 ScrollView {
                                     Text(speechRecognizer.transcript)
-                                        .frame(maxWidth: .infinity)// 垂直方向のパディングを増やして大きくする
+                                        .frame(maxWidth: .infinity)
                                         .padding(.horizontal)
                                 }
-                                .background(Color(.systemBackground)) // オプション: 背景色を設定
+                                .background(Color(.systemBackground))
                                 Button("タイピングで答える"){
                                     sheet.toggle()
                                 }
@@ -256,7 +253,7 @@ struct Pre_Mission: View {
                             }
                         }
 
-                        Spacer() // このSpacerを追加してカードを中央に配置
+                        Spacer()
                     }
                 }
             }
@@ -264,18 +261,16 @@ struct Pre_Mission: View {
                 if reset{
                     missionState.shouldLoadInitialEntry = true
                     reset = false
-                    missionState.PastWords = []  // 過去の単語一覧を消去
+                    missionState.PastWords = []
                 }
-                if missionState.shouldLoadInitialEntry { // 英会話画面から戻ってきたときに単語が変わらないように
-                    print(material)
-                    print("ini")
+                if missionState.shouldLoadInitialEntry {
                     loadNextEntry()
                     speechRecognizer.transcript = "長押ししながら発音"
                     missionState.shouldLoadInitialEntry = false
                 }else{
                     GPT = false
                 }
-                if !fromHome { // fromHomeがfalseの場合のみタイマーを開始
+                if !fromHome {
                     startIdleTimer()
                 }
             }
@@ -294,7 +289,6 @@ struct Pre_Mission: View {
                     if missionState.missionCount < missionState.ClearCount && !fromHome {
                         alarmStore.testSound(sound: alarmStore.Sound)
                     }
-                    print("バックグラウンド（.background）")
                 }
             }
             .onChange(of: speechRecognizer.transcript) {
@@ -333,7 +327,6 @@ struct Pre_Mission: View {
                 if self.fromHome {
                     Button(action: {
                         navigateToHome = true
-                        print("tap")
                     }) {
                         Text("終了")
                     }
@@ -368,10 +361,8 @@ struct Pre_Mission: View {
                 .multilineTextAlignment(.center)
                 .padding()
             
-            // 全然ダメ
             if missionState.starredEntries.contains(where: { $0.0 == missionState.randomEntry.0 }) {
                 Button(action: {
-                    print(missionState.starredEntries)
                     removeStarredEntry(missionState.randomEntry)
                 }) {
                     Text("追加済み")
@@ -430,8 +421,6 @@ struct Pre_Mission: View {
     }
 
     func loadRandomEntry() -> (String, String, String, String, String) {
-        // 英単語読み込み先
-        print("aaaaaa" + material)
         guard let csvURL = Bundle.main.url(forResource: material, withExtension: "csv") else {
             return ("Error", "CSV file not found", "", "", "")
         }
@@ -444,15 +433,19 @@ struct Pre_Mission: View {
             let statuses = readStatuses(from: userCSVURL)
 
             if statuses.isEmpty {
-                print("No statuses found.")
                 return ("Error", "No statuses found", "", "", "")
             } else {
                 let cumulativeProbabilities = calculateInverseProbabilities(for: statuses)
+                
+                let startIndex = selectedSection == 0 ? 0 : 200 * (selectedSection - 1)
+                let endIndex = selectedSection == 0 ? csv.rows.count - 1 : min(200 * selectedSection, csv.rows.count) - 1
 
-                if let randomRowIndex = selectIndexBasedOnCDF(cumulativeProbabilities: cumulativeProbabilities) {
-                    print("Selected Index: \(randomRowIndex)")
+                let filteredRows = Array(csv.rows[startIndex...endIndex])
+                let filteredStatuses = Array(statuses[startIndex...endIndex])
+                let filteredCumulativeProbabilities = calculateInverseProbabilities(for: filteredStatuses)
 
-                    let row = csv.rows[randomRowIndex]
+                if let randomRowIndex = selectIndexBasedOnCDF(cumulativeProbabilities: filteredCumulativeProbabilities) {
+                    let row = filteredRows[randomRowIndex]
 
                     if row.isEmpty {
                         return ("No entries found", "", "", "", "")
@@ -466,12 +459,10 @@ struct Pre_Mission: View {
 
                     return (entry, ipa, meaning, example, translated)
                 } else {
-                    print("Failed to select an index.")
                     return ("Error", "Failed to select an index", "", "", "")
                 }
             }
         } catch {
-            print("Error: \(error)")
             return ("Error", "reading CSV file", "", "", "")
         }
     }
@@ -485,7 +476,6 @@ struct Pre_Mission: View {
     func createUserCSVIfNeeded(csv: CSV<Named>) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
-        print(userCSVURL.path)
 
         if !FileManager.default.fileExists(atPath: userCSVURL.path) {
             do {
@@ -528,7 +518,6 @@ struct Pre_Mission: View {
             var rows = csv.rows
 
             if let rowIndex = rows.firstIndex(where: { $0["entry"] == entry }) {
-                print("entry:", entry)
                 rows[rowIndex]["status"] = String(status)
             } else {
                 rows.append(["entry": entry, "status": String(status)])
@@ -607,7 +596,6 @@ struct Pre_Mission: View {
             totalInverseProbability += inverseProbability
         }
 
-        // 逆数確率を正規化して累積分布関数を作成
         var cumulativeProbabilities: [Double] = []
         var cumulativeSum = 0.0
 
@@ -633,7 +621,6 @@ struct Pre_Mission: View {
 
     private func startIdleTimer() {
         idleTimer?.invalidate()
-        print("start")
         idleTimer = Timer.scheduledTimer(withTimeInterval: 180, repeats: false) { _ in
             alarmStore.testSound(sound: alarmStore.Sound)
         }
@@ -641,12 +628,9 @@ struct Pre_Mission: View {
 
     private func resetIdleTimer() {
         idleTimer?.invalidate()
-        print("reset")
         if !fromHome {
-            print("reset2")
             idleTimer = Timer.scheduledTimer(withTimeInterval: 180, repeats: false) { _ in
                 alarmStore.testSound(sound: alarmStore.Sound)
-                print("アラーム再開")
             }
         }
         alarmStore.stopTestSound()
@@ -659,19 +643,15 @@ struct Pre_Mission: View {
     }
     
     private func saveStarredEntry(_ entry: (String, String, String, String, String)) {
-        print("やばいよやばいよ",entry)
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
-        print("やばいね",starCSVURL.path)
         
         var starCSVString = ""
         
-        // ファイルが存在しない場合はヘッダー行を追加
         if !FileManager.default.fileExists(atPath: starCSVURL.path) {
             starCSVString += "entry,ipa,meaning,example_sentence,translated_sentence\n"
         }
         
-        // エントリーをCSV形式に変換して追加
         starCSVString += "\(entry.0),\(entry.1),\(entry.2),\(entry.3),\(entry.4)\n"
         
         do {
@@ -721,7 +701,7 @@ struct Pre_Mission: View {
 
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer?.volume = volume // ここで音量を設定（0.0〜1.0の範囲）
+            audioPlayer?.volume = volume
             audioPlayer?.play()
         } catch let error {
             print("Failed to play sound: \(error.localizedDescription)")

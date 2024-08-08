@@ -35,9 +35,6 @@ struct Sound: View {
                     ForEach(soundData.soundSources, id: \.self) { sound in
                         HStack {
                             Text("\(sound)")
-                                .onTapGesture {
-                                    testsound = sound
-                                }
                             Spacer()
                             if testsound == sound {
                                 Image(systemName: "checkmark")
@@ -45,6 +42,10 @@ struct Sound: View {
                             }
                         }
                         .padding(.vertical, 5)
+                        .contentShape(Rectangle()) // This ensures the HStack takes the full tappable area
+                        .onTapGesture {
+                            testsound = sound
+                        }
                     }
                 }
                 

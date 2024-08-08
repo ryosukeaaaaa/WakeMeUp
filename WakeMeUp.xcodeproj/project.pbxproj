@@ -82,6 +82,9 @@
 		82FE14262C63EFEE0023CC8B /* デフォルト_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14162C63EFEE0023CC8B /* デフォルト_low.mp3 */; };
 		82FE14272C63EFEE0023CC8B /* 威風堂々_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14172C63EFEE0023CC8B /* 威風堂々_medium.mp3 */; };
 		82FE14292C63F0A60023CC8B /* AdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE14282C63F0A60023CC8B /* AdMob.swift */; };
+		82FE142B2C649F9F0023CC8B /* MissionSectionSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE142A2C649F9F0023CC8B /* MissionSectionSelect.swift */; };
+		82FE142D2C64B0E90023CC8B /* no.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE142C2C64B0E80023CC8B /* no.mp3 */; };
+		82FE142F2C64B62B0023CC8B /* StatusSectionSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */; };
 		BE27B1C6E42E24EAB0C652AD /* Pods_WakeMeUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */; };
 /* End PBXBuildFile section */
 
@@ -181,6 +184,9 @@
 		82FE14162C63EFEE0023CC8B /* デフォルト_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "デフォルト_low.mp3"; path = "../../アラーム音源/デフォルト_low.mp3"; sourceTree = "<group>"; };
 		82FE14172C63EFEE0023CC8B /* 威風堂々_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "威風堂々_medium.mp3"; path = "../../アラーム音源/威風堂々_medium.mp3"; sourceTree = "<group>"; };
 		82FE14282C63F0A60023CC8B /* AdMob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMob.swift; sourceTree = "<group>"; };
+		82FE142A2C649F9F0023CC8B /* MissionSectionSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionSectionSelect.swift; sourceTree = "<group>"; };
+		82FE142C2C64B0E80023CC8B /* no.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = no.mp3; path = ../../Downloads/no.mp3; sourceTree = "<group>"; };
+		82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSectionSelect.swift; sourceTree = "<group>"; };
 		8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WakeMeUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DAFDD1C15A64C9DD5046EC1 /* Pods-WakeMeUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WakeMeUp.debug.xcconfig"; path = "Target Support Files/Pods-WakeMeUp/Pods-WakeMeUp.debug.xcconfig"; sourceTree = "<group>"; };
 		9C89F8C8FCE0B7065FCB10EF /* Pods-朝単-英単語アラーム.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-朝単-英単語アラーム.release.xcconfig"; path = "Target Support Files/Pods-朝単-英単語アラーム/Pods-朝単-英単語アラーム.release.xcconfig"; sourceTree = "<group>"; };
@@ -302,11 +308,13 @@
 				34EB07032C18B94800535988 /* AlarmData.swift */,
 				341C36542C2B3035009F9594 /* AddAlarmView.swift */,
 				8272A5972C44E2F7006697E1 /* Sound.swift */,
-				821FD6A82C358F0F00F445C7 /* HomeMission.swift */,
-				821FD69C2C32741900F445C7 /* Status.swift */,
 				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
+				821FD6A82C358F0F00F445C7 /* HomeMission.swift */,
+				82FE142A2C649F9F0023CC8B /* MissionSectionSelect.swift */,
 				827A15982C176053003B4468 /* Mission.swift */,
 				821FD69E2C329F8100F445C7 /* MissionState.swift */,
+				821FD69C2C32741900F445C7 /* Status.swift */,
+				82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */,
 				829A59CB2C163ECD002D7DA3 /* audio.swift */,
 				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
@@ -314,12 +322,13 @@
 				829200A82C4825A400C96C30 /* Collection.swift */,
 				829200732C46A81600C96C30 /* Gacha.swift */,
 				829200A62C4821F300C96C30 /* GachaGif.swift */,
+				82FE14282C63F0A60023CC8B /* AdMob.swift */,
 				827AE3B92C18880D00DABD95 /* TOEIC英単語.csv */,
 				827AE3B62C18880D00DABD95 /* ビジネス英単語.csv */,
 				827AE3B72C18880D00DABD95 /* 学術英単語.csv */,
 				827AE3B82C18880D00DABD95 /* 基礎英単語.csv */,
-				829200942C47A20D00C96C30 /* UIGIFImageView.swift */,
 				829200962C47A24100C96C30 /* GIFImage.swift */,
+				829200942C47A20D00C96C30 /* UIGIFImageView.swift */,
 				8292007F2C4777B300C96C30 /* RainParticle.sks */,
 				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				827A159C2C176087003B4468 /* Home.swift */,
@@ -330,6 +339,7 @@
 				821FD6A62C34503E00F445C7 /* test.swift */,
 				8232E8912C3FE08A00D1BF22 /* keep.swift */,
 				8292006F2C469F3600C96C30 /* Gacha.sks */,
+				82FE142C2C64B0E80023CC8B /* no.mp3 */,
 				82FE14152C63EFEE0023CC8B /* Answer.mp3 */,
 				82FE140B2C63EFEE0023CC8B /* G線上のアリア_high.mp3 */,
 				82FE14132C63EFEE0023CC8B /* G線上のアリア_low.mp3 */,
@@ -346,7 +356,6 @@
 				82FE14112C63EFEE0023CC8B /* 春_high.mp3 */,
 				82FE140D2C63EFEE0023CC8B /* 春_low.mp3 */,
 				82FE14122C63EFEE0023CC8B /* 春_medium.mp3 */,
-				82FE14282C63F0A60023CC8B /* AdMob.swift */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
@@ -516,6 +525,7 @@
 				829200A52C47D22500C96C30 /* Mice.png in Resources */,
 				821FD6A52C33E64300F445C7 /* Launch Screen.storyboard in Resources */,
 				829200AF2C4944F800C96C30 /* Gacha2.gif in Resources */,
+				82FE142D2C64B0E90023CC8B /* no.mp3 in Resources */,
 				82FE141C2C63EFEE0023CC8B /* デフォルト_high.mp3 in Resources */,
 				82FE14242C63EFEE0023CC8B /* 威風堂々_low.mp3 in Resources */,
 				82FE141A2C63EFEE0023CC8B /* アイーダ凱旋行進曲_low.mp3 in Resources */,
@@ -599,6 +609,7 @@
 				82FE14292C63F0A60023CC8B /* AdMob.swift in Sources */,
 				829200972C47A24100C96C30 /* GIFImage.swift in Sources */,
 				821FD6B72C37E2A900F445C7 /* AppDelegate.swift in Sources */,
+				82FE142B2C649F9F0023CC8B /* MissionSectionSelect.swift in Sources */,
 				341C36552C2B3035009F9594 /* AddAlarmView.swift in Sources */,
 				8292006C2C469B2200C96C30 /* ItemState.swift in Sources */,
 				3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */,
@@ -627,6 +638,7 @@
 				829200A72C4821F300C96C30 /* GachaGif.swift in Sources */,
 				8232E88E2C3BF23400D1BF22 /* AlarmStore.swift in Sources */,
 				821FD6A72C34503E00F445C7 /* test.swift in Sources */,
+				82FE142F2C64B62B0023CC8B /* StatusSectionSelect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

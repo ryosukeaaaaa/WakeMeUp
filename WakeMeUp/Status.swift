@@ -11,12 +11,20 @@ struct ProgressData: Identifiable {
 
 struct StatusView: View {
     @State private var progressData: [ProgressData] = []
+    @State private var selectedSection: Int = 0
+    @State private var isSectionSelectPresented: Bool = false
+    @State private var selectedMaterial: String = ""
+    @State private var sectionCount: Int = 0
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 10) {
                 Spacer()
-                NavigationLink(destination: NormalWordView(material: "基礎英単語")) {
+                Button(action: {
+                    selectedMaterial = "基礎英単語"
+                    sectionCount = 15 // セクション数を設定
+                    isSectionSelectPresented = true
+                }) {
                     HStack {
                         Image(systemName: "person.fill")
                         Text("基礎英単語")
@@ -29,7 +37,12 @@ struct StatusView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                NavigationLink(destination: NormalWordView(material: "TOEIC英単語")) {
+                
+                Button(action: {
+                    selectedMaterial = "TOEIC英単語"
+                    sectionCount = 7 // セクション数を設定
+                    isSectionSelectPresented = true
+                }) {
                     HStack {
                         Image(systemName: "person.fill")
                         Text("TOEIC英単語")
@@ -42,7 +55,12 @@ struct StatusView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                NavigationLink(destination: NormalWordView(material: "ビジネス英単語")) {
+                
+                Button(action: {
+                    selectedMaterial = "ビジネス英単語"
+                    sectionCount = 9 // セクション数を設定
+                    isSectionSelectPresented = true
+                }) {
                     HStack {
                         Image(systemName: "person.fill")
                         Text("ビジネス英単語")
@@ -55,7 +73,12 @@ struct StatusView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                NavigationLink(destination: NormalWordView(material: "学術英単語")) {
+                
+                Button(action: {
+                    selectedMaterial = "学術英単語"
+                    sectionCount = 5 // セクション数を設定
+                    isSectionSelectPresented = true
+                }) {
                     HStack {
                         Image(systemName: "person.fill")
                         Text("学術英単語")
@@ -113,6 +136,9 @@ struct StatusView: View {
             .padding()
             .navigationTitle("学習状況")
             .onAppear(perform: loadProgressData)
+            .navigationDestination(isPresented: $isSectionSelectPresented) {
+                StatusSectionSelectView(material: selectedMaterial, sectionCount: sectionCount, isPresented: $isSectionSelectPresented, selectedSection: $selectedSection)
+            }
         }
     }
 
@@ -145,6 +171,7 @@ struct StatusView: View {
 
 struct NormalWordView: View {
     let material: String
+    let selectedSection: Int
     @State private var entries: [(entry: String, status: Int)] = []
     @State private var errorMessage: String?
     @State private var showSortOptions = false
@@ -249,7 +276,10 @@ struct NormalWordView: View {
             let csv = try CSV<Named>(url: userCSVURL)
             var loadedEntries: [(entry: String, status: Int)] = []
 
-            for row in csv.rows {
+            let start = selectedSection == 0 ? 0 : 200 * (selectedSection - 1)
+            let end = selectedSection == 0 ? csv.rows.count : min(200 * selectedSection, csv.rows.count)
+
+            for row in csv.rows[start..<end] {
                 if let entry = row["entry"], let statusString = row["status"], let status = Int(statusString) {
                     loadedEntries.append((entry: entry, status: status))
                 }
@@ -272,6 +302,7 @@ struct NormalWordView: View {
         }
     }
 }
+
 
 struct StarredWordView: View {
     @State private var entries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []

@@ -7,6 +7,8 @@ struct AlarmLandingView: View {
     @Binding var isPresented: Bool
     @State private var navigateToPreMission = false
     @State private var isReset: Bool = true
+    
+    
 
     var body: some View {
         NavigationStack {

@@ -203,7 +203,7 @@ class AlarmStore: ObservableObject {
             if n == 0 || n == 4 || n == 8  || n==12 {
                 content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
             } else {
-                content.sound = nil
+                content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "no.mp3")) // バイブレーションのため
             }
             
             let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(n)", content: content, trigger: trigger)
@@ -236,7 +236,7 @@ class AlarmStore: ObservableObject {
                     if l == 0 || l == 4 || l == 8 || l == 12 {
                         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
                     } else {
-                        content.sound = nil
+                        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "no.mp3")) // バイブレーションのため
                     }
                     
                     let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(l)_\(m)", content: content, trigger: trigger)
@@ -265,7 +265,7 @@ class AlarmStore: ObservableObject {
             if n == 0 || n == 4 || n == 8 || n == 12 {
                 content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
             } else {
-                content.sound = nil
+                content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "no.mp3")) // バイブレーションのため
             }
             
             let request = UNNotificationRequest(identifier: "testAlarm_\(n)", content: content, trigger: trigger)
