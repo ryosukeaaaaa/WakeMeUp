@@ -175,11 +175,12 @@ struct NormalWordView: View {
     @State private var entries: [(entry: String, status: Int)] = []
     @State private var errorMessage: String?
     @State private var showSortOptions = false
-    @State private var sortOrder: SortOrder = .statusDescending
+    @State private var sortOrder: SortOrder = .originalOrder
     @State private var searchQuery = ""
     @State private var lastViewedEntry: String?
 
     enum SortOrder {
+        case originalOrder
         case statusDescending
         case statusAscending
         case alphabetical
@@ -240,6 +241,10 @@ struct NormalWordView: View {
         }
         .actionSheet(isPresented: $showSortOptions) {
             ActionSheet(title: Text("並び替えオプション"), buttons: [
+                .default(Text("単語帳順")) {
+                    sortOrder = .originalOrder
+                    loadEntries()
+                },
                 .default(Text("未習得順")) {
                     sortOrder = .statusAscending
                     sortEntries()
@@ -285,7 +290,9 @@ struct NormalWordView: View {
                 }
             }
             entries = loadedEntries
-            sortEntries()
+            if sortOrder != .originalOrder {
+                sortEntries()
+            }
         } catch {
             errorMessage = "CSVの読み込みエラー: \(error.localizedDescription)"
         }
@@ -299,10 +306,113 @@ struct NormalWordView: View {
             entries.sort(by: { $0.status < $1.status })
         case .alphabetical:
             entries.sort(by: { $0.entry < $1.entry })
+        default:
+            break
         }
     }
 }
 
+// entriesで単語列を渡してるからソートが保持される。entriesをインデックスとして単語をcsvファイルから引っ張ってきてる。
+struct DetailView: View {
+    var material: String
+    var entry: (entry: String, status: Int)
+    var entries: [(entry: String, status: Int)]
+    @Binding var lastViewedEntry: String?
+    @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
+    @State private var currentIndex: Int = 0
+    @State private var isShowingDetails = false
+    @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+    @State private var offset: CGFloat = 0
+
+    var body: some View {
+        VStack {
+            Spacer()
+            GeometryReader { geometry in
+                TabView(selection: $currentIndex) {
+                    ForEach(0..<entries.count, id: \.self) { index in
+                        DetailCardView(entry: entries[index], material: material, starredEntries: $starredEntries)
+                            .tag(index)
+//                            .offset(x: self.offset)
+//                            .gesture(
+//                                DragGesture()
+//                                    .onChanged { value in
+//                                        self.offset = value.translation.width
+//                                    }
+//                                    .onEnded { value in
+//                                        if value.translation.width < -geometry.size.width / 2 {
+//                                            self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
+//                                        } else if value.translation.width > geometry.size.width / 2 {
+//                                            self.currentIndex = max(self.currentIndex - 1, 0)
+//                                        }
+//                                        withAnimation {
+//                                            self.offset = 0
+//                                        }
+//                                    }
+//                            )
+                    }
+                }
+            }
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        .onAppear {
+            currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
+            lastViewedEntry = entry.entry
+            loadEntryDetails()
+            loadStarredEntries()
+        }
+        .onChange(of: currentIndex) {
+            lastViewedEntry = entries[currentIndex].entry
+            loadEntryDetails()
+        }
+    }
+
+    func loadEntryDetails() {
+        guard let csvURL = Bundle.main.url(forResource: material, withExtension: "csv") else {
+            entryDetails = ("Error", "CSV file not found", "", "", "")
+            return
+        }
+
+        do {
+            let csv = try CSV<Named>(url: csvURL)
+            if let row = csv.rows.first(where: { $0["entry"] == entries[currentIndex].entry }) {
+                let entry = row["entry"] ?? "No entry"
+                let ipa = row["ipa"] ?? "No ipa"
+                let meaning = row["meaning"] ?? "No meaning"
+                let example = row["example_sentence"] ?? "No example"
+                let translated = row["translated_sentence"] ?? "No translation"
+
+                entryDetails = (entry, ipa, meaning, example, translated)
+            } else {
+                entryDetails = ("Error", "Entry not found", "", "", "")
+            }
+        } catch {
+            entryDetails = ("Error", "reading CSV file", "", "", "")
+        }
+    }
+
+    func loadStarredEntries() {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+
+            for row in csv.rows {
+                if let entry = row["entry"],
+                   let ipa = row["ipa"],
+                   let meaning = row["meaning"],
+                   let example = row["example_sentence"],
+                   let translated = row["translated_sentence"] {
+                    loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
+                }
+            }
+            starredEntries = loadedEntries
+        } catch {
+            print("Failed to read starred entries: \(error.localizedDescription)")
+        }
+    }
+}
 
 struct StarredWordView: View {
     @State private var entries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
@@ -451,106 +561,6 @@ struct StarredWordView: View {
     }
 }
 
-struct DetailView: View {
-    var material: String
-    var entry: (entry: String, status: Int)
-    var entries: [(entry: String, status: Int)]
-    @Binding var lastViewedEntry: String?
-    @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
-    @State private var currentIndex: Int = 0
-    @State private var isShowingDetails = false
-    @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
-    @State private var offset: CGFloat = 0
-
-    var body: some View {
-        VStack {
-            Spacer()
-            GeometryReader { geometry in
-                TabView(selection: $currentIndex) {
-                    ForEach(0..<entries.count, id: \.self) { index in
-                        DetailCardView(entry: entries[index], material: material, starredEntries: $starredEntries)
-                            .tag(index)
-//                            .offset(x: self.offset)
-//                            .gesture(
-//                                DragGesture()
-//                                    .onChanged { value in
-//                                        self.offset = value.translation.width
-//                                    }
-//                                    .onEnded { value in
-//                                        if value.translation.width < -geometry.size.width / 2 {
-//                                            self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
-//                                        } else if value.translation.width > geometry.size.width / 2 {
-//                                            self.currentIndex = max(self.currentIndex - 1, 0)
-//                                        }
-//                                        withAnimation {
-//                                            self.offset = 0
-//                                        }
-//                                    }
-//                            )
-                    }
-                }
-            }
-        }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .onAppear {
-            currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
-            lastViewedEntry = entry.entry
-            loadEntryDetails()
-            loadStarredEntries()
-        }
-        .onChange(of: currentIndex) {
-            lastViewedEntry = entries[currentIndex].entry
-            loadEntryDetails()
-        }
-    }
-
-    func loadEntryDetails() {
-        guard let csvURL = Bundle.main.url(forResource: material, withExtension: "csv") else {
-            entryDetails = ("Error", "CSV file not found", "", "", "")
-            return
-        }
-
-        do {
-            let csv = try CSV<Named>(url: csvURL)
-            if let row = csv.rows.first(where: { $0["entry"] == entries[currentIndex].entry }) {
-                let entry = row["entry"] ?? "No entry"
-                let ipa = row["ipa"] ?? "No ipa"
-                let meaning = row["meaning"] ?? "No meaning"
-                let example = row["example_sentence"] ?? "No example"
-                let translated = row["translated_sentence"] ?? "No translation"
-
-                entryDetails = (entry, ipa, meaning, example, translated)
-            } else {
-                entryDetails = ("Error", "Entry not found", "", "", "")
-            }
-        } catch {
-            entryDetails = ("Error", "reading CSV file", "", "", "")
-        }
-    }
-
-    func loadStarredEntries() {
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
-
-        do {
-            let csv = try CSV<Named>(url: starCSVURL)
-            var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
-
-            for row in csv.rows {
-                if let entry = row["entry"],
-                   let ipa = row["ipa"],
-                   let meaning = row["meaning"],
-                   let example = row["example_sentence"],
-                   let translated = row["translated_sentence"] {
-                    loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
-                }
-            }
-            starredEntries = loadedEntries
-        } catch {
-            print("Failed to read starred entries: \(error.localizedDescription)")
-        }
-    }
-}
 
 struct StarredDetailView: View {
     var entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)
@@ -835,9 +845,9 @@ struct SearchBar: View {
 
     var body: some View {
         HStack {
-            TextField("検索", text: $text)
+            TextField(" 検索", text: $text)
                 .padding(7)
-                .padding(.horizontal, 25)
+                .padding(.horizontal, 15)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .overlay(

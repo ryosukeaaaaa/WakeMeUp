@@ -25,7 +25,7 @@ struct StatusSectionSelectView: View {
                             }
                             .padding(10)
                             .frame(maxWidth: .infinity)
-                            .background(Color.cyan)
+                            .background(Color(red: 1.2, green: 0.8, blue: 0.1))
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }
