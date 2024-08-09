@@ -113,9 +113,12 @@ import SpriteKit
 
 struct GachaView: View {
     @ObservedObject var itemState = ItemState() // ItemStateのインスタンスを作成
+    @ObservedObject var missionState = MissionState() // MissionStateのインスタンスを作成
     
     @State private var collection = false
     @State private var gacha = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
 
     var body: some View {
         NavigationView {
@@ -130,10 +133,10 @@ struct GachaView: View {
                                 Image(systemName: "lock.shield")
                                 Text("コレクション")
                                     .font(.headline)
-                                Spacer()  // ここにSpacerを追加
+                                Spacer()
                             }
                             .padding(10)
-                            .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                            .frame(maxWidth: .infinity)
                             .background(Color.green)
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -150,10 +153,10 @@ struct GachaView: View {
                                 Image(systemName: "capsule.fill")
                                 Text("ガチャ")
                                     .font(.headline)
-                                Spacer()  // ここにSpacerを追加
+                                Spacer()
                             }
                             .padding(10)
-                            .frame(maxWidth: .infinity)  // 横幅を最大に設定
+                            .frame(maxWidth: .infinity)
                             .background(Color.green)
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -163,7 +166,8 @@ struct GachaView: View {
                         }
                     }
                 }
-                //デバイスに残っている通知チェック
+                
+                // デバイスに残っている通知チェック
                 Button(action: {
                     listAllPendingNotifications()
                 }) {
@@ -178,7 +182,6 @@ struct GachaView: View {
                 }
                 .padding()
                 
-                
                 Spacer()
                 
                 AdMobView()
@@ -189,6 +192,31 @@ struct GachaView: View {
             .onAppear {
                 collection = false
                 gacha = false
+                
+                // コインの計算ロジック
+                let totalCount = missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount
+                let normalCoinIncrement = totalCount / 50
+                let specialCoinIncrement = totalCount / 250
+                
+                var coinMessage = ""
+
+                if normalCoinIncrement > 0 {
+                    itemState.NormalCoin += normalCoinIncrement
+                    coinMessage += "ノーマルコインを \(normalCoinIncrement) 枚入手しました。\n"
+                }
+                
+                if specialCoinIncrement > 0 {
+                    itemState.SpecialCoin += specialCoinIncrement
+                    coinMessage += "スペシャルコインを \(specialCoinIncrement) 枚入手しました。"
+                }
+                
+                if !coinMessage.isEmpty {
+                    alertMessage = coinMessage
+                    showAlert = true
+                }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("コインを入手しました"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
         }
     }

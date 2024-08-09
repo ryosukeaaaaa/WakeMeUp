@@ -79,6 +79,8 @@ struct AlarmListView: View {
             
             AdMobView()
                 .frame(width: 450, height: 90)
+            Spacer()
+            Spacer()
         }
     }
 

@@ -71,7 +71,7 @@ struct Gacha: View {
                             HStack {
                                 Text("Normal")
                                 Spacer()
-                                Text("64 %")
+                                Text("60 %")
                             }
                             .padding(.vertical, 3)
                             .padding(.horizontal)
@@ -87,7 +87,15 @@ struct Gacha: View {
                             HStack {
                                 Text("SuperRare")
                                 Spacer()
-                                Text("7 %")
+                                Text("9 %")
+                            }
+                            .padding(.vertical, 3)
+                            .padding(.horizontal)
+                            
+                            HStack {
+                                Text("UltraRare")
+                                Spacer()
+                                Text("2 %")
                             }
                             .padding(.vertical, 3)
                             .padding(.horizontal)

@@ -17,127 +17,129 @@ struct StatusView: View {
     @State private var sectionCount: Int = 0
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 10) {
-                Spacer()
-                Button(action: {
-                    selectedMaterial = "基礎英単語"
-                    sectionCount = 15 // セクション数を設定
-                    isSectionSelectPresented = true
-                }) {
-                    HStack {
-                        Image(systemName: "person.fill")
-                        Text("基礎英単語")
-                            .font(.headline)
-                        Spacer()
+        NavigationView {
+            NavigationStack {
+                VStack(spacing: 10) {
+                    Spacer()
+                    Button(action: {
+                        selectedMaterial = "基礎英単語"
+                        sectionCount = 15 // セクション数を設定
+                        isSectionSelectPresented = true
+                    }) {
+                        HStack {
+                            Image(systemName: "person.fill")
+                            Text("基礎英単語")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                
-                Button(action: {
-                    selectedMaterial = "TOEIC英単語"
-                    sectionCount = 7 // セクション数を設定
-                    isSectionSelectPresented = true
-                }) {
-                    HStack {
-                        Image(systemName: "person.fill")
-                        Text("TOEIC英単語")
-                            .font(.headline)
-                        Spacer()
+                    
+                    Button(action: {
+                        selectedMaterial = "TOEIC英単語"
+                        sectionCount = 7 // セクション数を設定
+                        isSectionSelectPresented = true
+                    }) {
+                        HStack {
+                            Image(systemName: "person.fill")
+                            Text("TOEIC英単語")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                
-                Button(action: {
-                    selectedMaterial = "ビジネス英単語"
-                    sectionCount = 9 // セクション数を設定
-                    isSectionSelectPresented = true
-                }) {
-                    HStack {
-                        Image(systemName: "person.fill")
-                        Text("ビジネス英単語")
-                            .font(.headline)
-                        Spacer()
+                    
+                    Button(action: {
+                        selectedMaterial = "ビジネス英単語"
+                        sectionCount = 9 // セクション数を設定
+                        isSectionSelectPresented = true
+                    }) {
+                        HStack {
+                            Image(systemName: "person.fill")
+                            Text("ビジネス英単語")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                
-                Button(action: {
-                    selectedMaterial = "学術英単語"
-                    sectionCount = 5 // セクション数を設定
-                    isSectionSelectPresented = true
-                }) {
-                    HStack {
-                        Image(systemName: "person.fill")
-                        Text("学術英単語")
-                            .font(.headline)
-                        Spacer()
+                    
+                    Button(action: {
+                        selectedMaterial = "学術英単語"
+                        sectionCount = 5 // セクション数を設定
+                        isSectionSelectPresented = true
+                    }) {
+                        HStack {
+                            Image(systemName: "person.fill")
+                            Text("学術英単語")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-
-                // star.csvから読み込んだWordViewを表示するボタン
-                NavigationLink(destination: StarredWordView()) {
-                    HStack {
-                        Image(systemName: "star.fill")
-                        Text("後で復習")
-                            .font(.headline)
-                        Spacer()
+                    
+                    // star.csvから読み込んだWordViewを表示するボタン
+                    NavigationLink(destination: StarredWordView()) {
+                        HStack {
+                            Image(systemName: "star.fill")
+                            Text("後で復習")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color(red: 1.2, green: 0.8, blue: 0.1))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color(red: 1.2, green: 0.8, blue: 0.1))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-
-                VStack(spacing: 1) {
-                    Chart {
-                        ForEach(progressData) { data in
-                            BarMark(
-                                x: .value("Category", data.category),
-                                y: .value("Value", data.value)
-                            )
-                            .foregroundStyle(data.value < 60 ? Color(red: 0.1, green: 0.5, blue: 1.0) : (data.value < 80 ? Color.yellow : Color.green))
-                            .annotation(position: .top) {
-                                Text("\(Int(data.value))%")
-                                    .font(.caption)
-                                    .foregroundColor(.black)
-                                    .offset(y: -5)
+                    
+                    VStack(spacing: 1) {
+                        Chart {
+                            ForEach(progressData) { data in
+                                BarMark(
+                                    x: .value("Category", data.category),
+                                    y: .value("Value", data.value)
+                                )
+                                .foregroundStyle(data.value < 60 ? Color(red: 0.1, green: 0.5, blue: 1.0) : (data.value < 80 ? Color.yellow : Color.green))
+                                .annotation(position: .top) {
+                                    Text("\(Int(data.value))%")
+                                        .font(.caption)
+                                        .foregroundColor(.black)
+                                        .offset(y: -5)
+                                }
                             }
                         }
+                        .chartYScale(domain: 0...100)
+                        .frame(height: 150)
+                        .padding()
                     }
-                    .chartYScale(domain: 0...100)
-                    .frame(height: 150)
-                    .padding()
+                    
+                    Spacer()
+                    
+                    AdMobView()
+                        .frame(width: 450, height: 90)
                 }
-                
-                Spacer()
-                
-                AdMobView()
-                    .frame(width: 450, height: 90)
-            }
-            .padding()
-            .navigationTitle("学習状況")
-            .onAppear(perform: loadProgressData)
-            .navigationDestination(isPresented: $isSectionSelectPresented) {
-                StatusSectionSelectView(material: selectedMaterial, sectionCount: sectionCount, isPresented: $isSectionSelectPresented, selectedSection: $selectedSection)
+                .padding()
+                .navigationTitle("学習状況")
+                .onAppear(perform: loadProgressData)
+                .navigationDestination(isPresented: $isSectionSelectPresented) {
+                    StatusSectionSelectView(material: selectedMaterial, sectionCount: sectionCount, isPresented: $isSectionSelectPresented, selectedSection: $selectedSection)
+                }
             }
         }
     }
