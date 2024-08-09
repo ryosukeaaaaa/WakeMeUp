@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftCSV
 
 struct SettingsView: View {
     @StateObject var missionState = MissionState()
@@ -112,6 +113,7 @@ struct ResetStatusSheetView: View {
                         primaryButton: .destructive(Text("リセット")) {
                             if let material = selectedMaterial {
                                 resetStatusesToZero(material: material)
+                                dismiss()
                             }
                         },
                         secondaryButton: .cancel(Text("キャンセル"))
@@ -132,25 +134,27 @@ struct ResetStatusSheetView: View {
     private func resetStatusesToZero(material: String) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
-
+        
+        guard let csvURL_status = Bundle.main.url(forResource: material, withExtension: "csv") else {
+            print("Error: CSVファイルが見つかりません")
+            return
+        }
+        
         do {
-            // ファイルを読み込む
-            var csvString = try String(contentsOf: userCSVURL, encoding: .utf8)
+            // リソースからCSVファイルを読み込む
+            let csv = try CSV<Named>(url: csvURL_status)
+            var userCSVString = "entry,status\n"
             
-            // 行ごとに分割して処理する
-            var lines = csvString.components(separatedBy: "\n")
-            if lines.count > 1 {
-                // ヘッダー行を残して、その他の行の status を 0 に書き換える
-                for i in 1..<lines.count {
-                    let components = lines[i].components(separatedBy: ",")
-                    if components.count > 1 {
-                        lines[i] = components[0] + ",0"
-                    }
+            // リソースのCSVファイルを基に新しいCSV文字列を作成する
+            for row in csv.rows {
+                if let entry = row["entry"] {
+                    userCSVString += "\(entry),0\n"
                 }
-                // 行を結合して、新しい CSV 文字列にする
-                csvString = lines.joined(separator: "\n")
-                try csvString.write(to: userCSVURL, atomically: true, encoding: .utf8)
             }
+            
+            // 新しいCSV文字列をユーザーのディレクトリに保存する
+            try userCSVString.write(to: userCSVURL, atomically: true, encoding: .utf8)
+            
         } catch {
             print("Error resetting statuses to zero: \(error)")
         }

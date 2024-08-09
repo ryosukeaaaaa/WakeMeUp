@@ -156,7 +156,7 @@ struct StatusView: View {
             do {
                 let csv = try CSV<Named>(url: userCSVURL)
                 let total = csv.rows.count
-                let completeCount = csv.rows.filter { $0["status"] != "1" }.count
+                let completeCount = csv.rows.filter { $0["status"] != "0" }.count
                 let progressValue = (Double(completeCount) / Double(total)) * 100
 
                 data.append(ProgressData(category: category, value: progressValue))
@@ -174,12 +174,15 @@ struct StatusView: View {
 struct NormalWordView: View {
     let material: String
     let selectedSection: Int
-    @State private var entries: [(entry: String, status: Int)] = []
+    @State private var allEntries: [(entry: String, status: Int)] = [] // すべてのエントリ
+    @State private var entries: [(entry: String, status: Int)] = [] // 表示用のエントリ
     @State private var errorMessage: String?
     @State private var showSortOptions = false
     @State private var sortOrder: SortOrder = .originalOrder
     @State private var searchQuery = ""
     @State private var lastViewedEntry: String?
+    @State private var isSelecting = false
+    @State private var selectedEntries: Set<String> = []
 
     enum SortOrder {
         case originalOrder
@@ -197,23 +200,42 @@ struct NormalWordView: View {
             } else {
                 SearchBar(text: $searchQuery)
                     .padding()
-
+                
                 ScrollViewReader { proxy in
                     List {
                         ForEach(filteredEntries, id: \.entry) { entry in
-                            NavigationLink(
-                                destination: DetailView(
-                                    material: material,
-                                    entry: entry,
-                                    entries: entries,
-                                    lastViewedEntry: $lastViewedEntry
-                                )
-                            ) {
-                                HStack {
-                                    Text(entry.entry)
-                                    Spacer()
+                            if !isSelecting {
+                                NavigationLink(
+                                    destination: DetailView(
+                                        material: material,
+                                        entry: entry,
+                                        entries: entries,
+                                        lastViewedEntry: $lastViewedEntry
+                                    )
+                                ) {
+                                    HStack {
+                                        Text(entry.entry)
+                                        Spacer()
+                                    }
+                                    .background(entry.status != 0 ? Color.green.opacity(0.3) : Color.clear) // ステータスが0でなければ背景色を緑にする
                                 }
-                                .background(entry.status != 0 ? Color.green.opacity(0.3) : Color.clear) // ステータスが0でなければ背景色を緑にする
+                            } else {
+                                HStack {
+                                    Button(action: {
+                                        toggleSelection(for: entry.entry)
+                                    }) {
+                                        Image(systemName: selectedEntries.contains(entry.entry) ? "checkmark.circle.fill" : "circle")
+                                            .foregroundColor(selectedEntries.contains(entry.entry) ? .blue : .gray)
+                                    }
+                                    Text(entry.entry)
+                                        .background(entry.status != 0 ? Color.green.opacity(0.3) : Color.clear)
+                                }
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    if isSelecting {
+                                        toggleSelection(for: entry.entry)
+                                    }
+                                }
                             }
                         }
                     }
@@ -236,7 +258,7 @@ struct NormalWordView: View {
                 VStack {
                     Text(material)
                         .font(.headline)
-                    Text("全\(String(entries.count))単語")
+                    Text("全\(String(allEntries.count))単語")
                         .font(.subheadline)
                 }
             }
@@ -246,6 +268,43 @@ struct NormalWordView: View {
                 }) {
                     Image(systemName: "arrow.up.arrow.down")
                 }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                HStack {
+                    if isSelecting {
+                        Button(action: {
+                            updateSelectedEntries(status: 0)
+                        }) {
+                            Text("未習得に")
+                                .frame(maxWidth: .infinity) // ボタンの幅を均等にする
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        isSelecting.toggle()
+                        if !isSelecting {
+                            selectedEntries.removeAll()
+                        }
+                    }) {
+                        Text(isSelecting ? "キャンセル" : "選択")
+                            .foregroundColor(isSelecting ? .red : .blue)
+                            .frame(maxWidth: .infinity) // ボタンの幅を均等にする
+                    }
+                    
+                    Spacer()
+                    
+                    if isSelecting {
+                        Button(action: {
+                            updateSelectedEntries(status: 1)
+                        }) {
+                            Text("習得に")
+                                .frame(maxWidth: .infinity) // ボタンの幅を均等にする
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity) // HStack全体を広げる
             }
         }
         .actionSheet(isPresented: $showSortOptions) {
@@ -272,14 +331,14 @@ struct NormalWordView: View {
     }
 
     var filteredEntries: [(entry: String, status: Int)] {
+        let displayedEntries = allEntries.prefix(200)  // 200件まで表示
         if searchQuery.isEmpty {
-            return entries
+            return Array(displayedEntries)
         } else {
-            return entries.filter { $0.entry.lowercased().contains(searchQuery.lowercased()) }
+            return displayedEntries.filter { $0.entry.lowercased().contains(searchQuery.lowercased()) }
         }
     }
-    
-    //　ステータスファイルがなければ作る
+
     private func createUserCSVIfNeeded2(material: String) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
@@ -315,15 +374,13 @@ struct NormalWordView: View {
             let csv = try CSV<Named>(url: userCSVURL)
             var loadedEntries: [(entry: String, status: Int)] = []
 
-            let start = selectedSection == 0 ? 0 : 200 * (selectedSection - 1)
-            let end = selectedSection == 0 ? csv.rows.count : min(200 * selectedSection, csv.rows.count)
-
-            for row in csv.rows[start..<end] {
+            for row in csv.rows {
                 if let entry = row["entry"], let statusString = row["status"], let status = Int(statusString) {
                     loadedEntries.append((entry: entry, status: status))
                 }
             }
-            entries = loadedEntries
+            allEntries = loadedEntries
+            entries = Array(allEntries.prefix(200))  // 最初の200件を表示
             if sortOrder != .originalOrder {
                 sortEntries()
             }
@@ -335,16 +392,55 @@ struct NormalWordView: View {
     private func sortEntries() {
         switch sortOrder {
         case .statusDescending:
-            entries.sort(by: { $0.status > $1.status })
+            allEntries.sort(by: { $0.status > $1.status })
         case .statusAscending:
-            entries.sort(by: { $0.status < $1.status })
+            allEntries.sort(by: { $0.status < $1.status })
         case .alphabetical:
-            entries.sort(by: { $0.entry < $1.entry })
+            allEntries.sort(by: { $0.entry < $1.entry })
         default:
             break
         }
+        entries = Array(allEntries.prefix(200))  // ソート後に再度200件を表示
+    }
+
+    private func toggleSelection(for entry: String) {
+        if selectedEntries.contains(entry) {
+            selectedEntries.remove(entry)
+        } else {
+            selectedEntries.insert(entry)
+        }
+    }
+
+    private func updateSelectedEntries(status: Int) {
+        for entry in selectedEntries {
+            if let index = allEntries.firstIndex(where: { $0.entry == entry }) {
+                allEntries[index].status = status
+            }
+        }
+        saveEntries()
+        selectedEntries.removeAll()
+        isSelecting = false
+    }
+
+    private func saveEntries() {
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        let userCSVURL = documentDirectory.appendingPathComponent("\(material)_status.csv")
+        
+        var csvString = "entry,status\n"
+        for entry in allEntries {
+            csvString += "\(entry.entry),\(entry.status)\n"
+        }
+        
+        do {
+            try csvString.write(to: userCSVURL, atomically: true, encoding: .utf8)
+        } catch {
+            print("Error saving CSV: \(error)")
+        }
     }
 }
+
 
 // entriesで単語列を渡してるからソートが保持される。entriesをインデックスとして単語をcsvファイルから引っ張ってきてる。
 struct DetailView: View {
@@ -355,7 +451,6 @@ struct DetailView: View {
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
     @State private var currentIndex: Int = 0
     @State private var isShowingDetails = false
-    @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
     @State private var offset: CGFloat = 0
 
     var body: some View {
@@ -364,7 +459,7 @@ struct DetailView: View {
             GeometryReader { geometry in
                 TabView(selection: $currentIndex) {
                     ForEach(0..<entries.count, id: \.self) { index in
-                        DetailCardView(entry: entries[index], material: material, starredEntries: $starredEntries)
+                        DetailCardView(entry: entries[index], material: material)
                             .tag(index)
 //                            .offset(x: self.offset)
 //                            .gesture(
@@ -391,59 +486,9 @@ struct DetailView: View {
         .onAppear {
             currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
             lastViewedEntry = entry.entry
-            loadEntryDetails()
-            loadStarredEntries()
         }
         .onChange(of: currentIndex) {
             lastViewedEntry = entries[currentIndex].entry
-            loadEntryDetails()
-        }
-    }
-
-    func loadEntryDetails() {
-        guard let csvURL = Bundle.main.url(forResource: material, withExtension: "csv") else {
-            entryDetails = ("Error", "CSV file not found", "", "", "")
-            return
-        }
-
-        do {
-            let csv = try CSV<Named>(url: csvURL)
-            if let row = csv.rows.first(where: { $0["entry"] == entries[currentIndex].entry }) {
-                let entry = row["entry"] ?? "No entry"
-                let ipa = row["ipa"] ?? "No ipa"
-                let meaning = row["meaning"] ?? "No meaning"
-                let example = row["example_sentence"] ?? "No example"
-                let translated = row["translated_sentence"] ?? "No translation"
-
-                entryDetails = (entry, ipa, meaning, example, translated)
-            } else {
-                entryDetails = ("Error", "Entry not found", "", "", "")
-            }
-        } catch {
-            entryDetails = ("Error", "reading CSV file", "", "", "")
-        }
-    }
-
-    func loadStarredEntries() {
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
-
-        do {
-            let csv = try CSV<Named>(url: starCSVURL)
-            var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
-
-            for row in csv.rows {
-                if let entry = row["entry"],
-                   let ipa = row["ipa"],
-                   let meaning = row["meaning"],
-                   let example = row["example_sentence"],
-                   let translated = row["translated_sentence"] {
-                    loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
-                }
-            }
-            starredEntries = loadedEntries
-        } catch {
-            print("Failed to read starred entries: \(error.localizedDescription)")
         }
     }
 }
@@ -727,8 +772,9 @@ struct DetailCardView: View {
     var entry: (entry: String, status: Int)
     var material: String
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
-    @Binding var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)]
     @StateObject private var speechRecognizer = SpeechRecognizer()
+    
+    @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
 
     var body: some View {
         VStack {
@@ -756,20 +802,6 @@ struct DetailCardView: View {
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
                     .padding()
-                
-                if starredEntries.contains(where: { $0.entry == entryDetails.entry }) {
-                    Text("追加済み")
-                        .foregroundColor(.gray)
-                        .padding(.top, 10)
-                } else {
-                    Button(action: {
-                        starredEntries.append(entryDetails)
-                        saveStarredEntry(entryDetails)
-                    }) {
-                        Text("後で復習")
-                    }
-                    .padding(.top, 10)
-                }
             }
             .padding()
             .frame(
@@ -787,10 +819,32 @@ struct DetailCardView: View {
                 Text("発音再生")
             }
             .padding()
+            
+            Spacer()
         }
         .onAppear {
             loadEntryDetails()
-//            speakText(entryDetails.entry)
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing){
+                if starredEntries.contains(where: { $0.0 == entryDetails.entry}) {
+                    Button(action: {
+                        removeStarredEntry(entryDetails)
+                        loadStarredEntries()
+                    }) {
+                        Text("追加済み")
+                            .foregroundColor(.gray)
+                    }
+                } else {
+                    Button(action: {
+                        saveStarredEntry(entryDetails)
+                        loadStarredEntries()
+                    }) {
+                        Text("後で復習")
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
         }
     }
 
@@ -818,18 +872,23 @@ struct DetailCardView: View {
         }
     }
 
+    private func speakText(_ text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        speechRecognizer.speechSynthesizer.speak(utterance)
+    }
+    
     private func saveStarredEntry(_ entry: (String, String, String, String, String)) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
         
         var starCSVString = ""
         
-        // ファイルが存在しない場合はヘッダー行を追加
         if !FileManager.default.fileExists(atPath: starCSVURL.path) {
             starCSVString += "entry,ipa,meaning,example_sentence,translated_sentence\n"
         }
         
-        // エントリーをCSV形式に変換して追加
         starCSVString += "\(entry.0),\(entry.1),\(entry.2),\(entry.3),\(entry.4)\n"
         
         do {
@@ -846,12 +905,52 @@ struct DetailCardView: View {
             print("Error saving starred entry: \(error)")
         }
     }
+    
+    private func removeStarredEntry(_ entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
 
-    private func speakText(_ text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-        speechRecognizer.speechSynthesizer.speak(utterance)
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            let filteredRows = csv.rows.filter { $0["entry"] != entry.entry }
+
+            var updatedCSVString = "entry,ipa,meaning,example_sentence,translated_sentence\n"
+            for row in filteredRows {
+                let entry = row["entry"] ?? ""
+                let ipa = row["ipa"] ?? ""
+                let meaning = row["meaning"] ?? ""
+                let example = row["example_sentence"] ?? ""
+                let translated = row["translated_sentence"] ?? ""
+                updatedCSVString += "\(entry),\(ipa),\(meaning),\(example),\(translated)\n"
+            }
+
+            try updatedCSVString.write(to: starCSVURL, atomically: true, encoding: .utf8)
+        } catch {
+            print("Error removing starred entry: \(error)")
+        }
+    }
+    
+    func loadStarredEntries() {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+
+            for row in csv.rows {
+                if let entry = row["entry"],
+                   let ipa = row["ipa"],
+                   let meaning = row["meaning"],
+                   let example = row["example_sentence"],
+                   let translated = row["translated_sentence"] {
+                    loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
+                }
+            }
+            starredEntries = loadedEntries
+        } catch {
+            print("Failed to read starred entries: \(error.localizedDescription)")
+        }
     }
 }
 
