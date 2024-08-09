@@ -22,13 +22,21 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(section, forKey: "section")
         }
     }
-    @Published var PastWords: [[String: String]] {
+    
+    @Published var PastWords: [[[String: String]]] {
         didSet {
+            // FIFO方式で10回分を保持
+            if PastWords.count > 10 {
+                PastWords.removeFirst(PastWords.count - 10)
+            }
+
+            // データをUserDefaultsに保存
             if let data = try? JSONEncoder().encode(PastWords) {
                 UserDefaults.standard.set(data, forKey: "PastWords")
             }
         }
     }
+    
     @Published var basicCount: Int {
         didSet {
             UserDefaults.standard.set(basicCount, forKey: "basicCount")
@@ -76,12 +84,14 @@ class MissionState: ObservableObject {
         self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC英単語"
         self.section = UserDefaults.standard.integer(forKey: "section")
         
+        // 初期化時にUserDefaultsからデータを読み込む
         if let data = UserDefaults.standard.data(forKey: "PastWords"),
-           let decoded = try? JSONDecoder().decode([[String: String]].self, from: data) {
+           let decoded = try? JSONDecoder().decode([[[String: String]]].self, from: data) {
             self.PastWords = decoded
         } else {
-            self.PastWords = []
+            self.PastWords = Array(repeating: [], count: 10) // 10回分の空の配列を用意
         }
+        
         self.basicCount = UserDefaults.standard.integer(forKey: "basicCount")
         self.toeicCount = UserDefaults.standard.integer(forKey: "toeicCount")
         self.businessCount = UserDefaults.standard.integer(forKey: "businessCount")

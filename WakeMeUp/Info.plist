@@ -9,7 +9,7 @@
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3940256099942544~1458002511</string>
 	<key>NSUserNotificationsUsageDescription</key>
-	<string>アラーム動作のために許可が必要です。余計な通知は行いません。</string>
+	<string>アラーム動作のために許可が必要です。</string>
 	<key>SKAdNetworkIdentifier</key>
 	<string>ca-app-pub-3940256099942544/2934735716</string>
 	<key>UILaunchScreen</key>

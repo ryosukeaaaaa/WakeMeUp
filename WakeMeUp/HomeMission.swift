@@ -198,23 +198,36 @@ struct LastMission: View {
 
     var body: some View {
         VStack {
-            Text("前回の単語")
+            Text("過去の出題単語")
                 .font(.title)
+                .fontWeight(.semibold)
+                .italic()
                 .padding(.top)
             ScrollView {
-                ForEach(missionState.PastWords, id: \.self) { word in
-                    HStack {
-                        Text(" \(word["entry"] ?? "N/A")")
-                        Spacer()
-                        Text(" \(word["meaning"] ?? "N/A")")
+                ForEach(Array(missionState.PastWords.reversed().enumerated()), id: \.offset) { index, words in
+                    if !words.isEmpty {
+                        VStack(alignment: .leading) {
+                            Text("\(index + 1)回前")
+                                .font(.headline)
+                                .padding(.bottom, 5)
+                            ForEach(words, id: \.self) { word in
+                                HStack {
+                                    Text(" \(word["entry"] ?? "N/A")")
+                                    Spacer()
+                                    Text(" \(word["meaning"] ?? "N/A")")
+                                }
+                                .padding()
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(10)
+                            }
+                        }
+                        .padding(.bottom, 15)
                     }
-                    .padding()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(10)
                 }
             }
             .padding()
         }
     }
 }
+
 

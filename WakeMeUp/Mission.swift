@@ -43,6 +43,8 @@ struct Pre_Mission: View {
     var selectedSection: Int  = MissionState().section // 追加
     
     @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+    
+    @State private var NowWords: [[String: String]] = []
 
     var body: some View {
         NavigationView {
@@ -287,7 +289,7 @@ struct Pre_Mission: View {
                 if reset{
                     missionState.shouldLoadInitialEntry = true
                     reset = false
-                    missionState.PastWords = []
+//                    missionState.PastWords = []
                 }
                 if missionState.shouldLoadInitialEntry {
                     loadNextEntry()
@@ -328,6 +330,7 @@ struct Pre_Mission: View {
                 MissionClear(missionState: missionState, alarmStore: alarmStore)
                     .navigationBarBackButtonHidden(true)
                     .onAppear {
+                        missionState.PastWords.append(NowWords)
                         navigateToHome = false
                         missionState.missionCount = 0
                         missionState.clear_mission = false
@@ -425,7 +428,7 @@ struct Pre_Mission: View {
         userInput = ""
         isTypingVisible = false
         
-        missionState.PastWords.append(["entry": missionState.randomEntry.0, "meaning": missionState.randomEntry.2])
+        NowWords.append(["entry": missionState.randomEntry.0, "meaning": missionState.randomEntry.2])
     }
 
     private func checkUserInput() {
