@@ -41,10 +41,13 @@ struct Pre_Mission: View {
     @State private var audioPlayer: AVAudioPlayer?
     
     var selectedSection: Int  = MissionState().section // 追加
+    
+    @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
 
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
                 Spacer()
                 GeometryReader { geometry in
                     VStack {
@@ -273,6 +276,8 @@ struct Pre_Mission: View {
                 if !fromHome {
                     startIdleTimer()
                 }
+                
+                loadStarredEntries() // スター単語かどうか調べる
             }
             .onDisappear {
                 if !fromHome{
@@ -308,6 +313,25 @@ struct Pre_Mission: View {
             }
         }
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading){
+                if starredEntries.contains(where: { $0.0 == missionState.randomEntry.0 }) {
+                    Button(action: {
+                        removeStarredEntry(missionState.randomEntry)
+                        loadStarredEntries()
+                    }) {
+                        Text("追加済み")
+                            .foregroundColor(.gray)
+                    }
+                } else {
+                    Button(action: {
+                        saveStarredEntry(missionState.randomEntry)
+                        loadStarredEntries()
+                    }) {
+                        Text("後で復習")
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 if self.fromHome {
                     Text("\(missionState.missionCount+1) 問目")
@@ -360,24 +384,6 @@ struct Pre_Mission: View {
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding()
-            
-            if missionState.starredEntries.contains(where: { $0.0 == missionState.randomEntry.0 }) {
-                Button(action: {
-                    removeStarredEntry(missionState.randomEntry)
-                }) {
-                    Text("追加済み")
-                        .foregroundColor(.gray)
-                        .padding(.top, 10)
-                }
-            } else {
-                Button(action: {
-                    missionState.starredEntries.append(missionState.randomEntry)
-                    saveStarredEntry(missionState.randomEntry)
-                }) {
-                    Text("後で復習")
-                }
-                .padding(.top, 10)
-            }
         }
         .padding()
         .frame(
@@ -705,6 +711,29 @@ struct Pre_Mission: View {
             audioPlayer?.play()
         } catch let error {
             print("Failed to play sound: \(error.localizedDescription)")
+        }
+    }
+    
+    func loadStarredEntries() {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
+
+        do {
+            let csv = try CSV<Named>(url: starCSVURL)
+            var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+
+            for row in csv.rows {
+                if let entry = row["entry"],
+                   let ipa = row["ipa"],
+                   let meaning = row["meaning"],
+                   let example = row["example_sentence"],
+                   let translated = row["translated_sentence"] {
+                    loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
+                }
+            }
+            starredEntries = loadedEntries
+        } catch {
+            print("Failed to read starred entries: \(error.localizedDescription)")
         }
     }
 }

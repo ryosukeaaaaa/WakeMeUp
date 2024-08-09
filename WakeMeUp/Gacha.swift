@@ -12,6 +12,7 @@ struct Gacha: View {
         NavigationView {
             VStack(spacing: 10) {
                 NavigationStack {
+                    Spacer()
                     VStack{
                         Button(action: {
                             normal = true
@@ -21,6 +22,7 @@ struct Gacha: View {
                                 Text("ノーマルガチャ")
                                     .font(.headline)
                                 Spacer()  // ここにSpacerを追加
+                                Text("所持コイン: \(itemState.NormalCoin)")
                             }
                             .padding(10)
                             .frame(maxWidth: .infinity)  // 横幅を最大に設定
@@ -32,7 +34,6 @@ struct Gacha: View {
                             GachaGIF(itemState: itemState)
 //                                .navigationBarBackButtonHidden(true)
                         }
-                        Text("所持枚数: \(itemState.NormalCoin)")
                     }
                     VStack{
                         Button(action: {
@@ -43,6 +44,7 @@ struct Gacha: View {
                                 Text("スペシャルガチャ")
                                     .font(.headline)
                                 Spacer()  // ここにSpacerを追加
+                                Text("所持コイン: \(itemState.SpecialCoin)")
                             }
                             .padding(10)
                             .frame(maxWidth: .infinity)  // 横幅を最大に設定
@@ -54,7 +56,6 @@ struct Gacha: View {
                             GachaGIF2(itemState: itemState)
 //                                .navigationBarBackButtonHidden(true)
                         }
-                        Text("所持枚数: \(itemState.SpecialCoin)")
                     }
                     VStack {
                         VStack {
@@ -114,14 +115,18 @@ struct Gacha: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                 }
+                Spacer()
+                
+                AdMobView()
+                    .frame(width: 450, height: 200)
             }
-            .padding()
-            .navigationTitle("ガチャ")
             .onAppear {
                 normal = false
                 special = false
             }
         }
+        .padding()
+        .navigationTitle("ガチャ")
     }
 }
 

@@ -60,8 +60,7 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(correctvolume, forKey: "correctvolume")
         }
     }
-    
-    @Published var starredEntries: [(String, String, String, String, String)] = [] // スターをつけたエントリーを保持
+
     
     init() {
         let savedClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
@@ -86,27 +85,6 @@ class MissionState: ObservableObject {
         
         self.correctcircle = UserDefaults.standard.string(forKey: "correctcircle") ?? "あり"
         self.correctvolume = UserDefaults.standard.float(forKey: "correctvolume")
-    }
-    
-    func loadStarredEntries() {
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
-        
-        if FileManager.default.fileExists(atPath: starCSVURL.path) {
-            do {
-                let csv = try CSV<Named>(url: starCSVURL)
-                for row in csv.rows {
-                    let entry = row["entry"] ?? ""
-                    let ipa = row["ipa"] ?? ""
-                    let meaning = row["meaning"] ?? ""
-                    let example = row["example_sentence"] ?? ""
-                    let translated = row["translated_sentence"] ?? ""
-                    starredEntries.append((entry, ipa, meaning, example, translated))
-                }
-            } catch {
-                print("Error loading starred entries: \(error)")
-            }
-        }
     }
 }
 

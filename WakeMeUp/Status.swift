@@ -418,11 +418,13 @@ struct DetailView: View {
 
 struct StarredWordView: View {
     @State private var entries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+    @State private var selectedEntries: Set<String> = [] // Track selected entries
     @State private var errorMessage: String?
     @State private var showSortOptions = false
     @State private var sortOrder: SortOrder = .alphabetical
     @State private var searchQuery = ""
     @State private var lastViewedEntry: String?
+    @State private var isSelecting = false // Track if in selection mode
 
     enum SortOrder {
         case alphabetical
@@ -441,8 +443,25 @@ struct StarredWordView: View {
                 ScrollViewReader { proxy in
                     List {
                         ForEach(filteredEntries, id: \.entry) { entry in
-                            NavigationLink(destination: StarredDetailView(entry: entry, entries: $entries, lastViewedEntry: $lastViewedEntry)) {
-                                Text(entry.entry)
+                            HStack {
+                                if isSelecting {
+                                    // Checkbox to select/deselect entry
+                                    Button(action: {
+                                        toggleSelection(for: entry)
+                                    }) {
+                                        Image(systemName: selectedEntries.contains(entry.entry) ? "checkmark.circle.fill" : "circle")
+                                            .foregroundColor(selectedEntries.contains(entry.entry) ? .blue : .gray)
+                                    }
+                                }
+                                
+                                // Conditionally wrap with NavigationLink
+                                if !isSelecting {
+                                    NavigationLink(destination: StarredDetailView(entry: entry, entries: $entries, lastViewedEntry: $lastViewedEntry)) {
+                                        Text(entry.entry)
+                                    }
+                                } else {
+                                    Text(entry.entry)
+                                }
                             }
                         }
                         .onDelete(perform: deleteEntry)
@@ -461,19 +480,31 @@ struct StarredWordView: View {
             loadEntries()
         }
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("スター単語")
-                        .font(.headline)
-                    Text("全\(String(entries.count))単語")
-                        .font(.subheadline)
-                }
-            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     showSortOptions.toggle()
                 }) {
                     Image(systemName: "arrow.up.arrow.down")
+                }
+            }
+            ToolbarItem(placement: .bottomBar){
+                Button(action: {
+                    isSelecting.toggle()
+                    if !isSelecting {
+                        selectedEntries.removeAll()
+                    }
+                }) {
+                    Text(isSelecting ? "キャンセル" : "選択")
+                }
+            }
+            if isSelecting {
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        deleteSelectedEntries()
+                    }) {
+                        Text("全て消去")
+                            .foregroundColor(.red)
+                    }
                 }
             }
         }
@@ -559,6 +590,24 @@ struct StarredWordView: View {
             try updatedCSVString.write(to: starCSVURL, atomically: true, encoding: .utf8)
         } catch {
             print("Error removing starred entry: \(error)")
+        }
+    }
+
+    private func deleteSelectedEntries() {
+        for entry in selectedEntries {
+            if let index = entries.firstIndex(where: { $0.entry == entry }) {
+                removeStarredEntry(entries[index])
+                entries.remove(at: index)
+            }
+        }
+        selectedEntries.removeAll()
+    }
+
+    private func toggleSelection(for entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)) {
+        if selectedEntries.contains(entry.entry) {
+            selectedEntries.remove(entry.entry)
+        } else {
+            selectedEntries.insert(entry.entry)
         }
     }
 }
