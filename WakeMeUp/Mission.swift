@@ -78,7 +78,9 @@ struct Pre_Mission: View {
                                 .gesture(
                                     DragGesture()
                                         .onChanged { value in
-                                            resetIdleTimer()
+                                            if !fromHome {
+                                                resetIdleTimer()
+                                            }
                                             if missionState.clear_mission {
                                                 translation = value.translation
                                                 degree = Double(translation.width / 20)
@@ -92,7 +94,9 @@ struct Pre_Mission: View {
                                             }
                                         }
                                         .onEnded { value in
-                                            resetIdleTimer()
+                                            if !fromHome {
+                                                resetIdleTimer()
+                                            }
                                             if missionState.clear_mission {
                                                 if abs(value.translation.width) > 120 {
                                                     if value.translation.width > 0 {
@@ -141,6 +145,41 @@ struct Pre_Mission: View {
                                             labelText = ""
                                         }
                                 )
+                            VStack {
+                                // Top Spacer to push the text closer to the top edge
+                                Spacer()
+                                    .frame(height: 20) // Adjust this value to position the text closer to the top
+
+                                if missionState.clear_mission {
+                                    if labelText == "perfect" {
+                                        Text("習得！")
+                                            .font(.system(size: 60, weight: .bold))  // Increase the font size even more
+                                            .foregroundColor(Color.green)
+                                            .padding()
+                                            .background(Color.green.opacity(0.3))
+                                            .cornerRadius(10)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .stroke(Color.green, lineWidth: 2)
+                                            )
+                                    } else if labelText == "not" {
+                                        Text("未習得")
+                                            .font(.system(size: 60, weight: .bold))  // Increase the font size even more
+                                            .foregroundColor(Color.red)
+                                            .padding()
+                                            .background(Color.red.opacity(0.3))
+                                            .cornerRadius(10)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .stroke(Color.red, lineWidth: 2)
+                                            )
+                                    }
+                                }
+
+                                Spacer() // This spacer pushes the text towards the top
+                            }
+                            .padding(.top, 0) // Reduce padding to move the text closer to the top
+
                         }
                         .frame(width: geometry.size.width, height: geometry.size.height * 0.5)
                         .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25)
@@ -148,7 +187,9 @@ struct Pre_Mission: View {
                         VStack {
                             Spacer().frame(width: 1)
                             Button(action: {
-                                resetIdleTimer()
+                                if !fromHome {
+                                    resetIdleTimer()
+                                }
                                 lastSpokenText = missionState.randomEntry.0
                                 speakText(lastSpokenText)
                             }) {
@@ -170,7 +211,9 @@ struct Pre_Mission: View {
                                     .gesture(
                                         LongPressGesture(minimumDuration: 0.01)
                                             .onChanged { _ in
-                                                resetIdleTimer()
+                                                if !fromHome {
+                                                    resetIdleTimer()
+                                                }
                                                 if !isRecording {
                                                     isRecording = true
                                                     speechRecognizer.startRecording()
@@ -178,7 +221,9 @@ struct Pre_Mission: View {
                                             }
                                             .sequenced(before: DragGesture(minimumDistance: 0))
                                             .onEnded { value in
-                                                resetIdleTimer()
+                                                if !fromHome {
+                                                    resetIdleTimer()
+                                                }
                                                 switch value {
                                                 case .second(true, _):
                                                     if isRecording {
@@ -209,7 +254,9 @@ struct Pre_Mission: View {
                                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                                                 Button(action: {
                                                     isSheetPresented = false
-                                                    resetIdleTimer()
+                                                    if !fromHome {
+                                                        resetIdleTimer()
+                                                    }
                                                     checkUserInput()
                                                 }) {
                                                     Text("送信")
@@ -226,33 +273,9 @@ struct Pre_Mission: View {
                                 }
 
                             } else {
-                                if labelText == "perfect" {
-                                    Text("完璧！")
-                                        .font(.headline)
-                                        .foregroundColor(Color.green)
-                                        .padding()
-                                        .background(Color.green.opacity(0.3))
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.green, lineWidth: 2)
-                                        )
-                                } else if labelText == "not" {
-                                    Text("もう少し")
-                                        .font(.headline)
-                                        .foregroundColor(Color.red)
-                                        .padding()
-                                        .background(Color.red.opacity(0.3))
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color.red, lineWidth: 2)
-                                        )
-                                } else {
-                                    Text("単語カードを左右にスワイプして次のステップ")
-                                        .font(.headline)
-                                        .padding()
-                                }
+                                Text("単語カードを左右にスワイプして次のステップ")
+                                    .font(.headline)
+                                    .padding()
                             }
                         }
 
@@ -441,32 +464,49 @@ struct Pre_Mission: View {
             if statuses.isEmpty {
                 return ("Error", "No statuses found", "", "", "")
             } else {
-                let cumulativeProbabilities = calculateInverseProbabilities(for: statuses)
-                
                 let startIndex = selectedSection == 0 ? 0 : 200 * (selectedSection - 1)
                 let endIndex = selectedSection == 0 ? csv.rows.count - 1 : min(200 * selectedSection, csv.rows.count) - 1
 
                 let filteredRows = Array(csv.rows[startIndex...endIndex])
                 let filteredStatuses = Array(statuses[startIndex...endIndex])
-                let filteredCumulativeProbabilities = calculateInverseProbabilities(for: filteredStatuses)
 
-                if let randomRowIndex = selectIndexBasedOnCDF(cumulativeProbabilities: filteredCumulativeProbabilities) {
-                    let row = filteredRows[randomRowIndex]
+                var randomRowIndex: Int?
 
-                    if row.isEmpty {
-                        return ("No entries found", "", "", "", "")
+                if missionState.Question == "未習得のみ" {
+                    // `statuses` の中から値が `0` のインデックスを収集する
+                    let zeroStatusIndices = filteredStatuses.enumerated().compactMap { index, status in
+                        return status == 0 ? index : nil
                     }
 
-                    let entry = row["entry"] ?? "No entry"
-                    let ipa = row["ipa"] ?? "No ipa"
-                    let meaning = row["meaning"] ?? "No meaning"
-                    let example = row["example_sentence"] ?? "No example"
-                    let translated = row["translated_sentence"] ?? "No translation"
+                    // 値が `0` のものが存在しない場合
+                    if zeroStatusIndices.isEmpty {
+                        return ("Error", "No statuses with value 0 found", "", "", "")
+                    }
 
-                    return (entry, ipa, meaning, example, translated)
+                    // ランダムにインデックスを選択する
+                    randomRowIndex = zeroStatusIndices.randomElement()
                 } else {
-                    return ("Error", "Failed to select an index", "", "", "")
+                    // 値に関係なくランダムにインデックスを選択する
+                    randomRowIndex = (startIndex...endIndex).randomElement()
                 }
+
+                guard let index = randomRowIndex else {
+                    return ("全て習得済み", "", "", "", "")
+                }
+
+                let row = filteredRows[index]
+
+                if row.isEmpty {
+                    return ("No entries found", "", "", "", "")
+                }
+
+                let entry = row["entry"] ?? "No entry"
+                let ipa = row["ipa"] ?? "No ipa"
+                let meaning = row["meaning"] ?? "No meaning"
+                let example = row["example_sentence"] ?? "No example"
+                let translated = row["translated_sentence"] ?? "No translation"
+
+                return (entry, ipa, meaning, example, translated)
             }
         } catch {
             return ("Error", "reading CSV file", "", "", "")
@@ -474,8 +514,9 @@ struct Pre_Mission: View {
     }
 
     func makeStatus(for entry: String, num: Int) {
-        let status = loadStatus(for: entry)
-        let updatedStatus = status + num
+//        let status = loadStatus(for: entry)
+//        let updatedStatus = status + num
+        let updatedStatus = num //習得・未習得のみに修正
         saveStatus(for: entry, status: updatedStatus)
     }
 
@@ -488,7 +529,7 @@ struct Pre_Mission: View {
                 var userCSVString = "entry,status\n"
                 for row in csv.rows {
                     if let entry = row["entry"] {
-                        userCSVString += "\(entry),1\n"
+                        userCSVString += "\(entry),0\n"
                     }
                 }
                 try userCSVString.write(to: userCSVURL, atomically: true, encoding: .utf8)
@@ -498,22 +539,22 @@ struct Pre_Mission: View {
         }
     }
 
-    func loadStatus(for entry: String) -> Int {
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
-
-        do {
-            let csv = try CSV<Named>(url: userCSVURL)
-            if let row = csv.rows.first(where: { $0["entry"] == entry }), let statusString = row["status"], let status = Int(statusString) {
-                return status
-            } else {
-                return 0
-            }
-        } catch {
-            print("Error loading status: \(error)")
-            return 0
-        }
-    }
+//    func loadStatus(for entry: String) -> Int {
+//        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//        let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
+//
+//        do {
+//            let csv = try CSV<Named>(url: userCSVURL)
+//            if let row = csv.rows.first(where: { $0["entry"] == entry }), let statusString = row["status"], let status = Int(statusString) {
+//                return status
+//            } else {
+//                return 0
+//            }
+//        } catch {
+//            print("Error loading status: \(error)")
+//            return 0
+//        }
+//    }
 
     func saveStatus(for entry: String, status: Int) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -591,27 +632,27 @@ struct Pre_Mission: View {
             return []
         }
     }
-
-    func calculateInverseProbabilities(for statuses: [Int]) -> [Double] {
-        var inverseProbabilities: [Double] = []
-        var totalInverseProbability = 0.0
-
-        for status in statuses {
-            let inverseProbability = 1.0 / Double(status)
-            inverseProbabilities.append(inverseProbability)
-            totalInverseProbability += inverseProbability
-        }
-
-        var cumulativeProbabilities: [Double] = []
-        var cumulativeSum = 0.0
-
-        for inverseProbability in inverseProbabilities {
-            cumulativeSum += inverseProbability / totalInverseProbability
-            cumulativeProbabilities.append(cumulativeSum)
-        }
-
-        return cumulativeProbabilities
-    }
+// 習得・未習得だけにする
+//    func calculateInverseProbabilities(for statuses: [Int]) -> [Double] {
+//        var inverseProbabilities: [Double] = []
+//        var totalInverseProbability = 0.0
+//
+//        for status in statuses {
+//            let inverseProbability = 1.0 / Double(status)
+//            inverseProbabilities.append(inverseProbability)
+//            totalInverseProbability += inverseProbability
+//        }
+//
+//        var cumulativeProbabilities: [Double] = []
+//        var cumulativeSum = 0.0
+//
+//        for inverseProbability in inverseProbabilities {
+//            cumulativeSum += inverseProbability / totalInverseProbability
+//            cumulativeProbabilities.append(cumulativeSum)
+//        }
+//
+//        return cumulativeProbabilities
+//    }
 
     func selectIndexBasedOnCDF(cumulativeProbabilities: [Double]) -> Int? {
         let randomValue = Double.random(in: 0..<1)
@@ -627,17 +668,15 @@ struct Pre_Mission: View {
 
     private func startIdleTimer() {
         idleTimer?.invalidate()
-        idleTimer = Timer.scheduledTimer(withTimeInterval: 180, repeats: false) { _ in
+        idleTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { _ in
             alarmStore.testSound(sound: alarmStore.Sound)
         }
     }
 
     private func resetIdleTimer() {
         idleTimer?.invalidate()
-        if !fromHome {
-            idleTimer = Timer.scheduledTimer(withTimeInterval: 180, repeats: false) { _ in
-                alarmStore.testSound(sound: alarmStore.Sound)
-            }
+        idleTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { _ in
+            alarmStore.testSound(sound: alarmStore.Sound)
         }
         alarmStore.stopTestSound()
     }

@@ -308,7 +308,6 @@
 				34EB07032C18B94800535988 /* AlarmData.swift */,
 				341C36542C2B3035009F9594 /* AddAlarmView.swift */,
 				8272A5972C44E2F7006697E1 /* Sound.swift */,
-				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
 				821FD6A82C358F0F00F445C7 /* HomeMission.swift */,
 				82FE142A2C649F9F0023CC8B /* MissionSectionSelect.swift */,
 				827A15982C176053003B4468 /* Mission.swift */,
@@ -322,6 +321,7 @@
 				829200A82C4825A400C96C30 /* Collection.swift */,
 				829200732C46A81600C96C30 /* Gacha.swift */,
 				829200A62C4821F300C96C30 /* GachaGif.swift */,
+				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
 				82FE14282C63F0A60023CC8B /* AdMob.swift */,
 				827AE3B92C18880D00DABD95 /* TOEIC英単語.csv */,
 				827AE3B62C18880D00DABD95 /* ビジネス英単語.csv */,
@@ -808,6 +808,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WakeMeUp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "アプリが音楽ライブラリにアクセスしてアラーム音を設定するために使用します。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
@@ -816,6 +817,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -844,6 +846,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WakeMeUp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "アプリが音楽ライブラリにアクセスしてアラーム音を設定するために使用します。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
@@ -852,6 +855,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

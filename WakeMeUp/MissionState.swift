@@ -60,7 +60,11 @@ class MissionState: ObservableObject {
             UserDefaults.standard.set(correctvolume, forKey: "correctvolume")
         }
     }
-
+    @Published var Question: String {
+        didSet {
+            UserDefaults.standard.set(Question, forKey: "Question")
+        }
+    }
     
     init() {
         let savedClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
@@ -85,6 +89,8 @@ class MissionState: ObservableObject {
         
         self.correctcircle = UserDefaults.standard.string(forKey: "correctcircle") ?? "あり"
         self.correctvolume = UserDefaults.standard.float(forKey: "correctvolume")
+        
+        self.Question = UserDefaults.standard.string(forKey: "Question") ?? "未習得のみ"
     }
 }
 

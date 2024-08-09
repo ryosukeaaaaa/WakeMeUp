@@ -201,13 +201,19 @@ struct NormalWordView: View {
                 ScrollViewReader { proxy in
                     List {
                         ForEach(filteredEntries, id: \.entry) { entry in
-                            NavigationLink(destination: DetailView(material: material, entry: entry, entries: entries, lastViewedEntry: $lastViewedEntry)) {
+                            NavigationLink(
+                                destination: DetailView(
+                                    material: material,
+                                    entry: entry,
+                                    entries: entries,
+                                    lastViewedEntry: $lastViewedEntry
+                                )
+                            ) {
                                 HStack {
                                     Text(entry.entry)
                                     Spacer()
-                                    Text("\(entry.status - 1)")
-                                        .foregroundColor(.gray)
                                 }
+                                .background(entry.status != 0 ? Color.green.opacity(0.3) : Color.clear) // ステータスが0でなければ背景色を緑にする
                             }
                         }
                     }
@@ -222,6 +228,7 @@ struct NormalWordView: View {
             }
         }
         .onAppear {
+            createUserCSVIfNeeded2(material: material)
             loadEntries()
         }
         .toolbar {
@@ -269,6 +276,31 @@ struct NormalWordView: View {
             return entries
         } else {
             return entries.filter { $0.entry.lowercased().contains(searchQuery.lowercased()) }
+        }
+    }
+    
+    //　ステータスファイルがなければ作る
+    private func createUserCSVIfNeeded2(material: String) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
+        
+        if (!FileManager.default.fileExists(atPath: userCSVURL.path)) {
+            guard let csvURL_status = Bundle.main.url(forResource: material, withExtension: "csv") else {
+                print("Error: CSVファイルが見つかりません")
+                return
+            }
+            do {
+                let csv = try CSV<Named>(url: csvURL_status)
+                var userCSVString = "entry,status\n"
+                for row in csv.rows {
+                    if let entry = row["entry"] {
+                        userCSVString += "\(entry),0\n"
+                    }
+                }
+                try userCSVString.write(to: userCSVURL, atomically: true, encoding: .utf8)
+            } catch {
+                print("Error creating user.csv: \(error)")
+            }
         }
     }
 
@@ -789,7 +821,6 @@ struct DetailCardView: View {
     private func saveStarredEntry(_ entry: (String, String, String, String, String)) {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
-        print("やばいね",starCSVURL.path)
         
         var starCSVString = ""
         
@@ -866,13 +897,13 @@ struct StarredDetailCardView: View {
             Button(action: {
                 speakText(entry.entry)
             }) {
-                Text("発音再生")
+                Text("音声再生")
             }
             
             Button(action: {
                 removeAction()
             }) {
-                Text("削除")
+                Text("後で復習から削除")
                     .foregroundColor(.red)
                     .padding()
             }
