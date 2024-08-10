@@ -39,6 +39,16 @@ struct Gacha: View {
                     .cornerRadius(10)
                 }
                 
+                Button(action: {
+                    itemState.NormalCoin = 10
+                    itemState.SpecialCoin = 10
+                }) {
+                    Text("コインテスト")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
                 
                 VStack {
                     VStack {

@@ -46,6 +46,12 @@ class ItemState: ObservableObject {
         }
     }
     
+    @Published var Ticket: Int {
+        didSet {
+            UserDefaults.standard.set(Ticket, forKey: "Ticket")
+        }
+    }
+    
     @Published var ItemSources: [Item] = [
         //　全44種
         Item(name: "Dragon", rarity: .Secret),
@@ -105,13 +111,7 @@ class ItemState: ObservableObject {
         self.SpecialCoin = UserDefaults.standard.integer(forKey: "SpecialCoin")
         self.Pre_Count = UserDefaults.standard.integer(forKey: "Pre_Count")
         self.UserItems = UserDefaults.standard.stringArray(forKey: "UserItems") ?? []
-    }
-    
-    func addItem(_ item: Item) {
-        if !UserItems.contains(item.name) {
-            UserItems.append(item.name)
-            UserDefaults.standard.set(UserItems, forKey: "UserItems") // ここでも保存
-        }
+        self.Ticket = UserDefaults.standard.integer(forKey: "Ticket")
     }
 }
 
@@ -181,7 +181,7 @@ struct GachaView: View {
                         }) {
                             HStack {
                                 Image(systemName: "arrow.2.circlepath")
-                                Text("アイテム交換")
+                                Text("チケット交換")
                                     .font(.headline)
                                 Spacer()
                             }
