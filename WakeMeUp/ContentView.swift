@@ -1,18 +1,19 @@
 import SwiftUI
 import UserNotifications
+import AVFoundation
+import Speech
 
 struct ContentView: View {
     @EnvironmentObject var alarmStore: AlarmStore
-    // @State private var currentAlarmId: String?
-    // @State private var currentGroupId: String?
     @State private var debugMessage = ""
     
     @State private var isMissionViewActive = false
-    @State private var isPermissionGranted = true // 通知設定の確認
-    @State private var showAlert = false
+    @State private var isPermissionGranted = true
+    @State private var showNotificationAlert = false
+    @State private var showMicrophoneAlert = false
+    @State private var showSpeechRecognitionAlert = false
     
     @State private var navigationPath = NavigationPath()
-    
     
     @Environment(\.scenePhase) private var scenePhase
     
@@ -59,28 +60,21 @@ struct ContentView: View {
                     Text("設定")
                 }
             }
-            // .navigationTitle("Home")
             .navigationDestination(isPresented: $alarmStore.showingAlarmLanding) {
                 AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupIds, isPresented: $alarmStore.showingAlarmLanding)
                         .navigationBarBackButtonHidden(true)
             }
             .onAppear {
                 checkNotificationPermission()
-                if !isPermissionGranted {
-                    showAlert = true
-                }
-                print("aaaaa", alarmStore.showingAlarmLanding)
+                checkMicrophonePermission()
+                checkSpeechRecognitionPermission()
             }
             .onChange(of: alarmStore.showingAlarmLanding) {
-                // showingAlarmLanding の変更を監視して、必要なアクションを実行
                 print("showingAlarmLanding changed to: \(alarmStore.showingAlarmLanding)")
             }
             .onChange(of: scenePhase) {
-                //            if scenePhase == .background {
-                //                print("バックグラウンド（.background）")
-                //            }
                 if scenePhase == .active {
-                    let result = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+                    let result = alarmStore.groupIdsForAlarmsWithinTimeRange()
                     alarmStore.groupIds = result.groupIds
                     alarmStore.Sound = result.firstSound ?? "デフォルト_medium.mp3"
                     print("groupids:", alarmStore.groupIds)
@@ -91,16 +85,30 @@ struct ContentView: View {
                     }
                 }
             }
-            .alert(isPresented: $showAlert) {
+            .alert(isPresented: $showNotificationAlert) {
                 Alert(
                     title: Text("通知の許可が必要"),
                     message: Text("アラームを有効にするには通知の許可が必要です。設定から通知を許可してください。"),
                     dismissButton: .default(Text("OK"))
                 )
             }
+            .alert(isPresented: $showMicrophoneAlert) {
+                Alert(
+                    title: Text("マイクの許可が必要"),
+                    message: Text("音声認識を有効にするにはマイクの許可が必要です。設定からマイクを許可してください。"),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+            .alert(isPresented: $showSpeechRecognitionAlert) {
+                Alert(
+                    title: Text("音声認識の許可が必要"),
+                    message: Text("音声認識を有効にするには音声認識の許可が必要です。設定から音声認識を許可してください。"),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
-            let result = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+            let result = alarmStore.groupIdsForAlarmsWithinTimeRange()
             alarmStore.groupIds = result.groupIds
             alarmStore.Sound = result.firstSound ?? "デフォルト_medium.mp3"
             print("groupids:", alarmStore.groupIds)
@@ -117,6 +125,7 @@ struct ContentView: View {
             DispatchQueue.main.async {
                 self.isPermissionGranted = settings.authorizationStatus == .authorized
                 if !self.isPermissionGranted {
+                    self.showNotificationAlert = true
                     requestNotificationPermission()
                 }
             }
@@ -135,4 +144,43 @@ struct ContentView: View {
             }
         }
     }
+    
+    private func checkMicrophonePermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .audio) {
+        case .authorized:
+            print("マイクの許可が得られています")
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .audio) { granted in
+                DispatchQueue.main.async {
+                    if !granted {
+                        self.showMicrophoneAlert = true
+                    }
+                }
+            }
+        case .denied, .restricted:
+            DispatchQueue.main.async {
+                self.showMicrophoneAlert = true
+            }
+        @unknown default:
+            DispatchQueue.main.async {
+                self.showMicrophoneAlert = true
+            }
+        }
+    }
+    
+    private func checkSpeechRecognitionPermission() {
+        SFSpeechRecognizer.requestAuthorization { status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    print("音声認識の許可が得られています")
+                case .denied, .restricted, .notDetermined:
+                    self.showSpeechRecognitionAlert = true
+                @unknown default:
+                    self.showSpeechRecognitionAlert = true
+                }
+            }
+        }
+    }
 }
+
