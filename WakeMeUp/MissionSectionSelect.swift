@@ -27,7 +27,7 @@ struct SectionSelectionView: View {
                             }
                             .padding(10)
                             .frame(maxWidth: .infinity)
-                            .background(Color.cyan)
+                            .background(section == 0 ? Color.blue : Color.cyan)  // 条件付きで背景色を設定
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }

@@ -126,7 +126,9 @@ struct GachaView: View {
     @State private var gacha = false
     @State private var showAlert = false
     @State private var alertMessage = ""
-
+    
+    @State private var exchange = false
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
@@ -157,8 +159,29 @@ struct GachaView: View {
                             gacha = true
                         }) {
                             HStack {
-                                Image(systemName: "capsule.fill")
+                                Image(systemName: "die.face.5")
                                 Text("ガチャ")
+                                    .font(.headline)
+                                Spacer()
+                            }
+                            .padding(10)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.green)
+//                            .background(Color(red: 0.15, green: 0.7, blue: 0.15))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .navigationDestination(isPresented: $gacha) {
+                            Gacha(itemState: itemState)
+                        }
+                    }
+                    VStack{
+                        Button(action: {
+                            exchange = true
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.2.circlepath")
+                                Text("アイテム交換")
                                     .font(.headline)
                                 Spacer()
                             }
@@ -168,8 +191,8 @@ struct GachaView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }
-                        .navigationDestination(isPresented: $gacha) {
-                            Gacha(itemState: itemState)
+                        .navigationDestination(isPresented: $exchange) {
+                            Exchange(itemState: itemState)
                         }
                     }
                 }
@@ -199,6 +222,7 @@ struct GachaView: View {
             .onAppear {
                 collection = false
                 gacha = false
+                exchange = false
                 
                 // コインの計算ロジック
                 let totalCount = missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount

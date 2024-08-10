@@ -154,7 +154,7 @@ struct Pre_Mission: View {
 
                                 if missionState.clear_mission {
                                     if labelText == "perfect" {
-                                        Text("習得！")
+                                        Text("Complete!")
                                             .font(.system(size: 60, weight: .bold))  // Increase the font size even more
                                             .foregroundColor(Color.green)
                                             .padding()
@@ -165,7 +165,7 @@ struct Pre_Mission: View {
                                                     .stroke(Color.green, lineWidth: 2)
                                             )
                                     } else if labelText == "not" {
-                                        Text("未習得")
+                                        Text("Try again")
                                             .font(.system(size: 60, weight: .bold))  // Increase the font size even more
                                             .foregroundColor(Color.red)
                                             .padding()

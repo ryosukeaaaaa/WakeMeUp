@@ -18,6 +18,59 @@ extension Array where Element == Item {
     }
 }
 
+// GachaGIF1のインスタンス
+struct GachaGIF: View {
+    @ObservedObject var itemState: ItemState
+
+    var body: some View {
+        GachaGIFView(
+            gachaData: NSDataAsset(name: "Gacha")!.data,
+            ultraData: NSDataAsset(name: "Ultra")!.data,
+            superRareData: NSDataAsset(name: "SuperRare")!.data,
+            rareData: NSDataAsset(name: "Rare")!.data,
+            normalData: NSDataAsset(name: "Normal")?.data,
+            gachaImageName: "GachaIm",
+            gachaResultFilter: nil,
+            itemState: itemState
+        )
+    }
+}
+
+// GachaGIF2のインスタンス
+struct GachaGIF2: View {
+    @ObservedObject var itemState: ItemState
+
+    var body: some View {
+        GachaGIFView(
+            gachaData: NSDataAsset(name: "Gacha2")!.data,
+            ultraData: NSDataAsset(name: "Ultra")!.data,
+            superRareData: NSDataAsset(name: "SuperRare")!.data,
+            rareData: NSDataAsset(name: "Rare")!.data,
+            normalData: nil,
+            gachaImageName: "Gacha2Im",
+            gachaResultFilter: { $0.rarity != .Normal },
+            itemState: itemState
+        )
+    }
+}
+
+func shareOnTwitter() {
+
+    //シェアするテキストを作成
+    let text = "AppからTwitterでシェアする"
+    let hashTag = "#ハッシュタグ"
+    let completedText = text + "\n" + hashTag
+
+    //作成したテキストをエンコード
+    let encodedText = completedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+    //エンコードしたテキストをURLに繋げ、URLを開いてツイート画面を表示させる
+    if let encodedText = encodedText,
+        let url = URL(string: "https://twitter.com/intent/tweet?text=\(encodedText)") {
+        UIApplication.shared.open(url)
+    }
+}
+
 
 private extension GeometryProxy {
     var sizeWithSafeArea: CGSize {
@@ -39,6 +92,10 @@ struct GachaGIFView: View {
     @State private var timer: Timer?
     @State private var showAlert = false  // アラート表示用の状態変数
     @State private var showShareButton = false  // シェアボタン表示用の状態変数
+    @State private var showGachaButton = true  // 「ガチャを引く」ボタンと所持枚数の表示状態
+    @State private var skipAnimation = false  // 演出スキップのフラグ
+    @State private var hideNavigationBar = false  // NavigationBarを非表示にする状態変数
+    @Environment(\.presentationMode) var presentationMode  // 前のビューに戻るための環境変数
 
     let gachaData: Data
     let ultraData: Data
@@ -80,6 +137,7 @@ struct GachaGIFView: View {
                         Text(resultItem.name)
                             .font(.title)
                             .padding()
+                        Spacer()
                     }
                 } else {
                     Image(gachaImageName)
@@ -87,46 +145,85 @@ struct GachaGIFView: View {
                         .scaledToFit()
                         .frame(height: 400)
                 }
-            }
-
-            if showShareButton {
-                Button(action: {
-                    if let item = resultItem {
-                        shareOnTwitter(with: item)
+                
+                VStack{
+                    Spacer()
+                    if showShareButton {
+                        Button(action: {
+                            if let item = resultItem {
+                                shareOnTwitter(with: item)
+                            }
+                        }) {
+                            Text("Xでシェアしてもう一回")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Text("前のビューに戻る")
+                                .padding()
+                                .background(Color.gray.opacity(0.7))
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                    } else if showGachaButton {
+                        Button(action: {
+                            showAlert = true  // アラートを表示する
+                        }) {
+                            Text("ガチャを引く")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .alert(isPresented: $showAlert) {
+                            Alert(
+                                title: Text("確認"),
+                                message: Text("本当にガチャを引きますか？"),
+                                primaryButton: .default(Text("はい"), action: {
+                                    showGachaButton = false // ボタンと所持枚数を非表示にする
+                                    hideNavigationBar = true // バックボタンを非表示にする
+                                    startGacha()
+                                }),
+                                secondaryButton: .cancel(Text("いいえ"))
+                            )
+                        }
                     }
-                }) {
-                    Text("Twitterでシェア")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-            } else {
-                Button(action: {
-                    showAlert = true  // アラートを表示する
-                }) {
-                    Text("ガチャを引く")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .alert(isPresented: $showAlert) {
-                    Alert(
-                        title: Text("確認"),
-                        message: Text("本当にガチャを引きますか？"),
-                        primaryButton: .default(Text("はい"), action: {
-                            startGacha()
-                        }),
-                        secondaryButton: .cancel(Text("いいえ"))
-                    )
+                    
+//                    if showGachaButton {
+//                        Text("所持枚数: \(itemState.SpecialCoin)")
+//                            .foregroundColor(.blue)
+//                    }
+                    // 演出スキップボタンを追加
+                    if playgacha {
+                        Spacer()
+                        HStack {
+                            Button(action: {
+                                skipAnimation = true
+                                finishGacha()
+                            }) {
+                                Text("スキップ")
+                                    .padding()
+                                    .background(Color.gray.opacity(0.7))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                            .padding(.leading)
+                        }
+                    }
                 }
             }
-
-            Text("所持枚数: \(itemState.SpecialCoin)")
-                .foregroundColor(.blue)
-            Spacer()
         }
+        .toolbar{
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Text("所持コイン: \(itemState.SpecialCoin)")
+                    .foregroundColor(.blue)
+            }
+        }
+        .navigationBarBackButtonHidden(hideNavigationBar)  // バックボタンの表示/非表示を制御
     }
 
     private func createRainParticleScene(size: CGSize) -> SKScene {
@@ -144,7 +241,7 @@ struct GachaGIFView: View {
             GIFImage(data: gifData)
                 .frame(height: 400)
                 .onAppear {
-                    if currentGifData == gachaData {
+                    if currentGifData == gachaData && !skipAnimation {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                             switch resultItem?.rarity {
                             case .Ultra:
@@ -160,6 +257,8 @@ struct GachaGIFView: View {
                                 self.finishGacha()
                             }
                         }
+                    } else if skipAnimation {
+                        self.finishGacha()
                     }
                 }
         } else {
@@ -233,58 +332,5 @@ struct GachaGIFView: View {
            let url = URL(string: "https://twitter.com/intent/tweet?text=\(encodedText)") {
             UIApplication.shared.open(url)
         }
-    }
-}
-
-// GachaGIF1のインスタンス
-struct GachaGIF: View {
-    @ObservedObject var itemState: ItemState
-
-    var body: some View {
-        GachaGIFView(
-            gachaData: NSDataAsset(name: "Gacha")!.data,
-            ultraData: NSDataAsset(name: "Ultra")!.data,
-            superRareData: NSDataAsset(name: "SuperRare")!.data,
-            rareData: NSDataAsset(name: "Rare")!.data,
-            normalData: NSDataAsset(name: "Normal")?.data,
-            gachaImageName: "GachaIm",
-            gachaResultFilter: nil,
-            itemState: itemState
-        )
-    }
-}
-
-// GachaGIF2のインスタンス
-struct GachaGIF2: View {
-    @ObservedObject var itemState: ItemState
-
-    var body: some View {
-        GachaGIFView(
-            gachaData: NSDataAsset(name: "Gacha2")!.data,
-            ultraData: NSDataAsset(name: "Ultra")!.data,
-            superRareData: NSDataAsset(name: "SuperRare")!.data,
-            rareData: NSDataAsset(name: "Rare")!.data,
-            normalData: nil,
-            gachaImageName: "Gacha2Im",
-            gachaResultFilter: { $0.rarity != .Normal },
-            itemState: itemState
-        )
-    }
-}
-
-func shareOnTwitter() {
-
-    //シェアするテキストを作成
-    let text = "AppからTwitterでシェアする"
-    let hashTag = "#ハッシュタグ"
-    let completedText = text + "\n" + hashTag
-
-    //作成したテキストをエンコード
-    let encodedText = completedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-
-    //エンコードしたテキストをURLに繋げ、URLを開いてツイート画面を表示させる
-    if let encodedText = encodedText,
-        let url = URL(string: "https://twitter.com/intent/tweet?text=\(encodedText)") {
-        UIApplication.shared.open(url)
     }
 }

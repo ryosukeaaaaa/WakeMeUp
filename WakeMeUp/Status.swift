@@ -127,6 +127,7 @@ struct StatusView: View {
                         .chartYScale(domain: 0...100)
                         .frame(height: 150)
                         .padding()
+                        Text("習得率")
                     }
                     
                     Spacer()
@@ -502,6 +503,7 @@ struct StarredWordView: View {
     @State private var searchQuery = ""
     @State private var lastViewedEntry: String?
     @State private var isSelecting = false // Track if in selection mode
+    @State private var isFileEmpty = true // Track if the file is empty
 
     enum SortOrder {
         case alphabetical
@@ -513,6 +515,10 @@ struct StarredWordView: View {
                 Text(errorMessage)
                     .foregroundColor(.red)
                     .padding()
+            } else if isFileEmpty {
+                Text("追加された単語はありません")
+                    .foregroundColor(.black) // 黒文字で表示
+                    .padding()
             } else {
                 SearchBar(text: $searchQuery)
                     .padding()
@@ -522,7 +528,6 @@ struct StarredWordView: View {
                         ForEach(filteredEntries, id: \.entry) { entry in
                             HStack {
                                 if isSelecting {
-                                    // Checkbox to select/deselect entry
                                     Button(action: {
                                         toggleSelection(for: entry)
                                     }) {
@@ -531,7 +536,6 @@ struct StarredWordView: View {
                                     }
                                 }
                                 
-                                // Conditionally wrap with NavigationLink
                                 if !isSelecting {
                                     NavigationLink(destination: StarredDetailView(entry: entry, entries: $entries, lastViewedEntry: $lastViewedEntry)) {
                                         Text(entry.entry)
@@ -610,24 +614,37 @@ struct StarredWordView: View {
             return
         }
         let starCSVURL = documentDirectory.appendingPathComponent("star.csv")
-
-        do {
-            let csv = try CSV<Named>(url: starCSVURL)
-            var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
-
-            for row in csv.rows {
-                if let entry = row["entry"],
-                   let ipa = row["ipa"],
-                   let meaning = row["meaning"],
-                   let example = row["example_sentence"],
-                   let translated = row["translated_sentence"] {
-                    loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
-                }
+        
+        // ファイルが存在しない場合、空のCSVファイルを作成し、メッセージを表示
+        if !FileManager.default.fileExists(atPath: starCSVURL.path) {
+            let header = "entry,ipa,meaning,example_sentence,translated_sentence\n"
+            do {
+                try header.write(to: starCSVURL, atomically: true, encoding: .utf8)
+                isFileEmpty = true
+            } catch {
+                errorMessage = "CSVファイルの作成エラー: \(error.localizedDescription)"
+                return
             }
-            entries = loadedEntries
-            sortEntries()
-        } catch {
-            errorMessage = "CSVの読み込みエラー: \(error.localizedDescription)"
+        } else {
+            do {
+                let csv = try CSV<Named>(url: starCSVURL)
+                var loadedEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+
+                for row in csv.rows {
+                    if let entry = row["entry"],
+                       let ipa = row["ipa"],
+                       let meaning = row["meaning"],
+                       let example = row["example_sentence"],
+                       let translated = row["translated_sentence"] {
+                        loadedEntries.append((entry: entry, ipa: ipa, meaning: meaning, example: example, translated: translated))
+                    }
+                }
+                entries = loadedEntries
+                isFileEmpty = entries.isEmpty
+                sortEntries()
+            } catch {
+                errorMessage = "CSVの読み込みエラー: \(error.localizedDescription)"
+            }
         }
     }
 
@@ -644,6 +661,7 @@ struct StarredWordView: View {
             removeStarredEntry(entry)
         }
         entries.remove(atOffsets: offsets)
+        isFileEmpty = entries.isEmpty
     }
 
     private func removeStarredEntry(_ entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)) {
@@ -678,6 +696,7 @@ struct StarredWordView: View {
             }
         }
         selectedEntries.removeAll()
+        isFileEmpty = entries.isEmpty
     }
 
     private func toggleSelection(for entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)) {
@@ -688,6 +707,7 @@ struct StarredWordView: View {
         }
     }
 }
+
 
 
 struct StarredDetailView: View {

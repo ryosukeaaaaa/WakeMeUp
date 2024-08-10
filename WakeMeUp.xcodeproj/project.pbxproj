@@ -85,6 +85,7 @@
 		82FE142B2C649F9F0023CC8B /* MissionSectionSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE142A2C649F9F0023CC8B /* MissionSectionSelect.swift */; };
 		82FE142D2C64B0E90023CC8B /* no.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE142C2C64B0E80023CC8B /* no.mp3 */; };
 		82FE142F2C64B62B0023CC8B /* StatusSectionSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */; };
+		82FE14312C67544A0023CC8B /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE14302C67544A0023CC8B /* Exchange.swift */; };
 		BE27B1C6E42E24EAB0C652AD /* Pods_WakeMeUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */; };
 /* End PBXBuildFile section */
 
@@ -187,6 +188,7 @@
 		82FE142A2C649F9F0023CC8B /* MissionSectionSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionSectionSelect.swift; sourceTree = "<group>"; };
 		82FE142C2C64B0E80023CC8B /* no.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = no.mp3; path = ../../Downloads/no.mp3; sourceTree = "<group>"; };
 		82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSectionSelect.swift; sourceTree = "<group>"; };
+		82FE14302C67544A0023CC8B /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
 		8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WakeMeUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DAFDD1C15A64C9DD5046EC1 /* Pods-WakeMeUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WakeMeUp.debug.xcconfig"; path = "Target Support Files/Pods-WakeMeUp/Pods-WakeMeUp.debug.xcconfig"; sourceTree = "<group>"; };
 		9C89F8C8FCE0B7065FCB10EF /* Pods-朝単-英単語アラーム.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-朝単-英単語アラーム.release.xcconfig"; path = "Target Support Files/Pods-朝単-英単語アラーム/Pods-朝単-英単語アラーム.release.xcconfig"; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
 				8292006B2C469B2200C96C30 /* ItemState.swift */,
+				82FE14302C67544A0023CC8B /* Exchange.swift */,
 				829200A82C4825A400C96C30 /* Collection.swift */,
 				829200732C46A81600C96C30 /* Gacha.swift */,
 				829200A62C4821F300C96C30 /* GachaGif.swift */,
@@ -636,6 +639,7 @@
 				8272A5982C44E2F7006697E1 /* Sound.swift in Sources */,
 				829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */,
 				829200A72C4821F300C96C30 /* GachaGif.swift in Sources */,
+				82FE14312C67544A0023CC8B /* Exchange.swift in Sources */,
 				8232E88E2C3BF23400D1BF22 /* AlarmStore.swift in Sources */,
 				821FD6A72C34503E00F445C7 /* test.swift in Sources */,
 				82FE142F2C64B62B0023CC8B /* StatusSectionSelect.swift in Sources */,

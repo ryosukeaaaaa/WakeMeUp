@@ -18,14 +18,14 @@ struct StatusSectionSelectView: View {
                             isNormalWordViewPresented = true
                         }) {
                             HStack {
-                                Image(systemName: "flag")
+                                Image(systemName: "person.fill")
                                 Text(section == 0 ? "全範囲" : "セクション \(section)")
                                     .font(.headline)
                                 Spacer()
                             }
                             .padding(10)
                             .frame(maxWidth: .infinity)
-                            .background(Color(red: 1.2, green: 0.8, blue: 0.1))
+                            .background(section == 0 ? Color.orange : Color(red: 1.2, green: 0.8, blue: 0.1))  //条件付きで背景色を設定
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }
