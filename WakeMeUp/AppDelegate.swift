@@ -24,9 +24,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func requestNotificationAuthorization() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
-                print("通知の許可が得られました")
+                print("通知の許可が得られました。")
             } else if let error = error {
-                print("通知の許可が得られませんでした: \(error.localizedDescription)")
+                print("通知の許可が得られませんでした。: \(error.localizedDescription)")
             }
         }
     }

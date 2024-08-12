@@ -80,6 +80,12 @@ struct SettingsView: View {
                             .presentationDetents([.fraction(2/5)]) // 1/4の高さで表示
                     }
                 }
+                
+                Section(header: Text("その他")) {
+                    Link("利用規約", destination: URL(string: "https://redboar1021.github.io/terms-of-service/")!)
+                    Link("プライバシーポリシー", destination: URL(string: "https://redboar1021.github.io/privacy-policy/")!)
+                    Link("著作権とライセンス", destination: URL(string: "https://redboar1021.github.io/Copyright/")!)
+                }
             }
             .navigationTitle("設定") // ここで画面タイトルを設定
         }

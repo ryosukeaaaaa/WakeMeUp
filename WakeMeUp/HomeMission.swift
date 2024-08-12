@@ -1,4 +1,7 @@
 import SwiftUI
+import UserNotifications
+import AVFoundation
+import Speech
 
 struct HomeMission: View {
     @State private var basic = false
@@ -14,6 +17,10 @@ struct HomeMission: View {
     @State private var alarmStore = AlarmStore()
     
     @State private var selectedSection: Int = 0  // 新しい状態変数を追加
+    
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var showAlert = false
     
     var body: some View {
         NavigationView {
@@ -180,6 +187,67 @@ struct HomeMission: View {
                 toeic = false
                 business = false
                 academic = false
+                checkPermissions()
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text(alertTitle),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+        }
+    }
+    
+    private func checkPermissions() {
+        checkMicrophonePermission()
+        checkSpeechRecognitionPermission()
+    }
+    
+    private func checkMicrophonePermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .audio) {
+        case .authorized:
+            break
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .audio) { granted in
+                DispatchQueue.main.async {
+                    if !granted {
+                        alertTitle = "[重要]マイクの許可が必要"
+                        alertMessage = "音声認識を有効にするにはマイクの許可が必要です。設定からマイクを許可してください。"
+                        showAlert = true
+                    }
+                }
+            }
+        case .denied, .restricted:
+            DispatchQueue.main.async {
+                alertTitle = "[重要]マイクの許可が必要"
+                alertMessage = "音声認識を有効にするにはマイクの許可が必要です。設定からマイクを許可してください。"
+                showAlert = true
+            }
+        @unknown default:
+            DispatchQueue.main.async {
+                alertTitle = "[重要]マイクの許可が必要"
+                alertMessage = "音声認識を有効にするにはマイクの許可が必要です。設定からマイクを許可してください。"
+                showAlert = true
+            }
+        }
+    }
+
+    private func checkSpeechRecognitionPermission() {
+        SFSpeechRecognizer.requestAuthorization { status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    break
+                case .denied, .restricted, .notDetermined:
+                    alertTitle = "[重要]音声認識の許可が必要"
+                    alertMessage = "発音判定に音声認識の許可が必要です。設定から音声認識を許可してください。"
+                    showAlert = true
+                @unknown default:
+                    alertTitle = "[重要]音声認識の許可が必要"
+                    alertMessage = "発音判定に音声認識の許可が必要です。設定から音声認識を許可してください。"
+                    showAlert = true
+                }
             }
         }
     }

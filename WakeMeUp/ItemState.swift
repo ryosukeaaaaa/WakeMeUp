@@ -70,7 +70,7 @@ class ItemState: ObservableObject {
         Item(name: "Wolf", rarity: .SuperRare),
         Item(name: "Cheetah", rarity: .SuperRare),
         Item(name: "Hippo", rarity: .Rare),
-        Item(name: "Snake", rarity: .Rare),
+        Item(name: "Tapir", rarity: .Rare),
         Item(name: "Fox", rarity: .Rare),
         Item(name: "Gorilla", rarity: .Rare),
         Item(name: "Bear", rarity: .Rare),
