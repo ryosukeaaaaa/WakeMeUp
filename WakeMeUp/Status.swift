@@ -201,40 +201,43 @@ struct NormalWordView: View {
             } else {
                 SearchBar(text: $searchQuery)
                     .padding()
-                
+
                 ScrollViewReader { proxy in
                     List {
-                        ForEach(filteredEntries, id: \.entry) { entry in
-                            if !isSelecting {
-                                NavigationLink(
-                                    destination: DetailView(
-                                        material: material,
-                                        entry: entry,
-                                        entries: entries,
-                                        lastViewedEntry: $lastViewedEntry
-                                    )
-                                ) {
+                        // 習得数の表示
+                        Section(header: headerView()) {
+                            ForEach(filteredEntries, id: \.entry) { entry in
+                                if !isSelecting {
+                                    NavigationLink(
+                                        destination: DetailView(
+                                            material: material,
+                                            entry: entry,
+                                            entries: entries,
+                                            lastViewedEntry: $lastViewedEntry
+                                        )
+                                    ) {
+                                        HStack {
+                                            Text(entry.entry)
+                                            Spacer()
+                                        }
+                                        .background(entry.status != 0 ? Color.green.opacity(0.3) : Color.clear) // ステータスが0でなければ背景色を緑にする
+                                    }
+                                } else {
                                     HStack {
+                                        Button(action: {
+                                            toggleSelection(for: entry.entry)
+                                        }) {
+                                            Image(systemName: selectedEntries.contains(entry.entry) ? "checkmark.circle.fill" : "circle")
+                                                .foregroundColor(selectedEntries.contains(entry.entry) ? .blue : .gray)
+                                        }
                                         Text(entry.entry)
-                                        Spacer()
+                                            .background(entry.status != 0 ? Color.green.opacity(0.3) : Color.clear)
                                     }
-                                    .background(entry.status != 0 ? Color.green.opacity(0.3) : Color.clear) // ステータスが0でなければ背景色を緑にする
-                                }
-                            } else {
-                                HStack {
-                                    Button(action: {
-                                        toggleSelection(for: entry.entry)
-                                    }) {
-                                        Image(systemName: selectedEntries.contains(entry.entry) ? "checkmark.circle.fill" : "circle")
-                                            .foregroundColor(selectedEntries.contains(entry.entry) ? .blue : .gray)
-                                    }
-                                    Text(entry.entry)
-                                        .background(entry.status != 0 ? Color.green.opacity(0.3) : Color.clear)
-                                }
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    if isSelecting {
-                                        toggleSelection(for: entry.entry)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        if isSelecting {
+                                            toggleSelection(for: entry.entry)
+                                        }
                                     }
                                 }
                             }
@@ -332,11 +335,23 @@ struct NormalWordView: View {
     }
 
     var filteredEntries: [(entry: String, status: Int)] {
-        let displayedEntries = allEntries.prefix(200)  // 200件まで表示
         if searchQuery.isEmpty {
-            return Array(displayedEntries)
+            return entries
         } else {
-            return displayedEntries.filter { $0.entry.lowercased().contains(searchQuery.lowercased()) }
+            return entries.filter { $0.entry.lowercased().contains(searchQuery.lowercased()) }
+        }
+    }
+
+    private func headerView() -> some View {
+        // 習得数を計算
+        let learnedCount = entries.filter { $0.status == 1 }.count
+        let totalCount = entries.count
+
+        return HStack {
+            Text("習得数: \(learnedCount) / \(totalCount)")
+                .font(.subheadline)
+                .padding(.leading, 10)
+            Spacer()
         }
     }
 
@@ -381,7 +396,15 @@ struct NormalWordView: View {
                 }
             }
             allEntries = loadedEntries
-            entries = Array(allEntries.prefix(200))  // 最初の200件を表示
+
+            if selectedSection == 0 {
+                entries = allEntries
+            } else {
+                let startIndex = (selectedSection - 1) * 200
+                let endIndex = selectedSection * 200
+                entries = Array(allEntries[startIndex..<min(endIndex, allEntries.count)])
+            }
+
             if sortOrder != .originalOrder {
                 sortEntries()
             }
@@ -393,15 +416,14 @@ struct NormalWordView: View {
     private func sortEntries() {
         switch sortOrder {
         case .statusDescending:
-            allEntries.sort(by: { $0.status > $1.status })
+            entries.sort(by: { $0.status > $1.status })
         case .statusAscending:
-            allEntries.sort(by: { $0.status < $1.status })
+            entries.sort(by: { $0.status < $1.status })
         case .alphabetical:
-            allEntries.sort(by: { $0.entry < $1.entry })
+            entries.sort(by: { $0.entry < $1.entry })
         default:
             break
         }
-        entries = Array(allEntries.prefix(200))  // ソート後に再度200件を表示
     }
 
     private func toggleSelection(for entry: String) {
@@ -443,56 +465,73 @@ struct NormalWordView: View {
 }
 
 
-// entriesで単語列を渡してるからソートが保持される。entriesをインデックスとして単語をcsvファイルから引っ張ってきてる。
+import SwiftUI
+
 struct DetailView: View {
     var material: String
     var entry: (entry: String, status: Int)
     var entries: [(entry: String, status: Int)]
     @Binding var lastViewedEntry: String?
-    @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
     @State private var currentIndex: Int = 0
-    @State private var isShowingDetails = false
-    @State private var offset: CGFloat = 0
 
     var body: some View {
         VStack {
             Spacer()
+
             GeometryReader { geometry in
-                TabView(selection: $currentIndex) {
-                    ForEach(0..<entries.count, id: \.self) { index in
-                        DetailCardView(entry: entries[index], material: material)
-                            .tag(index)
-//                            .offset(x: self.offset)
-//                            .gesture(
-//                                DragGesture()
-//                                    .onChanged { value in
-//                                        self.offset = value.translation.width
-//                                    }
-//                                    .onEnded { value in
-//                                        if value.translation.width < -geometry.size.width / 2 {
-//                                            self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
-//                                        } else if value.translation.width > geometry.size.width / 2 {
-//                                            self.currentIndex = max(self.currentIndex - 1, 0)
-//                                        }
-//                                        withAnimation {
-//                                            self.offset = 0
-//                                        }
-//                                    }
-//                            )
-                    }
-                }
+                // 現在の currentIndex に対応する DetailCardView を表示
+                DetailCardView(entry: entries[currentIndex], material: material)
+                    .id(currentIndex)  // ビューの更新を強制
             }
+            .onAppear {
+                // 初回表示時のインデックス設定
+                currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
+                lastViewedEntry = entry.entry
+            }
+            
+            HStack {
+                Button(action: previousPage) {
+                    Image(systemName: "chevron.left")
+                        .font(.largeTitle)
+                        .padding()
+                        .opacity(currentIndex > 0 ? 1 : 0.5) // 最初のページではボタンを半透明にする
+                }
+                .disabled(currentIndex == 0) // 最初のページではボタンを無効化
+                
+                Spacer()
+                
+                Button(action: nextPage) {
+                    Image(systemName: "chevron.right")
+                        .font(.largeTitle)
+                        .padding()
+                        .opacity(currentIndex < entries.count - 1 ? 1 : 0.5) // 最後のページではボタンを半透明にする
+                }
+                .disabled(currentIndex == entries.count - 1) // 最後のページではボタンを無効化
+            }
+            Spacer()
+            AdMobView()
+                .frame(width: 450, height: 90)
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .onAppear {
-            currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
-            lastViewedEntry = entry.entry
+    }
+
+    // 前のページに移動する
+    private func previousPage() {
+        if currentIndex > 0 {
+            currentIndex -= 1
+            lastViewedEntry = entries[currentIndex].entry
         }
-        .onChange(of: currentIndex) {
+    }
+
+    // 次のページに移動する
+    private func nextPage() {
+        if currentIndex < entries.count - 1 {
+            currentIndex += 1
             lastViewedEntry = entries[currentIndex].entry
         }
     }
 }
+
+
 
 struct StarredWordView: View {
     @State private var entries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
@@ -715,52 +754,75 @@ struct StarredDetailView: View {
     @Binding var entries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)]
     @Binding var lastViewedEntry: String?
     @State private var currentIndex: Int = 0
-    @State private var offset: CGFloat = 0
 
     var body: some View {
         VStack {
             Spacer()
+
             GeometryReader { geometry in
-                TabView(selection: $currentIndex) {
-                    ForEach(0..<entries.count, id: \.self) { index in
-                        StarredDetailCardView(entry: entries[index], removeAction: {
-                            removeStarredEntry(entries[index])
-                            removeEntry(at: index)
-                        })
-                        .tag(index)
-//                        .offset(x: self.offset)
-//                        .gesture(
-//                            DragGesture()
-//                                .onChanged { value in
-//                                    self.offset = value.translation.width
-//                                }
-//                                .onEnded { value in
-//                                    if value.translation.width < -geometry.size.width / 2 {
-//                                        self.currentIndex = min(self.currentIndex + 1, entries.count - 1)
-//                                    } else if value.translation.width > geometry.size.width / 2 {
-//                                        self.currentIndex = max(self.currentIndex - 1, 0)
-//                                    }
-//                                    withAnimation {
-//                                        self.offset = 0
-//                                    }
-//                                }
-//                        )
-                    }
-                }
+                // 現在の currentIndex に対応する StarredDetailCardView を表示
+                StarredDetailCardView(entry: entries[currentIndex], removeAction: {
+                    removeStarredEntry(entries[currentIndex])
+                    removeEntry(at: currentIndex)
+                })
+                .id(currentIndex)  // ビューの更新を強制
             }
+            .onAppear {
+                // 初回表示時のインデックス設定
+                currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
+                lastViewedEntry = entry.entry
+            }
+            
+            HStack {
+                Button(action: previousPage) {
+                    Image(systemName: "chevron.left")
+                        .font(.largeTitle)
+                        .padding()
+                        .opacity(currentIndex > 0 ? 1 : 0.5) // 最初のページではボタンを半透明にする
+                }
+                .disabled(currentIndex == 0) // 最初のページではボタンを無効化
+                
+                Spacer()
+                
+                Button(action: nextPage) {
+                    Image(systemName: "chevron.right")
+                        .font(.largeTitle)
+                        .padding()
+                        .opacity(currentIndex < entries.count - 1 ? 1 : 0.5) // 最後のページではボタンを半透明にする
+                }
+                .disabled(currentIndex == entries.count - 1) // 最後のページではボタンを無効化
+            }
+
+            Spacer()
+            AdMobView()
+                .frame(width: 450, height: 90)
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .onAppear {
-            currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
-            lastViewedEntry = entry.entry
+    }
+
+    // 前のページに移動する
+    private func previousPage() {
+        if currentIndex > 0 {
+            currentIndex -= 1
+            lastViewedEntry = entries[currentIndex].entry
         }
-        .onChange(of: currentIndex) {
+    }
+
+    // 次のページに移動する
+    private func nextPage() {
+        if currentIndex < entries.count - 1 {
+            currentIndex += 1
             lastViewedEntry = entries[currentIndex].entry
         }
     }
 
     private func removeEntry(at index: Int) {
         entries.remove(at: index)
+        if currentIndex >= entries.count {
+            currentIndex = max(0, entries.count - 1) // エントリー削除後、インデックスを調整
+        }
+        if !entries.isEmpty {
+            lastViewedEntry = entries[currentIndex].entry
+        }
     }
 
     private func removeStarredEntry(_ entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)) {
@@ -788,13 +850,15 @@ struct StarredDetailView: View {
     }
 }
 
+
 struct DetailCardView: View {
     var entry: (entry: String, status: Int)
     var material: String
     @State private var entryDetails: (entry: String, ipa: String, meaning: String, example: String, translated: String) = ("", "", "", "", "")
-    @StateObject private var speechRecognizer = SpeechRecognizer()
+    @StateObject private var speechRecognizer = SpeechRecognizer()  // 修正済みの SpeechRecognizer のインスタンス
     
     @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
+    @State private var currentStatus: Int = 0  // 現在のstatusを保持
 
     var body: some View {
         VStack {
@@ -833,38 +897,47 @@ struct DetailCardView: View {
             .shadow(radius: 5)
             
             Spacer()
+
             Button(action: {
-                speakText(entryDetails.entry)
+                speechRecognizer.speak(text: entryDetails.entry)  // 修正: speakText(_) を speechRecognizer.speak(text:) に置き換え
             }) {
                 Text("発音再生")
             }
             .padding()
             
-            Spacer()
+            if starredEntries.contains(where: { $0.0 == entryDetails.entry }) {
+                Button(action: {
+                    removeStarredEntry(entryDetails)
+                    loadStarredEntries()
+                }) {
+                    Text("追加済み")
+                        .foregroundColor(.gray)
+                }
+                .padding()
+            } else {
+                Button(action: {
+                    saveStarredEntry(entryDetails)
+                    loadStarredEntries()
+                }) {
+                    Text("後で復習")
+                        .foregroundColor(.blue)
+                }
+                .padding()
+            }
+            
+            Button(action: {
+                toggleStatus()
+            }) {
+                Text(currentStatus == 1 ? "未習得に" : "習得に")
+                    .foregroundColor(currentStatus == 1 ? .red : .green)
+            }
+            .padding()
+            
         }
         .onAppear {
             loadEntryDetails()
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing){
-                if starredEntries.contains(where: { $0.0 == entryDetails.entry}) {
-                    Button(action: {
-                        removeStarredEntry(entryDetails)
-                        loadStarredEntries()
-                    }) {
-                        Text("追加済み")
-                            .foregroundColor(.gray)
-                    }
-                } else {
-                    Button(action: {
-                        saveStarredEntry(entryDetails)
-                        loadStarredEntries()
-                    }) {
-                        Text("後で復習")
-                            .foregroundColor(.blue)
-                    }
-                }
-            }
+            loadStatus()
+            speechRecognizer.speak(text: entry.entry)  // 修正: onAppear内でも speechRecognizer.speak(text:) を使用
         }
     }
 
@@ -892,11 +965,51 @@ struct DetailCardView: View {
         }
     }
 
-    private func speakText(_ text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-        speechRecognizer.speechSynthesizer.speak(utterance)
+    func loadStatus() {
+        // ステータスをstatus.csvから読み込む
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let statusCSVURL = documentDirectory.appendingPathComponent("\(material)_status.csv")
+
+        do {
+            let csv = try CSV<Named>(url: statusCSVURL)
+            if let row = csv.rows.first(where: { $0["entry"] == entry.entry }),
+               let statusString = row["status"],
+               let status = Int(statusString) {
+                currentStatus = status
+            }
+        } catch {
+            print("Failed to load status: \(error.localizedDescription)")
+        }
+    }
+
+    func toggleStatus() {
+        currentStatus = currentStatus == 1 ? 0 : 1
+        saveStatus()
+    }
+
+    func saveStatus() {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let statusCSVURL = documentDirectory.appendingPathComponent("\(material)_status.csv")
+
+        do {
+            let csv = try CSV<Named>(url: statusCSVURL)
+            var updatedRows = csv.rows
+
+            if let rowIndex = updatedRows.firstIndex(where: { $0["entry"] == entry.entry }) {
+                updatedRows[rowIndex]["status"] = "\(currentStatus)"
+            }
+
+            var updatedCSVString = "entry,status\n"
+            for row in updatedRows {
+                let entry = row["entry"] ?? ""
+                let status = row["status"] ?? "0"
+                updatedCSVString += "\(entry),\(status)\n"
+            }
+
+            try updatedCSVString.write(to: statusCSVURL, atomically: true, encoding: .utf8)
+        } catch {
+            print("Error saving status: \(error.localizedDescription)")
+        }
     }
     
     private func saveStarredEntry(_ entry: (String, String, String, String, String)) {
@@ -974,6 +1087,7 @@ struct DetailCardView: View {
     }
 }
 
+
 struct StarredDetailCardView: View {
     var entry: (entry: String, ipa: String, meaning: String, example: String, translated: String)
     var removeAction: () -> Void
@@ -1014,9 +1128,9 @@ struct StarredDetailCardView: View {
             
             Spacer()
             Button(action: {
-                speakText(entry.entry)
+                speechRecognizer.speak(text: entry.entry)
             }) {
-                Text("音声再生")
+                Text("発音再生")
             }
             
             Button(action: {
@@ -1029,15 +1143,8 @@ struct StarredDetailCardView: View {
             .padding()
         }
         .onAppear {
-//            speakText(entry.entry)
+            speechRecognizer.speak(text: entry.entry)
         }
-    }
-
-    private func speakText(_ text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-        speechRecognizer.speechSynthesizer.speak(utterance)
     }
 }
 

@@ -28,9 +28,23 @@ class AlarmStore: ObservableObject {
     
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
-        //self.groupId = UserDefaults.standard.string(forKey: "groupId") ?? ""
         self.Sound = UserDefaults.standard.string(forKey: "Sound") ?? ""
-        loadAlarms()
+        
+        // アプリ初回起動チェック
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+        if !isFirstLaunch {
+            // 初回起動時にデフォルトのアラームを追加
+            let defaultAlarms = [
+                AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: false, soundName: "デフォルト_medium.mp3", snoozeEnabled: false, groupId: "")
+            ]
+            self.alarms.append(contentsOf: defaultAlarms)
+            saveAlarms()
+            
+            // 初回起動済みフラグを設定
+            UserDefaults.standard.set(true, forKey: "isFirstLaunch")
+        } else {
+            loadAlarms()
+        }
     }
     
     func addAlarm(_ alarm: AlarmData, at index: Int? = nil) {

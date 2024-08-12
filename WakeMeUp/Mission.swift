@@ -275,13 +275,27 @@ struct Pre_Mission: View {
                                 }
 
                             } else {
-                                Text("単語カードを左右にスワイプして次のステップ")
-                                    .font(.headline)
-                                    .padding()
+                                HStack {
+                                    Image(systemName: "chevron.left")
+                                            .font(.largeTitle)
+                                            .padding()
+                                            .foregroundColor(.blue)
+                                    Spacer()
+                                    Text("単語カードを左右にスワイプして次のステップ")
+                                        .font(.headline)
+                                        .padding()
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                            .font(.largeTitle)
+                                            .padding()
+                                            .foregroundColor(.blue)
+                                }
                             }
                         }
 
                         Spacer()
+//                        AdMobView()
+//                            .frame(width: 450, height: 90)
                     }
                 }
             }

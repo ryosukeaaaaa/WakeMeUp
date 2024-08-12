@@ -17,7 +17,13 @@ struct AdMobView: UIViewRepresentable {
         let banner = GADBannerView(adSize: GADAdSizeBanner)
         
         banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
+//        banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
+        // 修正された部分
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootViewController = windowScene.windows.first?.rootViewController {
+            banner.rootViewController = rootViewController
+        }
+        
         banner.load(GADRequest())
         return banner
     }
