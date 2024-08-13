@@ -7,6 +7,10 @@ struct SettingsView: View {
     @State private var selectedSection = 1
     @State private var showResetSheet = false  // Sheetの表示状態を管理するための状態変数
     
+    @State private var deleteAlert = false
+    
+    @State private var alarmStore = AlarmStore()
+    
     // 各教材に対応するセクションのデータ
     let sections = [
         "基礎英単語": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
@@ -18,14 +22,14 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("出題設定")) {
+                Section(header: Text("アラーム出題設定")) {
                     // ClearCountの設定
                     Stepper(value: $missionState.ClearCount, in: 1...100) {
                         Text("出題回数: \(missionState.ClearCount)")
                     }
                     
                     // materialの設定
-                    Picker("出題教材", selection: $selectedMaterial) {
+                    Picker("アラーム出題教材", selection: $selectedMaterial) {
                         ForEach(sections.keys.sorted(), id: \.self) { material in
                             Text(material).tag(material)
                         }
@@ -38,7 +42,7 @@ struct SettingsView: View {
                     }
                     
                     // 選択された教材に対応するセクションの設定
-                    Picker("セクション", selection: $selectedSection) {
+                    Picker("教材のセクション", selection: $selectedSection) {
                         ForEach(sections[selectedMaterial] ?? [], id: \.self) { section in
                             if section == 0 {
                                 Text("全ての単語").tag(section)
@@ -79,6 +83,23 @@ struct SettingsView: View {
                         ResetStatusSheetView()
                             .presentationDetents([.fraction(2/5)]) // 1/4の高さで表示
                     }
+                    Button(action: {
+                        deleteAlert = true
+                    }) {
+                        Text("現在のアラームを全て消去")
+                            .foregroundColor(.red)
+                    }
+                    .alert(isPresented: $deleteAlert) {
+                        Alert(
+                            title: Text("確認"),
+                            message: Text("本当に現在のアラームを全て消去しますか？"),
+                            primaryButton: .default(Text("はい"), action: {
+                                removeAllPendingNotifications()
+                                alarmStore.alarms.removeAll()
+                            }),
+                            secondaryButton: .cancel(Text("いいえ"))
+                        )
+                    }
                 }
                 
                 Section(header: Text("その他")) {
@@ -89,6 +110,21 @@ struct SettingsView: View {
             }
             .navigationTitle("設定") // ここで画面タイトルを設定
         }
+    }
+    func listAllPendingNotifications() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("Identifier: \(request.identifier)")
+                print("Content: \(request.content)")
+                print("Trigger: \(String(describing: request.trigger))")
+                print("-----")
+            }
+        }
+    }
+
+    func removeAllPendingNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        print("All pending notifications have been removed.")
     }
 }
 

@@ -9,7 +9,7 @@ struct WakeMeUpApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OnboardingView()
                 .environmentObject(alarmStore)
         }
     }
