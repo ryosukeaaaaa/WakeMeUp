@@ -17,6 +17,8 @@
 		<key>UIImageName</key>
 		<string>LaunchImage</string>
 	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>com.yourdomain.repeatingAlarm</key>
 	<string></string>
 </dict>

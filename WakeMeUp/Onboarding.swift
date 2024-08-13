@@ -1,5 +1,7 @@
 import SwiftUI
 
+import SwiftUI
+
 // Onboardingのメインビュー
 struct OnboardingView: View {
     @State private var selectedPage = 1
@@ -19,7 +21,7 @@ struct OnboardingView: View {
                 FourthPageView()
                     .tag(4)
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
+            .tabViewStyle(.page(indexDisplayMode: .never))  // インジケーターを非表示に設定
             .animation(.easeInOut, value: selectedPage)
 
             Spacer()
@@ -55,31 +57,44 @@ struct OnboardingView: View {
     }
 }
 
+
 // 各ページのビューを定義
 struct FirstPageView: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("始める前に")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.blue)
+        VStack{
+            VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("始める前に")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.blue)
+                    Rectangle()
+                        .frame(height: 2)
+                        .foregroundColor(.blue)
+                }
                 .padding(.top, 20)
-
-            Text("このアプリは、通知、音声認識、マイクの許可が")
-                .font(.body)
-                .foregroundColor(.primary)
-
-            Text("必須")
-                .font(.body)
-                .foregroundColor(.red)
-                .fontWeight(.bold)
-
-            Text("です。全て許可してください。")
-                .font(.body)
-                .foregroundColor(.primary)
-
-            Spacer()
-
+                Text("このアプリは、通知、音声認識、マイクの許可が")
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+                    .fontWeight(.bold)
+                HStack() {
+                    Text("必須")
+                        .font(.title3)
+                        .foregroundColor(.red)
+                        .fontWeight(.bold)
+                    
+                    Text("です。全て許可してください。")
+                        .font(.subheadline)
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                }
+                Text("（設定からも変更できます。）")
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+                    .fontWeight(.bold)
+//                Spacer()
+            }
+            
             Image("1")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -92,31 +107,51 @@ struct FirstPageView: View {
 struct SecondPageView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("使い方")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.blue)
-                .padding(.top, 20)
-
+            VStack(alignment: .leading, spacing: 5) {
+                Text("使い方")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+                    .padding(.top, 20)
+                Rectangle()
+                    .frame(height: 2)
+                    .foregroundColor(.blue)
+            }
             Text("本アプリは、")
                 .font(.body)
                 .foregroundColor(.primary)
+                .fontWeight(.bold)
 
-            Text("・朝スムーズに起きたい人\n・英単語に毎日触れたい人")
-                .font(.body)
+            Text("「英単語を発音しないと止まらないアラーム」")
+                .font(.title3)
                 .foregroundColor(.blue)
-                .fontWeight(.medium)
+                .fontWeight(.bold)
 
-            Text("に向けた\n「英単語を発音しないと止まらないアラーム」です。")
+            Text("です。")
                 .font(.body)
                 .foregroundColor(.primary)
+                .fontWeight(.bold)
 
-            Spacer()
-
-            Image("2")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(.bottom, 20)
+            Text("アラームを止めるとき単語画面が現れます。")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
+            HStack {
+                Spacer() // 左側のスペーサー
+                Image("3-1")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                Spacer() // 右側のスペーサー
+            }
+            .padding(.bottom, 20)
+            Text("赤いボタンを長押ししながら表示単語を発音！")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
+            Text("正しく認識されると次のステップへ！")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
         }
         .padding()
     }
@@ -125,22 +160,46 @@ struct SecondPageView: View {
 struct ThirdPageView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("発音説明")
-                .font(.title)
-                .fontWeight(.bold)
+//            VStack(alignment: .leading, spacing: 5) {
+//                Text("発音説明")
+//                    .font(.title)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(.blue)
+//                    .padding(.top, 20)
+//                Rectangle()
+//                    .frame(height: 2)
+//                    .foregroundColor(.blue)
+//            }
+            Spacer()
+            Rectangle()
+                .frame(height: 2)
                 .foregroundColor(.blue)
-                .padding(.top, 20)
-
-            Text("ボタンを押しながら表示された単語を発音！\nクリアすると次のステップへ！\nその単語を習得できれば右（習得）へ、まだなら左（未習得）へスワイプ！")
+            Text("正解後、その単語を習得できていれば右、まだなら左にスワイプ！以降の出題に反映されます!")
                 .font(.body)
                 .foregroundColor(.primary)
-
-            Spacer()
-
-            Image("3")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(.bottom, 20)
+                .fontWeight(.bold)
+            HStack{
+                Image("3-2")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.bottom, 20)
+                Spacer()
+                Image("3-3")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.bottom, 20)
+            }
+            HStack{
+                Text("もちろん習得状況の確認もできます。")
+                    .font(.body)
+                    .foregroundColor(.primary)
+                    .fontWeight(.bold)
+                Spacer()
+                Image("3-4")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.bottom, 20)
+            }
         }
         .padding()
     }
@@ -149,15 +208,20 @@ struct ThirdPageView: View {
 struct FourthPageView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("注意")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.blue)
-                .padding(.top, 20)
-
+            VStack(alignment: .leading, spacing: 5) {
+                Text("注意")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+                    .padding(.top, 20)
+                Rectangle()
+                    .frame(height: 2)
+                    .foregroundColor(.blue)
+            }
             Text("おやすみモードではサウンドが流れません。\n「設定」→「おやすみモード」→「アプリ」→「追加」から本アプリを追加してください。")
                 .font(.body)
                 .foregroundColor(.primary)
+                .fontWeight(.bold)
 
             Spacer()
 
