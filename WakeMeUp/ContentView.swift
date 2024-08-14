@@ -5,41 +5,75 @@ import Speech
 
 struct ContentView: View {
     @EnvironmentObject var alarmStore: AlarmStore
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
+    // @State private var currentAlarmId: String?
+    // @State private var currentGroupId: String?
+    @State private var debugMessage = ""
+    
+    @State private var isMissionViewActive = false
+    @State private var isPermissionGranted = true // 通知設定の確認
     @State private var showAlert = false
     
+    @State private var navigationPath = NavigationPath()
+    
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
     @Environment(\.scenePhase) private var scenePhase
-
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath){
             TabView {
-                AlarmListView(alarmStore: alarmStore)
-                    .tabItem {
-                        Image(systemName: "list.bullet")
-                        Text("アラーム")
-                    }
-                HomeMission()
-                    .tabItem {
-                        Image(systemName: "flag")
-                        Text("ミッション")
-                    }
-                StatusView()
-                    .tabItem {
-                        Image(systemName: "chart.bar")
-                        Text("習得状況")
-                    }
-                GachaView()
-                    .tabItem {
-                        Image(systemName: "die.face.5")
-                        Text("ガチャ")
-                    }
-                SettingsView()
-                    .tabItem {
-                        Image(systemName: "gear")
-                        Text("設定")
-                    }
+                NavigationStack {
+                    AlarmListView(alarmStore: alarmStore)
+                }
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("アラーム")
+                }
+
+                NavigationStack {
+                    HomeMission()
+                }
+                .tabItem {
+                    Image(systemName: "flag")
+                    Text("ミッション")
+                }
+                
+                NavigationStack {
+                    StatusView()
+                }
+                .tabItem {
+                    Image(systemName: "chart.bar")
+                    Text("習得状況")
+                }
+                
+                NavigationStack {
+                    GachaView()
+                }
+                .tabItem {
+                    Image(systemName: "die.face.5")
+                    Text("ガチャ")
+                }
+                
+                NavigationStack {
+                    SettingsView()
+                }
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("設定")
+                }
             }
+            // .navigationTitle("Home")
+            .navigationDestination(isPresented: $alarmStore.showingAlarmLanding) {
+                AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupIds, isPresented: $alarmStore.showingAlarmLanding)
+                        .navigationBarBackButtonHidden(true)
+            }
+//            .onAppear {
+//                checkNotificationPermission()
+//                if !isPermissionGranted {
+//                    showAlert = true
+//                }
+//            }
             .onChange(of: scenePhase) {
                 if scenePhase == .active {
                     handleScenePhaseActive()
@@ -47,10 +81,19 @@ struct ContentView: View {
             }
             .alert(isPresented: $showAlert) {
                 Alert(
-                    title: Text(alertTitle),
-                    message: Text(alertMessage),
+                    title: Text("通知の許可が必要"),
+                    message: Text("アラームを有効にするには通知の許可が必要です。設定から通知を許可してください。"),
                     dismissButton: .default(Text("OK"))
                 )
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowAlarmLanding"))) { notification in
+            let result = alarmStore.groupIdsForAlarmsWithinTimeRange() // 範囲内に設定したアラームがあるか
+            alarmStore.groupIds = result.groupIds
+            alarmStore.Sound = result.firstSound ?? "デフォルト_medium.mp3"
+            print("groupids:", alarmStore.groupIds)
+            if !alarmStore.groupIds.isEmpty {
+                alarmStore.showingAlarmLanding = true
             }
         }
     }
@@ -58,7 +101,7 @@ struct ContentView: View {
     private func handleScenePhaseActive() {
         let result = alarmStore.groupIdsForAlarmsWithinTimeRange()
         alarmStore.groupIds = result.groupIds
-        alarmStore.Sound = result.firstSound ?? "デフォルト_medium.mp3"
+        alarmStore.Sound = result.firstSound ?? "_medデフォルトium.mp3"
         
         if !alarmStore.groupIds.isEmpty {
             alarmStore.showingAlarmLanding = true
