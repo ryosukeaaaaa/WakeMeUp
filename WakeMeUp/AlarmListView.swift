@@ -10,6 +10,8 @@ struct AlarmListView: View {
     @State private var showingAddAlarm = false
     @State private var selectedAlarm: AlarmData? = nil
     @State private var selectedIndex: IdentifiableInt? = nil
+    
+    @State private var showSilentModeAlert = false // State to manage the alert
 
     var body: some View {
         VStack {
@@ -82,6 +84,13 @@ struct AlarmListView: View {
             Spacer()
             Spacer()
         }
+        .alert(isPresented: $showSilentModeAlert) {
+            Alert(
+                title: Text("消音モードはオフになっていますか？"),
+                message: Text("消音モードがオンの場合、サウンドが鳴りません。"),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 
     // アラームの時間をフォーマットする関数
@@ -111,6 +120,7 @@ struct AlarmListView: View {
     private func handleToggleChange(_ isOn: Bool, for index: Int) {
         if isOn {
             alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, snoozeEnabled: alarmStore.alarms[index].snoozeEnabled, groupId: alarmStore.alarms[index].groupId)
+            showSilentModeAlert = true
         } else {
             alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
         }

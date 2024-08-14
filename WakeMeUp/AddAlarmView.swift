@@ -13,6 +13,8 @@ struct AddAlarmView: View {
 
     @State private var isRepeatDaysExpanded = false  // DisclosureGroupの展開状態を管理するState
     @State private var isExpanded: Bool = false
+    
+    @State private var showSilentModeAlert = false // State to manage the alert
 
     var body: some View {
         NavigationView {
@@ -63,6 +65,7 @@ struct AddAlarmView: View {
                     Button(action: {
                         alarmStore.scheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, soundName: alarmStore.settingalarm.soundName, snoozeEnabled: alarmStore.settingalarm.snoozeEnabled)
                         presentationMode.wrappedValue.dismiss()
+                        showSilentModeAlert = true
                     }) {
                         Text("保存")
                     }
@@ -77,6 +80,13 @@ struct AddAlarmView: View {
             }
             .onDisappear {
                 alarmStore.stopTestSound()
+            }
+            .alert(isPresented: $showSilentModeAlert) {
+                Alert(
+                    title: Text("消音モードはオフになっていますか？"),
+                    message: Text("消音モードがオンの場合、サウンドが鳴りません。"),
+                    dismissButton: .default(Text("OK"))
+                )
             }
         }
     }

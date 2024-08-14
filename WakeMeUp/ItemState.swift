@@ -211,8 +211,8 @@ struct GachaView: View {
                 
                 // コインの計算ロジック
                 let totalCount = missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount
-                let normalCoinIncrement = (totalCount - 50 * itemState.Pre_Count) / 50
-                let specialCoinIncrement = (totalCount - 50 * itemState.Pre_Count) / 250
+                let normalCoinIncrement = (totalCount - 25 * itemState.Pre_Count) / 25
+                let specialCoinIncrement = (totalCount - 100 * itemState.Pre_Count) / 100
                 
                 var coinMessage = ""
 
@@ -227,7 +227,7 @@ struct GachaView: View {
                 }
                 
                 if !coinMessage.isEmpty {
-                    itemState.Pre_Count = totalCount / 50
+                    itemState.Pre_Count = totalCount / 25
                     alertMessage = coinMessage
                     showAlert = true
                 }

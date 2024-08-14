@@ -15,6 +15,8 @@ struct AlarmSettingView: View {
     @State private var isRepeatDaysExpanded = false  // DisclosureGroupの展開状態を管理するState
     @State private var isExpanded: Bool = false
     
+    @State private var showSilentModeAlert = false // State to manage the alert
+    
     init(alarmStore: AlarmStore, index: Int) {
         self.index = index
         self._alarmStore = ObservedObject(initialValue: alarmStore)
@@ -69,6 +71,7 @@ struct AlarmSettingView: View {
                     Button(action: {
                         alarmStore.rescheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, isOn: true, soundName: alarmStore.settingalarm.soundName, snoozeEnabled: alarmStore.settingalarm.snoozeEnabled, groupId: alarmStore.settingalarm.groupId, at: index)
                         presentationMode.wrappedValue.dismiss()
+                        showSilentModeAlert = true
                     }) {
                         Text("保存")
                     }
@@ -93,6 +96,13 @@ struct AlarmSettingView: View {
 //            }
             .onDisappear {
                 alarmStore.stopTestSound()
+            }
+            .alert(isPresented: $showSilentModeAlert) {
+                Alert(
+                    title: Text("消音モードはオフになっていますか？"),
+                    message: Text("消音モードがオンの場合、サウンドが鳴りません。"),
+                    dismissButton: .default(Text("OK"))
+                )
             }
         }
     }

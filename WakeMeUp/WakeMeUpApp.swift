@@ -6,7 +6,6 @@ import AVFoundation
 struct WakeMeUpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var alarmStore = AlarmStore()
-
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -14,70 +13,24 @@ struct WakeMeUpApp: App {
         }
     }
 }
-import SwiftUI
-import AVFoundation
 
-class AudioPlayerManager: ObservableObject {
-    private var player: AVAudioPlayer?
-
-    @Published var isSilentMode: Bool = false
-
-    func checkSilentMode() {
-        guard let soundURL = Bundle.main.url(forResource: "alarm_sound", withExtension: "wav") else {
-            isSilentMode = false
-            return
-        }
-
-        do {
-            player = try AVAudioPlayer(contentsOf: soundURL)
-            player?.volume = 1.0
-            player?.numberOfLoops = -1
-
-            NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(notification:)), name: AVAudioSession.interruptionNotification, object: nil)
-
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-            try AVAudioSession.sharedInstance().setActive(true)
-            player?.play()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.player?.stop()
-                if self.isSilentMode == false {
-                    self.isSilentMode = true
-                }
-            }
-        } catch {
-            isSilentMode = false
-        }
-    }
-
-    @objc private func handleInterruption(notification: Notification) {
-        if let userInfo = notification.userInfo,
-           let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
-           let type = AVAudioSession.InterruptionType(rawValue: typeValue) {
-            if type == .began {
-                isSilentMode = true
-            } else {
-                isSilentMode = false
-            }
-        }
-    }
-}
-
+//本番はこっち
 
 import SwiftUI
-import AVFoundation
 
-struct ContentViewo: View {
-    let synthesizer = AVSpeechSynthesizer()
+// ContentViewにOnboardingViewを組み込む
+struct Pre_ContentView: View {
+    @AppStorage("hasSeenOnboarding") var hasSeenOnboarding: Bool = false
+    @StateObject var alarmStore = AlarmStore()
     var body: some View {
-        Button("スピーチ") {
-            speech()
+        if hasSeenOnboarding {
+            // 通常のメインビュー
+            ContentView()
+                .environmentObject(alarmStore)
+        } else {
+            // OnboardingViewを表示
+            OnboardingView()
         }
     }
-    func speech() {
-        let text = AVSpeechUtterance(string: "fault")
-        let language = AVSpeechSynthesisVoice(language: "en-US")
-        text.voice = language
-        synthesizer.speak(text)
-    }
 }
+

@@ -1,10 +1,8 @@
 import SwiftUI
 
-import SwiftUI
-
-// Onboardingのメインビュー
 struct OnboardingView: View {
     @State private var selectedPage = 1
+    @AppStorage("hasSeenOnboarding") var hasSeenOnboarding: Bool = false
 
     var body: some View {
         VStack {
@@ -21,12 +19,11 @@ struct OnboardingView: View {
                 FourthPageView()
                     .tag(4)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))  // インジケーターを非表示に設定
+            .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut, value: selectedPage)
 
             Spacer()
 
-            // ページインジケーターとナビゲーションボタン
             HStack {
                 ForEach(1...4, id: \.self) { index in
                     Circle()
@@ -42,6 +39,8 @@ struct OnboardingView: View {
             Button(action: {
                 if selectedPage < 4 {
                     selectedPage += 1
+                } else {
+                    hasSeenOnboarding = true  // 完了後にフラグを設定
                 }
             }) {
                 Text(selectedPage == 4 ? "完了" : "次へ")
@@ -56,6 +55,7 @@ struct OnboardingView: View {
         .background(Color(UIColor.systemGroupedBackground))
     }
 }
+
 
 
 // 各ページのビューを定義
@@ -218,17 +218,62 @@ struct FourthPageView: View {
                     .frame(height: 2)
                     .foregroundColor(.blue)
             }
-            Text("おやすみモードではサウンドが流れません。\n「設定」→「おやすみモード」→「アプリ」→「追加」から本アプリを追加してください。")
+            Text("おやすみモードでサウンドを流すには設定が必要です。以下の手順を行うことを強く推奨します。\n")
+                .font(.body)
+                .foregroundColor(.red)
+                .fontWeight(.bold)
+            HStack{
+                VStack{
+                    Text("「設定」>")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                    Image("4-1")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.bottom, 20)
+                }
+                VStack{
+                    Text("「集中モード」>")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                    Image("4-2")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.bottom, 20)
+                }
+            }
+            HStack{
+                VStack{
+                    Text("「おやすみモード」>")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                    Image("4-3")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.bottom, 20)
+                }
+                VStack{
+                    Text("「追加」")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                    Image("4-4")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.bottom, 20)
+                }
+            }
+            Text("より本アプリを追加してください。")
                 .font(.body)
                 .foregroundColor(.primary)
                 .fontWeight(.bold)
-
-            Spacer()
-
-            Image("4")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(.bottom, 20)
+            Text("お手数おかけしますが、よろしくお願いします。")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
         }
         .padding()
     }
