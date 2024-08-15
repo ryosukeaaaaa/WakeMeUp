@@ -8,14 +8,12 @@ struct Item: Codable, Identifiable {
 
 
 enum Rarity: String, Codable, CaseIterable, Identifiable {
-    case Secret, Ultra, SuperRare, Rare, Normal
+    case Ultra, SuperRare, Rare, Normal
     
     var id: String { self.rawValue }
     
     var probability: Double {
         switch self {
-        case .Secret:
-            return 0.005
         case .Ultra:
             return 0.005
         case .SuperRare:
@@ -53,9 +51,7 @@ class ItemState: ObservableObject {
     }
     
     @Published var ItemSources: [Item] = [
-        //　全44種
-        Item(name: "Dragon", rarity: .Secret),
-        Item(name: "Unicorn", rarity: .Secret),
+        //　全42種
         Item(name: "Tyrannosaurus", rarity: .Ultra),
         Item(name: "Triceratops", rarity: .Ultra),
         Item(name: "Spinosaurus", rarity: .Ultra),
@@ -68,7 +64,7 @@ class ItemState: ObservableObject {
         Item(name: "Crocodile", rarity: .SuperRare),
         Item(name: "Rhinoceros", rarity: .SuperRare),
         Item(name: "Wolf", rarity: .SuperRare),
-        Item(name: "Cheetah", rarity: .SuperRare),
+        Item(name: "Cheetah", rarity: .Rare),
         Item(name: "Hippo", rarity: .Rare),
         Item(name: "Tapir", rarity: .Rare),
         Item(name: "Fox", rarity: .Rare),
@@ -106,12 +102,19 @@ class ItemState: ObservableObject {
         }
     }
     
+    @Published var Xshare: Int {
+        didSet {
+            UserDefaults.standard.set(Xshare, forKey: "Xshare")
+        }
+    }
+    
     init() {
         self.NormalCoin = UserDefaults.standard.integer(forKey: "NormalCoin")
         self.SpecialCoin = UserDefaults.standard.integer(forKey: "SpecialCoin")
         self.Pre_Count = UserDefaults.standard.integer(forKey: "Pre_Count")
         self.UserItems = UserDefaults.standard.stringArray(forKey: "UserItems") ?? []
         self.Ticket = UserDefaults.standard.integer(forKey: "Ticket")
+        self.Xshare = UserDefaults.standard.integer(forKey: "Xshare")
     }
 }
 
@@ -139,7 +142,7 @@ struct GachaView: View {
                             collection = true
                         }) {
                             HStack {
-                                Image(systemName: "lock.shield")
+                                Image(systemName: "book")
                                 Text("コレクション")
                                     .font(.headline)
                                 Spacer()

@@ -56,23 +56,6 @@ struct GachaGIF2: View {
     }
 }
 
-func shareOnTwitter() {
-
-    //シェアするテキストを作成
-    let text = "AppからTwitterでシェアする"
-    let hashTag = "#ハッシュタグ"
-    let completedText = text + "\n" + hashTag
-
-    //作成したテキストをエンコード
-    let encodedText = completedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-
-    //エンコードしたテキストをURLに繋げ、URLを開いてツイート画面を表示させる
-    if let encodedText = encodedText,
-        let url = URL(string: "https://twitter.com/intent/tweet?text=\(encodedText)") {
-        UIApplication.shared.open(url)
-    }
-}
-
 
 private extension GeometryProxy {
     var sizeWithSafeArea: CGSize {
@@ -94,7 +77,7 @@ struct GachaGIFView: View {
     @State private var timer: Timer?
     @State private var showAlert = false  // アラート表示用の状態変数
     @State private var showShareButton = false  // シェアボタン表示用の状態変数
-    @State private var showGachaButton = true  // 「ガチャを引く」ボタンと所持枚数の表示状態
+    
     @State private var skipAnimation = false  // 演出スキップのフラグ
     @State private var hideNavigationBar = false  // NavigationBarを非表示にする状態変数
     @Environment(\.presentationMode) var presentationMode  // 前のビューに戻るための環境変数
@@ -108,14 +91,26 @@ struct GachaGIFView: View {
     let gachaResultFilter: ((Item) -> Bool)?
     
     let gachaTypeNormal: Bool
-    
-    @State private var onemore: Bool = false
 
     @ObservedObject var itemState: ItemState
+
+    @State private var showGachaButton: Bool = true
+    @State private var isInitialized: Bool = false //初回設定
     
     @State private var addticket: Int = 0
     
     @State private var showTicketAlert = false  // チケット変換アラート用の状態変数
+    
+    @State private var new = false
+    
+    @State private var animationState: AnimationState = .notStarted
+    
+    enum AnimationState {
+        case notStarted, inProgress, finished
+    }
+    @State private var animationTask: Task<Void, Never>?
+    
+    @State private var shared = false
 
     var body: some View {
         VStack {
@@ -133,9 +128,9 @@ struct GachaGIFView: View {
                         Text("\(resultItem.rarity.rawValue)")
                             .font(.title)
                             .padding()
-                            .onAppear {
-                                startTextAnimation("Rarity: \(resultItem.rarity.rawValue)")
-                            }
+//                            .onAppear {
+//                                startTextAnimation("Rarity: \(resultItem.rarity.rawValue)")
+//                            }
                         Image(resultItem.name)
                             .resizable()
                             .scaledToFit()
@@ -151,6 +146,11 @@ struct GachaGIFView: View {
                                     }
                                 }
                             }
+                        if new {
+                            Text("New!")
+                                .font(.headline)
+                                .foregroundColor(.blue)
+                        }
                         Text(resultItem.name)
                             .font(.title)
                             .padding()
@@ -179,11 +179,23 @@ struct GachaGIFView: View {
                         Button(action: {
                             showAlert = true  // アラートを表示する
                         }) {
-                            Text("ガチャを引く")
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                            HStack {
+                                if gachaTypeNormal{
+                                    Image("NormalCoin")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)  // 画像のサイズを調整
+                                }else{
+                                    Image("SpecialCoin")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)  // 画像のサイズを調整
+                                }
+                                Text("ガチャを引く")
+                                    .fontWeight(.bold)
+                            }
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                         }
                         .alert(isPresented: $showAlert) {
                             if gachaTypeNormal && itemState.NormalCoin == 0{
@@ -232,12 +244,13 @@ struct GachaGIFView: View {
                             }
                             .padding(.leading)
                         }
-                    }else if onemore{
+                    }else if (itemState.Xshare == 1 && gachaTypeNormal) || (itemState.Xshare == 2 && !gachaTypeNormal) {
                         Button(action: {
                             showGachaButton = false // ボタンと所持枚数を非表示にする
                             hideNavigationBar = true // バックボタンを非表示にする
                             skipAnimation = false  // スキップフラグをリセット
                             showShareButton = false
+                            itemState.Xshare = 0
                             startGacha()
                         }) {
                             Text("もう一度引く")
@@ -245,14 +258,21 @@ struct GachaGIFView: View {
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
+                                .fontWeight(.bold)
                         }
                     }else{
                         VStack{
                             if showShareButton {
                                 Button(action: {
                                     if let item = resultItem {
+                                        if gachaTypeNormal{
+                                            itemState.Xshare = 1
+                                        }else{
+                                            itemState.Xshare = 2
+                                        }
                                         shareOnTwitter(with: item)
-                                        onemore = true
+                                        print("シェアしました")
+                                        shared = true
                                     }
                                 }) {
                                     Text("Xでシェアしてもう一回")
@@ -280,14 +300,36 @@ struct GachaGIFView: View {
             AdMobView()
                 .frame(width: 450, height: 70)
         }
+        .onAppear {
+            if !isInitialized {
+                if gachaTypeNormal{
+                    showGachaButton = !(itemState.Xshare == 1)
+                    shared = itemState.Xshare == 1
+                }else{
+                    showGachaButton = !(itemState.Xshare == 2)
+                    shared = itemState.Xshare == 2
+                }
+                isInitialized = true
+            }
+        }
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 if gachaTypeNormal{
-                    Text("所持コイン: \(itemState.NormalCoin)")
-                        .foregroundColor(.blue)
+                    HStack{
+                        Image("NormalCoin")
+                            .resizable()
+                            .frame(width: 40, height: 40)  // 画像のサイズを調整
+                        Text("× \(itemState.NormalCoin)")
+                            .foregroundColor(.blue)
+                    }
                 }else{
-                    Text("所持コイン: \(itemState.SpecialCoin)")
-                        .foregroundColor(.blue)
+                    HStack{
+                        Image("SpecialCoin")
+                            .resizable()
+                            .frame(width: 40, height: 40)  // 画像のサイズを調整
+                        Text("× \(itemState.SpecialCoin)")
+                            .foregroundColor(.blue)
+                    }
                 }
             }
         }
@@ -303,54 +345,75 @@ struct GachaGIFView: View {
         return scene
     }
 
+
+    private func startGacha() {
+        resetGachaState()
+        spinGacha()
+        currentGifData = gachaData
+        playgacha = true
+        startGachaAnimation()
+    }
+
+    private func resetGachaState() {
+        animationTask?.cancel()
+        animationTask = nil
+        skipAnimation = false
+        showShareButton = false
+        currentGifData = nil
+        resultItem = nil
+        playgacha = false
+        showResult = false
+    }
+
     @ViewBuilder
     func gachaAnimation() -> some View {
         if let gifData = currentGifData {
             GIFImage(data: gifData)
                 .frame(height: 400)
-                .onAppear {
-                    if currentGifData == gachaData && !skipAnimation {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-                            switch resultItem?.rarity {
-                            case .Ultra:
-                                currentGifData = ultraData
-                            case .SuperRare:
-                                currentGifData = superRareData
-                            case .Rare:
-                                currentGifData = rareData
-                            default:
-                                currentGifData = normalData
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.5) {
-                                self.finishGacha()
-                            }
-                        }
-                    } else if skipAnimation {
-                        self.finishGacha()
-                    }
-                }
         } else {
             Text("Failed to load GIF")
                 .frame(height: 400)
         }
     }
 
-    private func startGacha() {
-        spinGacha()  // ボタンを押した瞬間にアイテムを決定
-        playgacha = true
-        currentGifData = gachaData
-        showAlert = false
+    private func startGachaAnimation() {
+        animationTask = Task { @MainActor in
+            guard !skipAnimation else {
+                finishGacha()
+                return
+            }
+
+            // 初期アニメーション
+            try? await Task.sleep(for: .seconds(6))
+            guard !Task.isCancelled else { return }
+
+            // レアリティに応じたアニメーション
+            switch resultItem?.rarity {
+            case .Ultra:
+                currentGifData = ultraData
+            case .SuperRare:
+                currentGifData = superRareData
+            case .Rare:
+                currentGifData = rareData
+            default:
+                currentGifData = normalData
+            }
+
+            try? await Task.sleep(for: .seconds(5.5))
+            guard !Task.isCancelled else { return }
+
+            finishGacha()
+        }
     }
 
+    @MainActor
     private func finishGacha() {
         playgacha = false
         showResult = true
-        if !onemore{
-            // 1/3の確率でシェアボタンを表示
-            showShareButton = Int.random(in: 1...3) == 1
-        }else{
+        if !shared {
+            showShareButton = true // Int.random(in: 1...3) == 1
+        } else {
             showShareButton = false
-            onemore = false
         }
     }
 
@@ -365,7 +428,9 @@ struct GachaGIFView: View {
             resultItem = item
             if !itemState.UserItems.contains(item.name) {
                 itemState.UserItems.append(item.name)
+                new = true
             }else{
+                new = false
                 // itemが既にUserItemsに含まれている場合、rarityによってaddticketの値を設定
                 switch item.rarity {
                 case .Normal:
@@ -376,8 +441,6 @@ struct GachaGIFView: View {
                     addticket = 10
                 case .Ultra:
                     addticket = 20
-                case .Secret:
-                    addticket = 40
                 }
                 itemState.Ticket += addticket
             }
@@ -393,18 +456,18 @@ struct GachaGIFView: View {
         }
     }
     
-    private func startTextAnimation(_ text: String) {
-        var currentIndex = 0
-        displayedText = ""
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            if currentIndex < text.count {
-                displayedText.append(text[text.index(text.startIndex, offsetBy: currentIndex)])
-                currentIndex += 1
-            } else {
-                timer.invalidate()
-            }
-        }
-    }
+//    private func startTextAnimation(_ text: String) {
+//        var currentIndex = 0
+//        displayedText = ""
+//        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+//            if currentIndex < text.count {
+//                displayedText.append(text[text.index(text.startIndex, offsetBy: currentIndex)])
+//                currentIndex += 1
+//            } else {
+//                timer.invalidate()
+//            }
+//        }
+//    }
     
     private func shareOnTwitter(with item: Item) {
         let text = "英語を発音しないと止まらないアラーム!?\n朝単-英単語アラーム\n当たったのは: \(item.name)\nレアリティ: \(item.rarity.rawValue)"

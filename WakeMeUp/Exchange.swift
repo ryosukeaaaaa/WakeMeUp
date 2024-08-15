@@ -41,16 +41,26 @@ struct Exchange: View {
             HStack{
                 VStack{
                     Text("所持チケット枚数:")
-                    Text("\(itemState.Ticket) 枚")
-                        .font(.title)
-                        .padding()
+                    HStack{
+                        Image("Ticket")
+                            .resizable()
+                            .frame(width: 40, height: 40)  // 画像のサイズを調整
+                        Text("\(itemState.Ticket) 枚")
+                            .font(.title)
+                            .padding()
+                    }
                 }
                 Spacer()
                 VStack{
                     Text("必要チケット枚数:")
-                    Text("\(totalRequiredTickets) 枚")
-                        .font(.title)
-                        .padding()
+                    HStack{
+                        Image("Ticket")
+                            .resizable()
+                            .frame(width: 40, height: 40)  // 画像のサイズを調整
+                        Text("\(totalRequiredTickets) 枚")
+                            .font(.title)
+                            .padding()
+                    }
                 }
             }
             .padding()
@@ -59,11 +69,21 @@ struct Exchange: View {
                     .font(.headline)
                 VStack {
                     Stepper(value: $normalExchangeCount, in: 0...maxNormalExchangeCount) {
-                        Text("ノーマルコイン: \(normalExchangeCount) 枚")
+                        HStack{
+                            Image("NormalCoin")
+                                .resizable()
+                                .frame(width: 40, height: 40)  // 画像のサイズを調整
+                            Text("ノーマルコイン: \(normalExchangeCount) 枚")
+                        }
                     }
                     
                     Stepper(value: $specialExchangeCount, in: 0...maxSpecialExchangeCount) {
-                        Text("スペシャルコイン: \(specialExchangeCount) 枚")
+                        HStack{
+                            Image("SpecialCoin")
+                                .resizable()
+                                .frame(width: 40, height: 40)  // 画像のサイズを調整
+                            Text("スペシャルコイン: \(specialExchangeCount) 枚")
+                        }
                     }
                 }
                 .padding(.vertical)

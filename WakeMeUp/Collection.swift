@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 // 各アイテムのビューを定義
 struct ItemView: View {
     let item: Item
@@ -26,11 +25,18 @@ struct ItemView: View {
     }
 }
 
+
 struct Collection: View {
     @ObservedObject var itemState: ItemState
 
     var body: some View {
         VStack {
+            if isCollectionComplete {
+                Text("Congratulation!")
+                    .font(.system(size: 24, weight: .bold, design: .default))
+                    .foregroundColor(.green)
+                    .padding()
+            }
             resetButton
             ScrollView {
                 VStack(alignment: .leading) {
@@ -58,13 +64,33 @@ struct Collection: View {
         .padding()
     }
 
+    // コレクションが完全に揃ったかどうかを確認するプロパティ
+    var isCollectionComplete: Bool {
+        return Rarity.allCases.allSatisfy { rarity in
+            let itemsOfRarity = itemState.ItemSources.filter { $0.rarity == rarity }
+            let ownedItemsCount = itemsOfRarity.filter { itemState.UserItems.contains($0.name) }.count
+            return ownedItemsCount == itemsOfRarity.count
+        }
+    }
+
     // セクションビューを生成するヘルパー関数
     func sectionView(for rarity: Rarity) -> some View {
-        Section(header: Text(rarity.rawValue)
-                    .font(.headline)
-                    .padding()) {
+        let itemsOfRarity = itemState.ItemSources.filter { $0.rarity == rarity }
+        let ownedItemsCount = itemsOfRarity.filter { itemState.UserItems.contains($0.name) }.count
+        let isComplete = ownedItemsCount == itemsOfRarity.count
+
+        return Section(header: VStack {
+            if isComplete {
+                Text("complete!")
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
+            }
+            Text("\(rarity.rawValue) (\(ownedItemsCount)/\(itemsOfRarity.count))")
+                .font(.headline)
+        }
+        .padding()) {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3)) {
-                ForEach(itemState.ItemSources.filter { $0.rarity == rarity }) { item in
+                ForEach(itemsOfRarity) { item in
                     ItemView(item: item, isOwned: itemState.UserItems.contains(item.name))
                 }
             }
@@ -72,9 +98,3 @@ struct Collection: View {
     }
 }
 
-// プレビュー用のコード
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Collection(itemState: ItemState())
-    }
-}

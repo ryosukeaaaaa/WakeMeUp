@@ -11,7 +11,9 @@ struct Gacha: View {
                 
                 NavigationLink(destination: GachaGIF(itemState: itemState)) {
                     HStack {
-                        Image(systemName: "lock.shield")
+                        Image("NormalCoin")
+                            .resizable()
+                            .frame(width: 30, height: 30)  // 画像のサイズを調整
                         Text("ノーマルガチャ")
                             .font(.headline)
                         Spacer()
@@ -26,7 +28,9 @@ struct Gacha: View {
                 
                 NavigationLink(destination: GachaGIF2(itemState: itemState)) {
                     HStack {
-                        Image(systemName: "lock.shield")
+                        Image("SpecialCoin")
+                            .resizable()
+                            .frame(width: 30, height: 30)  // 画像のサイズを調整
                         Text("スペシャルガチャ")
                             .font(.headline)
                         Spacer()
@@ -72,7 +76,7 @@ struct Gacha: View {
                         .padding(.horizontal)
                         
                         HStack {
-                            Text("Rare(全14種)")
+                            Text("Rare(全15種)")
                             Spacer()
                             Text("28 %")
                         }
@@ -80,7 +84,7 @@ struct Gacha: View {
                         .padding(.horizontal)
                         
                         HStack {
-                            Text("SuperRare(全9種)")
+                            Text("SuperRare(全8種)")
                             Spacer()
                             Text("9 %")
                         }
@@ -91,14 +95,6 @@ struct Gacha: View {
                             Text("UltraRare(全4種)")
                             Spacer()
                             Text("2 %")
-                        }
-                        .padding(.vertical, 3)
-                        .padding(.horizontal)
-                        
-                        HStack {
-                            Text("Secret(全2種)")
-                            Spacer()
-                            Text("1 %")
                         }
                         .padding(.vertical, 3)
                         .padding(.horizontal)
