@@ -128,6 +128,7 @@ struct StatusView: View {
                         .frame(height: 150)
                         .padding()
                         Text("習得率")
+                            .fontWeight(.bold)
                     }
                     
                     Spacer()
