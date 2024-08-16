@@ -213,7 +213,7 @@ struct GachaView: View {
                 // コインの計算ロジック
                 let totalCount = missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount
                 let normalCoinIncrement = (totalCount - 25 * itemState.Pre_Count) / 25
-                let specialCoinIncrement = (totalCount - 100 * itemState.Pre_Count) / 100
+                let specialCoinIncrement = (totalCount - 25 * itemState.Pre_Count) / 100
                 
                 var coinMessage = ""
 

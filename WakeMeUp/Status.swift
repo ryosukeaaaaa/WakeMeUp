@@ -477,7 +477,8 @@ struct DetailView: View {
     var body: some View {
         VStack {
             Spacer()
-
+            AdMobView()
+                .frame(width: 450, height: 90)
             GeometryReader { geometry in
                 // 現在の currentIndex に対応する DetailCardView を表示
                 DetailCardView(entry: entries[currentIndex], material: material)
@@ -509,8 +510,6 @@ struct DetailView: View {
                 .disabled(currentIndex == entries.count - 1) // 最後のページではボタンを無効化
             }
             Spacer()
-            AdMobView()
-                .frame(width: 450, height: 90)
         }
     }
 
@@ -758,7 +757,8 @@ struct StarredDetailView: View {
     var body: some View {
         VStack {
             Spacer()
-
+            AdMobView()
+                .frame(width: 450, height: 90)
             GeometryReader { geometry in
                 // 現在の currentIndex に対応する StarredDetailCardView を表示
                 StarredDetailCardView(entry: entries[currentIndex], removeAction: {
@@ -794,8 +794,6 @@ struct StarredDetailView: View {
             }
 
             Spacer()
-            AdMobView()
-                .frame(width: 450, height: 90)
         }
     }
 
@@ -890,7 +888,7 @@ struct DetailCardView: View {
             .padding()
             .frame(
                 width: UIScreen.main.bounds.width,
-                height: UIScreen.main.bounds.height * 24/50
+                height: UIScreen.main.bounds.height * 20/50
             )
             .background(Color.white)
             .cornerRadius(10)
@@ -1121,7 +1119,10 @@ struct StarredDetailCardView: View {
                     .padding()
             }
             .padding()
-            .frame(width: 400, height: 400)
+            .frame(
+                width: UIScreen.main.bounds.width,
+                height: UIScreen.main.bounds.height * 20/50
+            )
             .background(Color.white)
             .cornerRadius(10)
             .shadow(radius: 5)

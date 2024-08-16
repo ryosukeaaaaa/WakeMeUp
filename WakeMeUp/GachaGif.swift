@@ -280,6 +280,7 @@ struct GachaGIFView: View {
                                         .background(Color.blue)
                                         .foregroundColor(.white)
                                         .cornerRadius(10)
+                                        .fontWeight(.bold)
                                 }
                             }
                             Button(action: {
@@ -290,6 +291,7 @@ struct GachaGIFView: View {
                                     .background(Color.gray.opacity(0.7))
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
+                                    .fontWeight(.bold)
                             }
                         }
                     }
@@ -434,13 +436,13 @@ struct GachaGIFView: View {
                 // itemが既にUserItemsに含まれている場合、rarityによってaddticketの値を設定
                 switch item.rarity {
                 case .Normal:
-                    addticket = 2
+                    addticket = 1
                 case .Rare:
-                    addticket = 5
+                    addticket = 3
                 case .SuperRare:
-                    addticket = 10
+                    addticket = 8
                 case .Ultra:
-                    addticket = 20
+                    addticket = 16
                 }
                 itemState.Ticket += addticket
             }

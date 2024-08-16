@@ -17,7 +17,7 @@ struct Gacha: View {
                         Text("ノーマルガチャ")
                             .font(.headline)
                         Spacer()
-                        Text("所持コイン: \(itemState.NormalCoin)")
+//                        Text("所持コイン: \(itemState.NormalCoin)")
                     }
                     .padding(10)
                     .frame(maxWidth: .infinity)
@@ -25,7 +25,6 @@ struct Gacha: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                
                 NavigationLink(destination: GachaGIF2(itemState: itemState)) {
                     HStack {
                         Image("SpecialCoin")
@@ -34,7 +33,7 @@ struct Gacha: View {
                         Text("スペシャルガチャ")
                             .font(.headline)
                         Spacer()
-                        Text("所持コイン: \(itemState.SpecialCoin)")
+//                        Text("所持コイン: \(itemState.SpecialCoin)")
                     }
                     .padding(10)
                     .frame(maxWidth: .infinity)
@@ -43,16 +42,16 @@ struct Gacha: View {
                     .cornerRadius(10)
                 }
                 
-                Button(action: {
-                    itemState.NormalCoin = 10
-                    itemState.SpecialCoin = 10
-                }) {
-                    Text("コインテスト")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+//                Button(action: {
+//                    itemState.NormalCoin = 10
+//                    itemState.SpecialCoin = 10
+//                }) {
+//                    Text("コインテスト")
+//                        .padding()
+//                        .background(Color.blue)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(10)
+//                }
                 
                 VStack {
                     VStack {
@@ -108,10 +107,11 @@ struct Gacha: View {
                 Spacer()
                 
                 AdMobView()
-                    .frame(width: 450, height: 200)
+                    .frame(width: 450, height: 300)
             }
             .padding()
         }
+        .navigationTitle("ガチャ")
     }
 }
 

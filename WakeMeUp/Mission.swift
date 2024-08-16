@@ -50,7 +50,8 @@ struct Pre_Mission: View {
         NavigationView {
             VStack {
                 Spacer()
-                Spacer()
+                AdMobView()
+                    .frame(width: 450, height: 90)
                 GeometryReader { geometry in
                     VStack {
                         Spacer()
@@ -197,8 +198,6 @@ struct Pre_Mission: View {
                             }) {
                                 Text("もう一度再生")
                             }
-                            .padding()
-                            Spacer().frame(width: 1)
 
                             if !missionState.clear_mission {
                                 Circle()
@@ -294,8 +293,6 @@ struct Pre_Mission: View {
                         }
 
                         Spacer()
-//                        AdMobView()
-//                            .frame(width: 450, height: 90)
                     }
                 }
             }
@@ -428,7 +425,7 @@ struct Pre_Mission: View {
         .padding()
         .frame(
             width: UIScreen.main.bounds.width,
-            height: UIScreen.main.bounds.height * 24/50
+            height: UIScreen.main.bounds.height * 20/50
         )
         .background(Color.white)
         .cornerRadius(10)

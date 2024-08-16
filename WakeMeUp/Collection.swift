@@ -64,7 +64,7 @@ struct Collection: View {
                 }
             }
         }
-        .navigationTitle("My Collection")
+        .navigationTitle("コレクション")
     }
 
     // コレクションが完全に揃ったかどうかを確認するプロパティ

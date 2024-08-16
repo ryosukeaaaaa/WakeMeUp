@@ -30,7 +30,20 @@ struct Sound: View {
                         Text("小").tag("low")
                     }
                 }
-
+                Section{
+                    Button(action: {
+                        alarmStore.stopTestSound()
+                        alarmStore.testSound(sound: "\(testsound)_\(volume).mp3")
+                    }) {
+                        Text("テスト再生")
+                    }
+                    Button(action: {
+                        alarmStore.stopTestSound()
+                    }) {
+                        Text("停止")
+                            .foregroundColor(.red)
+                    }
+                }
                 Section {
                     ForEach(soundData.soundSources, id: \.self) { sound in
                         HStack {
@@ -46,21 +59,6 @@ struct Sound: View {
                         .onTapGesture {
                             testsound = sound
                         }
-                    }
-                }
-                
-                Section{
-                    Button(action: {
-                        alarmStore.stopTestSound()
-                        alarmStore.testSound(sound: "\(testsound)_\(volume).mp3")
-                    }) {
-                        Text("テスト再生")
-                    }
-                    Button(action: {
-                        alarmStore.stopTestSound()
-                    }) {
-                        Text("停止")
-                            .foregroundColor(.red)
                     }
                 }
             }

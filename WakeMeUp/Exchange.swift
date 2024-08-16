@@ -117,8 +117,10 @@ struct Exchange: View {
             Spacer()
             
             AdMobView()
-                .frame(width: 450, height: 250)
+                .frame(width: 450, height: 300)
         }
+        .navigationTitle("チケット交換")
         .padding()
     }
+    
 }

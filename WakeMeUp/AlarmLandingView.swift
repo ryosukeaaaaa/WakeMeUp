@@ -24,7 +24,6 @@ struct AlarmLandingView: View {
                 Button(action: {
                     navigateToPreMission = true
                     alarmStore.stopAlarm_All(alarmStore.groupIds)  // アラームを止める
-                    print("ddd")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { //画面が引き戻されるエラーが起こった。
                         alarmStore.showingAlarmLanding = false
                     }
