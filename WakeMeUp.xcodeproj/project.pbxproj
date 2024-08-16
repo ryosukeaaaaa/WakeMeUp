@@ -42,18 +42,8 @@
 		829200932C47A03300C96C30 /* SwiftyGif in Frameworks */ = {isa = PBXBuildFile; productRef = 829200922C47A03300C96C30 /* SwiftyGif */; };
 		829200952C47A20D00C96C30 /* UIGIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200942C47A20D00C96C30 /* UIGIFImageView.swift */; };
 		829200972C47A24100C96C30 /* GIFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200962C47A24100C96C30 /* GIFImage.swift */; };
-		829200A32C47D22500C96C30 /* Rabbit.png in Resources */ = {isa = PBXBuildFile; fileRef = 8292009F2C47D22500C96C30 /* Rabbit.png */; };
-		829200A52C47D22500C96C30 /* Mice.png in Resources */ = {isa = PBXBuildFile; fileRef = 829200A12C47D22500C96C30 /* Mice.png */; };
 		829200A72C4821F300C96C30 /* GachaGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200A62C4821F300C96C30 /* GachaGif.swift */; };
 		829200A92C4825A400C96C30 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200A82C4825A400C96C30 /* Collection.swift */; };
-		829200AD2C4944F000C96C30 /* Gacha.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200AC2C4944F000C96C30 /* Gacha.gif */; };
-		829200AF2C4944F800C96C30 /* Gacha2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200AE2C4944F800C96C30 /* Gacha2.gif */; };
-		829200B42C49453200C96C30 /* SuperRare.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200B02C49453100C96C30 /* SuperRare.gif */; };
-		829200B52C49453200C96C30 /* Normal.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200B12C49453100C96C30 /* Normal.gif */; };
-		829200B62C49453200C96C30 /* Ultra.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200B22C49453200C96C30 /* Ultra.gif */; };
-		829200B72C49453200C96C30 /* Rare.gif in Resources */ = {isa = PBXBuildFile; fileRef = 829200B32C49453200C96C30 /* Rare.gif */; };
-		829200BA2C49458E00C96C30 /* GachaIm.png in Resources */ = {isa = PBXBuildFile; fileRef = 829200B82C49458E00C96C30 /* GachaIm.png */; };
-		829200BB2C49458E00C96C30 /* Gacha2Im.png in Resources */ = {isa = PBXBuildFile; fileRef = 829200B92C49458E00C96C30 /* Gacha2Im.png */; };
 		829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */; };
 		829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A52C1635B3002D7DA3 /* Assets.xcassets */; };
 		829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829A59A82C1635B3002D7DA3 /* Preview Assets.xcassets */; };
@@ -71,95 +61,11 @@
 		82FE14E52C6939600023CC8B /* 基礎英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14E22C6939600023CC8B /* 基礎英単語.csv */; };
 		82FE14E62C6939600023CC8B /* TOEIC英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14E32C6939600023CC8B /* TOEIC英単語.csv */; };
 		82FE14E72C6939600023CC8B /* ビジネス英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14E42C6939600023CC8B /* ビジネス英単語.csv */; };
-		82FE15472C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F02C69439F0023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE15482C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F12C6943A00023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_medium.mp3 */; };
-		82FE15492C6943A40023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F22C6943A00023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE154A2C6943A40023CC8B /* 情動カタルシス (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F32C6943A00023CC8B /* 情動カタルシス (mp3cut.net)_low.mp3 */; };
-		82FE154B2C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F42C6943A00023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE154C2C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F52C6943A00023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE154D2C6943A40023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F62C6943A00023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE154E2C6943A40023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F72C6943A00023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE154F2C6943A40023CC8B /* パステルハウス (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F82C6943A00023CC8B /* パステルハウス (mp3cut.net)_medium.mp3 */; };
-		82FE15502C6943A40023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14F92C6943A00023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15512C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14FA2C6943A00023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15522C6943A40023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14FB2C6943A00023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15532C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14FC2C6943A00023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE15542C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14FD2C6943A00023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_low.mp3 */; };
-		82FE15552C6943A40023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14FE2C6943A00023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_low.mp3 */; };
-		82FE15562C6943A40023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14FF2C6943A00023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_high.mp3 */; };
-		82FE15572C6943A40023CC8B /* 鳥のさえずり (audio-joiner.com)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15002C6943A00023CC8B /* 鳥のさえずり (audio-joiner.com)_high.mp3 */; };
-		82FE15582C6943A40023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15012C6943A10023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_medium.mp3 */; };
-		82FE15592C6943A40023CC8B /* PiPiPiMorning (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15022C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_medium.mp3 */; };
-		82FE155A2C6943A40023CC8B /* mix_29s (audio-joiner.com) (1)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15032C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_medium.mp3 */; };
-		82FE155B2C6943A40023CC8B /* ニワトリ (audio-joiner.com)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15042C6943A10023CC8B /* ニワトリ (audio-joiner.com)_high.mp3 */; };
-		82FE155C2C6943A40023CC8B /* mix_29s (audio-joiner.com) (1)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15052C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_low.mp3 */; };
-		82FE155D2C6943A40023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15062C6943A10023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE155E2C6943A40023CC8B /* mix_29s (audio-joiner.com) (1)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15072C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_high.mp3 */; };
-		82FE155F2C6943A40023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15082C6943A10023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE15602C6943A40023CC8B /* mix_29s (audio-joiner.com)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15092C6943A10023CC8B /* mix_29s (audio-joiner.com)_medium.mp3 */; };
-		82FE15612C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE150A2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15622C6943A40023CC8B /* PiPiPiMorning (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE150B2C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_low.mp3 */; };
-		82FE15632C6943A40023CC8B /* mix_29s (audio-joiner.com)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE150C2C6943A10023CC8B /* mix_29s (audio-joiner.com)_high.mp3 */; };
-		82FE15642C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE150D2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE15652C6943A40023CC8B /* 2_23_AM_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE150E2C6943A10023CC8B /* 2_23_AM_high.mp3 */; };
-		82FE15662C6943A40023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE150F2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE15672C6943A40023CC8B /* mix_29s (audio-joiner.com)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15102C6943A10023CC8B /* mix_29s (audio-joiner.com)_low.mp3 */; };
-		82FE15682C6943A40023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15112C6943A10023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE15692C6943A40023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15122C6943A10023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_high.mp3 */; };
-		82FE156A2C6943A40023CC8B /* PiPiPiMorning (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15132C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_high.mp3 */; };
-		82FE156B2C6943A40023CC8B /* ふぐふぐ体操 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15142C6943A20023CC8B /* ふぐふぐ体操 (mp3cut.net)_high.mp3 */; };
-		82FE156C2C6943A40023CC8B /* 鳥のさえずり (audio-joiner.com)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15152C6943A20023CC8B /* 鳥のさえずり (audio-joiner.com)_low.mp3 */; };
-		82FE156D2C6943A40023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15162C6943A20023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_medium.mp3 */; };
-		82FE156E2C6943A40023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15172C6943A20023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE156F2C6943A40023CC8B /* パステルハウス (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15182C6943A20023CC8B /* パステルハウス (mp3cut.net)_high.mp3 */; };
-		82FE15702C6943A40023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15192C6943A20023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE15712C6943A40023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE151A2C6943A20023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_high.mp3 */; };
-		82FE15722C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE151B2C6943A20023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE15732C6943A40023CC8B /* 情動カタルシス (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE151C2C6943A20023CC8B /* 情動カタルシス (mp3cut.net)_high.mp3 */; };
-		82FE15742C6943A40023CC8B /* 情動カタルシス (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE151D2C6943A20023CC8B /* 情動カタルシス (mp3cut.net)_medium.mp3 */; };
-		82FE15752C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE151E2C6943A20023CC8B /* 追いかけっこキャッハー (mp3cut.net)_low.mp3 */; };
-		82FE15762C6943A40023CC8B /* ふぐふぐ体操 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE151F2C6943A20023CC8B /* ふぐふぐ体操 (mp3cut.net)_medium.mp3 */; };
-		82FE15772C6943A40023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15202C6943A20023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15782C6943A40023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15212C6943A20023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15792C6943A40023CC8B /* リコーダービート (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15222C6943A20023CC8B /* リコーダービート (mp3cut.net)_high.mp3 */; };
-		82FE157A2C6943A40023CC8B /* ニワトリ (audio-joiner.com)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15232C6943A20023CC8B /* ニワトリ (audio-joiner.com)_medium.mp3 */; };
-		82FE157B2C6943A40023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15242C6943A20023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE157C2C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15252C6943A20023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE157D2C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15262C6943A20023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE157E2C6943A40023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15272C6943A30023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE157F2C6943A40023CC8B /* 鳥のさえずり (audio-joiner.com)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15282C6943A30023CC8B /* 鳥のさえずり (audio-joiner.com)_medium.mp3 */; };
-		82FE15802C6943A40023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15292C6943A30023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE15812C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE152A2C6943A30023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE15822C6943A40023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE152B2C6943A30023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_low.mp3 */; };
-		82FE15832C6943A40023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE152C2C6943A30023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15842C6943A40023CC8B /* リコーダービート (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE152D2C6943A30023CC8B /* リコーダービート (mp3cut.net)_low.mp3 */; };
-		82FE15852C6943A40023CC8B /* 2_23_AM_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE152E2C6943A30023CC8B /* 2_23_AM_medium.mp3 */; };
-		82FE15862C6943A40023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE152F2C6943A30023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15872C6943A40023CC8B /* ふぐふぐ体操 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15302C6943A30023CC8B /* ふぐふぐ体操 (mp3cut.net)_low.mp3 */; };
-		82FE15882C6943A40023CC8B /* Morning_2 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15312C6943A30023CC8B /* Morning_2 (mp3cut.net)_low.mp3 */; };
-		82FE15892C6943A40023CC8B /* リコーダービート (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15322C6943A30023CC8B /* リコーダービート (mp3cut.net)_medium.mp3 */; };
-		82FE158A2C6943A40023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15332C6943A30023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE158B2C6943A40023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15342C6943A30023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_medium.mp3 */; };
-		82FE158C2C6943A40023CC8B /* Morning_2 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15352C6943A30023CC8B /* Morning_2 (mp3cut.net)_medium.mp3 */; };
-		82FE158D2C6943A40023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15362C6943A30023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_low.mp3 */; };
-		82FE158E2C6943A40023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15372C6943A30023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE158F2C6943A40023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15382C6943A30023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE15902C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15392C6943A30023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE15912C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE153A2C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_high.mp3 */; };
-		82FE15922C6943A40023CC8B /* 2_23_AM_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE153B2C6943A40023CC8B /* 2_23_AM_low.mp3 */; };
-		82FE15932C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE153C2C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_high.mp3 */; };
-		82FE15942C6943A40023CC8B /* ニワトリ (audio-joiner.com)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE153D2C6943A40023CC8B /* ニワトリ (audio-joiner.com)_low.mp3 */; };
-		82FE15952C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE153E2C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE15962C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE153F2C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_high.mp3 */; };
-		82FE15972C6943A40023CC8B /* パステルハウス (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15402C6943A40023CC8B /* パステルハウス (mp3cut.net)_low.mp3 */; };
-		82FE15982C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15412C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_medium.mp3 */; };
-		82FE15992C6943A40023CC8B /* Morning_2 (mp3cut.net)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15422C6943A40023CC8B /* Morning_2 (mp3cut.net)_high.mp3 */; };
-		82FE159A2C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15432C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE159B2C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15442C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_medium.mp3 */; };
-		82FE159C2C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15452C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3 */; };
-		82FE159D2C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15462C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3 */; };
 		82FE159F2C6B39140023CC8B /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE159E2C6B39140023CC8B /* Onboarding.swift */; };
 		82FE15A12C6EE6CF0023CC8B /* CollectionImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */; };
+		82FE15AB2C6F9A500023CC8B /* Gacha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */; };
+		82FE15AD2C6FA4D80023CC8B /* Gacha2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */; };
+		82FE15AF2C6FB65E0023CC8B /* HowToUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE15AE2C6FB65E0023CC8B /* HowToUse.swift */; };
 		BE27B1C6E42E24EAB0C652AD /* Pods_WakeMeUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */; };
 /* End PBXBuildFile section */
 
@@ -215,18 +121,8 @@
 		8292007F2C4777B300C96C30 /* RainParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainParticle.sks; sourceTree = "<group>"; };
 		829200942C47A20D00C96C30 /* UIGIFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGIFImageView.swift; sourceTree = "<group>"; };
 		829200962C47A24100C96C30 /* GIFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImage.swift; sourceTree = "<group>"; };
-		8292009F2C47D22500C96C30 /* Rabbit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rabbit.png; sourceTree = "<group>"; };
-		829200A12C47D22500C96C30 /* Mice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mice.png; sourceTree = "<group>"; };
 		829200A62C4821F300C96C30 /* GachaGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GachaGif.swift; sourceTree = "<group>"; };
 		829200A82C4825A400C96C30 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		829200AC2C4944F000C96C30 /* Gacha.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Gacha.gif; sourceTree = SOURCE_ROOT; };
-		829200AE2C4944F800C96C30 /* Gacha2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Gacha2.gif; sourceTree = SOURCE_ROOT; };
-		829200B02C49453100C96C30 /* SuperRare.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SuperRare.gif; sourceTree = SOURCE_ROOT; };
-		829200B12C49453100C96C30 /* Normal.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Normal.gif; sourceTree = SOURCE_ROOT; };
-		829200B22C49453200C96C30 /* Ultra.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ultra.gif; sourceTree = SOURCE_ROOT; };
-		829200B32C49453200C96C30 /* Rare.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rare.gif; sourceTree = SOURCE_ROOT; };
-		829200B82C49458E00C96C30 /* GachaIm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GachaIm.png; path = GachaIm/GachaIm.png; sourceTree = SOURCE_ROOT; };
-		829200B92C49458E00C96C30 /* Gacha2Im.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Gacha2Im.png; path = GachaIm/Gacha2Im.png; sourceTree = SOURCE_ROOT; };
 		829A599E2C1635B2002D7DA3 /* 朝単-英単語アラーム.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "朝単-英単語アラーム.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpApp.swift; sourceTree = "<group>"; };
 		829A59A32C1635B2002D7DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -248,95 +144,11 @@
 		82FE14E22C6939600023CC8B /* 基礎英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "基礎英単語.csv"; sourceTree = "<group>"; };
 		82FE14E32C6939600023CC8B /* TOEIC英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TOEIC英単語.csv"; sourceTree = "<group>"; };
 		82FE14E42C6939600023CC8B /* ビジネス英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語.csv"; sourceTree = "<group>"; };
-		82FE14F02C69439F0023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "明るいアップビート着信音-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE14F12C6943A00023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "CLUB_DEEP_FOG (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE14F22C6943A00023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "マジカル着信音ループ1-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE14F32C6943A00023CC8B /* 情動カタルシス (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "情動カタルシス (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE14F42C6943A00023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "オルゴールのチャイム-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE14F52C6943A00023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "爽やかな目覚まし音-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE14F62C6943A00023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "一斗缶をたたき続ける-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE14F72C6943A00023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "高音ビープアラーム音-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE14F82C6943A00023CC8B /* パステルハウス (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "パステルハウス (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE14F92C6943A00023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "銅鑼の連打-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE14FA2C6943A00023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "クラシックなアラーム02-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE14FB2C6943A00023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE14FC2C6943A00023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "明るいアップビート着信音-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE14FD2C6943A00023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "CLUB_DEEP_FOG (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE14FE2C6943A00023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE14FF2C6943A00023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_2 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15002C6943A00023CC8B /* 鳥のさえずり (audio-joiner.com)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "鳥のさえずり (audio-joiner.com)_high.mp3"; sourceTree = "<group>"; };
-		82FE15012C6943A10023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "はりきっちゃう時のテーマ (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15022C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "PiPiPiMorning (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15032C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s (audio-joiner.com) (1)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15042C6943A10023CC8B /* ニワトリ (audio-joiner.com)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ニワトリ (audio-joiner.com)_high.mp3"; sourceTree = "<group>"; };
-		82FE15052C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s (audio-joiner.com) (1)_low.mp3"; sourceTree = "<group>"; };
-		82FE15062C6943A10023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15072C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s (audio-joiner.com) (1)_high.mp3"; sourceTree = "<group>"; };
-		82FE15082C6943A10023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15092C6943A10023CC8B /* mix_29s (audio-joiner.com)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s (audio-joiner.com)_medium.mp3"; sourceTree = "<group>"; };
-		82FE150A2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE150B2C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "PiPiPiMorning (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE150C2C6943A10023CC8B /* mix_29s (audio-joiner.com)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s (audio-joiner.com)_high.mp3"; sourceTree = "<group>"; };
-		82FE150D2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE150E2C6943A10023CC8B /* 2_23_AM_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2_23_AM_high.mp3; sourceTree = "<group>"; };
-		82FE150F2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15102C6943A10023CC8B /* mix_29s (audio-joiner.com)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s (audio-joiner.com)_low.mp3"; sourceTree = "<group>"; };
-		82FE15112C6943A10023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "高音ビープアラーム音-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15122C6943A10023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15132C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "PiPiPiMorning (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15142C6943A20023CC8B /* ふぐふぐ体操 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ふぐふぐ体操 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15152C6943A20023CC8B /* 鳥のさえずり (audio-joiner.com)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "鳥のさえずり (audio-joiner.com)_low.mp3"; sourceTree = "<group>"; };
-		82FE15162C6943A20023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_2 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15172C6943A20023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15182C6943A20023CC8B /* パステルハウス (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "パステルハウス (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15192C6943A20023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "一斗缶をたたき続ける-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE151A2C6943A20023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "はりきっちゃう時のテーマ (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE151B2C6943A20023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "オルゴールのチャイム-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE151C2C6943A20023CC8B /* 情動カタルシス (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "情動カタルシス (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE151D2C6943A20023CC8B /* 情動カタルシス (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "情動カタルシス (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE151E2C6943A20023CC8B /* 追いかけっこキャッハー (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "追いかけっこキャッハー (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE151F2C6943A20023CC8B /* ふぐふぐ体操 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ふぐふぐ体操 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15202C6943A20023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15212C6943A20023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "マジカル着信音ループ1-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15222C6943A20023CC8B /* リコーダービート (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "リコーダービート (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15232C6943A20023CC8B /* ニワトリ (audio-joiner.com)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ニワトリ (audio-joiner.com)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15242C6943A20023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "マジカル着信音ループ1-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15252C6943A20023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "クラシックなアラーム02-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15262C6943A20023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "森の中の小鳥のさえずり-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15272C6943A30023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15282C6943A30023CC8B /* 鳥のさえずり (audio-joiner.com)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "鳥のさえずり (audio-joiner.com)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15292C6943A30023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "高音ビープアラーム音-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE152A2C6943A30023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "森の中の小鳥のさえずり-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE152B2C6943A30023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "はりきっちゃう時のテーマ (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE152C2C6943A30023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE152D2C6943A30023CC8B /* リコーダービート (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "リコーダービート (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE152E2C6943A30023CC8B /* 2_23_AM_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2_23_AM_medium.mp3; sourceTree = "<group>"; };
-		82FE152F2C6943A30023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "一斗缶をたたき続ける-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15302C6943A30023CC8B /* ふぐふぐ体操 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ふぐふぐ体操 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15312C6943A30023CC8B /* Morning_2 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Morning_2 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15322C6943A30023CC8B /* リコーダービート (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "リコーダービート (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15332C6943A30023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15342C6943A30023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15352C6943A30023CC8B /* Morning_2 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Morning_2 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15362C6943A30023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_2 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15372C6943A30023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "銅鑼の連打-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15382C6943A30023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "銅鑼の連打-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15392C6943A30023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "爽やかな目覚まし音-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE153A2C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "CLUB_DEEP_FOG (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE153B2C6943A40023CC8B /* 2_23_AM_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2_23_AM_low.mp3; sourceTree = "<group>"; };
-		82FE153C2C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "オルゴールのチャイム-効果音 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE153D2C6943A40023CC8B /* ニワトリ (audio-joiner.com)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ニワトリ (audio-joiner.com)_low.mp3"; sourceTree = "<group>"; };
-		82FE153E2C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "爽やかな目覚まし音-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE153F2C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "追いかけっこキャッハー (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15402C6943A40023CC8B /* パステルハウス (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "パステルハウス (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15412C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "クラシックなアラーム02-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15422C6943A40023CC8B /* Morning_2 (mp3cut.net)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Morning_2 (mp3cut.net)_high.mp3"; sourceTree = "<group>"; };
-		82FE15432C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "森の中の小鳥のさえずり-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15442C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "追いかけっこキャッハー (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
-		82FE15452C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
-		82FE15462C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
 		82FE159E2C6B39140023CC8B /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionImage.swift; sourceTree = "<group>"; };
+		82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gacha.mp3; sourceTree = "<group>"; };
+		82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gacha2.mp3; sourceTree = "<group>"; };
+		82FE15AE2C6FB65E0023CC8B /* HowToUse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUse.swift; sourceTree = "<group>"; };
 		8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WakeMeUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DAFDD1C15A64C9DD5046EC1 /* Pods-WakeMeUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WakeMeUp.debug.xcconfig"; path = "Target Support Files/Pods-WakeMeUp/Pods-WakeMeUp.debug.xcconfig"; sourceTree = "<group>"; };
 		9C89F8C8FCE0B7065FCB10EF /* Pods-朝単-英単語アラーム.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-朝単-英単語アラーム.release.xcconfig"; path = "Target Support Files/Pods-朝単-英単語アラーム/Pods-朝単-英単語アラーム.release.xcconfig"; sourceTree = "<group>"; };
@@ -395,35 +207,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		827AE3B52C18875200DABD95 /* data */ = {
-			isa = PBXGroup;
-			children = (
-				829200AC2C4944F000C96C30 /* Gacha.gif */,
-				829200AE2C4944F800C96C30 /* Gacha2.gif */,
-				829200B12C49453100C96C30 /* Normal.gif */,
-				829200B32C49453200C96C30 /* Rare.gif */,
-				829200B02C49453100C96C30 /* SuperRare.gif */,
-				829200B22C49453200C96C30 /* Ultra.gif */,
-				829200B82C49458E00C96C30 /* GachaIm.png */,
-				829200B92C49458E00C96C30 /* Gacha2Im.png */,
-			);
-			path = data;
-			sourceTree = "<group>";
-		};
-		8292009D2C47D1D500C96C30 /* Item */ = {
-			isa = PBXGroup;
-			children = (
-				829200A12C47D22500C96C30 /* Mice.png */,
-				8292009F2C47D22500C96C30 /* Rabbit.png */,
-			);
-			path = Item;
-			sourceTree = "<group>";
-		};
 		829A59952C1635B2002D7DA3 = {
 			isa = PBXGroup;
 			children = (
-				8292009D2C47D1D500C96C30 /* Item */,
-				827AE3B52C18875200DABD95 /* data */,
 				829A59A02C1635B2002D7DA3 /* WakeMeUp */,
 				829A59B12C1635B3002D7DA3 /* WakeMeUpTests */,
 				829A59BB2C1635B3002D7DA3 /* WakeMeUpUITests */,
@@ -452,6 +238,8 @@
 				829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */,
 				821FD6B62C37E2A900F445C7 /* AppDelegate.swift */,
 				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
+				82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */,
+				82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */,
 				3483CF722C2BC37800FA5BD3 /* AlarmLandingView.swift */,
 				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
 				8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */,
@@ -475,98 +263,12 @@
 				829200A62C4821F300C96C30 /* GachaGif.swift */,
 				82FE14302C67544A0023CC8B /* Exchange.swift */,
 				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
+				82FE15AE2C6FB65E0023CC8B /* HowToUse.swift */,
 				82FE14282C63F0A60023CC8B /* AdMob.swift */,
 				82FE14E02C6939480023CC8B /* 学術英単語.csv */,
 				82FE14E32C6939600023CC8B /* TOEIC英単語.csv */,
 				82FE14E42C6939600023CC8B /* ビジネス英単語.csv */,
 				82FE14E22C6939600023CC8B /* 基礎英単語.csv */,
-				82FE150E2C6943A10023CC8B /* 2_23_AM_high.mp3 */,
-				82FE153B2C6943A40023CC8B /* 2_23_AM_low.mp3 */,
-				82FE152E2C6943A30023CC8B /* 2_23_AM_medium.mp3 */,
-				82FE153A2C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_high.mp3 */,
-				82FE14FD2C6943A00023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_low.mp3 */,
-				82FE14F12C6943A00023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_medium.mp3 */,
-				82FE15072C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_high.mp3 */,
-				82FE15052C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_low.mp3 */,
-				82FE15032C6943A10023CC8B /* mix_29s (audio-joiner.com) (1)_medium.mp3 */,
-				82FE150C2C6943A10023CC8B /* mix_29s (audio-joiner.com)_high.mp3 */,
-				82FE15102C6943A10023CC8B /* mix_29s (audio-joiner.com)_low.mp3 */,
-				82FE15092C6943A10023CC8B /* mix_29s (audio-joiner.com)_medium.mp3 */,
-				82FE15422C6943A40023CC8B /* Morning_2 (mp3cut.net)_high.mp3 */,
-				82FE15312C6943A30023CC8B /* Morning_2 (mp3cut.net)_low.mp3 */,
-				82FE15352C6943A30023CC8B /* Morning_2 (mp3cut.net)_medium.mp3 */,
-				82FE15132C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_high.mp3 */,
-				82FE150B2C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_low.mp3 */,
-				82FE15022C6943A10023CC8B /* PiPiPiMorning (mp3cut.net)_medium.mp3 */,
-				82FE153C2C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_high.mp3 */,
-				82FE14F42C6943A00023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_low.mp3 */,
-				82FE151B2C6943A20023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE15252C6943A20023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_high.mp3 */,
-				82FE14FA2C6943A00023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_low.mp3 */,
-				82FE15412C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE15082C6943A10023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_high.mp3 */,
-				82FE152C2C6943A30023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_low.mp3 */,
-				82FE15272C6943A30023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE15062C6943A10023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_high.mp3 */,
-				82FE15202C6943A20023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_low.mp3 */,
-				82FE15172C6943A20023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE150D2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_high.mp3 */,
-				82FE150A2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_low.mp3 */,
-				82FE15462C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE15332C6943A30023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_high.mp3 */,
-				82FE14FB2C6943A00023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_low.mp3 */,
-				82FE150F2C6943A10023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE15042C6943A10023CC8B /* ニワトリ (audio-joiner.com)_high.mp3 */,
-				82FE153D2C6943A40023CC8B /* ニワトリ (audio-joiner.com)_low.mp3 */,
-				82FE15232C6943A20023CC8B /* ニワトリ (audio-joiner.com)_medium.mp3 */,
-				82FE15182C6943A20023CC8B /* パステルハウス (mp3cut.net)_high.mp3 */,
-				82FE15402C6943A40023CC8B /* パステルハウス (mp3cut.net)_low.mp3 */,
-				82FE14F82C6943A00023CC8B /* パステルハウス (mp3cut.net)_medium.mp3 */,
-				82FE151A2C6943A20023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_high.mp3 */,
-				82FE152B2C6943A30023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_low.mp3 */,
-				82FE15012C6943A10023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_medium.mp3 */,
-				82FE15142C6943A20023CC8B /* ふぐふぐ体操 (mp3cut.net)_high.mp3 */,
-				82FE15302C6943A30023CC8B /* ふぐふぐ体操 (mp3cut.net)_low.mp3 */,
-				82FE151F2C6943A20023CC8B /* ふぐふぐ体操 (mp3cut.net)_medium.mp3 */,
-				82FE15242C6943A20023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_high.mp3 */,
-				82FE15212C6943A20023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_low.mp3 */,
-				82FE14F22C6943A00023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE15222C6943A20023CC8B /* リコーダービート (mp3cut.net)_high.mp3 */,
-				82FE152D2C6943A30023CC8B /* リコーダービート (mp3cut.net)_low.mp3 */,
-				82FE15322C6943A30023CC8B /* リコーダービート (mp3cut.net)_medium.mp3 */,
-				82FE14F62C6943A00023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_high.mp3 */,
-				82FE152F2C6943A30023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_low.mp3 */,
-				82FE15192C6943A20023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE15292C6943A30023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_high.mp3 */,
-				82FE14F72C6943A00023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_low.mp3 */,
-				82FE15112C6943A10023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE151C2C6943A20023CC8B /* 情動カタルシス (mp3cut.net)_high.mp3 */,
-				82FE14F32C6943A00023CC8B /* 情動カタルシス (mp3cut.net)_low.mp3 */,
-				82FE151D2C6943A20023CC8B /* 情動カタルシス (mp3cut.net)_medium.mp3 */,
-				82FE15262C6943A20023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_high.mp3 */,
-				82FE15432C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_low.mp3 */,
-				82FE152A2C6943A30023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE14F52C6943A00023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_high.mp3 */,
-				82FE153E2C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_low.mp3 */,
-				82FE15392C6943A30023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE15122C6943A10023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_high.mp3 */,
-				82FE14FE2C6943A00023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_low.mp3 */,
-				82FE15342C6943A30023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_medium.mp3 */,
-				82FE15002C6943A00023CC8B /* 鳥のさえずり (audio-joiner.com)_high.mp3 */,
-				82FE15152C6943A20023CC8B /* 鳥のさえずり (audio-joiner.com)_low.mp3 */,
-				82FE15282C6943A30023CC8B /* 鳥のさえずり (audio-joiner.com)_medium.mp3 */,
-				82FE153F2C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_high.mp3 */,
-				82FE151E2C6943A20023CC8B /* 追いかけっこキャッハー (mp3cut.net)_low.mp3 */,
-				82FE15442C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_medium.mp3 */,
-				82FE15382C6943A30023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_high.mp3 */,
-				82FE14F92C6943A00023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_low.mp3 */,
-				82FE15372C6943A30023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE14FC2C6943A00023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_high.mp3 */,
-				82FE15452C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3 */,
-				82FE14F02C69439F0023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_medium.mp3 */,
-				82FE14FF2C6943A00023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_high.mp3 */,
-				82FE15362C6943A30023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_low.mp3 */,
-				82FE15162C6943A20023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_medium.mp3 */,
 				829200962C47A24100C96C30 /* GIFImage.swift */,
 				829200942C47A20D00C96C30 /* UIGIFImageView.swift */,
 				8292007F2C4777B300C96C30 /* RainParticle.sks */,
@@ -727,115 +429,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82FE15902C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15982C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE158D2C6943A40023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_low.mp3 in Resources */,
-				82FE15832C6943A40023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				82FE15732C6943A40023CC8B /* 情動カタルシス (mp3cut.net)_high.mp3 in Resources */,
-				82FE158F2C6943A40023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				829200B42C49453200C96C30 /* SuperRare.gif in Resources */,
-				82FE155D2C6943A40023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_high.mp3 in Resources */,
 				828A07DD2C1959C90008A956 /* .gitignore in Resources */,
-				82FE15952C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_low.mp3 in Resources */,
 				829200702C469F3600C96C30 /* Gacha.sks in Resources */,
-				82FE158B2C6943A40023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15802C6943A40023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE15562C6943A40023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_high.mp3 in Resources */,
-				82FE15692C6943A40023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_high.mp3 in Resources */,
 				82FE14E62C6939600023CC8B /* TOEIC英単語.csv in Resources */,
-				829200BB2C49458E00C96C30 /* Gacha2Im.png in Resources */,
-				82FE156F2C6943A40023CC8B /* パステルハウス (mp3cut.net)_high.mp3 in Resources */,
-				82FE15762C6943A40023CC8B /* ふぐふぐ体操 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE154C2C6943A40023CC8B /* 爽やかな目覚まし音-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE159D2C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15792C6943A40023CC8B /* リコーダービート (mp3cut.net)_high.mp3 in Resources */,
-				82FE158A2C6943A40023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE157E2C6943A40023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15492C6943A40023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15552C6943A40023CC8B /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)_low.mp3 in Resources */,
-				829200B62C49453200C96C30 /* Ultra.gif in Resources */,
-				82FE15932C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE159A2C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				829200B52C49453200C96C30 /* Normal.gif in Resources */,
-				82FE15922C6943A40023CC8B /* 2_23_AM_low.mp3 in Resources */,
-				82FE15502C6943A40023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_low.mp3 in Resources */,
 				829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */,
-				82FE158C2C6943A40023CC8B /* Morning_2 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE157F2C6943A40023CC8B /* 鳥のさえずり (audio-joiner.com)_medium.mp3 in Resources */,
-				82FE15752C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_low.mp3 in Resources */,
+				82FE15AD2C6FA4D80023CC8B /* Gacha2.mp3 in Resources */,
 				82FE14252C63EFEE0023CC8B /* Answer.mp3 in Resources */,
-				82FE15862C6943A40023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				829200A52C47D22500C96C30 /* Mice.png in Resources */,
 				821FD6A52C33E64300F445C7 /* Launch Screen.storyboard in Resources */,
-				82FE154D2C6943A40023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE15712C6943A40023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_high.mp3 in Resources */,
-				82FE15992C6943A40023CC8B /* Morning_2 (mp3cut.net)_high.mp3 in Resources */,
-				82FE155F2C6943A40023CC8B /* シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				829200AF2C4944F800C96C30 /* Gacha2.gif in Resources */,
-				82FE15472C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE157A2C6943A40023CC8B /* ニワトリ (audio-joiner.com)_medium.mp3 in Resources */,
-				82FE157B2C6943A40023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE15722C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15542C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_low.mp3 in Resources */,
-				82FE15672C6943A40023CC8B /* mix_29s (audio-joiner.com)_low.mp3 in Resources */,
-				82FE15592C6943A40023CC8B /* PiPiPiMorning (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15652C6943A40023CC8B /* 2_23_AM_high.mp3 in Resources */,
-				82FE15702C6943A40023CC8B /* 一斗缶をたたき続ける-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15772C6943A40023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_low.mp3 in Resources */,
 				82FE14E12C6939480023CC8B /* 学術英単語.csv in Resources */,
-				82FE155C2C6943A40023CC8B /* mix_29s (audio-joiner.com) (1)_low.mp3 in Resources */,
 				82FE142D2C64B0E90023CC8B /* no.mp3 in Resources */,
-				82FE156C2C6943A40023CC8B /* 鳥のさえずり (audio-joiner.com)_low.mp3 in Resources */,
-				82FE154F2C6943A40023CC8B /* パステルハウス (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15812C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15872C6943A40023CC8B /* ふぐふぐ体操 (mp3cut.net)_low.mp3 in Resources */,
-				82FE157C2C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE15882C6943A40023CC8B /* Morning_2 (mp3cut.net)_low.mp3 in Resources */,
-				82FE15522C6943A40023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_low.mp3 in Resources */,
 				82FE14E72C6939600023CC8B /* ビジネス英単語.csv in Resources */,
-				82FE15742C6943A40023CC8B /* 情動カタルシス (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15662C6943A40023CC8B /* デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15782C6943A40023CC8B /* マジカル着信音ループ1-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				82FE156A2C6943A40023CC8B /* PiPiPiMorning (mp3cut.net)_high.mp3 in Resources */,
-				82FE159C2C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				82FE15682C6943A40023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_medium.mp3 in Resources */,
+				82FE15AB2C6F9A500023CC8B /* Gacha.mp3 in Resources */,
 				829200802C4777B300C96C30 /* RainParticle.sks in Resources */,
-				82FE158E2C6943A40023CC8B /* 銅鑼の連打-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE155E2C6943A40023CC8B /* mix_29s (audio-joiner.com) (1)_high.mp3 in Resources */,
-				82FE15642C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE15512C6943A40023CC8B /* クラシックなアラーム02-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				82FE154A2C6943A40023CC8B /* 情動カタルシス (mp3cut.net)_low.mp3 in Resources */,
-				82FE15962C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_high.mp3 in Resources */,
-				82FE15572C6943A40023CC8B /* 鳥のさえずり (audio-joiner.com)_high.mp3 in Resources */,
-				82FE156D2C6943A40023CC8B /* 野良猫は宇宙を目指した_2 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15612C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				82FE15602C6943A40023CC8B /* mix_29s (audio-joiner.com)_medium.mp3 in Resources */,
-				82FE15892C6943A40023CC8B /* リコーダービート (mp3cut.net)_medium.mp3 in Resources */,
-				82FE154B2C6943A40023CC8B /* オルゴールのチャイム-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				829200BA2C49458E00C96C30 /* GachaIm.png in Resources */,
-				82FE159B2C6943A40023CC8B /* 追いかけっこキャッハー (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15582C6943A40023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_medium.mp3 in Resources */,
-				829200B72C49453200C96C30 /* Rare.gif in Resources */,
-				82FE155A2C6943A40023CC8B /* mix_29s (audio-joiner.com) (1)_medium.mp3 in Resources */,
-				82FE15942C6943A40023CC8B /* ニワトリ (audio-joiner.com)_low.mp3 in Resources */,
-				82FE15532C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_high.mp3 in Resources */,
-				82FE15622C6943A40023CC8B /* PiPiPiMorning (mp3cut.net)_low.mp3 in Resources */,
-				82FE154E2C6943A40023CC8B /* 高音ビープアラーム音-効果音 (mp3cut.net)_low.mp3 in Resources */,
-				82FE15842C6943A40023CC8B /* リコーダービート (mp3cut.net)_low.mp3 in Resources */,
-				82FE15482C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_medium.mp3 in Resources */,
-				829200A32C47D22500C96C30 /* Rabbit.png in Resources */,
 				82FE14E52C6939600023CC8B /* 基礎英単語.csv in Resources */,
-				82FE156B2C6943A40023CC8B /* ふぐふぐ体操 (mp3cut.net)_high.mp3 in Resources */,
 				829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */,
-				82FE15852C6943A40023CC8B /* 2_23_AM_medium.mp3 in Resources */,
-				82FE15972C6943A40023CC8B /* パステルハウス (mp3cut.net)_low.mp3 in Resources */,
-				82FE155B2C6943A40023CC8B /* ニワトリ (audio-joiner.com)_high.mp3 in Resources */,
-				82FE15912C6943A40023CC8B /* CLUB_DEEP_FOG (mp3cut.net)_high.mp3 in Resources */,
-				82FE15822C6943A40023CC8B /* はりきっちゃう時のテーマ (mp3cut.net)_low.mp3 in Resources */,
-				829200AD2C4944F000C96C30 /* Gacha.gif in Resources */,
-				82FE156E2C6943A40023CC8B /* シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)_medium.mp3 in Resources */,
-				82FE15632C6943A40023CC8B /* mix_29s (audio-joiner.com)_high.mp3 in Resources */,
-				82FE157D2C6943A40023CC8B /* 森の中の小鳥のさえずり-効果音 (mp3cut.net)_high.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,6 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82FE15AF2C6FB65E0023CC8B /* HowToUse.swift in Sources */,
 				82FE14292C63F0A60023CC8B /* AdMob.swift in Sources */,
 				829200972C47A24100C96C30 /* GIFImage.swift in Sources */,
 				821FD6B72C37E2A900F445C7 /* AppDelegate.swift in Sources */,

@@ -24,7 +24,7 @@ class AlarmStore: ObservableObject {
     }
     
     //　アラーム編集用の格納庫
-    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト_medium.mp3", snoozeEnabled: false, groupId: "")
+    @Published var settingalarm: AlarmData = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト_medium.mp3",  groupId: "")
     
     init() {
         self.showingAlarmLanding = UserDefaults.standard.bool(forKey: "showingAlarmLanding")
@@ -35,7 +35,7 @@ class AlarmStore: ObservableObject {
         if !isFirstLaunch {
             // 初回起動時にデフォルトのアラームを追加
             let defaultAlarms = [
-                AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: false, soundName: "デフォルト_medium.mp3", snoozeEnabled: false, groupId: "")
+                AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: false, soundName: "デフォルト_medium.mp3", groupId: "")
             ]
             self.alarms.append(contentsOf: defaultAlarms)
             saveAlarms()
@@ -58,13 +58,13 @@ class AlarmStore: ObservableObject {
     }
 
     func deleteAlarmsByGroupId(_ groupId: String) {
-        cancelAlarmNotifications(groupId: groupId, snoozeEnabled: isSnoozeEnabled(groupId: groupId))
+        cancelAlarmNotifications(groupId: groupId)
         alarms.removeAll { $0.groupId == groupId }
         saveAlarms()
     }
     
     func stopAlarm(_ groupId: String) {
-        cancelAlarmNotifications(groupId: groupId, snoozeEnabled: isSnoozeEnabled(groupId: groupId))
+        cancelAlarmNotifications(groupId: groupId)
         if let index = alarms.firstIndex(where: { $0.groupId == groupId }) {
             alarms[index].isOn = false
         }
@@ -74,14 +74,14 @@ class AlarmStore: ObservableObject {
     func stopAlarm_All(_ groupIds: [String]) {
         for groupId in groupIds {
             // 各 groupId に対してアラーム通知をキャンセル
-            cancelAlarmNotifications(groupId: groupId, snoozeEnabled: isSnoozeEnabled(groupId: groupId))
+            cancelAlarmNotifications(groupId: groupId)
             
             // alarms 配列内で一致する groupId を持つアラームの isOn プロパティを false に設定
             if let index = alarms.firstIndex(where: { $0.groupId == groupId }) {
                 if alarms[index].repeatLabel.isEmpty{
                     alarms[index].isOn = false
                 }else{
-                    rescheduleAlarm(alarmTime: alarms[index].time, repeatLabel: alarms[index].repeatLabel, isOn: true, soundName: alarms[index].soundName, snoozeEnabled: alarms[index].snoozeEnabled, groupId: alarms[index].groupId)
+                    rescheduleAlarm(alarmTime: alarms[index].time, repeatLabel: alarms[index].repeatLabel, isOn: true, soundName: alarms[index].soundName, groupId: alarms[index].groupId)
                 }
             }
         }
@@ -89,25 +89,13 @@ class AlarmStore: ObservableObject {
         saveAlarms()
     }
     
-    //スヌーズかどうかをgroupIdから取得
-    func isSnoozeEnabled(groupId: String) -> Bool {
-        return alarms.first(where: { $0.groupId == groupId })?.snoozeEnabled ?? false
-    }
     
-    private func cancelAlarmNotifications(groupId: String, snoozeEnabled: Bool) {
+    private func cancelAlarmNotifications(groupId: String) {
         let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
         for n in 0...15 {
             let identifier = "AlarmNotification\(groupId)_\(n)"
             identifiers.append(identifier)
-        }
-        if snoozeEnabled {
-            for m in 1...2 {
-                for l in 0...15 {
-                    let identifier = "AlarmNotification\(groupId)_\(l)_\(m)"
-                    identifiers.append(identifier)
-                }
-            }
         }
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
         center.removeDeliveredNotifications(withIdentifiers: identifiers)
@@ -133,17 +121,17 @@ class AlarmStore: ObservableObject {
         return alarms.filter { $0.groupId == groupId }
     }
     
-    func scheduleAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, soundName: String, snoozeEnabled: Bool) {
+    func scheduleAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, soundName: String) {
         let groupId = UUID().uuidString
-        setAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: true, soundName: soundName, snoozeEnabled: snoozeEnabled, groupId: groupId)
+        setAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: true, soundName: soundName, groupId: groupId)
     }
     
-    func rescheduleAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String, at index: Int? = nil) {
+    func rescheduleAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, groupId: String, at index: Int? = nil) {
         deleteAlarmsByGroupId(groupId)
-        setAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: isOn, soundName: soundName, snoozeEnabled: snoozeEnabled, groupId: groupId, at: index)
+        setAlarm(alarmTime: alarmTime, repeatLabel: repeatLabel, isOn: isOn, soundName: soundName, groupId: groupId, at: index)
     }
     
-    func setAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String, at index: Int? = nil) {
+    func setAlarm(alarmTime: Date, repeatLabel: Set<Weekday>, isOn: Bool, soundName: String, groupId: String, at index: Int? = nil) {
         let calendar = Calendar.current
         
         print("alarmTime (UTC):", alarmTime)
@@ -191,7 +179,6 @@ class AlarmStore: ObservableObject {
             mission: "通知",
             isOn: isOn,
             soundName: soundName,
-            snoozeEnabled: snoozeEnabled,
             groupId: groupId
         )
         
@@ -202,7 +189,7 @@ class AlarmStore: ObservableObject {
         content.body = "時間です！起きましょう！"
         content.userInfo = ["alarmId": newAlarm.id.uuidString, "groupId": groupId]
         
-        for n in 0...15 {
+        for n in 0...14 {
             let secondsToAdd = 7 * n
             let nanosecondsToAdd = 300_000_000 * n // 0.5秒（500ミリ秒）をナノ秒に変換
             var dateComponents = DateComponents()
@@ -227,41 +214,6 @@ class AlarmStore: ObservableObject {
                     print("アラーム\(n)の設定に失敗しました: \(error.localizedDescription)")
                 } else {
                     print("アラーム\(n)が設定されました: \(triggerDate)")
-                }
-            }
-        }
-         
-        // スヌーズ処理
-        if snoozeEnabled {
-            for m in 1...2 {
-                let snoozeTriggerDate = calendar.date(byAdding: .minute, value: 5 * m, to: targetDate)!
-                for l in 0...15 {
-                    let secondsToAdd = 7 * l
-                    let nanosecondsToAdd = 300_000_000 * l // 0.5秒（500ミリ秒）をナノ秒に変換
-                    var dateComponents = DateComponents()
-                    dateComponents.second = secondsToAdd
-                    dateComponents.nanosecond = nanosecondsToAdd
-                    
-                    let triggerDate = calendar.date(byAdding: dateComponents, to: snoozeTriggerDate)!
-                    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .nanosecond], from: triggerDate)
-                    let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                    
-                    // サウンド設定を条件に応じて変更
-                    if l == 0 || l == 4 || l == 8 || l == 12 {
-                        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: soundName))
-                    } else {
-                        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "no.mp3")) // バイブレーションのため
-                    }
-                    
-                    let request = UNNotificationRequest(identifier: "AlarmNotification\(groupId)_\(l)_\(m)", content: content, trigger: trigger)
-                    
-                    UNUserNotificationCenter.current().add(request) { error in
-                        if let error = error {
-                            print("アラーム\(l)_\(m)の設定に失敗しました: \(error.localizedDescription)")
-                        } else {
-                            print("アラーム\(l)_\(m)が設定されました: \(triggerDate)")
-                        }
-                    }
                 }
             }
         }
@@ -320,32 +272,28 @@ class AlarmStore: ObservableObject {
         return targetDate
     }
     
-//    func groupIdsForAlarmsWithinTimeRange() -> [String] {
-//        let currentDate = Date()
-//        let fiveMinutesAgo = currentDate.addingTimeInterval(-5 * 60) // 現在から5分前
-//        print(alarms)
-//        print("current:", currentDate)
-//        return alarms.filter { alarm in
-//            alarm.isOn && alarm.time >= fiveMinutesAgo && alarm.time <= currentDate
-//        }.map { $0.groupId }
-//    }
     func groupIdsForAlarmsWithinTimeRange() -> (groupIds: [String], firstSound: String?) {
         let currentDate = Date()
         let fiveMinutesAgo = currentDate.addingTimeInterval(-5 * 60) // 現在から5分前
-        let fifteenMinutesAgo = currentDate.addingTimeInterval(-15 * 60)
+//        let fifteenMinutesAgo = currentDate.addingTimeInterval(-15 * 60)
         print(alarms)
         print("current:", currentDate)
 
         let matchingAlarms = alarms.filter { alarm in
-            if alarm.snoozeEnabled { //スヌーズの場合
-                alarm.isOn && alarm.time >= fifteenMinutesAgo && alarm.time <= currentDate
-            }else{
-                alarm.isOn && alarm.time >= fiveMinutesAgo && alarm.time <= currentDate
-            }
+            alarm.isOn && alarm.time >= fiveMinutesAgo && alarm.time <= currentDate
         }
 
         let groupIds = matchingAlarms.map { $0.groupId }
         let firstSound = matchingAlarms.first?.soundName
         return (groupIds, firstSound)
+    }
+    
+    //　アラームが4つ以上あるか確認
+    func activeAlarmsCount() -> Int {
+        return alarms.filter { $0.isOn }.count
+    }
+
+    func hasFourOrMoreActiveAlarms() -> Bool {
+        return activeAlarmsCount() >= 4
     }
 }

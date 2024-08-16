@@ -180,7 +180,7 @@ struct HomeMission: View {
                 }
             }
             .padding()
-            .navigationTitle("ミッション")
+            .navigationTitle("英語演習")
             .onAppear {
                 isReset = true
                 basic = false

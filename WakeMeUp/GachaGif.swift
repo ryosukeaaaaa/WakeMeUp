@@ -1,6 +1,8 @@
 import SwiftUI
 import SpriteKit
 import SwiftyGif
+import AVFoundation
+
 // Arrayの拡張としてweightedRandomElementメソッドを追加
 extension Array where Element == Item {
     func weightedRandomElement() -> Item? {
@@ -85,7 +87,7 @@ struct GachaGIFView: View {
     let gachaData: Data
     let ultraData: Data
     let superRareData: Data
-    let rareData: Data
+    let rareData: Data?
     let normalData: Data?
     let gachaImageName: String
     let gachaResultFilter: ((Item) -> Bool)?
@@ -112,6 +114,11 @@ struct GachaGIFView: View {
     
     @State private var shared = false
 
+    @State private var audioPlayer: AVAudioPlayer?  // Gacha.mp3再生用
+    @State private var audioPlayer2: AVAudioPlayer?  // Gacha2.mp3再生用
+ 
+    @StateObject private var speechRecognizer = SpeechRecognizer()
+    
     var body: some View {
         VStack {
             ZStack {
@@ -124,13 +131,9 @@ struct GachaGIFView: View {
                 if playgacha {
                     gachaAnimation()
                 } else if let resultItem = resultItem {
-                    VStack {
+                    VStack(spacing: 8) {  // Adjust the spacing value as needed
                         Text("\(resultItem.rarity.rawValue)")
                             .font(.title)
-                            .padding()
-//                            .onAppear {
-//                                startTextAnimation("Rarity: \(resultItem.rarity.rawValue)")
-//                            }
                         Image(resultItem.name)
                             .resizable()
                             .scaledToFit()
@@ -138,8 +141,10 @@ struct GachaGIFView: View {
                             .offset(x: shakeOffset)
                             .onAppear {
                                 startShaking()
+
+                                // アイテム名を読み上げる
+                                speechRecognizer.speak(text: resultItem.name)
                                 
-                                // 2秒後にaddticketの値を確認してアラートを表示
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                     if addticket > 0 {
                                         showTicketAlert = true
@@ -154,6 +159,7 @@ struct GachaGIFView: View {
                         Text(resultItem.name)
                             .font(.title)
                             .padding()
+                        Spacer()
                         Spacer()
                     }
                     .alert(isPresented: $showTicketAlert) {
@@ -234,11 +240,11 @@ struct GachaGIFView: View {
                             Spacer()
                             Button(action: {
                                 skipAnimation = true
+                                stopAllSounds()  // スキップ時にすべての音声を停止
                                 finishGacha()
                             }) {
                                 Text("演出をスキップ")
                                     .padding()
-//                                    .background(Color.white)
                                     .foregroundColor(.blue)
                                     .cornerRadius(10)
                             }
@@ -271,7 +277,6 @@ struct GachaGIFView: View {
                                             itemState.Xshare = 2
                                         }
                                         shareOnTwitter(with: item)
-                                        print("シェアしました")
                                         shared = true
                                     }
                                 }) {
@@ -347,7 +352,6 @@ struct GachaGIFView: View {
         return scene
     }
 
-
     private func startGacha() {
         resetGachaState()
         spinGacha()
@@ -365,6 +369,7 @@ struct GachaGIFView: View {
         resultItem = nil
         playgacha = false
         showResult = false
+        stopAllSounds()  // すべての音声をリセット
     }
 
     @ViewBuilder
@@ -385,9 +390,13 @@ struct GachaGIFView: View {
                 return
             }
 
+            playGachaSound()  // 音声再生を開始
+            
             // 初期アニメーション
             try? await Task.sleep(for: .seconds(6))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, !skipAnimation else { return }  // スキップが指示されたら処理を中断
+
+            playGacha2Sound()  // 6秒後にGacha2.mp3を再生
 
             // レアリティに応じたアニメーション
             switch resultItem?.rarity {
@@ -402,7 +411,7 @@ struct GachaGIFView: View {
             }
 
             try? await Task.sleep(for: .seconds(5.5))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, !skipAnimation else { return }  // スキップが指示されたら処理を中断
 
             finishGacha()
         }
@@ -412,8 +421,9 @@ struct GachaGIFView: View {
     private func finishGacha() {
         playgacha = false
         showResult = true
+        stopAllSounds()  // すべての音声を停止
         if !shared {
-            showShareButton = true // Int.random(in: 1...3) == 1
+            showShareButton = true
         } else {
             showShareButton = false
         }
@@ -431,9 +441,8 @@ struct GachaGIFView: View {
             if !itemState.UserItems.contains(item.name) {
                 itemState.UserItems.append(item.name)
                 new = true
-            }else{
+            } else {
                 new = false
-                // itemが既にUserItemsに含まれている場合、rarityによってaddticketの値を設定
                 switch item.rarity {
                 case .Normal:
                     addticket = 1
@@ -457,19 +466,47 @@ struct GachaGIFView: View {
             shakeOffset = 0
         }
     }
+
+    private func playGachaSound() {
+        guard !skipAnimation else { return }  // スキップが指示されていれば音声を再生しない
+        
+        guard let path = Bundle.main.path(forResource: "Gacha", ofType: "mp3") else {
+            print("Gacha.mp3 not found")
+            return
+        }
+        
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.play()
+        } catch {
+            print("Failed to play sound: \(error.localizedDescription)")
+        }
+    }
+
+    private func playGacha2Sound() {
+        guard !skipAnimation else { return }  // スキップが指示されていれば音声を再生しない
+        
+        guard let path = Bundle.main.path(forResource: "Gacha2", ofType: "mp3") else {
+            print("Gacha2.mp3 not found")
+            return
+        }
+        
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            audioPlayer2 = try AVAudioPlayer(contentsOf: url)
+            audioPlayer2?.play()
+        } catch {
+            print("Failed to play sound: \(error.localizedDescription)")
+        }
+    }
     
-//    private func startTextAnimation(_ text: String) {
-//        var currentIndex = 0
-//        displayedText = ""
-//        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-//            if currentIndex < text.count {
-//                displayedText.append(text[text.index(text.startIndex, offsetBy: currentIndex)])
-//                currentIndex += 1
-//            } else {
-//                timer.invalidate()
-//            }
-//        }
-//    }
+    private func stopAllSounds() {
+        audioPlayer?.stop()  // Gacha.mp3を停止
+        audioPlayer2?.stop()  // Gacha2.mp3を停止
+    }
     
     private func shareOnTwitter(with item: Item) {
         let text = "英語を発音しないと止まらないアラーム!?\n朝単-英単語アラーム\n当たったのは: \(item.name)\nレアリティ: \(item.rarity.rawValue)"
@@ -484,3 +521,4 @@ struct GachaGIFView: View {
         }
     }
 }
+

@@ -18,6 +18,9 @@ struct OnboardingView: View {
 
                 FourthPageView()
                     .tag(4)
+                
+                FifthPageView()
+                    .tag(5)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut, value: selectedPage)
@@ -117,6 +120,7 @@ struct SecondPageView: View {
                     .frame(height: 2)
                     .foregroundColor(.blue)
             }
+            
             Text("本アプリは、")
                 .font(.body)
                 .foregroundColor(.primary)
@@ -127,10 +131,10 @@ struct SecondPageView: View {
                 .foregroundColor(.blue)
                 .fontWeight(.bold)
 
-            Text("です。")
-                .font(.body)
-                .foregroundColor(.primary)
-                .fontWeight(.bold)
+//            Text("です。")
+//                .font(.body)
+//                .foregroundColor(.primary)
+//                .fontWeight(.bold)
 
             Text("アラームを止めるとき単語画面が現れます。")
                 .font(.body)
@@ -208,6 +212,36 @@ struct ThirdPageView: View {
 struct FourthPageView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
+            Spacer()
+            Rectangle()
+                .frame(height: 2)
+                .foregroundColor(.blue)
+            Text("追加要素として演習回数に応じてガチャが引けます!")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
+            Text("コンプリート目指して頑張ってください！")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
+            Image("4")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            .padding(.bottom, 20)
+            
+            Spacer()
+            Text("本アプリの詳しい説明は、設定より「アプリの使用方法」に載せているのでぜひそちらを参照してください。")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
+        }
+        .padding()
+    }
+}
+
+struct FifthPageView: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 5) {
                 Text("注意")
                     .font(.title)
@@ -228,7 +262,7 @@ struct FourthPageView: View {
                         .font(.body)
                         .foregroundColor(.primary)
                         .fontWeight(.bold)
-                    Image("4-1")
+                    Image("5-1")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(.bottom, 20)
@@ -238,7 +272,7 @@ struct FourthPageView: View {
                         .font(.body)
                         .foregroundColor(.primary)
                         .fontWeight(.bold)
-                    Image("4-2")
+                    Image("5-2")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(.bottom, 20)
@@ -250,7 +284,7 @@ struct FourthPageView: View {
                         .font(.body)
                         .foregroundColor(.primary)
                         .fontWeight(.bold)
-                    Image("4-3")
+                    Image("5-3")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(.bottom, 20)
@@ -260,13 +294,13 @@ struct FourthPageView: View {
                         .font(.body)
                         .foregroundColor(.primary)
                         .fontWeight(.bold)
-                    Image("4-4")
+                    Image("5-4")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(.bottom, 20)
                 }
             }
-            Text("より本アプリを追加してください。")
+            Text("から本アプリを追加してください。")
                 .font(.body)
                 .foregroundColor(.primary)
                 .fontWeight(.bold)
@@ -278,4 +312,3 @@ struct FourthPageView: View {
         .padding()
     }
 }
-

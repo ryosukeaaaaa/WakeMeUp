@@ -11,7 +11,8 @@ struct AlarmListView: View {
     @State private var selectedAlarm: AlarmData? = nil
     @State private var selectedIndex: IdentifiableInt? = nil
     
-    @State private var showSilentModeAlert = false // State to manage the alert
+    @State private var showSilentModeAlert = false // 消音モード警告用のステート
+    @State private var showingAlert = false // アラート表示用のステート
 
     var body: some View {
         VStack {
@@ -25,8 +26,12 @@ struct AlarmListView: View {
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
                                 Spacer()
-                                Button(action: {}) {
-                                    Toggle("", isOn: binding(for: alarm))
+                                
+                                // トグル付きボタン
+                                Button(action: {
+                                    toggleAlarm(at: index)
+                                }) {
+                                    Toggle("", isOn: binding(for: alarmStore.alarms[index]))
                                         .labelsHidden()
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -37,18 +42,15 @@ struct AlarmListView: View {
                                 Text(alarm.soundName.dropLast(4))
                             }
                             .foregroundColor(.gray)
-//                            HStack {
-//                                Text("繰り返し")
-//                                Spacer()
-//                                Text(repeatLabelSummary(repeatedLabel: alarm.repeatLabel))
-//                                    .foregroundColor(.gray)
-//                            }
-//                            .foregroundColor(.gray)
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            alarmStore.settingalarm = alarm
-                            selectedIndex = IdentifiableInt(id: index)
+                            if !alarm.isOn && alarmStore.hasFourOrMoreActiveAlarms() {
+                                showingAlert = true
+                            } else {
+                                alarmStore.settingalarm = alarm
+                                selectedIndex = IdentifiableInt(id: index)
+                            }
                         }
                     }
                     .onDelete { indexSet in
@@ -57,13 +59,17 @@ struct AlarmListView: View {
                             alarmStore.deleteAlarmsByGroupId(groupId)
                         }
                     }
+                    .alert(isPresented: $showingAlert) {
+                        Alert(title: Text("確認"),
+                              message: Text("アラームは4つまでしかオンにできません。"),
+                              dismissButton: .default(Text("OK")))
+                    }
                 }
                 .navigationTitle("アラーム")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
-                            alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト_medium.mp3", snoozeEnabled: false, groupId: "")
-                            showingAddAlarm = true
+                            addNewAlarm()
                         }) {
                             Image(systemName: "plus")
                         }
@@ -77,7 +83,7 @@ struct AlarmListView: View {
                 AlarmSettingView(alarmStore: alarmStore, index: selectedItem.id)
             }
 
-            Spacer() // 画面の残りの部分を埋めるスペーサー
+            Spacer()
             
             AdMobView()
                 .frame(width: 450, height: 90)
@@ -100,32 +106,44 @@ struct AlarmListView: View {
         return formatter.string(from: date)
     }
 
-    // Toggleのバインディングを取得する関数
-    private func binding(for alarm: AlarmData) -> Binding<Bool> {
-        guard let index = alarmStore.alarms.firstIndex(where: { $0.id == alarm.id }) else {
-            return .constant(alarm.isOn)
+    // アラームのオン/オフをトグルする関数
+    private func toggleAlarm(at index: Int) {
+        if !alarmStore.alarms[index].isOn && alarmStore.hasFourOrMoreActiveAlarms() {
+            showingAlert = true
+        } else {
+            alarmStore.alarms[index].isOn.toggle()
+            alarmStore.saveAlarms()
         }
+    }
 
-        return Binding(
-            get: { alarmStore.alarms[index].isOn },
+    // トグルバインディングを作成する関数
+    private func binding(for alarm: AlarmData) -> Binding<Bool> {
+        Binding<Bool>(
+            get: { alarm.isOn },
             set: { newValue in
-                alarmStore.alarms[index].isOn = newValue
-                alarmStore.saveAlarms()
-                handleToggleChange(newValue, for: index)
+                if newValue && alarmStore.activeAlarmsCount() >= 4 && !alarm.isOn {
+                    showingAlert = true
+                } else {
+                    if let index = alarmStore.alarms.firstIndex(where: { $0.id == alarm.id }) {
+                        alarmStore.alarms[index].isOn = newValue
+                        alarmStore.saveAlarms()
+                    }
+                }
             }
         )
     }
 
-    // Toggleが変更されたときの処理を行う関数
-    private func handleToggleChange(_ isOn: Bool, for index: Int) {
-        if isOn {
-            alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, snoozeEnabled: alarmStore.alarms[index].snoozeEnabled, groupId: alarmStore.alarms[index].groupId)
-            showSilentModeAlert = true
+    // 新しいアラームを追加する関数
+    private func addNewAlarm() {
+        if alarmStore.hasFourOrMoreActiveAlarms() {
+            showingAlert = true
         } else {
-            alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
+            alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト_medium.mp3", groupId: "")
+            showingAddAlarm = true
         }
     }
-    
+
+    // リピートラベルの概要を生成する関数
     private func repeatLabelSummary(repeatedLabel: Set<Weekday>) -> String {
         if repeatedLabel.isEmpty {
             return "なし"

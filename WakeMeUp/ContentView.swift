@@ -36,7 +36,7 @@ struct ContentView: View {
                 }
                 .tabItem {
                     Image(systemName: "flag")
-                    Text("ミッション")
+                    Text("英語演習")
                 }
                 
                 NavigationStack {

@@ -10,7 +10,6 @@ struct AlarmSettingView: View {
     @State private var repeatLabel: Set<Weekday> = []
     @State private var mission = "通知"
     @State private var isOn = true
-    @State private var snoozeEnabled = false
     
     @State private var isRepeatDaysExpanded = false  // DisclosureGroupの展開状態を管理するState
     @State private var isExpanded: Bool = false
@@ -55,8 +54,6 @@ struct AlarmSettingView: View {
                             .foregroundColor(.gray)
                     }
                 }
-                
-                Toggle("スヌーズを有効にする", isOn: $alarmStore.settingalarm.snoozeEnabled)
                 Button(action: {
                     alarmStore.deleteAlarmsByGroupId(alarmStore.settingalarm.groupId)
                     presentationMode.wrappedValue.dismiss()
@@ -69,7 +66,7 @@ struct AlarmSettingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        alarmStore.rescheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, isOn: true, soundName: alarmStore.settingalarm.soundName, snoozeEnabled: alarmStore.settingalarm.snoozeEnabled, groupId: alarmStore.settingalarm.groupId, at: index)
+                        alarmStore.rescheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, isOn: true, soundName: alarmStore.settingalarm.soundName, groupId: alarmStore.settingalarm.groupId, at: index)
 //                        presentationMode.wrappedValue.dismiss()
                         showSilentModeAlert = true
                     }) {

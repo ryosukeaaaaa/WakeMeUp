@@ -33,17 +33,15 @@ struct AlarmData: Identifiable, Codable {
     var mission: String
     var isOn: Bool
     var soundName: String
-    var snoozeEnabled: Bool
     var groupId: String
 
-    init(id: UUID = UUID(), time: Date, repeatLabel: Set<Weekday>, mission: String, isOn: Bool, soundName: String, snoozeEnabled: Bool, groupId: String) {
+    init(id: UUID = UUID(), time: Date, repeatLabel: Set<Weekday>, mission: String, isOn: Bool, soundName: String, groupId: String) {
         self.id = id
         self.time = time
         self.repeatLabel = repeatLabel
         self.mission = mission
         self.isOn = isOn
         self.soundName = soundName
-        self.snoozeEnabled = snoozeEnabled
         self.groupId = groupId
     }
 
@@ -57,7 +55,6 @@ struct AlarmData: Identifiable, Codable {
         mission = try container.decode(String.self, forKey: .mission)
         isOn = try container.decode(Bool.self, forKey: .isOn)
         soundName = try container.decode(String.self, forKey: .soundName)
-        snoozeEnabled = try container.decode(Bool.self, forKey: .snoozeEnabled)
         groupId = try container.decode(String.self, forKey: .groupId)
     }
     
@@ -69,7 +66,6 @@ struct AlarmData: Identifiable, Codable {
         try container.encode(mission, forKey: .mission)
         try container.encode(isOn, forKey: .isOn)
         try container.encode(soundName, forKey: .soundName)
-        try container.encode(snoozeEnabled, forKey: .snoozeEnabled)
         try container.encode(groupId, forKey: .groupId)
     }
 
@@ -80,7 +76,6 @@ struct AlarmData: Identifiable, Codable {
         case mission
         case isOn
         case soundName
-        case snoozeEnabled
         case groupId
     }
 }
