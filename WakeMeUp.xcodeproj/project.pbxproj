@@ -159,6 +159,7 @@
 		82FE159C2C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15452C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3 */; };
 		82FE159D2C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15462C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3 */; };
 		82FE159F2C6B39140023CC8B /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE159E2C6B39140023CC8B /* Onboarding.swift */; };
+		82FE15A12C6EE6CF0023CC8B /* CollectionImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */; };
 		BE27B1C6E42E24EAB0C652AD /* Pods_WakeMeUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */; };
 /* End PBXBuildFile section */
 
@@ -335,6 +336,7 @@
 		82FE15452C6943A40023CC8B /* 明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "明るいアップビート着信音-効果音 (mp3cut.net)_low.mp3"; sourceTree = "<group>"; };
 		82FE15462C6943A40023CC8B /* デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)_medium.mp3"; sourceTree = "<group>"; };
 		82FE159E2C6B39140023CC8B /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionImage.swift; sourceTree = "<group>"; };
 		8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WakeMeUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DAFDD1C15A64C9DD5046EC1 /* Pods-WakeMeUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WakeMeUp.debug.xcconfig"; path = "Target Support Files/Pods-WakeMeUp/Pods-WakeMeUp.debug.xcconfig"; sourceTree = "<group>"; };
 		9C89F8C8FCE0B7065FCB10EF /* Pods-朝単-英単語アラーム.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-朝単-英単語アラーム.release.xcconfig"; path = "Target Support Files/Pods-朝単-英単語アラーム/Pods-朝単-英単語アラーム.release.xcconfig"; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
 				8292006B2C469B2200C96C30 /* ItemState.swift */,
+				82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */,
 				829200A82C4825A400C96C30 /* Collection.swift */,
 				829200732C46A81600C96C30 /* Gacha.swift */,
 				829200A62C4821F300C96C30 /* GachaGif.swift */,
@@ -903,6 +906,7 @@
 				82FE14292C63F0A60023CC8B /* AdMob.swift in Sources */,
 				829200972C47A24100C96C30 /* GIFImage.swift in Sources */,
 				821FD6B72C37E2A900F445C7 /* AppDelegate.swift in Sources */,
+				82FE15A12C6EE6CF0023CC8B /* CollectionImage.swift in Sources */,
 				82FE142B2C649F9F0023CC8B /* MissionSectionSelect.swift in Sources */,
 				341C36552C2B3035009F9594 /* AddAlarmView.swift in Sources */,
 				8292006C2C469B2200C96C30 /* ItemState.swift in Sources */,

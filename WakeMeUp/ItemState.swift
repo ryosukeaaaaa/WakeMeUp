@@ -149,7 +149,7 @@ struct GachaView: View {
                             }
                             .padding(10)
                             .frame(maxWidth: .infinity)
-                            .background(Color.green)
+                            .background(Color(red: 0, green: 0.7, blue: 0.4))
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }
@@ -169,8 +169,7 @@ struct GachaView: View {
                             }
                             .padding(10)
                             .frame(maxWidth: .infinity)
-                            .background(Color.green)
-//                            .background(Color(red: 0.15, green: 0.7, blue: 0.15))
+                            .background(Color(red: 0, green: 0.7, blue: 0.4))
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }
@@ -190,7 +189,7 @@ struct GachaView: View {
                             }
                             .padding(10)
                             .frame(maxWidth: .infinity)
-                            .background(Color.green)
+                            .background(Color(red: 0, green: 0.8, blue: 0))
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         }
@@ -199,11 +198,10 @@ struct GachaView: View {
                         }
                     }
                 }
-                
-                Spacer()
+                CollectionImage()
                 
                 AdMobView()
-                    .frame(width: 450, height: 300)
+                    .frame(width: 450, height: 200)
             }
             .padding()
             .navigationTitle("ガチャ")

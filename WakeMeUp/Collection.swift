@@ -28,6 +28,7 @@ struct ItemView: View {
 
 struct Collection: View {
     @ObservedObject var itemState: ItemState
+    @State private var showAlert = false
 
     var body: some View {
         VStack {
@@ -37,7 +38,6 @@ struct Collection: View {
                     .foregroundColor(.green)
                     .padding()
             }
-            resetButton
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(Rarity.allCases) { rarity in
@@ -45,23 +45,26 @@ struct Collection: View {
                     }
                 }
                 .frame(maxWidth: .infinity) // スクロールビューの横幅を最大にする
+                Button(action: {
+                    showAlert = true
+                }) {
+                    Text("コレクションをリセット")
+                        .padding()
+                        .foregroundColor(.red)
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("本当に実行しますか？"),
+                        message: Text("コレクションが全てリセットされます。"),
+                        primaryButton: .destructive(Text("リセット")) {
+                            itemState.UserItems.removeAll()
+                        },
+                        secondaryButton: .cancel(Text("キャンセル"))
+                    )
+                }
             }
         }
         .navigationTitle("My Collection")
-    }
-
-    // リセットボタンのビュー
-    var resetButton: some View {
-        Button(action: {
-            itemState.UserItems.removeAll() // itemState.UserItemsを空にする
-        }) {
-            Text("コレクションをリセット")
-                .padding()
-                .background(Color.red)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-        }
-        .padding()
     }
 
     // コレクションが完全に揃ったかどうかを確認するプロパティ
