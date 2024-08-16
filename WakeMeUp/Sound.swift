@@ -1,7 +1,7 @@
 import SwiftUI
 
 class SoundData: ObservableObject {
-    @Published var soundSources: [String] = ["銅鑼の連打-効果音 (mp3cut.net)", "mix_29s (audio-joiner.com) (1)", "シンプルなアラーム音（ピピピピピ…）-効果音 (mp3cut.net)", "シンプルなアラーム音（ピ…ピ…ピ…ピ…）-効果音 (mp3cut.net)", "mix_29s (audio-joiner.com)", "一斗缶をたたき続ける-効果音 (mp3cut.net)", "高音ビープアラーム音-効果音 (mp3cut.net)", "クラシックなアラーム02-効果音 (mp3cut.net)", "マジカル着信音ループ1-効果音 (mp3cut.net)", "デジタル目覚まし時計アラーム音-効果音 (mp3cut.net)", "デジタル目覚まし時計アラーム音-02-効果音 (mp3cut.net)", "明るいアップビート着信音-効果音 (mp3cut.net)", "鳥のさえずり (audio-joiner.com)", "ニワトリ (audio-joiner.com)", "オルゴールのチャイム-効果音 (mp3cut.net)", "森の中の小鳥のさえずり-効果音 (mp3cut.net)", "爽やかな目覚まし音-効果音 (mp3cut.net)", "Morning_2 (mp3cut.net)", "情動カタルシス (mp3cut.net)", "2_23_AM", "ふぐふぐ体操 (mp3cut.net)", "野良猫は宇宙を目指した_2 (mp3cut.net)", "聴いたら分かる目覚めたときから戦闘態勢に入れるやつ (mp3cut.net)", "リコーダービート (mp3cut.net)", "パステルハウス (mp3cut.net)", "はりきっちゃう時のテーマ (mp3cut.net)", "PiPiPiMorning (mp3cut.net)", "CLUB_DEEP_FOG (mp3cut.net)", "追いかけっこキャッハー (mp3cut.net)"]
+    @Published var soundSources: [String] = ["デフォルト","銅鑼の連打", "mix_29s(1)", "mix_29s(2)", "シンプルなアラーム音(1)", "シンプルなアラーム音(2)", "一斗缶をたたき続ける", "高音ビープアラーム音", "クラシックなアラーム", "マジカル着信音ループ", "デジタル目覚まし時計アラーム音", "明るいアップビート着信音", "鳥のさえずり", "ニワトリ", "オルゴールのチャイム", "森の中の小鳥のさえずり", "爽やかな目覚まし音", "Morning", "情動カタルシス", "2_23_AM", "ふぐふぐ体操", "野良猫は宇宙を目指した", "聴いたら分かる目覚めたときから戦闘態勢に入れるやつ", "リコーダービート", "パステルハウス", "はりきっちゃう時のテーマ", "PiPiPiMorning", "CLUB_DEEP_FOG", "追いかけっこキャッハー"]
 }
 
 struct Sound: View {
@@ -30,7 +30,7 @@ struct Sound: View {
                         Text("小").tag("low")
                     }
                 }
-                Section{
+                Section {
                     Button(action: {
                         alarmStore.stopTestSound()
                         alarmStore.testSound(sound: "\(testsound)_\(volume).mp3")
@@ -44,8 +44,9 @@ struct Sound: View {
                             .foregroundColor(.red)
                     }
                 }
-                Section {
-                    ForEach(soundData.soundSources, id: \.self) { sound in
+                // 効果音 Section
+                Section(header: Text("効果音")) {
+                    ForEach(soundEffects, id: \.self) { sound in
                         HStack {
                             Text("\(sound)")
                             Spacer()
@@ -55,21 +56,49 @@ struct Sound: View {
                             }
                         }
                         .padding(.vertical, 5)
-                        .contentShape(Rectangle()) // This ensures the HStack takes the full tappable area
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            testsound = sound
+                        }
+                    }
+                }
+                
+                // 音楽 Section
+                Section(header: Text("音楽")) {
+                    ForEach(musicSounds, id: \.self) { sound in
+                        HStack {
+                            Text("\(sound)")
+                            Spacer()
+                            if testsound == sound {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                        .padding(.vertical, 5)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             testsound = sound
                         }
                     }
                 }
             }
-            .onDisappear{
+            .onDisappear {
                 alarmStore.stopTestSound()
                 alarmStore.settingalarm.soundName = "\(testsound)_\(volume).mp3"
             }
-            .onChange(of: scenePhase) {
+            .onChange(of: scenePhase) { _ in
                 alarmStore.stopTestSound()
             }
         }
+    }
+    
+    // Separate the sound sources into two categories
+    private var soundEffects: [String] {
+        return soundData.soundSources.prefix(while: { $0 != "Morning" }).map { String($0) }
+    }
+    
+    private var musicSounds: [String] {
+        return soundData.soundSources.drop(while: { $0 != "Morning" }).map { String($0) }
     }
     
     static func extractSoundAndVolume(from soundFileName: String) -> (sound: String, volume: String) {

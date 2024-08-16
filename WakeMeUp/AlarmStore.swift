@@ -93,7 +93,7 @@ class AlarmStore: ObservableObject {
     private func cancelAlarmNotifications(groupId: String) {
         let center = UNUserNotificationCenter.current()
         var identifiers: [String] = []
-        for n in 0...15 {
+        for n in 0...14 {
             let identifier = "AlarmNotification\(groupId)_\(n)"
             identifiers.append(identifier)
         }
