@@ -50,6 +50,7 @@ class AlarmStore: ObservableObject {
     func addAlarm(_ alarm: AlarmData, at index: Int? = nil) {
         if let index = index, index >= 0, index <= alarms.count {
             alarms.insert(alarm, at: index)
+            print("index", index)
         } else {
             alarms.append(alarm)
         }

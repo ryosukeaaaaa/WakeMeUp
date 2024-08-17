@@ -108,7 +108,7 @@ struct HomeMission: View {
                     }) {
                         HStack {
                             Image(systemName: "flag")
-                            Text("前回の単語")
+                            Text("過去の出題単語")
                                 .font(.headline)
                             Spacer()
                         }
@@ -174,9 +174,6 @@ struct HomeMission: View {
                     }
                     
                     Spacer()
-                    
-                    AdMobView()
-                        .frame(width: 450, height: 90)
                 }
             }
             .padding()

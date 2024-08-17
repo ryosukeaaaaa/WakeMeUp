@@ -113,6 +113,10 @@
 		82772F002C6FD3C40015F654 /* 野良猫は宇宙を目指した_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EFD2C6FD3C40015F654 /* 野良猫は宇宙を目指した_low.mp3 */; };
 		82772F012C6FD3C40015F654 /* 野良猫は宇宙を目指した_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EFE2C6FD3C40015F654 /* 野良猫は宇宙を目指した_medium.mp3 */; };
 		82772F022C6FD3C40015F654 /* 野良猫は宇宙を目指した_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EFF2C6FD3C40015F654 /* 野良猫は宇宙を目指した_high.mp3 */; };
+		82772F072C6FD7780015F654 /* ビジネス英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82772F032C6FD7780015F654 /* ビジネス英単語.csv */; };
+		82772F082C6FD7780015F654 /* 基礎英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82772F042C6FD7780015F654 /* 基礎英単語.csv */; };
+		82772F092C6FD7780015F654 /* 学術英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82772F052C6FD7780015F654 /* 学術英単語.csv */; };
+		82772F0A2C6FD7780015F654 /* TOEIC英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82772F062C6FD7780015F654 /* TOEIC英単語.csv */; };
 		827A15992C176053003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Mission.swift */; };
 		827A159B2C176077003B4468 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* GPT.swift */; };
 		827A159D2C176087003B4468 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159C2C176087003B4468 /* Home.swift */; };
@@ -144,10 +148,6 @@
 		82FE142D2C64B0E90023CC8B /* no.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE142C2C64B0E80023CC8B /* no.mp3 */; };
 		82FE142F2C64B62B0023CC8B /* StatusSectionSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */; };
 		82FE14312C67544A0023CC8B /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE14302C67544A0023CC8B /* Exchange.swift */; };
-		82FE14E12C6939480023CC8B /* 学術英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14E02C6939480023CC8B /* 学術英単語.csv */; };
-		82FE14E52C6939600023CC8B /* 基礎英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14E22C6939600023CC8B /* 基礎英単語.csv */; };
-		82FE14E62C6939600023CC8B /* TOEIC英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14E32C6939600023CC8B /* TOEIC英単語.csv */; };
-		82FE14E72C6939600023CC8B /* ビジネス英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82FE14E42C6939600023CC8B /* ビジネス英単語.csv */; };
 		82FE159F2C6B39140023CC8B /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE159E2C6B39140023CC8B /* Onboarding.swift */; };
 		82FE15A12C6EE6CF0023CC8B /* CollectionImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */; };
 		82FE15AB2C6F9A500023CC8B /* Gacha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */; };
@@ -282,6 +282,10 @@
 		82772EFD2C6FD3C40015F654 /* 野良猫は宇宙を目指した_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_low.mp3"; sourceTree = "<group>"; };
 		82772EFE2C6FD3C40015F654 /* 野良猫は宇宙を目指した_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_medium.mp3"; sourceTree = "<group>"; };
 		82772EFF2C6FD3C40015F654 /* 野良猫は宇宙を目指した_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_high.mp3"; sourceTree = "<group>"; };
+		82772F032C6FD7780015F654 /* ビジネス英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語.csv"; sourceTree = "<group>"; };
+		82772F042C6FD7780015F654 /* 基礎英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "基礎英単語.csv"; sourceTree = "<group>"; };
+		82772F052C6FD7780015F654 /* 学術英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "学術英単語.csv"; sourceTree = "<group>"; };
+		82772F062C6FD7780015F654 /* TOEIC英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TOEIC英単語.csv"; sourceTree = "<group>"; };
 		827A15982C176053003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		827A159A2C176077003B4468 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
 		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -314,10 +318,6 @@
 		82FE142C2C64B0E80023CC8B /* no.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = no.mp3; path = ../../Downloads/no.mp3; sourceTree = "<group>"; };
 		82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSectionSelect.swift; sourceTree = "<group>"; };
 		82FE14302C67544A0023CC8B /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
-		82FE14E02C6939480023CC8B /* 学術英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "学術英単語.csv"; sourceTree = "<group>"; };
-		82FE14E22C6939600023CC8B /* 基礎英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "基礎英単語.csv"; sourceTree = "<group>"; };
-		82FE14E32C6939600023CC8B /* TOEIC英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TOEIC英単語.csv"; sourceTree = "<group>"; };
-		82FE14E42C6939600023CC8B /* ビジネス英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語.csv"; sourceTree = "<group>"; };
 		82FE159E2C6B39140023CC8B /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionImage.swift; sourceTree = "<group>"; };
 		82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gacha.mp3; sourceTree = "<group>"; };
@@ -526,10 +526,10 @@
 				82772E622C6FCCE40015F654 /* 明るいアップビート着信音_high.mp3 */,
 				82772E952C6FCCE70015F654 /* 明るいアップビート着信音_low.mp3 */,
 				82772E732C6FCCE50015F654 /* 明るいアップビート着信音_medium.mp3 */,
-				82FE14E02C6939480023CC8B /* 学術英単語.csv */,
-				82FE14E32C6939600023CC8B /* TOEIC英単語.csv */,
-				82FE14E42C6939600023CC8B /* ビジネス英単語.csv */,
-				82FE14E22C6939600023CC8B /* 基礎英単語.csv */,
+				82772F062C6FD7780015F654 /* TOEIC英単語.csv */,
+				82772F032C6FD7780015F654 /* ビジネス英単語.csv */,
+				82772F052C6FD7780015F654 /* 学術英単語.csv */,
+				82772F042C6FD7780015F654 /* 基礎英単語.csv */,
 				829200962C47A24100C96C30 /* GIFImage.swift */,
 				829200942C47A20D00C96C30 /* UIGIFImageView.swift */,
 				8292007F2C4777B300C96C30 /* RainParticle.sks */,
@@ -701,11 +701,11 @@
 				82772EB02C6FCCE80015F654 /* 2_23_AM_low.mp3 in Resources */,
 				82772EED2C6FCCE80015F654 /* シンプルなアラーム音(2)_high.mp3 in Resources */,
 				82772EAB2C6FCCE80015F654 /* 鳥のさえずり_low.mp3 in Resources */,
+				82772F092C6FD7780015F654 /* 学術英単語.csv in Resources */,
 				82772ECF2C6FCCE80015F654 /* パステルハウス_medium.mp3 in Resources */,
 				82772ECD2C6FCCE80015F654 /* PiPiPiMorning_high.mp3 in Resources */,
 				829200702C469F3600C96C30 /* Gacha.sks in Resources */,
 				82772EE22C6FCCE80015F654 /* デジタル目覚まし時計アラーム音_medium.mp3 in Resources */,
-				82FE14E62C6939600023CC8B /* TOEIC英単語.csv in Resources */,
 				829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */,
 				82FE15AD2C6FA4D80023CC8B /* Gacha2.mp3 in Resources */,
 				82772EB92C6FCCE80015F654 /* シンプルなアラーム音(2)_medium.mp3 in Resources */,
@@ -714,7 +714,6 @@
 				821FD6A52C33E64300F445C7 /* Launch Screen.storyboard in Resources */,
 				82772EEC2C6FCCE80015F654 /* クラシックなアラーム_low.mp3 in Resources */,
 				82772EC52C6FCCE80015F654 /* 情動カタルシス _high.mp3 in Resources */,
-				82FE14E12C6939480023CC8B /* 学術英単語.csv in Resources */,
 				82772EDE2C6FCCE80015F654 /* 森の中の小鳥のさえずり_low.mp3 in Resources */,
 				82772EFA2C6FCCE80015F654 /* マジカル着信音ループ_high.mp3 in Resources */,
 				82FE142D2C64B0E90023CC8B /* no.mp3 in Resources */,
@@ -722,7 +721,6 @@
 				82772ECC2C6FCCE80015F654 /* リコーダービート_high.mp3 in Resources */,
 				82772EF62C6FCCE80015F654 /* 爽やかな目覚まし音_high.mp3 in Resources */,
 				82772EF52C6FCCE80015F654 /* ニワトリ_low.mp3 in Resources */,
-				82FE14E72C6939600023CC8B /* ビジネス英単語.csv in Resources */,
 				82772EE02C6FCCE80015F654 /* デジタル目覚まし時計アラーム音_high.mp3 in Resources */,
 				82772EF82C6FCCE80015F654 /* シンプルなアラーム音(2)_low.mp3 in Resources */,
 				82772ED02C6FCCE80015F654 /* mix_29s(2)_low.mp3 in Resources */,
@@ -741,7 +739,6 @@
 				82772EF12C6FCCE80015F654 /* はりきっちゃう時のテーマ _high.mp3 in Resources */,
 				829200802C4777B300C96C30 /* RainParticle.sks in Resources */,
 				82772EC32C6FCCE80015F654 /* オルゴールのチャイム_high.mp3 in Resources */,
-				82FE14E52C6939600023CC8B /* 基礎英単語.csv in Resources */,
 				82772EBC2C6FCCE80015F654 /* 追いかけっこキャッハー_medium.mp3 in Resources */,
 				829A59A62C1635B3002D7DA3 /* Assets.xcassets in Resources */,
 				82772EE92C6FCCE80015F654 /* 明るいアップビート着信音_low.mp3 in Resources */,
@@ -758,10 +755,12 @@
 				82772EE82C6FCCE80015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_high.mp3 in Resources */,
 				82772EB52C6FCCE80015F654 /* 銅鑼の連打_medium.mp3 in Resources */,
 				82772ED52C6FCCE80015F654 /* リコーダービート_medium.mp3 in Resources */,
+				82772F0A2C6FD7780015F654 /* TOEIC英単語.csv in Resources */,
 				82772EF22C6FCCE80015F654 /* マジカル着信音ループ_medium.mp3 in Resources */,
 				82772F022C6FD3C40015F654 /* 野良猫は宇宙を目指した_high.mp3 in Resources */,
 				82772EF72C6FCCE80015F654 /* ニワトリ_medium.mp3 in Resources */,
 				82772EBA2C6FCCE80015F654 /* mix_29s(1)_medium.mp3 in Resources */,
+				82772F082C6FD7780015F654 /* 基礎英単語.csv in Resources */,
 				82772EBE2C6FCCE80015F654 /* 2_23_AM_medium.mp3 in Resources */,
 				82772EC72C6FCCE80015F654 /* 明るいアップビート着信音_medium.mp3 in Resources */,
 				82772EDA2C6FCCE80015F654 /* シンプルなアラーム音(1)_low.mp3 in Resources */,
@@ -791,6 +790,7 @@
 				82772EE12C6FCCE80015F654 /* シンプルなアラーム音(1)_medium.mp3 in Resources */,
 				82772EB42C6FCCE80015F654 /* 銅鑼の連打_low.mp3 in Resources */,
 				82772EE72C6FCCE80015F654 /* 森の中の小鳥のさえずり_high.mp3 in Resources */,
+				82772F072C6FD7780015F654 /* ビジネス英単語.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

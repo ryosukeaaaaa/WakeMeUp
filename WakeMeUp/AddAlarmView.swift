@@ -53,7 +53,7 @@ struct AddAlarmView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        alarmStore.scheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, soundName: alarmStore.settingalarm.soundName)
+//                        alarmStore.scheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, soundName: alarmStore.settingalarm.soundName)
 //                        presentationMode.wrappedValue.dismiss()
                         showSilentModeAlert = true
                     }) {
@@ -76,6 +76,7 @@ struct AddAlarmView: View {
                     title: Text("消音モードはオフになっていますか？"),
                     message: Text("消音モードがオンの場合、サウンドが鳴りません。"),
                     dismissButton: .default(Text("OK")){
+                        alarmStore.scheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, soundName: alarmStore.settingalarm.soundName)
                         presentationMode.wrappedValue.dismiss()
                     }
                 )

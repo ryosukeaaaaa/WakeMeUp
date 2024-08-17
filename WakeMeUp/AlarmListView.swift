@@ -10,9 +10,20 @@ struct AlarmListView: View {
     @State private var showingAddAlarm = false
     @State private var selectedAlarm: AlarmData? = nil
     @State private var selectedIndex: IdentifiableInt? = nil
+
+    // アラートの種類を管理するための列挙型
+    enum ActiveAlert: Identifiable {
+        case silentMode, maxAlarms
+        
+        var id: Int {
+            switch self {
+            case .silentMode: return 1
+            case .maxAlarms: return 2
+            }
+        }
+    }
     
-    @State private var showSilentModeAlert = false // 消音モード警告用のステート
-    @State private var showingAlert = false // アラート表示用のステート
+    @State private var activeAlert: ActiveAlert? // 現在アクティブなアラート
 
     var body: some View {
         VStack {
@@ -46,23 +57,18 @@ struct AlarmListView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             if !alarm.isOn && alarmStore.hasFourOrMoreActiveAlarms() {
-                                showingAlert = true
+                                activeAlert = .maxAlarms // アラームが4つ以上オンのときの警告
                             } else {
                                 alarmStore.settingalarm = alarm
                                 selectedIndex = IdentifiableInt(id: index)
                             }
                         }
                     }
-                    .onDelete { indexSet in
+                    .onDelete {indexSet in
                         indexSet.forEach { index in
                             let groupId = alarmStore.alarms[index].groupId
                             alarmStore.deleteAlarmsByGroupId(groupId)
                         }
-                    }
-                    .alert(isPresented: $showingAlert) {
-                        Alert(title: Text("確認"),
-                              message: Text("アラームは4つまでしかオンにできません。"),
-                              dismissButton: .default(Text("OK")))
                     }
                 }
                 .navigationTitle("アラーム")
@@ -90,12 +96,22 @@ struct AlarmListView: View {
             Spacer()
             Spacer()
         }
-        .alert(isPresented: $showSilentModeAlert) {
-            Alert(
-                title: Text("消音モードはオフになっていますか？"),
-                message: Text("消音モードがオンの場合、サウンドが鳴りません。"),
-                dismissButton: .default(Text("OK"))
-            )
+        // アラートの切り替え
+        .alert(item: $activeAlert) { activeAlert in
+            switch activeAlert {
+            case .silentMode:
+                return Alert(
+                    title: Text("消音モードはオフになっていますか？"),
+                    message: Text("消音モードがオンの場合、サウンドが鳴りません。"),
+                    dismissButton: .default(Text("OK"))
+                )
+            case .maxAlarms:
+                return Alert(
+                    title: Text("確認"),
+                    message: Text("アラームは4つまでしかオンにできません。"),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
     }
 
@@ -109,10 +125,9 @@ struct AlarmListView: View {
     // アラームのオン/オフをトグルする関数
     private func toggleAlarm(at index: Int) {
         if !alarmStore.alarms[index].isOn && alarmStore.hasFourOrMoreActiveAlarms() {
-            showingAlert = true
+            activeAlert = .maxAlarms // アラームが4つ以上オンのときの警告
         } else {
             alarmStore.alarms[index].isOn.toggle()
-            alarmStore.saveAlarms()
         }
     }
 
@@ -122,21 +137,32 @@ struct AlarmListView: View {
             get: { alarm.isOn },
             set: { newValue in
                 if newValue && alarmStore.activeAlarmsCount() >= 4 && !alarm.isOn {
-                    showingAlert = true
+                    activeAlert = .maxAlarms // アラームが4つ以上オンのときの警告
                 } else {
                     if let index = alarmStore.alarms.firstIndex(where: { $0.id == alarm.id }) {
                         alarmStore.alarms[index].isOn = newValue
+                        handleToggleChange(newValue, for: index)
                         alarmStore.saveAlarms()
                     }
                 }
             }
         )
     }
-
+    
+    // Toggleが変更されたときの処理を行う関数
+    private func handleToggleChange(_ isOn: Bool, for index: Int) {
+        if isOn {
+            alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, groupId: alarmStore.alarms[index].groupId, at: index)
+            activeAlert = .silentMode
+        } else {
+            alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
+        }
+    }
+    
     // 新しいアラームを追加する関数
     private func addNewAlarm() {
         if alarmStore.hasFourOrMoreActiveAlarms() {
-            showingAlert = true
+            activeAlert = .maxAlarms // アラームが4つ以上オンのときの警告
         } else {
             alarmStore.settingalarm = AlarmData(time: Date(), repeatLabel: [], mission: "通知", isOn: true, soundName: "デフォルト_medium.mp3", groupId: "")
             showingAddAlarm = true
@@ -154,4 +180,3 @@ struct AlarmListView: View {
         }
     }
 }
-

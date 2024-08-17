@@ -402,7 +402,7 @@ struct Pre_Mission: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-                .padding(.bottom, 10)
+                .padding(.bottom, 5)
             Text(missionState.randomEntry.1)
                 .font(.headline)
                 .multilineTextAlignment(.center)
@@ -410,7 +410,7 @@ struct Pre_Mission: View {
             Text(missionState.randomEntry.2)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-                .padding(.bottom, 50)
+                .padding(.bottom, 30)
             Text(missionState.randomEntry.3)
                 .italic()
                 .font(.headline)
@@ -473,7 +473,9 @@ struct Pre_Mission: View {
             createUserCSVIfNeeded(csv: csv)
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let userCSVURL = documentDirectory.appendingPathComponent(material + "_status" + ".csv")
+            print(userCSVURL.path)
             let statuses = readStatuses(from: userCSVURL)
+            
 
             if statuses.isEmpty {
                 return ("Error", "No statuses found", "", "", "")
@@ -491,26 +493,31 @@ struct Pre_Mission: View {
                     let zeroStatusIndices = filteredStatuses.enumerated().compactMap { index, status in
                         return status == 0 ? index : nil
                     }
-
+                    print("未習得")
+                    print(zeroStatusIndices)
                     // 値が `0` のものが存在しない場合
                     if zeroStatusIndices.isEmpty {
-                        return ("Error", "No statuses with value 0 found", "", "", "")
+                        return ("全て習得済み。", "", "", "", "")
                     }
 
                     // ランダムにインデックスを選択する
                     randomRowIndex = zeroStatusIndices.randomElement()
+                    print(randomRowIndex)
+                    print(filteredRows)
                 } else {
                     // 値に関係なくランダムにインデックスを選択する
                     randomRowIndex = (startIndex...endIndex).randomElement()
                 }
 
                 guard let index = randomRowIndex else {
+                    missionState.missionCount = missionState.ClearCount
                     return ("全て習得済み", "", "", "", "")
                 }
 
                 let row = filteredRows[index]
 
                 if row.isEmpty {
+                    missionState.missionCount = missionState.ClearCount
                     return ("No entries found", "", "", "", "")
                 }
 

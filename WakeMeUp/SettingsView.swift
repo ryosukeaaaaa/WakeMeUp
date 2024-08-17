@@ -100,6 +100,12 @@ struct SettingsView: View {
                             secondaryButton: .cancel(Text("いいえ"))
                         )
                     }
+                    Button(action: {
+                        listAllPendingNotifications()
+                    }) {
+                        Text("リスト")
+                            .foregroundColor(.red)
+                    }
                 }
                 
                 Section(header: Text("その他")) {

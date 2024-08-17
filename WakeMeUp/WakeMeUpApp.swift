@@ -8,7 +8,7 @@ struct WakeMeUpApp: App {
     @StateObject var alarmStore = AlarmStore()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Pre_ContentView()
                 .environmentObject(alarmStore)
         }
     }
