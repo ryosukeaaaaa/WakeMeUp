@@ -18,7 +18,7 @@ func transformedImage(image: Image, size: CGSize, frameWidth: CGFloat, frameHeig
 // メインのビュー
 struct CollectionImage: View {
     @ObservedObject var itemState = ItemState() // ItemStateのインスタンスを作成
-    @State private var a: Float = 5.0
+    @State private var a: Float = Float(1920 / UIScreen.main.bounds.width)
     
     var body: some View {
         ZStack {
@@ -69,7 +69,7 @@ struct CollectionImage: View {
             transformedImage(image: Image("Penguin"), size: CGSize(width: 191, height: 191), frameWidth: 1073, frameHeight: 822, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Penguin"))
             transformedImage(image: Image("Rabbit"), size: CGSize(width: 171, height: 171), frameWidth: 996, frameHeight: 846, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Rabbit"))
         }
-        .frame(width: CGFloat(1920 / a)+6, height: CGFloat(1080 / a)+6)
+        .frame(width: CGFloat(1920 / a), height: CGFloat(1080 / a))
         .border(Color.blue, width: 3)
     }
 }

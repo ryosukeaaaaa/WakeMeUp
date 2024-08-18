@@ -68,7 +68,9 @@ class AlarmStore: ObservableObject {
         cancelAlarmNotifications(groupId: groupId)
         if let index = alarms.firstIndex(where: { $0.groupId == groupId }) {
             alarms[index].isOn = false
+            print("ss")
         }
+        print("s")
         saveAlarms()
     }
     

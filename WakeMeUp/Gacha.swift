@@ -107,7 +107,10 @@ struct Gacha: View {
                 Spacer()
                 
                 AdMobView()
-                    .frame(width: 450, height: 300)
+                    .frame(
+                        width: UIScreen.main.bounds.width,
+                        height: UIScreen.main.bounds.height * 1/3
+                    )
             }
             .padding()
         }

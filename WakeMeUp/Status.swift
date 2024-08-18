@@ -125,16 +125,16 @@ struct StatusView: View {
                             }
                         }
                         .chartYScale(domain: 0...100)
-                        .frame(height: 150)
-                        .padding()
+                        .frame(height: UIScreen.main.bounds.height * 1/5)
                         Text("習得率")
                             .fontWeight(.bold)
                     }
                     
-                    Spacer()
-                    
                     AdMobView()
-                        .frame(width: 450, height: 90)
+                        .frame(
+                            width: UIScreen.main.bounds.width,
+                            height: UIScreen.main.bounds.height * 1/9
+                        )
                 }
                 .padding()
                 .navigationTitle("学習状況")
@@ -479,7 +479,10 @@ struct DetailView: View {
         VStack {
             Spacer()
             AdMobView()
-                .frame(width: 450, height: 90)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    height: UIScreen.main.bounds.height * 1/9
+                )
             GeometryReader { geometry in
                 // 現在の currentIndex に対応する DetailCardView を表示
                 DetailCardView(entry: entries[currentIndex], material: material)
@@ -759,7 +762,10 @@ struct StarredDetailView: View {
         VStack {
             Spacer()
             AdMobView()
-                .frame(width: 450, height: 90)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    height: UIScreen.main.bounds.height * 1/9
+                )
             GeometryReader { geometry in
                 // 現在の currentIndex に対応する StarredDetailCardView を表示
                 StarredDetailCardView(entry: entries[currentIndex], removeAction: {

@@ -92,7 +92,10 @@ struct AlarmListView: View {
             Spacer()
             
             AdMobView()
-                .frame(width: 450, height: 90)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    height: UIScreen.main.bounds.height * 1/9
+                )
             Spacer()
             Spacer()
         }
@@ -131,31 +134,37 @@ struct AlarmListView: View {
         }
     }
 
-    // トグルバインディングを作成する関数
     private func binding(for alarm: AlarmData) -> Binding<Bool> {
         Binding<Bool>(
             get: { alarm.isOn },
             set: { newValue in
-                if newValue && alarmStore.activeAlarmsCount() >= 4 && !alarm.isOn {
-                    activeAlert = .maxAlarms // アラームが4つ以上オンのときの警告
-                } else {
-                    if let index = alarmStore.alarms.firstIndex(where: { $0.id == alarm.id }) {
-                        alarmStore.alarms[index].isOn = newValue
-                        handleToggleChange(newValue, for: index)
-                        alarmStore.saveAlarms()
+                DispatchQueue.main.async {
+                    if newValue && alarmStore.activeAlarmsCount() >= 4 && !alarm.isOn {
+                        activeAlert = .maxAlarms
+                    } else {
+                        if let index = alarmStore.alarms.firstIndex(where: { $0.id == alarm.id }) {
+                            alarmStore.alarms[index].isOn = newValue
+                            handleToggleChange(newValue, for: index)
+                        }
                     }
                 }
             }
         )
     }
+
     
-    // Toggleが変更されたときの処理を行う関数
     private func handleToggleChange(_ isOn: Bool, for index: Int) {
-        if isOn {
-            alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, groupId: alarmStore.alarms[index].groupId, at: index)
-            activeAlert = .silentMode
-        } else {
-            alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
+        withAnimation {
+            if isOn {
+                alarmStore.rescheduleAlarm(alarmTime: alarmStore.alarms[index].time, repeatLabel: alarmStore.alarms[index].repeatLabel, isOn: true, soundName: alarmStore.alarms[index].soundName, groupId: alarmStore.alarms[index].groupId, at: index)
+                activeAlert = .silentMode
+                alarmStore.saveAlarms()
+                print("set")
+            } else {
+                alarmStore.stopAlarm(alarmStore.alarms[index].groupId)
+                alarmStore.saveAlarms()
+                print("stop")
+            }
         }
     }
     

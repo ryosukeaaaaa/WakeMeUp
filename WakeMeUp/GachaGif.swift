@@ -134,10 +134,22 @@ struct GachaGIFView: View {
                     VStack(spacing: 8) {  // Adjust the spacing value as needed
                         Text("\(resultItem.rarity.rawValue)")
                             .font(.title)
+                        VStack(alignment: .leading, spacing: 0) { // `spacing: 0` で間隔を最小化
+                            if new {
+                                Text("New!")
+                                    .font(.headline)
+                                    .foregroundColor(.blue)
+                                    .padding(.bottom, 2) // 下側にわずかなスペースを追加（必要に応じて）
+                            }
+                            Text(resultItem.name)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.top, 0) // 上側の余白をゼロに設定
+                        }
                         Image(resultItem.name)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 400)
+                            .frame(height: UIScreen.main.bounds.height * 1/2)
                             .offset(x: shakeOffset)
                             .onAppear {
                                 startShaking()
@@ -151,14 +163,6 @@ struct GachaGIFView: View {
                                     }
                                 }
                             }
-                        if new {
-                            Text("New!")
-                                .font(.headline)
-                                .foregroundColor(.blue)
-                        }
-                        Text(resultItem.name)
-                            .font(.title)
-                            .padding()
                         Spacer()
                         Spacer()
                     }
@@ -305,7 +309,10 @@ struct GachaGIFView: View {
             Spacer()
             
             AdMobView()
-                .frame(width: 450, height: 70)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    height: UIScreen.main.bounds.height * 1/10
+                )
         }
         .onAppear {
             if !isInitialized {

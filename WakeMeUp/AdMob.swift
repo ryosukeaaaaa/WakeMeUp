@@ -6,7 +6,10 @@ struct ContentViewl: View {
         VStack{
             Spacer()
         AdMobView()
-            .frame(width: 150, height: 60)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    height: UIScreen.main.bounds.height * 1/15
+                )
         }
     }
 }

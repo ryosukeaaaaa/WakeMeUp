@@ -129,7 +129,7 @@ struct HomeMission: View {
                                 Spacer()
                                 Text("\(missionState.basicCount)回")
                             }
-                            .padding(.vertical, 3)
+                            .padding(.vertical, 0)
                             .padding(.horizontal)
                             
                             HStack {
@@ -137,7 +137,7 @@ struct HomeMission: View {
                                 Spacer()
                                 Text("\(missionState.toeicCount)回")
                             }
-                            .padding(.vertical, 3)
+                            .padding(.vertical, 0)
                             .padding(.horizontal)
                             
                             HStack {
@@ -145,7 +145,7 @@ struct HomeMission: View {
                                 Spacer()
                                 Text("\(missionState.businessCount)回")
                             }
-                            .padding(.vertical, 3)
+                            .padding(.vertical, 0)
                             .padding(.horizontal)
                             
                             HStack {
@@ -153,7 +153,7 @@ struct HomeMission: View {
                                 Spacer()
                                 Text("\(missionState.academicCount)回")
                             }
-                            .padding(.vertical, 3)
+                            .padding(.vertical, 0)
                             .padding(.horizontal)
                             
                             Divider()
@@ -168,12 +168,20 @@ struct HomeMission: View {
                             .padding(.horizontal)
                         }
                         .frame(maxWidth: .infinity)
+                        .frame(height: UIScreen.main.bounds.height * 1/6) // 特定の高さを設定
                         .padding()
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(5)
                     }
+                    Text("コインまであと\((missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) % 25 == 0 ? 25 : (25 - (missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) % 25))回")
+                        .font(.caption)
+                        .fontWeight(.bold)
                     
-                    Spacer()
+                    AdMobView()
+                        .frame(
+                            width: UIScreen.main.bounds.width,
+                            height: UIScreen.main.bounds.height * 1/9
+                        )
                 }
             }
             .padding()

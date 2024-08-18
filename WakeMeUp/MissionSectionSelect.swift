@@ -36,7 +36,10 @@ struct SectionSelectionView: View {
             }
             Spacer()
             AdMobView()
-                .frame(width: 450, height: 90)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    height: UIScreen.main.bounds.height * 1/9
+                )
         }
         .padding()
         .navigationTitle("全\(sectionCount)セクション")

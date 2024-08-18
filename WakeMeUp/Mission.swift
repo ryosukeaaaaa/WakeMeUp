@@ -51,7 +51,10 @@ struct Pre_Mission: View {
             VStack {
                 Spacer()
                 AdMobView()
-                    .frame(width: 450, height: 90)
+                    .frame(
+                        width: UIScreen.main.bounds.width,
+                        height: UIScreen.main.bounds.height * 1/9
+                    )
                 GeometryReader { geometry in
                     VStack {
                         Spacer()
@@ -266,11 +269,13 @@ struct Pre_Mission: View {
                                             .padding()
                                         }
                                         .toolbar {
+                                            Text("スペルを正しく入力してください")
+                                            Spacer()
                                             Button("閉じる", role: .cancel){
                                                 sheet.toggle()
                                             }
                                         }
-                                    }.presentationDetents([.fraction(1/8)])
+                                    }.presentationDetents([.fraction(1/6)])
                                 }
 
                             } else {
@@ -502,8 +507,6 @@ struct Pre_Mission: View {
 
                     // ランダムにインデックスを選択する
                     randomRowIndex = zeroStatusIndices.randomElement()
-                    print(randomRowIndex)
-                    print(filteredRows)
                 } else {
                     // 値に関係なくランダムにインデックスを選択する
                     randomRowIndex = (startIndex...endIndex).randomElement()

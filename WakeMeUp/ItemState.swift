@@ -201,7 +201,10 @@ struct GachaView: View {
                 CollectionImage()
                 
                 AdMobView()
-                    .frame(width: 450, height: 200)
+                    .frame(
+                        width: UIScreen.main.bounds.width,
+                        height: UIScreen.main.bounds.height * 1/5
+                    )
             }
             .padding()
             .navigationTitle("ガチャ")
