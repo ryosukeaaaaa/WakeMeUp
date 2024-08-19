@@ -44,6 +44,12 @@ class ItemState: ObservableObject {
         }
     }
     
+    @Published var Pre_Count2: Int {
+        didSet {
+            UserDefaults.standard.set(Pre_Count2, forKey: "Pre_Count2")
+        }
+    }
+    
     @Published var Ticket: Int {
         didSet {
             UserDefaults.standard.set(Ticket, forKey: "Ticket")
@@ -112,6 +118,7 @@ class ItemState: ObservableObject {
         self.NormalCoin = UserDefaults.standard.integer(forKey: "NormalCoin")
         self.SpecialCoin = UserDefaults.standard.integer(forKey: "SpecialCoin")
         self.Pre_Count = UserDefaults.standard.integer(forKey: "Pre_Count")
+        self.Pre_Count2 = UserDefaults.standard.integer(forKey: "Pre_Count2")
         self.UserItems = UserDefaults.standard.stringArray(forKey: "UserItems") ?? []
         self.Ticket = UserDefaults.standard.integer(forKey: "Ticket")
         self.Xshare = UserDefaults.standard.integer(forKey: "Xshare")
@@ -216,7 +223,7 @@ struct GachaView: View {
                 // コインの計算ロジック
                 let totalCount = missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount
                 let normalCoinIncrement = (totalCount - 25 * itemState.Pre_Count) / 25
-                let specialCoinIncrement = (totalCount - 25 * itemState.Pre_Count) / 100
+                let specialCoinIncrement = (totalCount - 100 * itemState.Pre_Count2) / 100
                 
                 var coinMessage = ""
 
@@ -232,6 +239,7 @@ struct GachaView: View {
                 
                 if !coinMessage.isEmpty {
                     itemState.Pre_Count = totalCount / 25
+                    itemState.Pre_Count2 = totalCount / 100
                     alertMessage = coinMessage
                     showAlert = true
                 }

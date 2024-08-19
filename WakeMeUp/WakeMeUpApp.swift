@@ -6,6 +6,7 @@ import AVFoundation
 struct WakeMeUpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var alarmStore = AlarmStore()
+    
     var body: some Scene {
         WindowGroup {
             Pre_ContentView()

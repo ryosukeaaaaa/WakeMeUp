@@ -14,13 +14,14 @@ struct HomeMission: View {
     
     @State private var lastmission = false
     
-    @State private var alarmStore = AlarmStore()
+    @StateObject private var alarmStore = AlarmStore()
     
     @State private var selectedSection: Int = 0  // 新しい状態変数を追加
     
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var showAlert = false
+    
     
     var body: some View {
         NavigationView {
@@ -193,6 +194,7 @@ struct HomeMission: View {
                 business = false
                 academic = false
                 checkPermissions()
+                print(missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount)
             }
             .alert(isPresented: $showAlert) {
                 Alert(
@@ -256,10 +258,6 @@ struct HomeMission: View {
             }
         }
     }
-}
-
-#Preview {
-    HomeMission()
 }
 
 struct LastMission: View {

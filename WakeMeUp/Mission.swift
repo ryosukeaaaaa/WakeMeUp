@@ -45,6 +45,8 @@ struct Pre_Mission: View {
     @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
     
     @State private var NowWords: [[String: String]] = []
+    
+    @State private var fin = false
 
     var body: some View {
         NavigationView {
@@ -191,18 +193,26 @@ struct Pre_Mission: View {
                         .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25)
 
                         VStack {
-                            Spacer().frame(width: 1)
-                            Button(action: {
-                                if !fromHome {
-                                    resetIdleTimer()
+                            if !fin {
+                                Spacer().frame(width: 1)
+                                Button(action: {
+                                    if !fromHome {
+                                        resetIdleTimer()
+                                    }
+                                    lastSpokenText = missionState.randomEntry.0
+                                    speakText(lastSpokenText)
+                                }) {
+                                    Text("もう一度再生")
                                 }
-                                lastSpokenText = missionState.randomEntry.0
-                                speakText(lastSpokenText)
-                            }) {
-                                Text("もう一度再生")
                             }
 
-                            if !missionState.clear_mission {
+                            if fin{
+                                Button(action: {
+                                    navigateToHome = true
+                                }) {
+                                    Text("終了")
+                                }
+                            }else if !missionState.clear_mission {
                                 Circle()
                                     .fill(isRecording ? Color.white : Color.red)
                                     .frame(width: 100, height: 100)
@@ -356,21 +366,23 @@ struct Pre_Mission: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading){
-                if starredEntries.contains(where: { $0.0 == missionState.randomEntry.0 }) {
-                    Button(action: {
-                        removeStarredEntry(missionState.randomEntry)
-                        loadStarredEntries()
-                    }) {
-                        Text("追加済み")
-                            .foregroundColor(.gray)
-                    }
-                } else {
-                    Button(action: {
-                        saveStarredEntry(missionState.randomEntry)
-                        loadStarredEntries()
-                    }) {
-                        Text("後で復習")
-                            .foregroundColor(.blue)
+                if !fin {
+                    if starredEntries.contains(where: { $0.0 == missionState.randomEntry.0 }) {
+                        Button(action: {
+                            removeStarredEntry(missionState.randomEntry)
+                            loadStarredEntries()
+                        }) {
+                            Text("追加済み")
+                                .foregroundColor(.gray)
+                        }
+                    } else {
+                        Button(action: {
+                            saveStarredEntry(missionState.randomEntry)
+                            loadStarredEntries()
+                        }) {
+                            Text("後で復習")
+                                .foregroundColor(.blue)
+                        }
                     }
                 }
             }
@@ -382,7 +394,7 @@ struct Pre_Mission: View {
                         .multilineTextAlignment(.trailing)
                         .padding()
                 } else {
-                    Text("\(missionState.missionCount+1)問目 / \(missionState.ClearCount)問")
+                    Text("あと\(missionState.ClearCount-(missionState.missionCount))問")
                         .fontWeight(.light)
                         .font(.subheadline)
                         .multilineTextAlignment(.trailing)
@@ -502,7 +514,8 @@ struct Pre_Mission: View {
                     print(zeroStatusIndices)
                     // 値が `0` のものが存在しない場合
                     if zeroStatusIndices.isEmpty {
-                        return ("全て習得済み。", "", "", "", "")
+                        fin = true
+                        return ("全て習得済み", "おめでとうございます！", "", "", "")
                     }
 
                     // ランダムにインデックスを選択する
@@ -513,7 +526,7 @@ struct Pre_Mission: View {
                 }
 
                 guard let index = randomRowIndex else {
-                    missionState.missionCount = missionState.ClearCount
+                    fin = true
                     return ("全て習得済み", "", "", "", "")
                 }
 

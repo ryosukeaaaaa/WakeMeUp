@@ -5,8 +5,6 @@ import Speech
 
 struct ContentView: View {
     @EnvironmentObject var alarmStore: AlarmStore
-    // @State private var currentAlarmId: String?
-    // @State private var currentGroupId: String?
     @State private var debugMessage = ""
     
     @State private var isMissionViewActive = false
@@ -68,12 +66,9 @@ struct ContentView: View {
                 AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupIds, isPresented: $alarmStore.showingAlarmLanding)
                         .navigationBarBackButtonHidden(true)
             }
-//            .onAppear {
-//                checkNotificationPermission()
-//                if !isPermissionGranted {
-//                    showAlert = true
-//                }
-//            }
+            .onAppear {
+                navigationPath.removeLast(navigationPath.count)
+            }
             .onChange(of: scenePhase) {
                 if scenePhase == .active {
                     handleScenePhaseActive()

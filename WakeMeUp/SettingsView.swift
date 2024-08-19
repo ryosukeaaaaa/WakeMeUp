@@ -29,30 +29,21 @@ struct SettingsView: View {
                     }
                     
                     // materialの設定
-                    Picker("アラーム出題教材", selection: $selectedMaterial) {
-                        ForEach(sections.keys.sorted(), id: \.self) { material in
+                    Picker("アラーム出題教材", selection: $missionState.material) {
+                        ForEach(Array(sections.keys), id: \.self) { material in
                             Text(material).tag(material)
                         }
                     }
-                    .onChange(of: selectedMaterial) {
-                        // Reset the selected section when the material changes
-                        selectedSection = sections[selectedMaterial]?.first ?? 1
-                        missionState.section = selectedSection
-                        missionState.material = selectedMaterial
-                    }
                     
                     // 選択された教材に対応するセクションの設定
-                    Picker("教材のセクション", selection: $selectedSection) {
-                        ForEach(sections[selectedMaterial] ?? [], id: \.self) { section in
+                    Picker("教材のセクション", selection: $missionState.section) {
+                        ForEach(sections[missionState.material] ?? [], id: \.self) { section in
                             if section == 0 {
                                 Text("全ての単語").tag(section)
                             } else {
                                 Text("セクション \(section)").tag(section)
                             }
                         }
-                    }
-                    .onChange(of: selectedSection) {
-                        missionState.section = selectedSection
                     }
  
                     Picker("出題単語", selection: $missionState.Question) {
