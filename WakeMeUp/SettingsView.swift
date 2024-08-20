@@ -63,6 +63,14 @@ struct SettingsView: View {
                     }
                 }
                 
+                Section(header: Text("本アプリの使い方")) {
+                    NavigationLink {
+                        HowToUse()
+                    } label: {
+                        Text("アプリの使用方法")
+                    }
+                }
+                
                 Section(header: Text("習得状況設定")) {
                     Button(action: {
                         showResetSheet = true  // Sheetを表示するために状態を更新
