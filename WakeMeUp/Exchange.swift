@@ -114,6 +114,10 @@ struct Exchange: View {
                     secondaryButton: .cancel(Text("いいえ"))
                 )
             }
+            Text("※チケットはキャラクターが重複した際にもらえます。")
+                .font(.caption)
+                .padding()
+            
             Spacer()
             
             AdMobView()

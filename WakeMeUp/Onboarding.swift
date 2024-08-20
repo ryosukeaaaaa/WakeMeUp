@@ -28,7 +28,7 @@ struct OnboardingView: View {
             Spacer()
 
             HStack {
-                ForEach(1...4, id: \.self) { index in
+                ForEach(1...5, id: \.self) { index in
                     Circle()
                         .frame(width: 10, height: 10)
                         .foregroundColor(selectedPage == index ? .blue : .gray)
@@ -40,13 +40,13 @@ struct OnboardingView: View {
             .padding(.bottom, 20)
 
             Button(action: {
-                if selectedPage < 4 {
+                if selectedPage < 5 {
                     selectedPage += 1
                 } else {
                     hasSeenOnboarding = true  // 完了後にフラグを設定
                 }
             }) {
-                Text(selectedPage == 4 ? "完了" : "次へ")
+                Text(selectedPage == 5 ? "完了" : "次へ")
                     .font(.headline)
                     .frame(width: 200, height: 50)
                     .background(Color.blue)

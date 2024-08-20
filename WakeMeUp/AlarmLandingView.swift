@@ -28,7 +28,7 @@ struct AlarmLandingView: View {
                         alarmStore.showingAlarmLanding = false
                     }
                 }) {
-                    Text("ミッション開始")
+                    Text("演習開始")
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)

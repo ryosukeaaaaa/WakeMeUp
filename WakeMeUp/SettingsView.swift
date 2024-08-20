@@ -91,12 +91,12 @@ struct SettingsView: View {
                             secondaryButton: .cancel(Text("いいえ"))
                         )
                     }
-                    Button(action: {
-                        listAllPendingNotifications()
-                    }) {
-                        Text("リスト")
-                            .foregroundColor(.red)
-                    }
+//                    Button(action: {
+//                        listAllPendingNotifications()
+//                    }) {
+//                        Text("リスト")
+//                            .foregroundColor(.red)
+//                    }
                 }
                 
                 Section(header: Text("その他")) {
@@ -108,16 +108,16 @@ struct SettingsView: View {
             .navigationTitle("設定") // ここで画面タイトルを設定
         }
     }
-    func listAllPendingNotifications() {
-        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-            for request in requests {
-                print("Identifier: \(request.identifier)")
-                print("Content: \(request.content)")
-                print("Trigger: \(String(describing: request.trigger))")
-                print("-----")
-            }
-        }
-    }
+//    func listAllPendingNotifications() {
+//        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+//            for request in requests {
+//                print("Identifier: \(request.identifier)")
+//                print("Content: \(request.content)")
+//                print("Trigger: \(String(describing: request.trigger))")
+//                print("-----")
+//            }
+//        }
+//    }
 
     func removeAllPendingNotifications() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()

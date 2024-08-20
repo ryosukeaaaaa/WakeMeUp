@@ -50,11 +50,11 @@ struct Pre_Mission: View {
         NavigationView {
             VStack {
                 Spacer()
-                AdMobView()
-                    .frame(
-                        width: UIScreen.main.bounds.width,
-                        height: UIScreen.main.bounds.height * 1/9
-                    )
+//                AdMobView()
+//                    .frame(
+//                        width: UIScreen.main.bounds.width,
+//                        height: UIScreen.main.bounds.height * 1/9
+//                    )
                 GeometryReader { geometry in
                     VStack {
                         Spacer()
