@@ -14,7 +14,7 @@ struct HomeMission: View {
     
     @State private var lastmission = false
     
-    @StateObject private var alarmStore = AlarmStore()
+    @State private var alarmStore = AlarmStore()
     
     @State private var selectedSection: Int = 0  // 新しい状態変数を追加
     
@@ -44,7 +44,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $basic) {
-                        SectionSelectionView(material: "基礎英単語", sectionCount: 15, isPresented: $basic, selectedSection: $selectedSection, reset: $isReset)
+                        SectionSelectionView(missionState: missionState, material: "基礎英単語", sectionCount: 15, isPresented: $basic, selectedSection: $selectedSection, reset: $isReset)
                     }
                     
                     Button(action: {
@@ -63,7 +63,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $toeic) {
-                        SectionSelectionView(material: "TOEIC英単語", sectionCount: 7, isPresented: $toeic, selectedSection: $selectedSection, reset: $isReset)
+                        SectionSelectionView(missionState: missionState, material: "TOEIC英単語", sectionCount: 7, isPresented: $toeic, selectedSection: $selectedSection, reset: $isReset)
                     }
                     
                     Button(action: {
@@ -82,7 +82,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $business) {
-                        SectionSelectionView(material: "ビジネス英単語", sectionCount: 9, isPresented: $business, selectedSection: $selectedSection, reset: $isReset)
+                        SectionSelectionView(missionState: missionState, material: "ビジネス英単語", sectionCount: 9, isPresented: $business, selectedSection: $selectedSection, reset: $isReset)
                     }
                     
                     Button(action: {
@@ -101,7 +101,7 @@ struct HomeMission: View {
                         .cornerRadius(10)
                     }
                     .navigationDestination(isPresented: $academic) {
-                        SectionSelectionView(material: "学術英単語", sectionCount: 5, isPresented: $academic, selectedSection: $selectedSection, reset: $isReset)
+                        SectionSelectionView(missionState: missionState, material: "学術英単語", sectionCount: 5, isPresented: $academic, selectedSection: $selectedSection, reset: $isReset)
                     }
                     
                     Button(action: {
@@ -194,7 +194,6 @@ struct HomeMission: View {
                 business = false
                 academic = false
                 checkPermissions()
-                print(missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount)
             }
             .alert(isPresented: $showAlert) {
                 Alert(
@@ -258,6 +257,10 @@ struct HomeMission: View {
             }
         }
     }
+}
+
+#Preview {
+    HomeMission()
 }
 
 struct LastMission: View {

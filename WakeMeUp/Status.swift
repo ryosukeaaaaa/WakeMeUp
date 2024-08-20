@@ -1027,7 +1027,14 @@ struct DetailCardView: View {
             starCSVString += "entry,ipa,meaning,example_sentence,translated_sentence\n"
         }
         
-        starCSVString += "\(entry.0),\(entry.1),\(entry.2),\(entry.3),\(entry.4)\n"
+        // 各フィールドをエスケープしてCSVに追加
+        let escapedEntry = escapeCSVField(entry.0)
+        let escapedIPA = escapeCSVField(entry.1)
+        let escapedMeaning = escapeCSVField(entry.2)
+        let escapedExample = escapeCSVField(entry.3)
+        let escapedTranslated = escapeCSVField(entry.4)
+        
+        starCSVString += "\(escapedEntry),\(escapedIPA),\(escapedMeaning),\(escapedExample),\(escapedTranslated)\n"
         
         do {
             if let fileHandle = try? FileHandle(forWritingTo: starCSVURL) {
@@ -1054,11 +1061,11 @@ struct DetailCardView: View {
 
             var updatedCSVString = "entry,ipa,meaning,example_sentence,translated_sentence\n"
             for row in filteredRows {
-                let entry = row["entry"] ?? ""
-                let ipa = row["ipa"] ?? ""
-                let meaning = row["meaning"] ?? ""
-                let example = row["example_sentence"] ?? ""
-                let translated = row["translated_sentence"] ?? ""
+                let entry = escapeCSVField(row["entry"] ?? "")
+                let ipa = escapeCSVField(row["ipa"] ?? "")
+                let meaning = escapeCSVField(row["meaning"] ?? "")
+                let example = escapeCSVField(row["example_sentence"] ?? "")
+                let translated = escapeCSVField(row["translated_sentence"] ?? "")
                 updatedCSVString += "\(entry),\(ipa),\(meaning),\(example),\(translated)\n"
             }
 
@@ -1066,6 +1073,19 @@ struct DetailCardView: View {
         } catch {
             print("Error removing starred entry: \(error)")
         }
+    }
+
+    private func escapeCSVField(_ field: String) -> String {
+        var escapedField = field
+        // ダブルクォートをエスケープ
+        if escapedField.contains("\"") {
+            escapedField = escapedField.replacingOccurrences(of: "\"", with: "\"\"")
+        }
+        // カンマや改行が含まれている場合、フィールドをダブルクォートで囲む
+        if escapedField.contains(",") || escapedField.contains("\n") || escapedField.contains("\"") {
+            escapedField = "\"\(escapedField)\""
+        }
+        return escapedField
     }
     
     func loadStarredEntries() {

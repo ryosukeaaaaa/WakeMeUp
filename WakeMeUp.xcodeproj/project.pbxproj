@@ -32,7 +32,7 @@
 		82772EAC2C6FCCE80015F654 /* mix_29s(1)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E582C6FCCE30015F654 /* mix_29s(1)_high.mp3 */; };
 		82772EAD2C6FCCE80015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E592C6FCCE30015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_medium.mp3 */; };
 		82772EAE2C6FCCE80015F654 /* 爽やかな目覚まし音_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E5A2C6FCCE40015F654 /* 爽やかな目覚まし音_medium.mp3 */; };
-		82772EAF2C6FCCE80015F654 /* ふぐふぐ体操 _high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E5B2C6FCCE40015F654 /* ふぐふぐ体操 _high.mp3 */; };
+		82772EAF2C6FCCE80015F654 /* ふぐふぐ体操_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E5B2C6FCCE40015F654 /* ふぐふぐ体操_high.mp3 */; };
 		82772EB02C6FCCE80015F654 /* 2_23_AM_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E5C2C6FCCE40015F654 /* 2_23_AM_low.mp3 */; };
 		82772EB12C6FCCE80015F654 /* パステルハウス_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E5D2C6FCCE40015F654 /* パステルハウス_low.mp3 */; };
 		82772EB22C6FCCE80015F654 /* ふぐふぐ体操_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E5E2C6FCCE40015F654 /* ふぐふぐ体操_medium.mp3 */; };
@@ -54,13 +54,13 @@
 		82772EC22C6FCCE80015F654 /* mix_29s(2)_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E6E2C6FCCE50015F654 /* mix_29s(2)_medium.mp3 */; };
 		82772EC32C6FCCE80015F654 /* オルゴールのチャイム_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E6F2C6FCCE50015F654 /* オルゴールのチャイム_high.mp3 */; };
 		82772EC42C6FCCE80015F654 /* 高音ビープアラーム音_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E702C6FCCE50015F654 /* 高音ビープアラーム音_high.mp3 */; };
-		82772EC52C6FCCE80015F654 /* 情動カタルシス _high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E712C6FCCE50015F654 /* 情動カタルシス _high.mp3 */; };
+		82772EC52C6FCCE80015F654 /* 情動カタルシス_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E712C6FCCE50015F654 /* 情動カタルシス_high.mp3 */; };
 		82772EC62C6FCCE80015F654 /* 高音ビープアラーム音_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E722C6FCCE50015F654 /* 高音ビープアラーム音_low.mp3 */; };
 		82772EC72C6FCCE80015F654 /* 明るいアップビート着信音_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E732C6FCCE50015F654 /* 明るいアップビート着信音_medium.mp3 */; };
 		82772EC82C6FCCE80015F654 /* 鳥のさえずり_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E742C6FCCE50015F654 /* 鳥のさえずり_medium.mp3 */; };
 		82772EC92C6FCCE80015F654 /* オルゴールのチャイム_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E752C6FCCE50015F654 /* オルゴールのチャイム_low.mp3 */; };
 		82772ECA2C6FCCE80015F654 /* PiPiPiMorning_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E762C6FCCE50015F654 /* PiPiPiMorning_medium.mp3 */; };
-		82772ECB2C6FCCE80015F654 /* はりきっちゃう時のテーマ _medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E772C6FCCE50015F654 /* はりきっちゃう時のテーマ _medium.mp3 */; };
+		82772ECB2C6FCCE80015F654 /* はりきっちゃう時のテーマ_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E772C6FCCE50015F654 /* はりきっちゃう時のテーマ_medium.mp3 */; };
 		82772ECC2C6FCCE80015F654 /* リコーダービート_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E782C6FCCE50015F654 /* リコーダービート_high.mp3 */; };
 		82772ECD2C6FCCE80015F654 /* PiPiPiMorning_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E792C6FCCE50015F654 /* PiPiPiMorning_high.mp3 */; };
 		82772ECE2C6FCCE80015F654 /* CLUB_DEEP_FOG_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E7A2C6FCCE50015F654 /* CLUB_DEEP_FOG_low.mp3 */; };
@@ -92,13 +92,13 @@
 		82772EE82C6FCCE80015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E942C6FCCE70015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_high.mp3 */; };
 		82772EE92C6FCCE80015F654 /* 明るいアップビート着信音_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E952C6FCCE70015F654 /* 明るいアップビート着信音_low.mp3 */; };
 		82772EEA2C6FCCE80015F654 /* 追いかけっこキャッハー_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E962C6FCCE70015F654 /* 追いかけっこキャッハー_low.mp3 */; };
-		82772EEB2C6FCCE80015F654 /* ふぐふぐ体操 _low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E972C6FCCE70015F654 /* ふぐふぐ体操 _low.mp3 */; };
+		82772EEB2C6FCCE80015F654 /* ふぐふぐ体操_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E972C6FCCE70015F654 /* ふぐふぐ体操_low.mp3 */; };
 		82772EEC2C6FCCE80015F654 /* クラシックなアラーム_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E982C6FCCE70015F654 /* クラシックなアラーム_low.mp3 */; };
 		82772EED2C6FCCE80015F654 /* シンプルなアラーム音(2)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E992C6FCCE70015F654 /* シンプルなアラーム音(2)_high.mp3 */; };
 		82772EEE2C6FCCE80015F654 /* オルゴールのチャイム_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E9A2C6FCCE70015F654 /* オルゴールのチャイム_medium.mp3 */; };
 		82772EEF2C6FCCE80015F654 /* 追いかけっこキャッハー_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E9B2C6FCCE70015F654 /* 追いかけっこキャッハー_high.mp3 */; };
 		82772EF02C6FCCE80015F654 /* クラシックなアラーム_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E9C2C6FCCE70015F654 /* クラシックなアラーム_medium.mp3 */; };
-		82772EF12C6FCCE80015F654 /* はりきっちゃう時のテーマ _high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E9D2C6FCCE70015F654 /* はりきっちゃう時のテーマ _high.mp3 */; };
+		82772EF12C6FCCE80015F654 /* はりきっちゃう時のテーマ_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E9D2C6FCCE70015F654 /* はりきっちゃう時のテーマ_high.mp3 */; };
 		82772EF22C6FCCE80015F654 /* マジカル着信音ループ_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E9E2C6FCCE70015F654 /* マジカル着信音ループ_medium.mp3 */; };
 		82772EF32C6FCCE80015F654 /* 2_23_AM_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E9F2C6FCCE70015F654 /* 2_23_AM_high.mp3 */; };
 		82772EF42C6FCCE80015F654 /* 森の中の小鳥のさえずり_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EA02C6FCCE70015F654 /* 森の中の小鳥のさえずり_medium.mp3 */; };
@@ -109,7 +109,7 @@
 		82772EF92C6FCCE80015F654 /* PiPiPiMorning_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EA52C6FCCE80015F654 /* PiPiPiMorning_low.mp3 */; };
 		82772EFA2C6FCCE80015F654 /* マジカル着信音ループ_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EA62C6FCCE80015F654 /* マジカル着信音ループ_high.mp3 */; };
 		82772EFB2C6FCCE80015F654 /* CLUB_DEEP_FOG_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EA72C6FCCE80015F654 /* CLUB_DEEP_FOG_medium.mp3 */; };
-		82772EFC2C6FCCE80015F654 /* 情動カタルシス _low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EA82C6FCCE80015F654 /* 情動カタルシス _low.mp3 */; };
+		82772EFC2C6FCCE80015F654 /* 情動カタルシス_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EA82C6FCCE80015F654 /* 情動カタルシス_low.mp3 */; };
 		82772F002C6FD3C40015F654 /* 野良猫は宇宙を目指した_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EFD2C6FD3C40015F654 /* 野良猫は宇宙を目指した_low.mp3 */; };
 		82772F012C6FD3C40015F654 /* 野良猫は宇宙を目指した_medium.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EFE2C6FD3C40015F654 /* 野良猫は宇宙を目指した_medium.mp3 */; };
 		82772F022C6FD3C40015F654 /* 野良猫は宇宙を目指した_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772EFF2C6FD3C40015F654 /* 野良猫は宇宙を目指した_high.mp3 */; };
@@ -201,7 +201,7 @@
 		82772E582C6FCCE30015F654 /* mix_29s(1)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s(1)_high.mp3"; sourceTree = "<group>"; };
 		82772E592C6FCCE30015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_medium.mp3"; sourceTree = "<group>"; };
 		82772E5A2C6FCCE40015F654 /* 爽やかな目覚まし音_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "爽やかな目覚まし音_medium.mp3"; sourceTree = "<group>"; };
-		82772E5B2C6FCCE40015F654 /* ふぐふぐ体操 _high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ふぐふぐ体操 _high.mp3"; sourceTree = "<group>"; };
+		82772E5B2C6FCCE40015F654 /* ふぐふぐ体操_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ふぐふぐ体操_high.mp3"; sourceTree = "<group>"; };
 		82772E5C2C6FCCE40015F654 /* 2_23_AM_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2_23_AM_low.mp3; sourceTree = "<group>"; };
 		82772E5D2C6FCCE40015F654 /* パステルハウス_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "パステルハウス_low.mp3"; sourceTree = "<group>"; };
 		82772E5E2C6FCCE40015F654 /* ふぐふぐ体操_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ふぐふぐ体操_medium.mp3"; sourceTree = "<group>"; };
@@ -223,13 +223,13 @@
 		82772E6E2C6FCCE50015F654 /* mix_29s(2)_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s(2)_medium.mp3"; sourceTree = "<group>"; };
 		82772E6F2C6FCCE50015F654 /* オルゴールのチャイム_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "オルゴールのチャイム_high.mp3"; sourceTree = "<group>"; };
 		82772E702C6FCCE50015F654 /* 高音ビープアラーム音_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "高音ビープアラーム音_high.mp3"; sourceTree = "<group>"; };
-		82772E712C6FCCE50015F654 /* 情動カタルシス _high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "情動カタルシス _high.mp3"; sourceTree = "<group>"; };
+		82772E712C6FCCE50015F654 /* 情動カタルシス_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "情動カタルシス_high.mp3"; sourceTree = "<group>"; };
 		82772E722C6FCCE50015F654 /* 高音ビープアラーム音_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "高音ビープアラーム音_low.mp3"; sourceTree = "<group>"; };
 		82772E732C6FCCE50015F654 /* 明るいアップビート着信音_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "明るいアップビート着信音_medium.mp3"; sourceTree = "<group>"; };
 		82772E742C6FCCE50015F654 /* 鳥のさえずり_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "鳥のさえずり_medium.mp3"; sourceTree = "<group>"; };
 		82772E752C6FCCE50015F654 /* オルゴールのチャイム_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "オルゴールのチャイム_low.mp3"; sourceTree = "<group>"; };
 		82772E762C6FCCE50015F654 /* PiPiPiMorning_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PiPiPiMorning_medium.mp3; sourceTree = "<group>"; };
-		82772E772C6FCCE50015F654 /* はりきっちゃう時のテーマ _medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "はりきっちゃう時のテーマ _medium.mp3"; sourceTree = "<group>"; };
+		82772E772C6FCCE50015F654 /* はりきっちゃう時のテーマ_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "はりきっちゃう時のテーマ_medium.mp3"; sourceTree = "<group>"; };
 		82772E782C6FCCE50015F654 /* リコーダービート_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "リコーダービート_high.mp3"; sourceTree = "<group>"; };
 		82772E792C6FCCE50015F654 /* PiPiPiMorning_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PiPiPiMorning_high.mp3; sourceTree = "<group>"; };
 		82772E7A2C6FCCE50015F654 /* CLUB_DEEP_FOG_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CLUB_DEEP_FOG_low.mp3; sourceTree = "<group>"; };
@@ -261,13 +261,13 @@
 		82772E942C6FCCE70015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_high.mp3"; sourceTree = "<group>"; };
 		82772E952C6FCCE70015F654 /* 明るいアップビート着信音_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "明るいアップビート着信音_low.mp3"; sourceTree = "<group>"; };
 		82772E962C6FCCE70015F654 /* 追いかけっこキャッハー_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "追いかけっこキャッハー_low.mp3"; sourceTree = "<group>"; };
-		82772E972C6FCCE70015F654 /* ふぐふぐ体操 _low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ふぐふぐ体操 _low.mp3"; sourceTree = "<group>"; };
+		82772E972C6FCCE70015F654 /* ふぐふぐ体操_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ふぐふぐ体操_low.mp3"; sourceTree = "<group>"; };
 		82772E982C6FCCE70015F654 /* クラシックなアラーム_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "クラシックなアラーム_low.mp3"; sourceTree = "<group>"; };
 		82772E992C6FCCE70015F654 /* シンプルなアラーム音(2)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "シンプルなアラーム音(2)_high.mp3"; sourceTree = "<group>"; };
 		82772E9A2C6FCCE70015F654 /* オルゴールのチャイム_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "オルゴールのチャイム_medium.mp3"; sourceTree = "<group>"; };
 		82772E9B2C6FCCE70015F654 /* 追いかけっこキャッハー_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "追いかけっこキャッハー_high.mp3"; sourceTree = "<group>"; };
 		82772E9C2C6FCCE70015F654 /* クラシックなアラーム_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "クラシックなアラーム_medium.mp3"; sourceTree = "<group>"; };
-		82772E9D2C6FCCE70015F654 /* はりきっちゃう時のテーマ _high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "はりきっちゃう時のテーマ _high.mp3"; sourceTree = "<group>"; };
+		82772E9D2C6FCCE70015F654 /* はりきっちゃう時のテーマ_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "はりきっちゃう時のテーマ_high.mp3"; sourceTree = "<group>"; };
 		82772E9E2C6FCCE70015F654 /* マジカル着信音ループ_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "マジカル着信音ループ_medium.mp3"; sourceTree = "<group>"; };
 		82772E9F2C6FCCE70015F654 /* 2_23_AM_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2_23_AM_high.mp3; sourceTree = "<group>"; };
 		82772EA02C6FCCE70015F654 /* 森の中の小鳥のさえずり_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "森の中の小鳥のさえずり_medium.mp3"; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 		82772EA52C6FCCE80015F654 /* PiPiPiMorning_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PiPiPiMorning_low.mp3; sourceTree = "<group>"; };
 		82772EA62C6FCCE80015F654 /* マジカル着信音ループ_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "マジカル着信音ループ_high.mp3"; sourceTree = "<group>"; };
 		82772EA72C6FCCE80015F654 /* CLUB_DEEP_FOG_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CLUB_DEEP_FOG_medium.mp3; sourceTree = "<group>"; };
-		82772EA82C6FCCE80015F654 /* 情動カタルシス _low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "情動カタルシス _low.mp3"; sourceTree = "<group>"; };
+		82772EA82C6FCCE80015F654 /* 情動カタルシス_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "情動カタルシス_low.mp3"; sourceTree = "<group>"; };
 		82772EFD2C6FD3C40015F654 /* 野良猫は宇宙を目指した_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_low.mp3"; sourceTree = "<group>"; };
 		82772EFE2C6FD3C40015F654 /* 野良猫は宇宙を目指した_medium.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_medium.mp3"; sourceTree = "<group>"; };
 		82772EFF2C6FD3C40015F654 /* 野良猫は宇宙を目指した_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "野良猫は宇宙を目指した_high.mp3"; sourceTree = "<group>"; };
@@ -412,23 +412,23 @@
 				829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */,
 				821FD6B62C37E2A900F445C7 /* AppDelegate.swift */,
 				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
-				82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */,
-				82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */,
 				3483CF722C2BC37800FA5BD3 /* AlarmLandingView.swift */,
-				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
-				8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */,
-				8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */,
-				34EB07032C18B94800535988 /* AlarmData.swift */,
-				341C36542C2B3035009F9594 /* AddAlarmView.swift */,
-				8272A5972C44E2F7006697E1 /* Sound.swift */,
 				821FD6A82C358F0F00F445C7 /* HomeMission.swift */,
 				82FE142A2C649F9F0023CC8B /* MissionSectionSelect.swift */,
 				827A15982C176053003B4468 /* Mission.swift */,
+				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
 				821FD69E2C329F8100F445C7 /* MissionState.swift */,
+				8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */,
 				821FD69C2C32741900F445C7 /* Status.swift */,
+				82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */,
+				82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */,
+				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
+				8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */,
+				34EB07032C18B94800535988 /* AlarmData.swift */,
+				341C36542C2B3035009F9594 /* AddAlarmView.swift */,
+				8272A5972C44E2F7006697E1 /* Sound.swift */,
 				82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */,
 				829A59CB2C163ECD002D7DA3 /* audio.swift */,
-				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
 				8292006B2C469B2200C96C30 /* ItemState.swift */,
 				82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */,
 				829200A82C4825A400C96C30 /* Collection.swift */,
@@ -483,11 +483,11 @@
 				82772E6C2C6FCCE50015F654 /* パステルハウス_high.mp3 */,
 				82772E5D2C6FCCE40015F654 /* パステルハウス_low.mp3 */,
 				82772E7B2C6FCCE50015F654 /* パステルハウス_medium.mp3 */,
-				82772E9D2C6FCCE70015F654 /* はりきっちゃう時のテーマ _high.mp3 */,
+				82772E9D2C6FCCE70015F654 /* はりきっちゃう時のテーマ_high.mp3 */,
 				82772E562C6FCCE30015F654 /* はりきっちゃう時のテーマ_low.mp3 */,
-				82772E772C6FCCE50015F654 /* はりきっちゃう時のテーマ _medium.mp3 */,
-				82772E5B2C6FCCE40015F654 /* ふぐふぐ体操 _high.mp3 */,
-				82772E972C6FCCE70015F654 /* ふぐふぐ体操 _low.mp3 */,
+				82772E772C6FCCE50015F654 /* はりきっちゃう時のテーマ_medium.mp3 */,
+				82772E5B2C6FCCE40015F654 /* ふぐふぐ体操_high.mp3 */,
+				82772E972C6FCCE70015F654 /* ふぐふぐ体操_low.mp3 */,
 				82772E5E2C6FCCE40015F654 /* ふぐふぐ体操_medium.mp3 */,
 				82772EA62C6FCCE80015F654 /* マジカル着信音ループ_high.mp3 */,
 				82772E7D2C6FCCE50015F654 /* マジカル着信音ループ_low.mp3 */,
@@ -501,8 +501,8 @@
 				82772E702C6FCCE50015F654 /* 高音ビープアラーム音_high.mp3 */,
 				82772E722C6FCCE50015F654 /* 高音ビープアラーム音_low.mp3 */,
 				82772E892C6FCCE60015F654 /* 高音ビープアラーム音_medium.mp3 */,
-				82772E712C6FCCE50015F654 /* 情動カタルシス _high.mp3 */,
-				82772EA82C6FCCE80015F654 /* 情動カタルシス _low.mp3 */,
+				82772E712C6FCCE50015F654 /* 情動カタルシス_high.mp3 */,
+				82772EA82C6FCCE80015F654 /* 情動カタルシス_low.mp3 */,
 				82772E922C6FCCE60015F654 /* 情動カタルシス_medium.mp3 */,
 				82772E932C6FCCE70015F654 /* 森の中の小鳥のさえずり_high.mp3 */,
 				82772E8A2C6FCCE60015F654 /* 森の中の小鳥のさえずり_low.mp3 */,
@@ -710,10 +710,10 @@
 				82FE15AD2C6FA4D80023CC8B /* Gacha2.mp3 in Resources */,
 				82772EB92C6FCCE80015F654 /* シンプルなアラーム音(2)_medium.mp3 in Resources */,
 				82FE14252C63EFEE0023CC8B /* Answer.mp3 in Resources */,
-				82772EAF2C6FCCE80015F654 /* ふぐふぐ体操 _high.mp3 in Resources */,
+				82772EAF2C6FCCE80015F654 /* ふぐふぐ体操_high.mp3 in Resources */,
 				821FD6A52C33E64300F445C7 /* Launch Screen.storyboard in Resources */,
 				82772EEC2C6FCCE80015F654 /* クラシックなアラーム_low.mp3 in Resources */,
-				82772EC52C6FCCE80015F654 /* 情動カタルシス _high.mp3 in Resources */,
+				82772EC52C6FCCE80015F654 /* 情動カタルシス_high.mp3 in Resources */,
 				82772EDE2C6FCCE80015F654 /* 森の中の小鳥のさえずり_low.mp3 in Resources */,
 				82772EFA2C6FCCE80015F654 /* マジカル着信音ループ_high.mp3 in Resources */,
 				82FE142D2C64B0E90023CC8B /* no.mp3 in Resources */,
@@ -736,7 +736,7 @@
 				82772EC42C6FCCE80015F654 /* 高音ビープアラーム音_high.mp3 in Resources */,
 				82772ED92C6FCCE80015F654 /* リコーダービート_low.mp3 in Resources */,
 				82772ED62C6FCCE80015F654 /* 一斗缶をたたき続ける_low.mp3 in Resources */,
-				82772EF12C6FCCE80015F654 /* はりきっちゃう時のテーマ _high.mp3 in Resources */,
+				82772EF12C6FCCE80015F654 /* はりきっちゃう時のテーマ_high.mp3 in Resources */,
 				829200802C4777B300C96C30 /* RainParticle.sks in Resources */,
 				82772EC32C6FCCE80015F654 /* オルゴールのチャイム_high.mp3 in Resources */,
 				82772EBC2C6FCCE80015F654 /* 追いかけっこキャッハー_medium.mp3 in Resources */,
@@ -751,7 +751,7 @@
 				82772EE32C6FCCE80015F654 /* デジタル目覚まし時計アラーム音_low.mp3 in Resources */,
 				82772EE62C6FCCE80015F654 /* 情動カタルシス_medium.mp3 in Resources */,
 				82772ED42C6FCCE80015F654 /* シンプルなアラーム音(1)_high.mp3 in Resources */,
-				82772ECB2C6FCCE80015F654 /* はりきっちゃう時のテーマ _medium.mp3 in Resources */,
+				82772ECB2C6FCCE80015F654 /* はりきっちゃう時のテーマ_medium.mp3 in Resources */,
 				82772EE82C6FCCE80015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_high.mp3 in Resources */,
 				82772EB52C6FCCE80015F654 /* 銅鑼の連打_medium.mp3 in Resources */,
 				82772ED52C6FCCE80015F654 /* リコーダービート_medium.mp3 in Resources */,
@@ -770,7 +770,7 @@
 				82772ED22C6FCCE80015F654 /* クラシックなアラーム_high.mp3 in Resources */,
 				82772EB72C6FCCE80015F654 /* 銅鑼の連打_high.mp3 in Resources */,
 				82772EBD2C6FCCE80015F654 /* デフォルト_medium.mp3 in Resources */,
-				82772EFC2C6FCCE80015F654 /* 情動カタルシス _low.mp3 in Resources */,
+				82772EFC2C6FCCE80015F654 /* 情動カタルシス_low.mp3 in Resources */,
 				82772EC12C6FCCE80015F654 /* 一斗缶をたたき続ける_high.mp3 in Resources */,
 				82772EEA2C6FCCE80015F654 /* 追いかけっこキャッハー_low.mp3 in Resources */,
 				82772ECA2C6FCCE80015F654 /* PiPiPiMorning_medium.mp3 in Resources */,
@@ -782,7 +782,7 @@
 				82772EB12C6FCCE80015F654 /* パステルハウス_low.mp3 in Resources */,
 				82772EAD2C6FCCE80015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_medium.mp3 in Resources */,
 				82772EF92C6FCCE80015F654 /* PiPiPiMorning_low.mp3 in Resources */,
-				82772EEB2C6FCCE80015F654 /* ふぐふぐ体操 _low.mp3 in Resources */,
+				82772EEB2C6FCCE80015F654 /* ふぐふぐ体操_low.mp3 in Resources */,
 				82772EEE2C6FCCE80015F654 /* オルゴールのチャイム_medium.mp3 in Resources */,
 				82772F012C6FD3C40015F654 /* 野良猫は宇宙を目指した_medium.mp3 in Resources */,
 				82772EC02C6FCCE80015F654 /* パステルハウス_high.mp3 in Resources */,

@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct SectionSelectionView: View {
+    @ObservedObject var missionState: MissionState
+    
     let material: String
     let sectionCount: Int
     @Binding var isPresented: Bool
@@ -44,7 +46,7 @@ struct SectionSelectionView: View {
         .padding()
         .navigationTitle("全\(sectionCount)セクション")
         .navigationDestination(isPresented: $isPreMissionPresented) {
-            Pre_Mission(fromHome: true, material: material, reset: $reset, alarmStore: alarmStore, selectedSection: selectedSection)
+            Pre_Mission(missionState: missionState, fromHome: true, material: material, reset: $reset, alarmStore: alarmStore, selectedSection: selectedSection)
                 .navigationBarBackButtonHidden(true)
         }
     }

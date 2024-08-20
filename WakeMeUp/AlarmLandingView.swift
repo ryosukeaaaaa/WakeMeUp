@@ -8,7 +8,7 @@ struct AlarmLandingView: View {
     @State private var navigateToPreMission = false
     @State private var isReset: Bool = true
     
-    
+    @StateObject private var missionState = MissionState()
 
     var body: some View {
         NavigationStack {
@@ -37,7 +37,7 @@ struct AlarmLandingView: View {
                 .padding()
             }
             .navigationDestination(isPresented: $navigateToPreMission) {
-                Pre_Mission(reset: $isReset, alarmStore: alarmStore)
+                Pre_Mission(missionState: missionState, reset: $isReset, alarmStore: alarmStore)
                     .navigationBarBackButtonHidden(true)
             }
         }

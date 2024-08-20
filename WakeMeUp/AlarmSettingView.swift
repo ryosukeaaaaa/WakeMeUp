@@ -66,8 +66,6 @@ struct AlarmSettingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-//                        alarmStore.rescheduleAlarm(alarmTime: alarmStore.settingalarm.time, repeatLabel: alarmStore.settingalarm.repeatLabel, isOn: true, soundName: alarmStore.settingalarm.soundName, groupId: alarmStore.settingalarm.groupId, at: index)
-//                        presentationMode.wrappedValue.dismiss()
                         showSilentModeAlert = true
                     }) {
                         Text("保存")
@@ -81,7 +79,9 @@ struct AlarmSettingView: View {
                     }
                 }
             }
-//            .onAppear {
+            .onAppear {
+                showSilentModeAlert = false
+            }
 //                if self.soundData.soundName.isEmpty {
 //                    self.soundData.soundName = alarm.soundName
 //                    alarmStore.alarmTime = alarm.time

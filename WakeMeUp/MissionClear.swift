@@ -6,10 +6,9 @@ struct MissionClear: View {
     @ObservedObject var alarmStore: AlarmStore
     
     @State private var Home = false
-    @State private var navigationPath = NavigationPath()
 
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        NavigationStack{
             VStack {
                 Spacer()
                 
@@ -40,8 +39,6 @@ struct MissionClear: View {
                 .padding()
                 
                 Button(action: {
-                    // Clear the navigation stack and navigate to HomeView
-                    navigationPath.removeLast(navigationPath.count)
                     Home = true
                 }) {
                     HStack {
@@ -58,9 +55,6 @@ struct MissionClear: View {
             .navigationDestination(isPresented: $Home) {
                 ContentView()
                     .navigationBarBackButtonHidden(true)
-                    .onAppear {
-                        navigationPath.removeLast(navigationPath.count)
-                    }
             }
         }
     }

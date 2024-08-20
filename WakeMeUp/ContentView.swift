@@ -11,7 +11,6 @@ struct ContentView: View {
     @State private var isPermissionGranted = true // 通知設定の確認
     @State private var showAlert = false
     
-    @State private var navigationPath = NavigationPath()
     
     @State private var alertTitle = ""
     @State private var alertMessage = ""
@@ -19,7 +18,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
-        NavigationStack(path: $navigationPath){
+        NavigationStack{
             TabView {
                 NavigationStack {
                     AlarmListView(alarmStore: alarmStore)
@@ -66,9 +65,6 @@ struct ContentView: View {
                 AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupIds, isPresented: $alarmStore.showingAlarmLanding)
                         .navigationBarBackButtonHidden(true)
             }
-            .onAppear {
-                navigationPath.removeLast(navigationPath.count)
-            }
             .onChange(of: scenePhase) {
                 if scenePhase == .active {
                     handleScenePhaseActive()
@@ -88,7 +84,9 @@ struct ContentView: View {
             alarmStore.Sound = result.firstSound ?? "デフォルト_medium.mp3"
             print("groupids:", alarmStore.groupIds)
             if !alarmStore.groupIds.isEmpty {
-                alarmStore.showingAlarmLanding = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { //画面が引き戻されるエラーが起こった。
+                    alarmStore.showingAlarmLanding = true
+                }
             }
         }
     }
@@ -99,7 +97,9 @@ struct ContentView: View {
         alarmStore.Sound = result.firstSound ?? "_medデフォルトium.mp3"
         
         if !alarmStore.groupIds.isEmpty {
-            alarmStore.showingAlarmLanding = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { //画面が引き戻されるエラーが起こった。
+                alarmStore.showingAlarmLanding = true
+            }
         }
         
         checkPermissions()

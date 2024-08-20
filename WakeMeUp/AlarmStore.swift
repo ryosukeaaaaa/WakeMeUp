@@ -6,7 +6,7 @@ import UserNotifications
 
 import AVFoundation
 // AlarmStore クラスの定義
-class AlarmStore: ObservableObject {
+class AlarmStore: ObservableObject, Hashable {
     @Published var alarms: [AlarmData] = []
     
     @Published var showingAlarmLanding: Bool {
@@ -298,5 +298,15 @@ class AlarmStore: ObservableObject {
 
     func hasFourOrMoreActiveAlarms() -> Bool {
         return activeAlarmsCount() >= 4
+    }
+    
+    static func == (lhs: AlarmStore, rhs: AlarmStore) -> Bool {
+        // Implement equality logic based on relevant properties
+        return lhs === rhs // Assuming object identity comparison is enough
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        // Implement hashing based on relevant properties
+        hasher.combine(ObjectIdentifier(self))
     }
 }
