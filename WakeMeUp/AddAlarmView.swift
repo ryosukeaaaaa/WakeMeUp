@@ -69,7 +69,7 @@ struct AddAlarmView: View {
                 }
             }
             .onAppear{
-                showSilentModeAlert = true
+                showSilentModeAlert = false
             }
             .onDisappear {
                 alarmStore.stopTestSound()

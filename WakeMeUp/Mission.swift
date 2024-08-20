@@ -50,11 +50,11 @@ struct Pre_Mission: View {
         NavigationView {
             VStack {
                 Spacer()
-//                AdMobView()
-//                    .frame(
-//                        width: UIScreen.main.bounds.width,
-//                        height: UIScreen.main.bounds.height * 1/9
-//                    )
+                AdMobView()
+                    .frame(
+                        width: UIScreen.main.bounds.width,
+                        height: UIScreen.main.bounds.height * 1/9
+                    )
                 GeometryReader { geometry in
                     VStack {
                         Spacer()
@@ -702,14 +702,14 @@ struct Pre_Mission: View {
 
     private func startIdleTimer() {
         idleTimer?.invalidate()
-        idleTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { _ in
+        idleTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { _ in
             alarmStore.testSound(sound: alarmStore.Sound)
         }
     }
 
     private func resetIdleTimer() {
         idleTimer?.invalidate()
-        idleTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { _ in
+        idleTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { _ in
             alarmStore.testSound(sound: alarmStore.Sound)
         }
         alarmStore.stopTestSound()

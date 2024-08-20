@@ -419,6 +419,7 @@
 				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
 				821FD69E2C329F8100F445C7 /* MissionState.swift */,
 				8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */,
+				8292006B2C469B2200C96C30 /* ItemState.swift */,
 				821FD69C2C32741900F445C7 /* Status.swift */,
 				82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */,
 				82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */,
@@ -429,7 +430,6 @@
 				8272A5972C44E2F7006697E1 /* Sound.swift */,
 				82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */,
 				829A59CB2C163ECD002D7DA3 /* audio.swift */,
-				8292006B2C469B2200C96C30 /* ItemState.swift */,
 				82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */,
 				829200A82C4825A400C96C30 /* Collection.swift */,
 				829200732C46A81600C96C30 /* Gacha.swift */,
@@ -438,6 +438,7 @@
 				3483CF762C2BFEA400FA5BD3 /* SettingsView.swift */,
 				82FE15AE2C6FB65E0023CC8B /* HowToUse.swift */,
 				82FE14282C63F0A60023CC8B /* AdMob.swift */,
+				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				82772E9F2C6FCCE70015F654 /* 2_23_AM_high.mp3 */,
 				82772E5C2C6FCCE40015F654 /* 2_23_AM_low.mp3 */,
 				82772E6A2C6FCCE40015F654 /* 2_23_AM_medium.mp3 */,
@@ -532,7 +533,6 @@
 				829200962C47A24100C96C30 /* GIFImage.swift */,
 				829200942C47A20D00C96C30 /* UIGIFImageView.swift */,
 				8292007F2C4777B300C96C30 /* RainParticle.sks */,
-				829A59A52C1635B3002D7DA3 /* Assets.xcassets */,
 				827A159C2C176087003B4468 /* Home.swift */,
 				824D789E2C1C61BC0070D045 /* Whisper.swift */,
 				827A159A2C176077003B4468 /* GPT.swift */,
@@ -1081,7 +1081,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = WakeMeUp;
+				PRODUCT_BUNDLE_IDENTIFIER = WakeMeUp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1120,7 +1120,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = WakeMeUp;
+				PRODUCT_BUNDLE_IDENTIFIER = WakeMeUp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

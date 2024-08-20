@@ -5,6 +5,9 @@ import Speech
 
 struct ContentView: View {
     @EnvironmentObject var alarmStore: AlarmStore
+    @EnvironmentObject var itemState: ItemState
+    @EnvironmentObject var missionState: MissionState
+    
     @State private var debugMessage = ""
     
     @State private var isMissionViewActive = false
@@ -65,6 +68,9 @@ struct ContentView: View {
                 AlarmLandingView(alarmStore: alarmStore, groupId: alarmStore.groupIds, isPresented: $alarmStore.showingAlarmLanding)
                         .navigationBarBackButtonHidden(true)
             }
+            .onAppear{
+                requestNotificationAuthorization()
+            }
             .onChange(of: scenePhase) {
                 if scenePhase == .active {
                     handleScenePhaseActive()
@@ -87,6 +93,16 @@ struct ContentView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { //画面が引き戻されるエラーが起こった。
                     alarmStore.showingAlarmLanding = true
                 }
+            }
+        }
+    }
+    
+    func requestNotificationAuthorization() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                print("通知の許可が得られました。")
+            } else if let error = error {
+                print("通知の許可が得られませんでした。: \(error.localizedDescription)")
             }
         }
     }

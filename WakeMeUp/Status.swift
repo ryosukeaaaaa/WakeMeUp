@@ -263,7 +263,7 @@ struct NormalWordView: View {
                 VStack {
                     Text(material)
                         .font(.headline)
-                    Text("全\(String(allEntries.count))単語")
+                    Text("全\(String(filteredEntries.count))単語")
                         .font(.subheadline)
                 }
             }

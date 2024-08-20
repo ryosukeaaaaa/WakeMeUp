@@ -115,18 +115,8 @@ class ItemState: ObservableObject {
     }
     
     init() {
-        // アプリ初回起動チェック
-        let isFirstItem = UserDefaults.standard.bool(forKey: "isFirstItem")
-        if !isFirstItem {
-            self.NormalCoin = -1
-            self.SpecialCoin = -1
-            // 初回起動済みフラグを設定
-            UserDefaults.standard.set(true, forKey: "isFirstItem")
-        } else {
-            self.NormalCoin = UserDefaults.standard.integer(forKey: "NormalCoin")
-            self.SpecialCoin = UserDefaults.standard.integer(forKey: "SpecialCoin")
-        }
-        
+        self.NormalCoin = UserDefaults.standard.integer(forKey: "NormalCoin")
+        self.SpecialCoin = UserDefaults.standard.integer(forKey: "SpecialCoin")
         self.Pre_Count = UserDefaults.standard.integer(forKey: "Pre_Count")
         self.Pre_Count2 = UserDefaults.standard.integer(forKey: "Pre_Count2")
         self.UserItems = UserDefaults.standard.stringArray(forKey: "UserItems") ?? []

@@ -230,10 +230,14 @@ struct FourthPageView: View {
             .padding(.bottom, 20)
             
             Spacer()
-            Text("本アプリの詳しい説明は、設定より「アプリの使用方法」に載せているのでぜひそちらを参照してください。")
-                .font(.body)
-                .foregroundColor(.primary)
-                .fontWeight(.bold)
+            VStack(alignment: .leading, spacing: 5) {
+                Text("本アプリの詳しい説明は、設定より")
+                    .fontWeight(.bold)
+                + Text("「アプリの使用方法」").foregroundColor(.red)
+                    .fontWeight(.bold)
+                + Text("に載せているのでぜひそちらを参照してください。")
+                    .fontWeight(.bold)
+            }
         }
         .padding()
     }
@@ -256,50 +260,16 @@ struct FifthPageView: View {
                 .font(.body)
                 .foregroundColor(.red)
                 .fontWeight(.bold)
-            HStack{
-                VStack{
-                    Text("「設定」>")
-                        .font(.body)
-                        .foregroundColor(.primary)
-                        .fontWeight(.bold)
-                    Image("5-1")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(.bottom, 20)
-                }
-                VStack{
-                    Text("「集中モード」>")
-                        .font(.body)
-                        .foregroundColor(.primary)
-                        .fontWeight(.bold)
-                    Image("5-2")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(.bottom, 20)
-                }
-            }
-            HStack{
-                VStack{
-                    Text("「おやすみモード」>")
-                        .font(.body)
-                        .foregroundColor(.primary)
-                        .fontWeight(.bold)
-                    Image("5-3")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(.bottom, 20)
-                }
-                VStack{
-                    Text("「追加」")
-                        .font(.body)
-                        .foregroundColor(.primary)
-                        .fontWeight(.bold)
-                    Image("5-4")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(.bottom, 20)
-                }
-            }
+            Image("sleep1")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: .infinity)  // Max width to fill parent width
+                .padding()
+            Image("sleep2")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: .infinity)  // Max width to fill parent width
+                .padding()
             Text("から本アプリを追加してください。")
                 .font(.body)
                 .foregroundColor(.primary)

@@ -75,18 +75,14 @@ class MissionState: ObservableObject {
     }
     
     init() {
-        // アプリ初回起動チェック
-        let isFirstMission = UserDefaults.standard.bool(forKey: "isFirstMission")
-        if !isFirstMission {
+        let savedClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
+        if savedClearCount == 0 && UserDefaults.standard.object(forKey: "ClearCount") == nil {
             self.ClearCount = 5
-            self.correctvolume = 50
-            // 初回起動済みフラグを設定
-            UserDefaults.standard.set(true, forKey: "isFirstMission")
+            self.correctvolume = 0.5
         } else {
-            self.ClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
+            self.ClearCount = savedClearCount
             self.correctvolume = UserDefaults.standard.float(forKey: "correctvolume")
         }
-        
         self.material = UserDefaults.standard.string(forKey: "material") ?? "TOEIC英単語"
         self.section = UserDefaults.standard.integer(forKey: "section")
         
