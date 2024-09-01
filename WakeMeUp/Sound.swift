@@ -86,7 +86,7 @@ struct Sound: View {
                 alarmStore.stopTestSound()
                 alarmStore.settingalarm.soundName = "\(testsound)_\(volume).mp3"
             }
-            .onChange(of: scenePhase) { _ in
+            .onChange(of: scenePhase) {
                 alarmStore.stopTestSound()
             }
         }

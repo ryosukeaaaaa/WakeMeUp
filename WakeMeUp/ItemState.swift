@@ -115,10 +115,16 @@ class ItemState: ObservableObject {
     }
     
     init() {
+        if UserDefaults.standard.object(forKey: "Pre_Count") == nil {
+            // 最初は1枚配布
+            self.Pre_Count = -1
+            self.Pre_Count2 = -1
+        } else {
+            self.Pre_Count = UserDefaults.standard.integer(forKey: "Pre_Count")
+            self.Pre_Count2 = UserDefaults.standard.integer(forKey: "Pre_Count2")
+        }
         self.NormalCoin = UserDefaults.standard.integer(forKey: "NormalCoin")
         self.SpecialCoin = UserDefaults.standard.integer(forKey: "SpecialCoin")
-        self.Pre_Count = UserDefaults.standard.integer(forKey: "Pre_Count")
-        self.Pre_Count2 = UserDefaults.standard.integer(forKey: "Pre_Count2")
         self.UserItems = UserDefaults.standard.stringArray(forKey: "UserItems") ?? []
         self.Ticket = UserDefaults.standard.integer(forKey: "Ticket")
         self.Xshare = UserDefaults.standard.integer(forKey: "Xshare")
@@ -205,7 +211,7 @@ struct GachaView: View {
                         }
                     }
                 }
-                CollectionImage()
+                CollectionImage(itemState: itemState)
                 
                 AdMobView()
                     .frame(

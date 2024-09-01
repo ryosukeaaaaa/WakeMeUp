@@ -56,7 +56,7 @@ struct ContentView: View {
                 }
                 
                 NavigationStack {
-                    SettingsView()
+                    SettingsView(alarmStore: alarmStore)
                 }
                 .tabItem {
                     Image(systemName: "gear")

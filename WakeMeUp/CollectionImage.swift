@@ -17,7 +17,7 @@ func transformedImage(image: Image, size: CGSize, frameWidth: CGFloat, frameHeig
 
 // メインのビュー
 struct CollectionImage: View {
-    @ObservedObject var itemState = ItemState() // ItemStateのインスタンスを作成
+    @ObservedObject var itemState: ItemState
     @State private var a: Float = Float(1920 / UIScreen.main.bounds.width)
     
     var body: some View {
@@ -71,12 +71,5 @@ struct CollectionImage: View {
         }
         .frame(width: CGFloat(1920 / a), height: CGFloat(1080 / a))
         .border(Color.blue, width: 3)
-    }
-}
-
-// プレビュー
-struct CollectionImage_Previews: PreviewProvider {
-    static var previews: some View {
-        CollectionImage()
     }
 }

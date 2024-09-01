@@ -7,18 +7,18 @@
 	<key>CFBundleGetInfoString</key>
 	<string></string>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-3940256099942544~1458002511</string>
+	<string>ca-app-pub-6855628375174123~3153483504</string>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>アラーム動作のために許可が必要です。</string>
 	<key>SKAdNetworkIdentifier</key>
-	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<string>cstr6suwn9.skadnetwork</string>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIImageName</key>
 		<string>LaunchImage</string>
 	</dict>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 	<key>com.yourdomain.repeatingAlarm</key>
 	<string></string>
 </dict>

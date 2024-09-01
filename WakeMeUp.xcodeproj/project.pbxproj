@@ -17,15 +17,13 @@
 		821FD69F2C329F8100F445C7 /* MissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD69E2C329F8100F445C7 /* MissionState.swift */; };
 		821FD6A12C3313CC00F445C7 /* MissionClear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6A02C3313CC00F445C7 /* MissionClear.swift */; };
 		821FD6A52C33E64300F445C7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821FD6A42C33E64300F445C7 /* Launch Screen.storyboard */; };
-		821FD6A72C34503E00F445C7 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6A62C34503E00F445C7 /* test.swift */; };
 		821FD6A92C358F0F00F445C7 /* HomeMission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6A82C358F0F00F445C7 /* HomeMission.swift */; };
 		821FD6B72C37E2A900F445C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821FD6B62C37E2A900F445C7 /* AppDelegate.swift */; };
 		8232E88E2C3BF23400D1BF22 /* AlarmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */; };
 		8232E8902C3BF29C00D1BF22 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */; };
-		8232E8922C3FE08A00D1BF22 /* keep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232E8912C3FE08A00D1BF22 /* keep.swift */; };
 		824D789D2C1A103C0070D045 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824D789C2C1A103C0070D045 /* CoreAudio.framework */; };
-		824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D789E2C1C61BC0070D045 /* Whisper.swift */; };
 		8272A5982C44E2F7006697E1 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272A5972C44E2F7006697E1 /* Sound.swift */; };
+		82766DF82C8417810070C8C6 /* TOEIC英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82766DF72C8417810070C8C6 /* TOEIC英単語.csv */; };
 		82772EA92C6FCCE80015F654 /* mix_29s(2)_high.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E552C6FCCE30015F654 /* mix_29s(2)_high.mp3 */; };
 		82772EAA2C6FCCE80015F654 /* はりきっちゃう時のテーマ_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E562C6FCCE30015F654 /* はりきっちゃう時のテーマ_low.mp3 */; };
 		82772EAB2C6FCCE80015F654 /* 鳥のさえずり_low.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772E572C6FCCE30015F654 /* 鳥のさえずり_low.mp3 */; };
@@ -116,16 +114,13 @@
 		82772F072C6FD7780015F654 /* ビジネス英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82772F032C6FD7780015F654 /* ビジネス英単語.csv */; };
 		82772F082C6FD7780015F654 /* 基礎英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82772F042C6FD7780015F654 /* 基礎英単語.csv */; };
 		82772F092C6FD7780015F654 /* 学術英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82772F052C6FD7780015F654 /* 学術英単語.csv */; };
-		82772F0A2C6FD7780015F654 /* TOEIC英単語.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82772F062C6FD7780015F654 /* TOEIC英単語.csv */; };
+		82772F0C2C7528850015F654 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 82772F0B2C7528850015F654 /* PrivacyInfo.xcprivacy */; };
+		82772F0E2C7778CE0015F654 /* Gacha2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82772F0D2C7778CE0015F654 /* Gacha2.mp3 */; };
 		827A15992C176053003B4468 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A15982C176053003B4468 /* Mission.swift */; };
-		827A159B2C176077003B4468 /* GPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159A2C176077003B4468 /* GPT.swift */; };
-		827A159D2C176087003B4468 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A159C2C176087003B4468 /* Home.swift */; };
 		827A15A32C18641A003B4468 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829A59A32C1635B2002D7DA3 /* ContentView.swift */; };
 		827AE3B42C1886A300DABD95 /* ビジネス英単語（BSL）.csv in Resources */ = {isa = PBXBuildFile; fileRef = 827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */; };
 		828A07D92C1956270008A956 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 828A07D82C1956270008A956 /* Alamofire */; };
 		828A07DD2C1959C90008A956 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 828A07DC2C1959C90008A956 /* .gitignore */; };
-		828A07DF2C1994070008A956 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07DE2C1994070008A956 /* Config.swift */; };
-		828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828A07E02C19DE7A0008A956 /* GPT_audio.swift */; };
 		8292006C2C469B2200C96C30 /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292006B2C469B2200C96C30 /* ItemState.swift */; };
 		829200702C469F3600C96C30 /* Gacha.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8292006F2C469F3600C96C30 /* Gacha.sks */; };
 		829200742C46A81600C96C30 /* Gacha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829200732C46A81600C96C30 /* Gacha.swift */; };
@@ -151,7 +146,6 @@
 		82FE159F2C6B39140023CC8B /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE159E2C6B39140023CC8B /* Onboarding.swift */; };
 		82FE15A12C6EE6CF0023CC8B /* CollectionImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */; };
 		82FE15AB2C6F9A500023CC8B /* Gacha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */; };
-		82FE15AD2C6FA4D80023CC8B /* Gacha2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */; };
 		82FE15AF2C6FB65E0023CC8B /* HowToUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FE15AE2C6FB65E0023CC8B /* HowToUse.swift */; };
 		BE27B1C6E42E24EAB0C652AD /* Pods_WakeMeUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */; };
 /* End PBXBuildFile section */
@@ -184,17 +178,15 @@
 		821FD69E2C329F8100F445C7 /* MissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionState.swift; sourceTree = "<group>"; };
 		821FD6A02C3313CC00F445C7 /* MissionClear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionClear.swift; sourceTree = "<group>"; };
 		821FD6A42C33E64300F445C7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		821FD6A62C34503E00F445C7 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		821FD6A82C358F0F00F445C7 /* HomeMission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMission.swift; sourceTree = "<group>"; };
 		821FD6B62C37E2A900F445C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmStore.swift; sourceTree = "<group>"; };
 		8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
-		8232E8912C3FE08A00D1BF22 /* keep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keep.swift; sourceTree = "<group>"; };
 		824D789A2C1A0F0B0070D045 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		824D789C2C1A103C0070D045 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		824D789E2C1C61BC0070D045 /* Whisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whisper.swift; sourceTree = "<group>"; };
 		8272A5972C44E2F7006697E1 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		8272A59C2C4584AE006697E1 /* swift-package-manager-google-user-messaging-platform */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "swift-package-manager-google-user-messaging-platform"; path = "/Users/nagairyousuke/Library/Developer/Xcode/DerivedData/WakeMeUp-fbariaalosqyfbcfsszuzzanjplm/SourcePackages/checkouts/swift-package-manager-google-user-messaging-platform"; sourceTree = "<absolute>"; };
+		82766DF72C8417810070C8C6 /* TOEIC英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "TOEIC英単語.csv"; path = "../../アラーム画像/TOEIC英単語.csv"; sourceTree = "<group>"; };
 		82772E552C6FCCE30015F654 /* mix_29s(2)_high.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mix_29s(2)_high.mp3"; sourceTree = "<group>"; };
 		82772E562C6FCCE30015F654 /* はりきっちゃう時のテーマ_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "はりきっちゃう時のテーマ_low.mp3"; sourceTree = "<group>"; };
 		82772E572C6FCCE30015F654 /* 鳥のさえずり_low.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "鳥のさえずり_low.mp3"; sourceTree = "<group>"; };
@@ -285,14 +277,11 @@
 		82772F032C6FD7780015F654 /* ビジネス英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語.csv"; sourceTree = "<group>"; };
 		82772F042C6FD7780015F654 /* 基礎英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "基礎英単語.csv"; sourceTree = "<group>"; };
 		82772F052C6FD7780015F654 /* 学術英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "学術英単語.csv"; sourceTree = "<group>"; };
-		82772F062C6FD7780015F654 /* TOEIC英単語.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TOEIC英単語.csv"; sourceTree = "<group>"; };
+		82772F0B2C7528850015F654 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		82772F0D2C7778CE0015F654 /* Gacha2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gacha2.mp3; sourceTree = "<group>"; };
 		827A15982C176053003B4468 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
-		827A159A2C176077003B4468 /* GPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT.swift; sourceTree = "<group>"; };
-		827A159C2C176087003B4468 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		827AE3B32C1886A300DABD95 /* ビジネス英単語（BSL）.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ビジネス英単語（BSL）.csv"; sourceTree = SOURCE_ROOT; };
 		828A07DC2C1959C90008A956 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
-		828A07DE2C1994070008A956 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		828A07E02C19DE7A0008A956 /* GPT_audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPT_audio.swift; sourceTree = "<group>"; };
 		8292006B2C469B2200C96C30 /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		8292006F2C469F3600C96C30 /* Gacha.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Gacha.sks; sourceTree = "<group>"; };
 		829200732C46A81600C96C30 /* Gacha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gacha.swift; sourceTree = "<group>"; };
@@ -321,7 +310,6 @@
 		82FE159E2C6B39140023CC8B /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionImage.swift; sourceTree = "<group>"; };
 		82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gacha.mp3; sourceTree = "<group>"; };
-		82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gacha2.mp3; sourceTree = "<group>"; };
 		82FE15AE2C6FB65E0023CC8B /* HowToUse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUse.swift; sourceTree = "<group>"; };
 		8BF874ECC64D0D887640BD3A /* Pods_WakeMeUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WakeMeUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DAFDD1C15A64C9DD5046EC1 /* Pods-WakeMeUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WakeMeUp.debug.xcconfig"; path = "Target Support Files/Pods-WakeMeUp/Pods-WakeMeUp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -422,7 +410,7 @@
 				8292006B2C469B2200C96C30 /* ItemState.swift */,
 				821FD69C2C32741900F445C7 /* Status.swift */,
 				82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */,
-				82FE15AC2C6FA4D80023CC8B /* Gacha2.mp3 */,
+				82772F0D2C7778CE0015F654 /* Gacha2.mp3 */,
 				3483CF742C2BFE8600FA5BD3 /* AlarmListView.swift */,
 				8232E88F2C3BF29C00D1BF22 /* AlarmSettingView.swift */,
 				34EB07032C18B94800535988 /* AlarmData.swift */,
@@ -526,24 +514,18 @@
 				82772E622C6FCCE40015F654 /* 明るいアップビート着信音_high.mp3 */,
 				82772E952C6FCCE70015F654 /* 明るいアップビート着信音_low.mp3 */,
 				82772E732C6FCCE50015F654 /* 明るいアップビート着信音_medium.mp3 */,
-				82772F062C6FD7780015F654 /* TOEIC英単語.csv */,
 				82772F032C6FD7780015F654 /* ビジネス英単語.csv */,
 				82772F052C6FD7780015F654 /* 学術英単語.csv */,
+				82766DF72C8417810070C8C6 /* TOEIC英単語.csv */,
 				82772F042C6FD7780015F654 /* 基礎英単語.csv */,
 				829200962C47A24100C96C30 /* GIFImage.swift */,
 				829200942C47A20D00C96C30 /* UIGIFImageView.swift */,
 				8292007F2C4777B300C96C30 /* RainParticle.sks */,
-				827A159C2C176087003B4468 /* Home.swift */,
-				824D789E2C1C61BC0070D045 /* Whisper.swift */,
-				827A159A2C176077003B4468 /* GPT.swift */,
-				828A07E02C19DE7A0008A956 /* GPT_audio.swift */,
-				828A07DE2C1994070008A956 /* Config.swift */,
 				829A59A72C1635B3002D7DA3 /* Preview Content */,
-				821FD6A62C34503E00F445C7 /* test.swift */,
-				8232E8912C3FE08A00D1BF22 /* keep.swift */,
 				8292006F2C469F3600C96C30 /* Gacha.sks */,
 				82FE142C2C64B0E80023CC8B /* no.mp3 */,
 				82FE14152C63EFEE0023CC8B /* Answer.mp3 */,
+				82772F0B2C7528850015F654 /* PrivacyInfo.xcprivacy */,
 			);
 			path = WakeMeUp;
 			sourceTree = "<group>";
@@ -707,7 +689,6 @@
 				829200702C469F3600C96C30 /* Gacha.sks in Resources */,
 				82772EE22C6FCCE80015F654 /* デジタル目覚まし時計アラーム音_medium.mp3 in Resources */,
 				829A59A92C1635B3002D7DA3 /* Preview Assets.xcassets in Resources */,
-				82FE15AD2C6FA4D80023CC8B /* Gacha2.mp3 in Resources */,
 				82772EB92C6FCCE80015F654 /* シンプルなアラーム音(2)_medium.mp3 in Resources */,
 				82FE14252C63EFEE0023CC8B /* Answer.mp3 in Resources */,
 				82772EAF2C6FCCE80015F654 /* ふぐふぐ体操_high.mp3 in Resources */,
@@ -719,6 +700,7 @@
 				82FE142D2C64B0E90023CC8B /* no.mp3 in Resources */,
 				82772EF42C6FCCE80015F654 /* 森の中の小鳥のさえずり_medium.mp3 in Resources */,
 				82772ECC2C6FCCE80015F654 /* リコーダービート_high.mp3 in Resources */,
+				82766DF82C8417810070C8C6 /* TOEIC英単語.csv in Resources */,
 				82772EF62C6FCCE80015F654 /* 爽やかな目覚まし音_high.mp3 in Resources */,
 				82772EF52C6FCCE80015F654 /* ニワトリ_low.mp3 in Resources */,
 				82772EE02C6FCCE80015F654 /* デジタル目覚まし時計アラーム音_high.mp3 in Resources */,
@@ -732,6 +714,7 @@
 				82772EC22C6FCCE80015F654 /* mix_29s(2)_medium.mp3 in Resources */,
 				82772EB32C6FCCE80015F654 /* Morning_high.mp3 in Resources */,
 				82772EB82C6FCCE80015F654 /* デフォルト_high.mp3 in Resources */,
+				82772F0C2C7528850015F654 /* PrivacyInfo.xcprivacy in Resources */,
 				82772EFB2C6FCCE80015F654 /* CLUB_DEEP_FOG_medium.mp3 in Resources */,
 				82772EC42C6FCCE80015F654 /* 高音ビープアラーム音_high.mp3 in Resources */,
 				82772ED92C6FCCE80015F654 /* リコーダービート_low.mp3 in Resources */,
@@ -752,10 +735,10 @@
 				82772EE62C6FCCE80015F654 /* 情動カタルシス_medium.mp3 in Resources */,
 				82772ED42C6FCCE80015F654 /* シンプルなアラーム音(1)_high.mp3 in Resources */,
 				82772ECB2C6FCCE80015F654 /* はりきっちゃう時のテーマ_medium.mp3 in Resources */,
+				82772F0E2C7778CE0015F654 /* Gacha2.mp3 in Resources */,
 				82772EE82C6FCCE80015F654 /* 聴いたら分かる目覚めたときから戦闘態勢に入れるやつ_high.mp3 in Resources */,
 				82772EB52C6FCCE80015F654 /* 銅鑼の連打_medium.mp3 in Resources */,
 				82772ED52C6FCCE80015F654 /* リコーダービート_medium.mp3 in Resources */,
-				82772F0A2C6FD7780015F654 /* TOEIC英単語.csv in Resources */,
 				82772EF22C6FCCE80015F654 /* マジカル着信音ループ_medium.mp3 in Resources */,
 				82772F022C6FD3C40015F654 /* 野良猫は宇宙を目指した_high.mp3 in Resources */,
 				82772EF72C6FCCE80015F654 /* ニワトリ_medium.mp3 in Resources */,
@@ -868,7 +851,6 @@
 				8292006C2C469B2200C96C30 /* ItemState.swift in Sources */,
 				3483CF772C2BFEA400FA5BD3 /* SettingsView.swift in Sources */,
 				827A15992C176053003B4468 /* Mission.swift in Sources */,
-				8232E8922C3FE08A00D1BF22 /* keep.swift in Sources */,
 				821FD6A12C3313CC00F445C7 /* MissionClear.swift in Sources */,
 				3483CF732C2BC37800FA5BD3 /* AlarmLandingView.swift in Sources */,
 				8232E8902C3BF29C00D1BF22 /* AlarmSettingView.swift in Sources */,
@@ -878,22 +860,16 @@
 				827A15A32C18641A003B4468 /* ContentView.swift in Sources */,
 				821FD6A92C358F0F00F445C7 /* HomeMission.swift in Sources */,
 				82FE159F2C6B39140023CC8B /* Onboarding.swift in Sources */,
-				827A159B2C176077003B4468 /* GPT.swift in Sources */,
 				34EB07042C18B94800535988 /* AlarmData.swift in Sources */,
 				829200742C46A81600C96C30 /* Gacha.swift in Sources */,
-				828A07DF2C1994070008A956 /* Config.swift in Sources */,
-				828A07E12C19DE7A0008A956 /* GPT_audio.swift in Sources */,
-				827A159D2C176087003B4468 /* Home.swift in Sources */,
 				829200A92C4825A400C96C30 /* Collection.swift in Sources */,
 				829200952C47A20D00C96C30 /* UIGIFImageView.swift in Sources */,
-				824D789F2C1C61BC0070D045 /* Whisper.swift in Sources */,
 				821FD69D2C32741900F445C7 /* Status.swift in Sources */,
 				8272A5982C44E2F7006697E1 /* Sound.swift in Sources */,
 				829A59A22C1635B2002D7DA3 /* WakeMeUpApp.swift in Sources */,
 				829200A72C4821F300C96C30 /* GachaGif.swift in Sources */,
 				82FE14312C67544A0023CC8B /* Exchange.swift in Sources */,
 				8232E88E2C3BF23400D1BF22 /* AlarmStore.swift in Sources */,
-				821FD6A72C34503E00F445C7 /* test.swift in Sources */,
 				82FE142F2C64B62B0023CC8B /* StatusSectionSelect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -983,7 +959,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1040,7 +1016,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1065,27 +1041,30 @@
 				INFOPLIST_FILE = WakeMeUp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "アプリが音楽ライブラリにアクセスしてアラーム音を設定するために使用します。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声認識のために許可が必要です。";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "発音判定のために許可が必要です。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = WakeMeUp2;
+				MARKETING_VERSION = 4.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "XC-WakeMeUp---WakeMeUp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1104,27 +1083,30 @@
 				INFOPLIST_FILE = WakeMeUp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "アプリが音楽ライブラリにアクセスしてアラーム音を設定するために使用します。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声認識のために許可が必要です。";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "発音判定のために許可が必要です。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = WakeMeUp2;
+				MARKETING_VERSION = 4.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "XC-WakeMeUp---WakeMeUp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

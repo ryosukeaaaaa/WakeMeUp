@@ -5,26 +5,26 @@ struct HowToUse: View {
         NavigationView {
             VStack(spacing: 20) {  // Added spacing between the sections
                 Section(header: Text("注意").font(.title2).foregroundColor(.red).fontWeight(.bold)) {
-                    VStack(alignment: .leading, spacing: 10) {
+                    VStack(alignment: .leading, spacing: 5) {
                         VStack(alignment: .leading, spacing: 5) {
-                            Text("アラームは、")
+                            Text("・アラームは、")
                                 .fontWeight(.bold)
                             + Text("「消音モード」")
                                 .foregroundColor(.red)
                                 .fontWeight(.bold)
                             + Text("ではサウンドが鳴りません。")
                                 .fontWeight(.bold)
+                            + Text("必ず消音モードをオフにしてください。")
+                                .fontWeight(.bold)
                         }
                         VStack(alignment: .leading, spacing: 5) {
-                            Text("また、")
+                            Text("・")
                                 .fontWeight(.bold)
                             + Text("「おやすみモード」").foregroundColor(.red)
                                 .fontWeight(.bold)
                             + Text("では設定が必要です。\n以下の「おやすみモードの設定」から設定してください。")
                                 .fontWeight(.bold)
                         }
-                        Text("お手数おかけしますが、よろしくお願いします。")
-                            .fontWeight(.bold)
                     }
                     .padding()
                     .background(Color(.systemGray6))
@@ -94,6 +94,10 @@ struct AlarmGuideView: View {
                 Image("Alarm3")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .padding()
+                Text("※サウンドは実際の音量で流れます。もし小さい場合は、「設定」→「サウンドと触覚」→「着信音と通知音」から大きくしてください。")
+                    .font(.body)
+                    .foregroundColor(.red)
                     .padding()
                 Image("Alarm4")
                     .resizable()
@@ -191,19 +195,30 @@ struct SettingsGuideView: View {
 struct SleepModeGuideView: View {
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                Image("silent")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding()
-                Text("※アラームのサウンドを鳴らすためには、消音モードをオフにする必要があります。写真の丸部分のボタンを上に上げることで消音モードをオフにすることができます。")
-                    .font(.body)
-                    .foregroundColor(.red)
-                    .fontWeight(.bold)
-            }
-            .padding()
+            Text("※おやすみモードでサウンドを流すには設定が必要です。以下の手順を行うことを強く推奨します。\n")
+                .font(.body)
+                .foregroundColor(.red)
+                .fontWeight(.bold)
+            Image("sleep1")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: .infinity)  // Max width to fill parent width
+                .padding()
+            Image("sleep2")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: .infinity)  // Max width to fill parent width
+                .padding()
+            Text("から本アプリを追加してください。")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
+            Text("よろしくお願いします。")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
         }
-        .navigationTitle("アラームについて")
+        .navigationTitle("おやすみモードの設定")
     }
 }
 
@@ -222,6 +237,6 @@ struct SilentModeGuideView: View {
             }
             .padding()
         }
-        .navigationTitle("アラームについて")
+        .navigationTitle("消音モードとは")
     }
 }

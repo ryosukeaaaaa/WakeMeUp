@@ -131,10 +131,10 @@ struct SecondPageView: View {
                 .foregroundColor(.blue)
                 .fontWeight(.bold)
 
-//            Text("です。")
-//                .font(.body)
-//                .foregroundColor(.primary)
-//                .fontWeight(.bold)
+            Text("です。")
+                .font(.body)
+                .foregroundColor(.primary)
+                .fontWeight(.bold)
 
             Text("アラームを止めるとき単語画面が現れます。")
                 .font(.body)
@@ -270,11 +270,11 @@ struct FifthPageView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: .infinity)  // Max width to fill parent width
                 .padding()
-            Text("から本アプリを追加してください。")
+            Text("から通知許可後に本アプリを追加してください。")
                 .font(.body)
                 .foregroundColor(.primary)
                 .fontWeight(.bold)
-            Text("お手数おかけしますが、よろしくお願いします。")
+            Text("よろしくお願いいたします。")
                 .font(.body)
                 .foregroundColor(.primary)
                 .fontWeight(.bold)

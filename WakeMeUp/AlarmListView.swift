@@ -38,14 +38,10 @@ struct AlarmListView: View {
                                     .fontWeight(.bold)
                                 Spacer()
                                 
-                                // トグル付きボタン
-                                Button(action: {
-                                    toggleAlarm(at: index)
-                                }) {
-                                    Toggle("", isOn: binding(for: alarmStore.alarms[index]))
-                                        .labelsHidden()
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                                Toggle("", isOn: binding(for: alarmStore.alarms[index]))
+                                    .labelsHidden()
+                                    .buttonStyle(PlainButtonStyle())
+                                    .onTapGesture {} // タップイベントを無効化
                             }
                             HStack {
                                 Text("サウンド")
@@ -125,17 +121,17 @@ struct AlarmListView: View {
         return formatter.string(from: date)
     }
 
-    // アラームのオン/オフをトグルする関数
-    private func toggleAlarm(at index: Int) {
-        if !alarmStore.alarms[index].isOn && alarmStore.hasFourOrMoreActiveAlarms() {
-            activeAlert = .maxAlarms // アラームが4つ以上オンのときの警告
-        } else {
-            alarmStore.alarms[index].isOn.toggle()
-        }
-    }
+//    // アラームのオン/オフをトグルする関数
+//    private func toggleAlarm(at index: Int) {
+//        if !alarmStore.alarms[index].isOn && alarmStore.hasFourOrMoreActiveAlarms() {
+//            activeAlert = .maxAlarms // アラームが4つ以上オンのときの警告
+//        } else {
+//            alarmStore.alarms[index].isOn.toggle()
+//            print("togle2")
+//        }
+//    }
 
-    private func binding(for alarm: AlarmData) -> Binding<Bool> {
-        Binding<Bool>(
+    private func binding(for alarm: AlarmData) -> Binding<Bool> {        Binding<Bool>(
             get: { alarm.isOn },
             set: { newValue in
                 DispatchQueue.main.async {
@@ -143,6 +139,7 @@ struct AlarmListView: View {
                         activeAlert = .maxAlarms
                     } else {
                         if let index = alarmStore.alarms.firstIndex(where: { $0.id == alarm.id }) {
+                            print("binding")
                             alarmStore.alarms[index].isOn = newValue
                             handleToggleChange(newValue, for: index)
                         }

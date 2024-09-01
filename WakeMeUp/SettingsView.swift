@@ -9,7 +9,7 @@ struct SettingsView: View {
     
     @State private var deleteAlert = false
     
-    @State private var alarmStore = AlarmStore()
+    @ObservedObject var alarmStore: AlarmStore
     
     // 各教材に対応するセクションのデータ
     let sections = [
@@ -69,9 +69,19 @@ struct SettingsView: View {
                     } label: {
                         Text("アプリの使用方法")
                     }
+                    NavigationLink(destination: Contact()) {
+                        Text("お問合せ・ご意見")
+                    }
+                    Link("よくある質問", destination: URL(string: "https://redboar1021.github.io/question/")!)
+                }
+                                
+                Section(header: Text("その他")) {
+                    Link("利用規約", destination: URL(string: "https://redboar1021.github.io/terms-of-service/")!)
+                    Link("プライバシーポリシー", destination: URL(string: "https://redboar1021.github.io/privacy-policy/")!)
+                    Link("著作権とライセンス", destination: URL(string: "https://redboar1021.github.io/Copyright/")!)
                 }
                 
-                Section(header: Text("習得状況設定")) {
+                Section(header: Text("データリセット")) {
                     Button(action: {
                         showResetSheet = true  // Sheetを表示するために状態を更新
                     }) {
@@ -95,22 +105,21 @@ struct SettingsView: View {
                             primaryButton: .default(Text("はい"), action: {
                                 removeAllPendingNotifications()
                                 alarmStore.alarms.removeAll()
+                                alarmStore.saveAlarms()
                             }),
                             secondaryButton: .cancel(Text("いいえ"))
                         )
                     }
-//                    Button(action: {
-//                        listAllPendingNotifications()
-//                    }) {
-//                        Text("リスト")
-//                            .foregroundColor(.red)
-//                    }
                 }
+
                 
-                Section(header: Text("その他")) {
-                    Link("利用規約", destination: URL(string: "https://redboar1021.github.io/terms-of-service/")!)
-                    Link("プライバシーポリシー", destination: URL(string: "https://redboar1021.github.io/privacy-policy/")!)
-                    Link("著作権とライセンス", destination: URL(string: "https://redboar1021.github.io/Copyright/")!)
+                // 一番下にメッセージを追加
+                Section {
+                    Text("アプリが良いと思ったら、Apple Storeで高評価・レビューをよろしくお願いします！")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical, 5)
                 }
             }
             .navigationTitle("設定") // ここで画面タイトルを設定
@@ -208,9 +217,46 @@ struct ResetStatusSheetView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
+struct Contact: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("お問い合わせ・ご意見等ございましたら、")
+                .fontWeight(.bold)
+            Text("メールアドレス")
+                .fontWeight(.bold)
+            Text("asatan_official@icloud.com")
+                .font(.system(.body, design: .monospaced))
+                .foregroundColor(.blue)
+                .contextMenu {
+                    Button(action: {
+                        UIPasteboard.general.string = "asatan_official@icloud.com"
+                    }) {
+                        Text("メールアドレスをコピー")
+                            .fontWeight(.bold)
+                    }
+                }
+            Text("にてメッセージいただくか、")
+                .fontWeight(.bold)
+            Text("または本アプリのX公式アカウント(朝単-英単語アラーム)")
+                .fontWeight(.bold)
+            Text("@asatanX")
+                .font(.system(.body, design: .monospaced))
+                .foregroundColor(.blue)
+                .contextMenu {
+                    Button(action: {
+                        UIPasteboard.general.string = "@asatanX"
+                    }) {
+                        Text("アカウント名をコピー")
+                            .fontWeight(.bold)
+                    }
+                }
+            Text("にてDMしていただけると幸いです。")
+                .fontWeight(.bold)
+            Text("よろしくお願いいたします。")
+                .fontWeight(.bold)
+            Spacer()
+        }
+        .padding()
+        .navigationTitle("お問い合わせ・ご意見")
     }
 }
-
