@@ -77,7 +77,7 @@ class MissionState: ObservableObject {
     init() {
         let savedClearCount = UserDefaults.standard.integer(forKey: "ClearCount")
         if savedClearCount == 0 && UserDefaults.standard.object(forKey: "ClearCount") == nil {
-            self.ClearCount = 5
+            self.ClearCount = 3
             self.correctvolume = 0.5
         } else {
             self.ClearCount = savedClearCount

@@ -559,7 +559,7 @@ struct StarredWordView: View {
                     .padding()
             } else if isFileEmpty {
                 Text("追加された単語はありません")
-                    .foregroundColor(.black) // 黒文字で表示
+                    .font(.headline)
                     .padding()
             } else {
                 SearchBar(text: $searchQuery)
@@ -766,20 +766,22 @@ struct StarredDetailView: View {
                     width: UIScreen.main.bounds.width,
                     height: UIScreen.main.bounds.height * 1/9
                 )
-            GeometryReader { geometry in
-                // 現在の currentIndex に対応する StarredDetailCardView を表示
-                StarredDetailCardView(entry: entries[currentIndex], removeAction: {
-                    removeStarredEntry(entries[currentIndex])
-                    removeEntry(at: currentIndex)
-                })
-                .id(currentIndex)  // ビューの更新を強制
+            if !entries.isEmpty {
+                GeometryReader { geometry in
+                    // 現在の currentIndex に対応する StarredDetailCardView を表示
+                    StarredDetailCardView(entry: entries[currentIndex], removeAction: {
+                        removeStarredEntry(entries[currentIndex])
+                        removeEntry(at: currentIndex)
+                    })
+                    .id(currentIndex)  // ビューの更新を強制
+                }
+            } else {
+                // エントリーがない場合のビュー
+                Text("エントリーがありません")
+                    .font(.headline)
+                    .padding()
             }
-            .onAppear {
-                // 初回表示時のインデックス設定
-                currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
-                lastViewedEntry = entry.entry
-            }
-            
+
             HStack {
                 Button(action: previousPage) {
                     Image(systemName: "chevron.left")
@@ -787,20 +789,25 @@ struct StarredDetailView: View {
                         .padding()
                         .opacity(currentIndex > 0 ? 1 : 0.5) // 最初のページではボタンを半透明にする
                 }
-                .disabled(currentIndex == 0) // 最初のページではボタンを無効化
-                
+                .disabled(currentIndex == 0 || entries.isEmpty) // エントリーがない場合もボタンを無効化
+
                 Spacer()
-                
+
                 Button(action: nextPage) {
                     Image(systemName: "chevron.right")
                         .font(.largeTitle)
                         .padding()
                         .opacity(currentIndex < entries.count - 1 ? 1 : 0.5) // 最後のページではボタンを半透明にする
                 }
-                .disabled(currentIndex == entries.count - 1) // 最後のページではボタンを無効化
+                .disabled(currentIndex >= entries.count - 1 || entries.isEmpty) // エントリーがない場合もボタンを無効化
             }
 
             Spacer()
+        }
+        .onAppear {
+            // 初回表示時のインデックス設定
+            currentIndex = entries.firstIndex(where: { $0.entry == entry.entry }) ?? 0
+            lastViewedEntry = entry.entry
         }
     }
 
@@ -822,10 +829,14 @@ struct StarredDetailView: View {
 
     private func removeEntry(at index: Int) {
         entries.remove(at: index)
-        if currentIndex >= entries.count {
-            currentIndex = max(0, entries.count - 1) // エントリー削除後、インデックスを調整
-        }
-        if !entries.isEmpty {
+        if entries.isEmpty {
+            // エントリーが空になった場合、currentIndexを0にリセット
+            currentIndex = 0
+            lastViewedEntry = nil
+        } else {
+            if currentIndex >= entries.count {
+                currentIndex = entries.count - 1
+            }
             lastViewedEntry = entries[currentIndex].entry
         }
     }
@@ -854,6 +865,7 @@ struct StarredDetailView: View {
         }
     }
 }
+
 
 
 struct DetailCardView: View {
@@ -897,7 +909,7 @@ struct DetailCardView: View {
                 width: UIScreen.main.bounds.width,
                 height: UIScreen.main.bounds.height * 20/50
             )
-            .background(Color.white)
+            .background(Color(.secondarySystemBackground))
             .cornerRadius(10)
             .shadow(radius: 5)
             
@@ -942,6 +954,7 @@ struct DetailCardView: View {
         .onAppear {
             loadEntryDetails()
             loadStatus()
+            loadStarredEntries()
             speechRecognizer.speak(text: entry.entry)  // 修正: onAppear内でも speechRecognizer.speak(text:) を使用
         }
     }
@@ -1150,7 +1163,7 @@ struct StarredDetailCardView: View {
                 width: UIScreen.main.bounds.width,
                 height: UIScreen.main.bounds.height * 20/50
             )
-            .background(Color.white)
+            .background(Color(.secondarySystemBackground))
             .cornerRadius(10)
             .shadow(radius: 5)
             

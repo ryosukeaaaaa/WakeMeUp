@@ -5,6 +5,6 @@ target 'WakeMeUp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   pod 'Google-Mobile-Ads-SDK'
-  # Pods for 朝単-英単語アラーム
+  # Pods for 英単語アラーム
 
 end

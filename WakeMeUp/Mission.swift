@@ -38,7 +38,7 @@ struct Pre_Mission: View {
 
     @State private var audioPlayer: AVAudioPlayer?
     
-    var selectedSection: Int  = MissionState().section // 追加
+    var selectedSection: Int  = MissionState().section
     
     @State private var starredEntries: [(entry: String, ipa: String, meaning: String, example: String, translated: String)] = []
     
@@ -152,14 +152,13 @@ struct Pre_Mission: View {
                                         }
                                 )
                             VStack {
-                                // Top Spacer to push the text closer to the top edge
                                 Spacer()
-                                    .frame(height: 20) // Adjust this value to position the text closer to the top
+                                    .frame(height: 20)
 
                                 if missionState.clear_mission {
                                     if labelText == "perfect" {
                                         Text("Complete!")
-                                            .font(.system(size: 60, weight: .bold))  // Increase the font size even more
+                                            .font(.system(size: 60, weight: .bold))
                                             .foregroundColor(Color.green)
                                             .padding()
                                             .background(Color.green.opacity(0.3))
@@ -170,7 +169,7 @@ struct Pre_Mission: View {
                                             )
                                     } else if labelText == "not" {
                                         Text("Try again")
-                                            .font(.system(size: 60, weight: .bold))  // Increase the font size even more
+                                            .font(.system(size: 60, weight: .bold))
                                             .foregroundColor(Color.red)
                                             .padding()
                                             .background(Color.red.opacity(0.3))
@@ -182,9 +181,9 @@ struct Pre_Mission: View {
                                     }
                                 }
 
-                                Spacer() // This spacer pushes the text towards the top
+                                Spacer()
                             }
-                            .padding(.top, 0) // Reduce padding to move the text closer to the top
+                            .padding(.top, 0)
 
                         }
                         .frame(width: geometry.size.width, height: geometry.size.height * 0.5)
@@ -212,11 +211,11 @@ struct Pre_Mission: View {
                                 }
                             }else if !missionState.clear_mission {
                                 Circle()
-                                    .fill(isRecording ? Color.white : Color.red)
+                                    .fill(isRecording ? Color(.systemBackground) : Color.red)
                                     .frame(width: 100, height: 100)
                                     .overlay(
                                         Circle()
-                                            .stroke(isRecording ? Color.white : Color.white, lineWidth: 10)
+                                            .stroke(isRecording ? Color.primary : Color.white, lineWidth: 10)
                                             .frame(width: 115, height: 115)
                                     )
                                     .shadow(color: .gray, radius: 5, x: 0, y: 5)
@@ -291,7 +290,7 @@ struct Pre_Mission: View {
                                     Image(systemName: "chevron.left")
                                             .font(.largeTitle)
                                             .padding()
-                                            .foregroundColor(.blue)
+                                            .foregroundColor(.accentColor)
                                     Spacer()
                                     Text("単語カードを左右にスワイプして次のステップ")
                                         .font(.headline)
@@ -300,7 +299,7 @@ struct Pre_Mission: View {
                                     Image(systemName: "chevron.right")
                                             .font(.largeTitle)
                                             .padding()
-                                            .foregroundColor(.blue)
+                                            .foregroundColor(.accentColor)
                                 }
                             }
                         }
@@ -313,7 +312,6 @@ struct Pre_Mission: View {
                 if reset{
                     missionState.shouldLoadInitialEntry = true
                     reset = false
-//                    missionState.PastWords = []
                 }
                 if missionState.shouldLoadInitialEntry {
                     loadNextEntry()
@@ -326,15 +324,14 @@ struct Pre_Mission: View {
                     startIdleTimer()
                 }
                 
-                loadStarredEntries() // スター単語かどうか調べる
+                loadStarredEntries()
             }
             .onDisappear {
                 if !fromHome{
                     stopIdleTimerAndAlarm()
                 }
             }
-            .onChange(of: scenePhase) {
-                if scenePhase == .active {
+            .onChange(of: scenePhase) {                if scenePhase == .active {
                     if missionState.missionCount < missionState.ClearCount && !fromHome {
                         alarmStore.stopTestSound()
                     }
@@ -371,7 +368,7 @@ struct Pre_Mission: View {
                             loadStarredEntries()
                         }) {
                             Text("追加済み")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
                         }
                     } else {
                         Button(action: {
@@ -379,7 +376,7 @@ struct Pre_Mission: View {
                             loadStarredEntries()
                         }) {
                             Text("後で復習")
-                                .foregroundColor(.blue)
+                                .foregroundColor(.accentColor)
                         }
                     }
                 }
@@ -442,7 +439,7 @@ struct Pre_Mission: View {
             width: UIScreen.main.bounds.width,
             height: UIScreen.main.bounds.height * 20/50
         )
-        .background(Color.white)
+        .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
         .shadow(radius: 5)
     }

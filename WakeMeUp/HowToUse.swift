@@ -7,12 +7,19 @@ struct HowToUse: View {
                 Section(header: Text("注意").font(.title2).foregroundColor(.red).fontWeight(.bold)) {
                     VStack(alignment: .leading, spacing: 5) {
                         VStack(alignment: .leading, spacing: 5) {
+                            Text("「通知」")
+                                .foregroundColor(.red)
+                                .fontWeight(.bold)
+                            + Text("は必ず許可してください。")
+                                .fontWeight(.bold)
+                        }
+                        VStack(alignment: .leading, spacing: 5) {
                             Text("・アラームは、")
                                 .fontWeight(.bold)
                             + Text("「消音モード」")
                                 .foregroundColor(.red)
                                 .fontWeight(.bold)
-                            + Text("ではサウンドが鳴りません。")
+                            + Text("では鳴りません。")
                                 .fontWeight(.bold)
                             + Text("必ず消音モードをオフにしてください。")
                                 .fontWeight(.bold)

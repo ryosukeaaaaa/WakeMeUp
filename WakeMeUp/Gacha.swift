@@ -1,8 +1,12 @@
 import SwiftUI
 import SpriteKit
 
+import StoreKit
+
 struct Gacha: View {
     @ObservedObject var itemState: ItemState
+    
+    @Environment(\.requestReview) var requestReview
     
     var body: some View {
         NavigationView {
@@ -101,7 +105,7 @@ struct Gacha: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.gray.opacity(0.1))
+                .background(Color(.secondarySystemBackground))
                 .cornerRadius(5)
                 
                 Spacer()
@@ -113,8 +117,28 @@ struct Gacha: View {
                     )
             }
             .padding()
+            .onAppear {
+                checkAndRequestReview()
+            }
         }
         .navigationTitle("ガチャ")
     }
+    
+    func checkAndRequestReview() {
+        // ノーマルガチャを2回引いた人
+        if (itemState.Pre_Count >= 2 && itemState.Review == 0) || (itemState.Pre_Count >= 8 && itemState.Review == 1) || (itemState.Pre_Count >= 40 && itemState.Review == 2) {
+            requestReview()
+            itemState.Review += 1
+        }
+    }
 }
 
+extension EnvironmentValues {
+    var requestReview: () -> Void {
+        {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: windowScene)
+            }
+        }
+    }
+}

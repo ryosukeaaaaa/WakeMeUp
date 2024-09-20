@@ -518,12 +518,12 @@ struct GachaGIFView: View {
     private func shareOnTwitter(with item: Item) {
         let text = """
         英語を発音しないと止まらないアラーム!?
-        朝単-英単語アラーム
+        英単語アラーム
         当たったのは: \(item.name)
         レアリティ: \(item.rarity.rawValue)
         """
         let link = "https://apps.apple.com/jp/app/%E6%9C%9D%E5%8D%98/id6651821144" // ここにリンクを追加
-        let hashTag = "#朝単\n#英単語アラーム\n#英単語\n#アラーム"
+        let hashTag = "#英単語\n#アラーム\n#iOSアプリ"
         let completedText = text + "\n" + link + "\n" + hashTag
 
         let encodedText = completedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)

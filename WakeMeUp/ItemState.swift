@@ -114,6 +114,12 @@ class ItemState: ObservableObject {
         }
     }
     
+    @Published var Review: Int {
+        didSet {
+            UserDefaults.standard.set(Review, forKey: "Review")
+        }
+    }
+    
     init() {
         if UserDefaults.standard.object(forKey: "Pre_Count") == nil {
             // 最初は1枚配布
@@ -128,6 +134,7 @@ class ItemState: ObservableObject {
         self.UserItems = UserDefaults.standard.stringArray(forKey: "UserItems") ?? []
         self.Ticket = UserDefaults.standard.integer(forKey: "Ticket")
         self.Xshare = UserDefaults.standard.integer(forKey: "Xshare")
+        self.Review = UserDefaults.standard.integer(forKey: "Review")
     }
 }
 

@@ -171,7 +171,7 @@ struct HomeMission: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: UIScreen.main.bounds.height * 1/6) // 特定の高さを設定
                         .padding()
-                        .background(Color.gray.opacity(0.1))
+                        .background(Color(.secondarySystemBackground))
                         .cornerRadius(5)
                     }
                     Text("コインまであと\((missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) % 25 == 0 ? 25 : (25 - (missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) % 25))回")
@@ -291,7 +291,7 @@ struct LastMission: View {
                                     Text(" \(word["meaning"] ?? "N/A")")
                                 }
                                 .padding()
-                                .background(Color.gray.opacity(0.1))
+                                .background(Color(.secondarySystemBackground))
                                 .cornerRadius(10)
                             }
                         }

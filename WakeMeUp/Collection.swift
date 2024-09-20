@@ -12,6 +12,7 @@ struct ItemView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 125, height: 125)
+                    .background(Color.white)
                 Text(item.name)
             } else {
                 Color.clear

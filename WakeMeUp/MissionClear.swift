@@ -27,13 +27,13 @@ struct MissionClear: View {
                                 Text(" \(word["meaning"] ?? "N/A")")
                             }
                             .padding()
-                            .background(Color.gray.opacity(0.1))
+                            .background(Color(.secondarySystemBackground))
                             .cornerRadius(10)
                         }
                     } else {
                         Text("なし")
                             .font(.headline)
-                            .foregroundColor(.gray)
+                            .background(Color(.secondarySystemBackground))
                     }
                 }
                 .padding()

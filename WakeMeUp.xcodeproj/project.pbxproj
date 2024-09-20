@@ -290,7 +290,7 @@
 		829200962C47A24100C96C30 /* GIFImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImage.swift; sourceTree = "<group>"; };
 		829200A62C4821F300C96C30 /* GachaGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GachaGif.swift; sourceTree = "<group>"; };
 		829200A82C4825A400C96C30 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		829A599E2C1635B2002D7DA3 /* 朝単-英単語アラーム.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "朝単-英単語アラーム.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		829A599E2C1635B2002D7DA3 /* 英単語アラーム.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "英単語アラーム.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeMeUpApp.swift; sourceTree = "<group>"; };
 		829A59A32C1635B2002D7DA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		829A59A52C1635B3002D7DA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -384,7 +384,7 @@
 		829A599F2C1635B2002D7DA3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				829A599E2C1635B2002D7DA3 /* 朝単-英単語アラーム.app */,
+				829A599E2C1635B2002D7DA3 /* 英単語アラーム.app */,
 				829A59AE2C1635B3002D7DA3 /* WakeMeUpTests.xctest */,
 				829A59B82C1635B3002D7DA3 /* WakeMeUpUITests.xctest */,
 			);
@@ -559,9 +559,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		829A599D2C1635B2002D7DA3 /* 朝単-英単語アラーム */ = {
+		829A599D2C1635B2002D7DA3 /* 英単語アラーム */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 829A59C22C1635B3002D7DA3 /* Build configuration list for PBXNativeTarget "朝単-英単語アラーム" */;
+			buildConfigurationList = 829A59C22C1635B3002D7DA3 /* Build configuration list for PBXNativeTarget "英単語アラーム" */;
 			buildPhases = (
 				FDFD560E09EC82A55EF67182 /* [CP] Check Pods Manifest.lock */,
 				829A599A2C1635B2002D7DA3 /* Sources */,
@@ -573,14 +573,14 @@
 			);
 			dependencies = (
 			);
-			name = "朝単-英単語アラーム";
+			name = "英単語アラーム";
 			packageProductDependencies = (
 				82053D8D2C188F3300D2D191 /* SwiftCSV */,
 				828A07D82C1956270008A956 /* Alamofire */,
 				829200922C47A03300C96C30 /* SwiftyGif */,
 			);
 			productName = WakeMeUp;
-			productReference = 829A599E2C1635B2002D7DA3 /* 朝単-英単語アラーム.app */;
+			productReference = 829A599E2C1635B2002D7DA3 /* 英単語アラーム.app */;
 			productType = "com.apple.product-type.application";
 		};
 		829A59AD2C1635B3002D7DA3 /* WakeMeUpTests */ = {
@@ -660,7 +660,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				829A599D2C1635B2002D7DA3 /* 朝単-英単語アラーム */,
+				829A599D2C1635B2002D7DA3 /* 英単語アラーム */,
 				829A59AD2C1635B3002D7DA3 /* WakeMeUpTests */,
 				829A59B72C1635B3002D7DA3 /* WakeMeUpUITests */,
 			);
@@ -896,12 +896,12 @@
 /* Begin PBXTargetDependency section */
 		829A59B02C1635B3002D7DA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 829A599D2C1635B2002D7DA3 /* 朝単-英単語アラーム */;
+			target = 829A599D2C1635B2002D7DA3 /* 英単語アラーム */;
 			targetProxy = 829A59AF2C1635B3002D7DA3 /* PBXContainerItemProxy */;
 		};
 		829A59BA2C1635B3002D7DA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 829A599D2C1635B2002D7DA3 /* 朝単-英単語アラーム */;
+			target = 829A599D2C1635B2002D7DA3 /* 英単語アラーム */;
 			targetProxy = 829A59B92C1635B3002D7DA3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1048,14 +1048,14 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "XC-WakeMeUp---WakeMeUp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1090,14 +1090,14 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "XC-WakeMeUp---WakeMeUp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1200,7 +1200,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		829A59C22C1635B3002D7DA3 /* Build configuration list for PBXNativeTarget "朝単-英単語アラーム" */ = {
+		829A59C22C1635B3002D7DA3 /* Build configuration list for PBXNativeTarget "英単語アラーム" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				829A59C32C1635B3002D7DA3 /* Debug */,

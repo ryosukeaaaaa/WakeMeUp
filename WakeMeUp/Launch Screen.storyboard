@@ -2,9 +2,9 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,14 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="英単語アラーム" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yhy-Yl-Jpz" userLabel="朝単-英単語アラーム">
-                                <rect key="frame" x="134.33333333333334" y="464.66666666666669" width="124.66666666666666" height="23"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="fAA-yS-acc">
-                                <rect key="frame" x="146.66666666666666" y="326" width="100" height="100"/>
+                                <rect key="frame" x="146.66666666666666" y="346" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="5DK-Sy-eb0"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="8Gz-Kc-RSD"/>
@@ -31,22 +25,20 @@
                                     <constraint firstAttribute="height" constant="100" id="d4i-cD-vcB"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="朝単" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kM8-I3-17m" userLabel="朝単-英単語アラーム">
-                                <rect key="frame" x="162.66666666666666" y="424.66666666666669" width="68" height="43"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="英単語アラーム" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kM8-I3-17m" userLabel="朝単-英単語アラーム">
+                                <rect key="frame" x="121.33333333333333" y="442.33333333333331" width="150.66666666666669" height="27.666666666666686"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="fAA-yS-acc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1Kl-09-hJZ"/>
-                            <constraint firstItem="kM8-I3-17m" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5OH-be-qMY"/>
-                            <constraint firstItem="Yhy-Yl-Jpz" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="GYO-X3-ndm"/>
-                            <constraint firstItem="kM8-I3-17m" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="20" id="H3f-aI-Tr7"/>
-                            <constraint firstItem="Yhy-Yl-Jpz" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="50" id="Ptc-Nr-DHz"/>
-                            <constraint firstItem="fAA-yS-acc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-50" id="omK-tG-JO3"/>
+                            <constraint firstItem="fAA-yS-acc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="0lT-Id-Yyk"/>
+                            <constraint firstItem="kM8-I3-17m" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="eJq-EG-NW7"/>
+                            <constraint firstItem="fAA-yS-acc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="iCM-s3-5lV"/>
+                            <constraint firstItem="kM8-I3-17m" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="30" id="sBr-wb-Y0E"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -57,5 +49,8 @@
     </scenes>
     <resources>
         <image name="LaunchImage" width="106.66666412353516" height="106.66666412353516"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

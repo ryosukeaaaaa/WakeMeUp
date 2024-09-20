@@ -115,11 +115,12 @@ struct SettingsView: View {
                 
                 // 一番下にメッセージを追加
                 Section {
-                    Text("アプリが良いと思ったら、Apple Storeで高評価・レビューをよろしくお願いします！")
+                    Text("Apple Storeにて高評価・レビューのご協力よろしくお願いします！")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
                         .padding(.vertical, 5)
+                    Link("レビューを書く", destination: URL(string: "https://apps.apple.com/jp/app/%E6%9C%9D%E5%8D%98-%E8%8B%B1%E5%8D%98%E8%AA%9E%E3%82%A2%E3%83%A9%E3%83%BC%E3%83%A0/id6651821144?action=write-review")!)
                 }
             }
             .navigationTitle("設定") // ここで画面タイトルを設定
@@ -237,7 +238,7 @@ struct Contact: View {
                 }
             Text("にてメッセージいただくか、")
                 .fontWeight(.bold)
-            Text("または本アプリのX公式アカウント(朝単-英単語アラーム)")
+            Text("または本アプリのX公式アカウント(英単語アラーム)")
                 .fontWeight(.bold)
             Text("@asatanX")
                 .font(.system(.body, design: .monospaced))

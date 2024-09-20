@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "829A599D2C1635B2002D7DA3"
-               BuildableName = "&#x671d;&#x5358;-&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;.app"
-               BlueprintName = "&#x671d;&#x5358;-&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;"
+               BuildableName = "&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;.app"
+               BlueprintName = "&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;"
                ReferencedContainer = "container:WakeMeUp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -69,8 +69,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "829A599D2C1635B2002D7DA3"
-            BuildableName = "&#x671d;&#x5358;-&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;.app"
-            BlueprintName = "&#x671d;&#x5358;-&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;"
+            BuildableName = "&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;.app"
+            BlueprintName = "&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;"
             ReferencedContainer = "container:WakeMeUp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -93,8 +93,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "829A599D2C1635B2002D7DA3"
-            BuildableName = "&#x671d;&#x5358;-&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;.app"
-            BlueprintName = "&#x671d;&#x5358;-&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;"
+            BuildableName = "&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;.app"
+            BlueprintName = "&#x82f1;&#x5358;&#x8a9e;&#x30a2;&#x30e9;&#x30fc;&#x30e0;"
             ReferencedContainer = "container:WakeMeUp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
