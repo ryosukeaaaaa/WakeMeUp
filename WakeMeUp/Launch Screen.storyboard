@@ -26,11 +26,19 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="英単語アラーム" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kM8-I3-17m" userLabel="朝単-英単語アラーム">
-                                <rect key="frame" x="121.33333333333333" y="442.33333333333331" width="150.66666666666669" height="27.666666666666686"/>
+                                <rect key="frame" x="121.33333333333333" y="462.33333333333331" width="150.66666666666669" height="27.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VUc-Y7-c2j">
+                                <rect key="frame" x="121.66666666666669" y="322" width="150" height="148.66666666666669"/>
+                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="3fO-bE-arS"/>
+                                    <constraint firstAttribute="width" constant="150" id="Eb7-dX-0nD"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -38,7 +46,9 @@
                             <constraint firstItem="fAA-yS-acc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="0lT-Id-Yyk"/>
                             <constraint firstItem="kM8-I3-17m" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="eJq-EG-NW7"/>
                             <constraint firstItem="fAA-yS-acc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="iCM-s3-5lV"/>
-                            <constraint firstItem="kM8-I3-17m" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="30" id="sBr-wb-Y0E"/>
+                            <constraint firstItem="VUc-Y7-c2j" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="n1O-8I-dEN"/>
+                            <constraint firstItem="VUc-Y7-c2j" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="rmC-cV-YIJ"/>
+                            <constraint firstItem="kM8-I3-17m" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="50" id="sBr-wb-Y0E"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -49,8 +59,12 @@
     </scenes>
     <resources>
         <image name="LaunchImage" width="106.66666412353516" height="106.66666412353516"/>
+        <image name="circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
