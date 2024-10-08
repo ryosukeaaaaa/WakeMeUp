@@ -126,7 +126,7 @@ struct Gacha: View {
     
     func checkAndRequestReview() {
         // ノーマルガチャを2回引いた人
-        if (itemState.Pre_Count >= 2 && itemState.Review == 0) || (itemState.Pre_Count >= 8 && itemState.Review == 1) || (itemState.Pre_Count >= 40 && itemState.Review == 2) {
+        if (itemState.Pre_Count >= 1 && itemState.Review == 0) || (itemState.Pre_Count >= 8 && itemState.Review == 1) || (itemState.Pre_Count >= 40 && itemState.Review == 2) {
             requestReview()
             itemState.Review += 1
         }

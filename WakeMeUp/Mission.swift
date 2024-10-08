@@ -290,7 +290,7 @@ struct Pre_Mission: View {
                                     Image(systemName: "chevron.left")
                                             .font(.largeTitle)
                                             .padding()
-                                            .foregroundColor(.accentColor)
+                                            .foregroundColor(.blue)
                                     Spacer()
                                     Text("単語カードを左右にスワイプして次のステップ")
                                         .font(.headline)
@@ -299,7 +299,7 @@ struct Pre_Mission: View {
                                     Image(systemName: "chevron.right")
                                             .font(.largeTitle)
                                             .padding()
-                                            .foregroundColor(.accentColor)
+                                            .foregroundColor(.blue)
                                 }
                             }
                         }
@@ -376,7 +376,7 @@ struct Pre_Mission: View {
                             loadStarredEntries()
                         }) {
                             Text("後で復習")
-                                .foregroundColor(.accentColor)
+                                .foregroundColor(.blue)
                         }
                     }
                 }
@@ -505,8 +505,8 @@ struct Pre_Mission: View {
                     let zeroStatusIndices = filteredStatuses.enumerated().compactMap { index, status in
                         return status == 0 ? index : nil
                     }
-                    print("未習得")
-                    print(zeroStatusIndices)
+//                    print("未習得")
+//                    print(zeroStatusIndices)
                     // 値が `0` のものが存在しない場合
                     if zeroStatusIndices.isEmpty {
                         fin = true

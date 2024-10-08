@@ -445,6 +445,7 @@ struct GachaGIFView: View {
         }
         if let item = items.weightedRandomElement() {
             resultItem = item
+            addticket = 0 // 必要な時だけ初期化
             if !itemState.UserItems.contains(item.name) {
                 itemState.UserItems.append(item.name)
                 new = true
@@ -454,9 +455,9 @@ struct GachaGIFView: View {
                 case .Normal:
                     addticket = 1
                 case .Rare:
-                    addticket = 3
+                    addticket = 2
                 case .SuperRare:
-                    addticket = 8
+                    addticket = 7
                 case .Ultra:
                     addticket = 16
                 }
@@ -523,7 +524,7 @@ struct GachaGIFView: View {
         レアリティ: \(item.rarity.rawValue)
         """
         let link = "https://apps.apple.com/jp/app/%E6%9C%9D%E5%8D%98/id6651821144" // ここにリンクを追加
-        let hashTag = "#英単語\n#アラーム\n#iOSアプリ"
+        let hashTag = "#英単語\n#アラーム\n#英語\n"
         let completedText = text + "\n" + link + "\n" + hashTag
 
         let encodedText = completedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
