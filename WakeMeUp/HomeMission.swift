@@ -124,60 +124,90 @@ struct HomeMission: View {
                     }
                     
                     VStack {
-                        VStack {
-                            HStack {
-                                Text("基礎英単語")
-                                Spacer()
-                                Text("\(missionState.basicCount)回")
-                            }
-                            .padding(.vertical, 0)
-                            .padding(.horizontal)
-                            
-                            HStack {
-                                Text("TOEIC英単語")
-                                Spacer()
-                                Text("\(missionState.toeicCount)回")
-                            }
-                            .padding(.vertical, 0)
-                            .padding(.horizontal)
-                            
-                            HStack {
-                                Text("ビジネス英単語")
-                                Spacer()
-                                Text("\(missionState.businessCount)回")
-                            }
-                            .padding(.vertical, 0)
-                            .padding(.horizontal)
-                            
-                            HStack {
-                                Text("学術英単語")
-                                Spacer()
-                                Text("\(missionState.academicCount)回")
-                            }
-                            .padding(.vertical, 0)
-                            .padding(.horizontal)
-                            
-                            Divider()
-                            
-                            HStack {
-                                Text("総演習回数")
-                                    .font(.headline)
-                                Spacer()
-                                Text("\(missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount)回")
-                                    .font(.headline)
-                            }
-                            .padding(.horizontal)
+                        HStack {
+                            Text("基礎英単語")
+                                .font(.system(size: 14)) // 一回り小さく
+                            Spacer()
+                            Text("\(missionState.basicCount)回")
+                                .font(.system(size: 14)) // 一回り小さく
                         }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: UIScreen.main.bounds.height * 1/6) // 特定の高さを設定
-                        .padding()
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(5)
+                        .padding(.vertical, 0)
+                        .padding(.horizontal)
+                        
+                        HStack {
+                            Text("TOEIC英単語")
+                                .font(.system(size: 14)) // 一回り小さく
+                            Spacer()
+                            Text("\(missionState.toeicCount)回")
+                                .font(.system(size: 14)) // 一回り小さく
+                        }
+                        .padding(.vertical, 0)
+                        .padding(.horizontal)
+                        
+                        HStack {
+                            Text("ビジネス英単語")
+                                .font(.system(size: 14)) // 一回り小さく
+                            Spacer()
+                            Text("\(missionState.businessCount)回")
+                                .font(.system(size: 14)) // 一回り小さく
+                        }
+                        .padding(.vertical, 0)
+                        .padding(.horizontal)
+                        
+                        HStack {
+                            Text("学術英単語")
+                                .font(.system(size: 14)) // 一回り小さく
+                            Spacer()
+                            Text("\(missionState.academicCount)回")
+                                .font(.system(size: 14)) // 一回り小さく
+                        }
+                        .padding(.vertical, 0)
+                        .padding(.horizontal)
+                        
+                        Divider()
+                        
+                        HStack {
+                            Text("総演習回数")
+                                .font(.system(size: 14)) // 一回り小さく
+                                .fontWeight(.bold) // ヘッドライン用に太字
+                            Spacer()
+                            Text("\(missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount)回")
+                                .font(.system(size: 14)) // 一回り小さく
+                                .fontWeight(.bold)
+                        }
+                        .padding(.horizontal)
                     }
-                    Text("コインまであと\((missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) % 25 == 0 ? 25 : (25 - (missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) % 25))回")
-                        .font(.caption)
-                        .fontWeight(.bold)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: UIScreen.main.bounds.height * 1/7) // 特定の高さを設定
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(5) // 角丸を設定
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5) // 枠線を追加
+                            .stroke(Color.gray, lineWidth: 1) // 枠線の色と幅を設定
+                    )
                     
+                    HStack{
+                        if ((missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) / 25) % 4 == 3{
+                            Image("SpecialCoin")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Text("スペシャル")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                        }
+                        else{
+                            Image("NormalCoin")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Text("ノーマル")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                        }
+                        Text("コインまであと\((missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) % 25 == 0 ? 25 : (25 - (missionState.basicCount + missionState.toeicCount + missionState.businessCount + missionState.academicCount) % 25))回")
+                            .font(.caption)
+                            .fontWeight(.bold)
+                    }
                     AdMobView()
                         .frame(
                             width: UIScreen.main.bounds.width,

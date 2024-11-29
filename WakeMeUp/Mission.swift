@@ -203,7 +203,7 @@ struct Pre_Mission: View {
                                 }
                             }
 
-                            if fin{
+                            if fin {
                                 Button(action: {
                                     navigateToHome = true
                                 }) {
@@ -331,7 +331,8 @@ struct Pre_Mission: View {
                     stopIdleTimerAndAlarm()
                 }
             }
-            .onChange(of: scenePhase) {                if scenePhase == .active {
+            .onChange(of: scenePhase) {                
+                if scenePhase == .active {
                     if missionState.missionCount < missionState.ClearCount && !fromHome {
                         alarmStore.stopTestSound()
                     }
@@ -357,6 +358,16 @@ struct Pre_Mission: View {
                         missionState.clear_mission = false
                         missionState.shouldLoadInitialEntry = true
                     }
+//                    .onAppear {
+//                        // navigateToHome のリセットを遅延させる
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                            navigateToHome = false
+//                        }
+//                        missionState.PastWords.append(NowWords)
+//                        missionState.missionCount = 0
+//                        missionState.clear_mission = false
+//                        missionState.shouldLoadInitialEntry = true
+//                    }
             }
         }
         .toolbar {

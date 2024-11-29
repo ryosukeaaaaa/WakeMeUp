@@ -223,7 +223,7 @@ struct GachaView: View {
                 AdMobView()
                     .frame(
                         width: UIScreen.main.bounds.width,
-                        height: UIScreen.main.bounds.height * 1/5
+                        height: UIScreen.main.bounds.height * 1/6
                     )
             }
             .padding()

@@ -49,7 +49,7 @@ struct Collection: View {
                 Button(action: {
                     showAlert = true
                 }) {
-                    Text("コレクションをリセット")
+                    Text("コレクションを全てリセット")
                         .padding()
                         .foregroundColor(.red)
                 }

@@ -126,7 +126,8 @@ struct StatusView: View {
                         }
                         .chartYScale(domain: 0...100)
                         .frame(height: UIScreen.main.bounds.height * 1/5)
-                        Text("習得率")
+                        Text("<達成度>")
+                            .font(.caption) // 小さめのプリセットフォントサイズ
                             .fontWeight(.bold)
                     }
                     
