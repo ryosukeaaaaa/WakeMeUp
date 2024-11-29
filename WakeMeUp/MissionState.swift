@@ -25,9 +25,9 @@ class MissionState: ObservableObject {
     
     @Published var PastWords: [[[String: String]]] {
         didSet {
-            // FIFO方式で10回分を保持
-            if PastWords.count > 10 {
-                PastWords.removeFirst(PastWords.count - 10)
+            // FIFO方式で30回分を保持
+            if PastWords.count > 30 {
+                PastWords.removeFirst(PastWords.count - 30)
             }
 
             // データをUserDefaultsに保存
@@ -91,7 +91,7 @@ class MissionState: ObservableObject {
            let decoded = try? JSONDecoder().decode([[[String: String]]].self, from: data) {
             self.PastWords = decoded
         } else {
-            self.PastWords = Array(repeating: [], count: 10) // 10回分の空の配列を用意
+            self.PastWords = Array(repeating: [], count: 30) // 30回分の空の配列を用意
         }
         
         self.basicCount = UserDefaults.standard.integer(forKey: "basicCount")
