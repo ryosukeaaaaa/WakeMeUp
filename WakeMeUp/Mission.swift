@@ -351,23 +351,23 @@ struct Pre_Mission: View {
             .navigationDestination(isPresented: $navigateToHome) {
                 MissionClear(missionState: missionState, alarmStore: alarmStore)
                     .navigationBarBackButtonHidden(true)
-                    .onAppear {
-                        missionState.PastWords.append(NowWords)
-                        navigateToHome = false
-                        missionState.missionCount = 0
-                        missionState.clear_mission = false
-                        missionState.shouldLoadInitialEntry = true
-                    }
 //                    .onAppear {
-//                        // navigateToHome のリセットを遅延させる
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                            navigateToHome = false
-//                        }
 //                        missionState.PastWords.append(NowWords)
+//                        navigateToHome = false
 //                        missionState.missionCount = 0
 //                        missionState.clear_mission = false
 //                        missionState.shouldLoadInitialEntry = true
 //                    }
+                    .onAppear {
+                        missionState.PastWords.append(NowWords)
+                        missionState.missionCount = 0
+                        missionState.clear_mission = false
+                        missionState.shouldLoadInitialEntry = true
+//                        // navigateToHome のリセットを遅延させる
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                            navigateToHome = false
+//                        }
+                    }
             }
         }
         .toolbar {

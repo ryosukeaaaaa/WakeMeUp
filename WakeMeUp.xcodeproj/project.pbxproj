@@ -398,16 +398,15 @@
 				821FD6A42C33E64300F445C7 /* Launch Screen.storyboard */,
 				82FE159E2C6B39140023CC8B /* Onboarding.swift */,
 				829A59A12C1635B2002D7DA3 /* WakeMeUpApp.swift */,
+				827A15982C176053003B4468 /* Mission.swift */,
 				821FD6B62C37E2A900F445C7 /* AppDelegate.swift */,
 				829A59A32C1635B2002D7DA3 /* ContentView.swift */,
 				3483CF722C2BC37800FA5BD3 /* AlarmLandingView.swift */,
 				821FD6A82C358F0F00F445C7 /* HomeMission.swift */,
 				82FE142A2C649F9F0023CC8B /* MissionSectionSelect.swift */,
-				827A15982C176053003B4468 /* Mission.swift */,
 				821FD6A02C3313CC00F445C7 /* MissionClear.swift */,
 				821FD69E2C329F8100F445C7 /* MissionState.swift */,
 				8232E88D2C3BF23400D1BF22 /* AlarmStore.swift */,
-				8292006B2C469B2200C96C30 /* ItemState.swift */,
 				821FD69C2C32741900F445C7 /* Status.swift */,
 				82FE15AA2C6F9A500023CC8B /* Gacha.mp3 */,
 				82772F0D2C7778CE0015F654 /* Gacha2.mp3 */,
@@ -418,6 +417,7 @@
 				8272A5972C44E2F7006697E1 /* Sound.swift */,
 				82FE142E2C64B62B0023CC8B /* StatusSectionSelect.swift */,
 				829A59CB2C163ECD002D7DA3 /* audio.swift */,
+				8292006B2C469B2200C96C30 /* ItemState.swift */,
 				82FE15A02C6EE6CF0023CC8B /* CollectionImage.swift */,
 				829200A82C4825A400C96C30 /* Collection.swift */,
 				829200732C46A81600C96C30 /* Gacha.swift */,
@@ -1055,7 +1055,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4;
+				MARKETING_VERSION = 4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "XC-WakeMeUp---WakeMeUp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1097,7 +1097,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4;
+				MARKETING_VERSION = 4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "XC-WakeMeUp---WakeMeUp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

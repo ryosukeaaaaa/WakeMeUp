@@ -96,8 +96,10 @@ class SpeechRecognizer: ObservableObject {
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         print("Speaking: \(text)")
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.speechSynthesizer.speak(utterance)
+        // メインスレッドで`AVSpeechSynthesizer`を使用
+        DispatchQueue.main.async {
+            let synthesizer = AVSpeechSynthesizer()
+            synthesizer.speak(utterance)
         }
     }
 }
