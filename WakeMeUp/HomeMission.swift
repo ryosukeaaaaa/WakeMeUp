@@ -8,7 +8,7 @@ struct HomeMission: View {
     @State private var toeic = false
     @State private var business = false
     @State private var academic = false
-    @StateObject private var missionState = MissionState()
+    @EnvironmentObject var  missionState: MissionState
     
     @State private var isReset: Bool = true
     

@@ -917,7 +917,7 @@ struct DetailCardView: View {
             Spacer()
 
             Button(action: {
-                speechRecognizer.speak(text: entryDetails.entry)  // 修正: speakText(_) を speechRecognizer.speak(text:) に置き換え
+                speakText(entry.entry)//speechRecognizer.speak(text: entryDetails.entry)  // 修正: speakText(_) を speechRecognizer.speak(text:) に置き換え
             }) {
                 Text("発音再生")
             }
@@ -956,8 +956,15 @@ struct DetailCardView: View {
             loadEntryDetails()
             loadStatus()
             loadStarredEntries()
-            speechRecognizer.speak(text: entry.entry)  // 修正: onAppear内でも speechRecognizer.speak(text:) を使用
+            speakText(entry.entry)  // 修正: onAppear内でも speechRecognizer.speak(text:) を使用
         }
+    }
+    
+    func speakText(_ text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        speechRecognizer.speechSynthesizer.speak(utterance)
     }
 
     func loadEntryDetails() {
@@ -1170,7 +1177,7 @@ struct StarredDetailCardView: View {
             
             Spacer()
             Button(action: {
-                speechRecognizer.speak(text: entry.entry)
+                speakText(entry.entry)// speechRecognizer.speak(text: entry.entry)
             }) {
                 Text("発音再生")
             }
@@ -1185,8 +1192,14 @@ struct StarredDetailCardView: View {
             .padding()
         }
         .onAppear {
-            speechRecognizer.speak(text: entry.entry)
+            speakText(entry.entry)// speechRecognizer.speak(text: entry.entry)
         }
+    }
+    func speakText(_ text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        speechRecognizer.speechSynthesizer.speak(utterance)
     }
 }
 

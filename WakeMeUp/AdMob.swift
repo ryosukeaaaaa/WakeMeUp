@@ -19,7 +19,7 @@ struct AdMobView: UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<AdMobView>) -> GADBannerView{
         let banner = GADBannerView(adSize: GADAdSizeBanner)
         
-//        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111"
+//        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111" //テスト
         banner.adUnitID = "ca-app-pub-6855628375174123/5028837803"
 //        banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
         // 修正された部分

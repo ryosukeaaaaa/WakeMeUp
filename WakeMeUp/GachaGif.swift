@@ -155,7 +155,7 @@ struct GachaGIFView: View {
                                 startShaking()
 
                                 // アイテム名を読み上げる
-                                speechRecognizer.speak(text: resultItem.name)
+                                speakText(resultItem.name)// speechRecognizer.speak(text: resultItem.name)
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                     if addticket > 0 {
@@ -348,6 +348,13 @@ struct GachaGIFView: View {
             }
         }
         .navigationBarBackButtonHidden(hideNavigationBar)  // バックボタンの表示/非表示を制御
+    }
+    
+    func speakText(_ text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        speechRecognizer.speechSynthesizer.speak(utterance)
     }
 
     private func createRainParticleScene(size: CGSize) -> SKScene {

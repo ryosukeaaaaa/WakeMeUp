@@ -14,8 +14,7 @@ struct WakeMeUpApp: App {
 }
 
 //本番はこっち
-
-import SwiftUI
+//多分全部EnvironmentObject var  itemState: ItemStateにすべき
 
 // ContentViewにOnboardingViewを組み込む
 struct Pre_ContentView: View {

@@ -142,8 +142,10 @@ import SwiftUI
 import SpriteKit
 
 struct GachaView: View {
-    @ObservedObject var itemState = ItemState() // ItemStateのインスタンスを作成
-    @ObservedObject var missionState = MissionState() // MissionStateのインスタンスを作成
+//    @ObservedObject var itemState = ItemState() // ItemStateのインスタンスを作成
+//    @ObservedObject var missionState = MissionState() // MissionStateのインスタンスを作成
+    @EnvironmentObject var  missionState: MissionState
+    @EnvironmentObject var  itemState: ItemState
     
     @State private var collection = false
     @State private var gacha = false
