@@ -45,6 +45,8 @@ struct Pre_Mission: View {
     @State private var NowWords: [[String: String]] = []
     
     @State private var fin = false
+    
+    @State private var showAlert = false
 
     var body: some View {
         NavigationView {
@@ -219,33 +221,36 @@ struct Pre_Mission: View {
                                             .frame(width: 115, height: 115)
                                     )
                                     .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                                    .gesture(
-                                        LongPressGesture(minimumDuration: 0.01)
-                                            .onChanged { _ in
-                                                if !fromHome {
-                                                    resetIdleTimer()
-                                                }
-                                                if !isRecording {
-                                                    isRecording = true
+                                    .onLongPressGesture(
+                                        minimumDuration: 8, // 長押しの最低時間
+                                        perform: {
+                                            showAlert = true // ポップアップを表示
+                                        },
+                                        onPressingChanged: { isPressing in
+                                            print("isPressingChanged: \(isPressing)")
+                                            if !fromHome {
+                                                resetIdleTimer()
+                                            }
+                                            if isPressing {
+                                                isRecording = true
+                                                DispatchQueue.global(qos: .userInitiated).async {
                                                     speechRecognizer.startRecording()
                                                 }
-                                            }
-                                            .sequenced(before: DragGesture(minimumDistance: 0))
-                                            .onEnded { value in
-                                                if !fromHome {
-                                                    resetIdleTimer()
-                                                }
-                                                switch value {
-                                                case .second(true, _):
-                                                    if isRecording {
-                                                        isRecording = false
-                                                        speechRecognizer.stopRecording()
-                                                    }
-                                                default:
-                                                    break
+                                            } else {
+                                                isRecording = false
+                                                DispatchQueue.global(qos: .userInitiated).async {
+                                                    speechRecognizer.stopRecording()
                                                 }
                                             }
+                                        }
                                     )
+                                    .alert(isPresented: $showAlert) {
+                                        Alert(
+                                            title: Text("ヒント"),
+                                            message: Text("文章で発音すると認識されやすいです。"),
+                                            dismissButton: .default(Text("OK"))
+                                        )
+                                    }
                                     .padding()
                                 Spacer()
                                 ScrollView {

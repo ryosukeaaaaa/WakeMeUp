@@ -51,7 +51,7 @@ struct CollectionImage: View {
             transformedImage(image: Image("Tiger"), size: CGSize(width: 399, height: 399), frameWidth: 109, frameHeight: 569, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Tiger"))
             transformedImage(image: Image("Cheetah"), size: CGSize(width: 386, height: 386), frameWidth: 223, frameHeight: 589, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Cheetah"))
             transformedImage(image: Image("Gorilla"), size: CGSize(width: 367, height: 367), frameWidth: 442, frameHeight: 552, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Gorilla"))
-            transformedImage(image: Image("Kangal"), size: CGSize(width: 366, height: 366), frameWidth: 625, frameHeight: 599, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Kangal"))
+            transformedImage(image: Image("Kangaroo"), size: CGSize(width: 366, height: 366), frameWidth: 625, frameHeight: 599, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Kangaroo"))
             transformedImage(image: Image("Raccoon"), size: CGSize(width: 224, height: 224), frameWidth: -15, frameHeight: 752, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Raccoon"))
             transformedImage(image: Image("Capybara"), size: CGSize(width: 198, height: 198), frameWidth: 90, frameHeight: 780, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Capybara"))
             transformedImage(image: Image("Owl"), size: CGSize(width: 119, height: 119), frameWidth: 249, frameHeight: 855, a: CGFloat(a), isBlack: !itemState.UserItems.contains("Owl"))
